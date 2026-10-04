@@ -1,0 +1,23 @@
+System name:
+dos
+
+Full system name:
+DOS (PC)
+
+Supported file extensions:
+.bat .BAT .com .COM .conf .CONF .cue .CUE .dosz .DOSZ .exe .EXE .iso .ISO .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_pure_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_core_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dosbox_svn_libretro.so %ROM%
+%EMULATOR_DOSBOX-X% %ROM%
+%EMULATOR_DOSBOX-STAGING% %ROM%
+
+Platform (for scraping):
+dos
+
+Theme folder:
+dos

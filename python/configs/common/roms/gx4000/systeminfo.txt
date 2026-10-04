@@ -1,0 +1,20 @@
+System name:
+gx4000
+
+Full system name:
+Amstrad GX4000
+
+Supported file extensions:
+.cdt .CDT .cpr .CPR .dsk .DSK .kcr .KCR .m3u .M3U .sna .SNA .tap .TAR .voc .VOC .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/cap32_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/crocods_libretro.so %ROM%
+
+Platform (for scraping):
+gx4000
+
+Theme folder:
+gx4000

@@ -1,0 +1,17 @@
+System name:
+to8
+
+Full system name:
+Thomson TO8
+
+Supported file extensions:
+.fd .FD .sap .SAP .k7 .K7 .m7 .M7 .m5 .M5 .rom .ROM .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/theodore_libretro.so %ROM%
+
+Platform (for scraping):
+moto
+
+Theme folder:
+to8

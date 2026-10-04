@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
 appImageInit() {
+
+	#We force the python Venv to get created for the future migration to python
+	if [ ! -x "$pyVenv/bin/python" ]; then
+		py_run get_product_name >/dev/null
+	fi
 	
 	#Remove armada fix
 	sed -i 's|env LD_LIBRARY_PATH=[^ ]* ||' "$(xdg-user-dir DESKTOP)/EmuDeck.desktop" "$HOME/.local/share/applications/EmuDeck.desktop"

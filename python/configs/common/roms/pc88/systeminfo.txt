@@ -1,0 +1,17 @@
+System name:
+pc88
+
+Full system name:
+NEC PC-8800 Series
+
+Supported file extensions:
+.d88 .D88 .u88 .U88 .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/quasi88_libretro.so %ROM%
+
+Platform (for scraping):
+pc88
+
+Theme folder:
+pc88

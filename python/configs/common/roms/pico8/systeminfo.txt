@@ -1,0 +1,20 @@
+System name:
+pico8
+
+Full system name:
+PICO-8 Fantasy Console
+
+Supported file extensions:
+.p8 .P8 .png .PNG
+
+Launch command:
+%EMULATOR_PICO-8% -root_path %GAMEDIR% -run %ROM%
+
+Alternative launch command:
+%EMULATOR_PICO-8% -root_path %GAMEDIR% -splore
+
+Platform (for scraping):
+pico8
+
+Theme folder:
+pico8

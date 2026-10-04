@@ -1,0 +1,23 @@
+System name:
+saturn
+
+Full system name:
+Sega Saturn
+
+Supported file extensions:
+.bin .BIN .ccd .CCD .chd .CHD .cue .CUE .iso .ISO .mds .MDS .toc .TOC .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_saturn_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/kronos_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/yabasanshiro_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/yabause_libretro.so %ROM%
+%EMULATOR_MEDNAFEN% -force_module ss %ROM%
+
+Platform (for scraping):
+saturn
+
+Theme folder:
+saturn

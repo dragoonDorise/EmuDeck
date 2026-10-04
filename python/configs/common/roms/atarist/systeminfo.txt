@@ -1,0 +1,17 @@
+System name:
+atarist
+
+Full system name:
+Atari ST
+
+Supported file extensions:
+.st .ST .msa .MSA .stx .STX .dim .DIM .ipf .IPF .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/hatari_libretro.so %ROM%
+
+Platform (for scraping):
+atarist
+
+Theme folder:
+atarist

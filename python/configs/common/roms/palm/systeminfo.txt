@@ -1,0 +1,17 @@
+System name:
+palm
+
+Full system name:
+Palm OS
+
+Supported file extensions:
+.prc .PRC .pqa .PQA .img .IMG .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mu_libretro.so %ROM%
+
+Platform (for scraping):
+palm
+
+Theme folder:
+palm

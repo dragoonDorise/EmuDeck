@@ -1,0 +1,20 @@
+System name:
+colecovision
+
+Full system name:
+ColecoVision
+
+Supported file extensions:
+.bin .BIN .cas .CAS .col .COL .cv .CV .dsk .DSK .m3u .M3U .mx1 .MX1 .mx2 .MX2 .ri .RI .rom .ROM .sc .SC .sg .SG .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bluemsx_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gearcoleco_libretro.so %ROM%
+
+Platform (for scraping):
+colecovision
+
+Theme folder:
+colecovision

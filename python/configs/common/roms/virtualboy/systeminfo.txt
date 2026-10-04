@@ -1,0 +1,20 @@
+System name:
+virtualboy
+
+Full system name:
+Nintendo Virtual Boy
+
+Supported file extensions:
+.vb .VB .vboy .VBOY .bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_vb_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_MEDNAFEN% -force_module vb %ROM%
+
+Platform (for scraping):
+virtualboy
+
+Theme folder:
+virtualboy

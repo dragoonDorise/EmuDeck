@@ -1,0 +1,17 @@
+System name:
+uzebox
+
+Full system name:
+Uzebox
+
+Supported file extensions:
+.uze .UZE .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/uzem_libretro.so %ROM%
+
+Platform (for scraping):
+uzebox
+
+Theme folder:
+uzebox

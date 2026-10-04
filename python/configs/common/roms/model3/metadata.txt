@@ -1,0 +1,6 @@
+collection: Sega Model 3
+shortname: model3
+extensions: zip, ZIP
+launch:EMULATIONPATH/tools/launchers/supermodel.sh {file.path}
+
+

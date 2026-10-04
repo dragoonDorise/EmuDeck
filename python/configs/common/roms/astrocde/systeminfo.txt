@@ -1,0 +1,20 @@
+System name:
+astrocde
+
+Full system name:
+Bally Astrocade
+
+Supported file extensions:
+.7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mame_libretro.so %ROM%
+
+Alternative launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %ROMPATH%/astrocde astrocde -cart %BASENAME%
+
+Platform (for scraping):
+astrocde
+
+Theme folder:
+astrocade

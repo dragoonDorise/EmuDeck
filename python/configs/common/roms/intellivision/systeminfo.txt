@@ -1,0 +1,17 @@
+System name:
+intellivision
+
+Full system name:
+Mattel Electronics Intellivision
+
+Supported file extensions:
+.int .INT .bin .BIN .rom .ROM .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/freeintv_libretro.so %ROM%
+
+Platform (for scraping):
+intellivision
+
+Theme folder:
+intellivision

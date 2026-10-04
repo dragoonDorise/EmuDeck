@@ -1,0 +1,4 @@
+collection: Remote Play Clients
+shortname: remoteplay
+extensions: sh
+launch:  {file.path}

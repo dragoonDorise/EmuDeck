@@ -1,0 +1,6 @@
+collection: Fujitsu FM Towns
+shortname: fmtowns
+extensions: cue, CUE, iso, ISO
+launch: PLACEHOLDER {file.path}
+
+

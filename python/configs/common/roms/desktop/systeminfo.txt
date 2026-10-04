@@ -1,0 +1,20 @@
+System name:
+desktop
+
+Full system name:
+Desktop Applications
+
+Supported file extensions:
+.desktop .sh
+
+Launch command:
+%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Alternative launch command:
+%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platform (for scraping):
+pc
+
+Theme folder:
+desktop

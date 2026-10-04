@@ -1,0 +1,4 @@
+collection: Microsoft Xbox 360
+shortname: xbox360
+extensions: iso, ISO, xex, XEX, zar, ZAR
+launch: EMULATIONPATH/tools/launchers/xenia.sh "'Z:{file.path}'"

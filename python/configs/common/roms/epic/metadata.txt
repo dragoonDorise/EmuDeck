@@ -1,0 +1,6 @@
+collection: Epic Games Store
+shortname: epic
+extensions: desktop, sh
+launch: PLACEHOLDER {file.path}
+
+

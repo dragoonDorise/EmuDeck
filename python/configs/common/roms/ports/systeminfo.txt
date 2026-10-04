@@ -1,0 +1,17 @@
+System name:
+ports
+
+Full system name:
+Ports
+
+Supported file extensions:
+.desktop .sh
+
+Launch command:
+%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platform (for scraping):
+pc
+
+Theme folder:
+ports

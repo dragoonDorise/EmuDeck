@@ -1,0 +1,25 @@
+System name:
+quake
+
+Full system name:
+Quake
+
+Supported file extensions:
+.desktop .pak .PAK .pk3 .PK3 .sh
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/tyrquake_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vitaquake2_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vitaquake2-rogue_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vitaquake2-xatrix_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vitaquake2-zaero_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vitaquake3_libretro.so %ROM%
+%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platforms (for scraping):
+pc, pcwindows
+
+Theme folder:
+quake

@@ -1,0 +1,20 @@
+System name:
+psp
+
+Full system name:
+Sony PlayStation Portable
+
+Supported file extensions:
+.elf .ELF .iso .ISO .cso .CSO .prx .PRX .pbp .PBP .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/ppsspp_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_PPSSPP% %ROM%
+
+Platform (for scraping):
+psp
+
+Theme folder:
+psp

@@ -1,0 +1,17 @@
+System name:
+ags
+
+Full system name:
+Adventure Game Studio Game Engine
+
+Supported file extensions:
+.desktop
+
+Launch command:
+%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platform (for scraping):
+ags
+
+Theme folder:
+ags

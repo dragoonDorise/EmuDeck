@@ -1,0 +1,17 @@
+System name:
+wasm4
+
+Full system name:
+WASM-4 Fantasy Console
+
+Supported file extensions:
+.wasm .WASM
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/wasm4_libretro.so %ROM%
+
+Platform (for scraping):
+wasm4
+
+Theme folder:
+wasm4

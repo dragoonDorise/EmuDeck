@@ -1,0 +1,17 @@
+System name:
+xbox360
+
+Full system name:
+Microsoft Xbox 360
+
+Supported file extensions:
+.iso .ISO .xex .XEX
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+xbox360
+
+Theme folder:
+xbox360

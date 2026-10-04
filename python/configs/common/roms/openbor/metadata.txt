@@ -1,0 +1,6 @@
+collection: OpenBOR Game Engine
+shortname: openbor
+extensions: AppImage
+launch: PLACEHOLDER {file.path}
+
+

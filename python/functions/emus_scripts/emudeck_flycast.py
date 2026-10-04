@@ -1,0 +1,204 @@
+from core.all import *
+
+
+def flycast_install():
+    set_msg(f"Installing Flycast")
+
+    if system == "linux":
+        name="Flycast"
+        type="flatpak"
+        look_for=""
+        destination = f"{emus_folder}"
+
+    if system.startswith("win"):
+        name="flycast"
+        type="zip"
+        look_for="win64"
+        destination = f"{emus_folder}/flycast"
+
+    if system == "darwin":
+        name="Flycast"
+        type="zip"
+        look_for="macOS"
+        destination = f"{emus_folder}"
+
+    try:
+        if system == "linux":
+            repo="org.flycast.Flycast"
+        else:
+            repo=get_latest_release_gh("flyinghead/flycast",type,look_for)
+        install_emu(name, repo, type, destination)
+    except Exception as e:
+        print(f"Error during install: {e}")
+        return False
+
+
+def flycast_uninstall():
+    try:
+        if system == "linux":
+            uninstall_emu("org.flycast.Flycast", "flatpak")
+        if system.startswith("win"):
+          uninstall_emu("flycast", "dir")
+        if system == "darwin":
+          uninstall_emu("Flycast", "app")
+        return True
+    except Exception as e:
+        print(f"Error during uninstall: {e}")
+        return False
+
+def flycast_is_installed():
+    if system == "linux":
+        return is_flatpak_installed("org.flycast.Flycast")
+    if system.startswith("win"):
+      return (emus_folder / "flycast" / "flycast.exe").exists()
+    if system == "darwin":
+      return (emus_folder / "Flycast.app").exists()
+
+
+def flycast_set_emulation_folder():
+    if system == "linux":
+        config_file = f"{home}/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
+    elif system.startswith("win"):
+        config_file = f"{emus_folder}/flycast/emu.cfg"
+    elif system == "darwin":
+        config_file = f"{home}/Library/Application Support/flycast/emu.cfg"
+    else:
+        return
+
+    folders = ("dreamcast", "atomiswave", "naomi", "naomi2")
+    content_path = ";".join(f"{roms_path}/{f}" for f in folders)
+    set_config("Dreamcast.ContentPath", content_path, Path(config_file), separator=" = ")
+
+
+def flycast_init():
+    set_msg(f"Setting up flycast")
+    flush_emulator_launchers("flycast")
+    if system == "linux":
+        destination=f"{home}/.var/app/org.flycast.Flycast/config/flycast/"
+        bios=f"{home}/.var/app/org.flycast.Flycast/data/flycast/"
+    if system.startswith("win"):
+        destination=f"{emus_folder}/flycast/"
+        bios=""
+    if system == "darwin":
+        destination=f"{home}/Library/Application Support/flycast"
+        bios=""
+
+    copy_setting_dir(f"common/flycast/",destination)
+    copy_and_set_settings_file(f"common/flycast/emu.cfg", destination)
+
+    flycast_set_emulation_folder()
+
+
+
+   # move_contents_and_link(bios,f"{bios_path}/flycast")
+
+    flycast_setup_saves()
+    #flycast_setup_storage()
+    flycast_set_resolution()
+    flycast_set_controller_style()
+    flycast_widescreen()
+
+    flycast_set_esde_emu()
+    flycast_add_custom_parser()
+
+def flycast_install_init():
+    flycast_install()
+    flycast_init()
+
+
+def flycast_add_custom_parser():
+    if flycast_is_installed() and srm_is_installed():
+      add_parser("atomiswave_flycast")
+      add_parser("naomi_flycast")
+      add_parser("naomi2_flycast")
+      add_parser("sega_dreamcast_flycast")
+
+
+def flycast_setup_saves():
+    if system == "linux":
+        origin_saves=f"{home}/.var/app/org.flycast.Flycast/data/flycast/saves"
+    if system.startswith("win"):
+        origin_saves=f"{emus_folder}/flycast/saves"
+    if system == "darwin":
+        origin_saves=f"{home}/Library/Application Support/Flycast/saves"
+
+    move_contents_and_link(origin_saves,f"{saves_path}/flycast/saves")
+
+
+def flycast_set_resolution():
+    if system == "linux":
+        config_file = f"{home}/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
+    elif system.startswith("win"):
+        config_file = f"{emus_folder}/flycast/emu.cfg"
+    elif system == "darwin":
+        config_file = f"{home}/Library/Application Support/Flycast/emu.cfg"
+    else:
+        return False
+
+    resolution_map = {
+        "720P": 720,
+        "1080P": 1200,
+        "1440P": 1440,
+        "4K": 2160,
+    }
+
+    resolution = settings.resolutions.flycast
+    internal_resolution = resolution_map.get(resolution, 720)
+
+    set_config("rend.Resolution", internal_resolution, config_file, separator=" = ")
+    return True
+
+def flycast_set_abxy_style():
+    print("NYI")
+
+def flycast_set_bayx_style():
+    print("NYI")
+
+def flycast_set_controller_style():
+    if settings.controllerLayout == "bayx":
+        flycast_set_bayx_style()
+    else:
+        flycast_set_bayx_style()
+
+def flycast_widescreen():
+    if settings.ar.classic3d == "169":
+        flycast_widescreen_on()
+    else:
+        flycast_widescreen_off()
+
+def flycast_widescreen_on():
+    if system == "linux":
+        config_path=f"{home}/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
+    if system.startswith("win"):
+        config_path=f"{emus_folder}/flycast/emu.cfg"
+    if system == "darwin":
+        config_path=f"{home}/Library/Application Support/Flycast/emu.cfg"
+
+    set_config("rend.WidescreenGameHacks ", " yes", config_path)
+    set_config("rend.WideScreen ", " yes", config_path)
+
+def flycast_widescreen_off():
+    if system == "linux":
+        config_path=f"{home}/.var/app/org.flycast.Flycast/config/flycast/emu.cfg"
+    if system.startswith("win"):
+        config_path=f"{emus_folder}/flycast/emu.cfg"
+    if system == "darwin":
+        config_path=f"{home}/Library/Application Support/Flycast/emu.cfg"
+
+    set_config("rend.WidescreenGameHacks ", " no", config_path)
+    set_config("rend.WideScreen ", " no", config_path)
+
+def flycast_add_to_steam():
+    set_msg("Adding Flycast to Steam")
+    launcher = tools_path / "launchers" / ("flycast.bat" if system.startswith("win") else "flycast.sh")
+    add_steam_shortcut("flycast", "Flycast", str(launcher), str(emus_folder), str(icons_path / "ico/flycast.ico"))
+
+
+def flycast_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("Flycast (Standalone)", "dreamcast")
+    esde_set_emu("Flycast (Standalone)", "naomi")
+    esde_set_emu("Flycast (Standalone)", "naomi2")
+    esde_set_emu("Flycast (Standalone)", "naomigd")
+    esde_set_emu("Flycast (Standalone)", "atomiswave")

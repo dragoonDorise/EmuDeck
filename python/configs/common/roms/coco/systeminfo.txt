@@ -1,0 +1,20 @@
+System name:
+coco
+
+Full system name:
+Tandy Color Computer
+
+Supported file extensions:
+.cas .CAS .ccc .CCC .dsk .DSK .rom .ROM
+
+Launch command:
+%EMULATOR_XROAR% -fs -default-machine coco2bus %ROM%
+
+Alternative launch command:
+%EMULATOR_XROAR% -fs -default-machine coco2b %ROM%
+
+Platform (for scraping):
+coco
+
+Theme folder:
+coco

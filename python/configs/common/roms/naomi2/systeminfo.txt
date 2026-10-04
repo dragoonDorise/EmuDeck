@@ -1,0 +1,20 @@
+System name:
+naomi
+
+Full system name:
+Sega NAOMI
+
+Supported file extensions:
+.cdi .CDI .iso .ISO .elf .ELF .bin .BIN .cue .CUE .gdi .GDI .lst .LST .dat .DAT .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/flycast_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_FLYCAST% %ROM%
+
+Platform (for scraping):
+arcade
+
+Theme folder:
+naomi
