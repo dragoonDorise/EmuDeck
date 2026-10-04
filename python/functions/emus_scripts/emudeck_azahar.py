@@ -179,6 +179,14 @@ def azahar_config_file():
 
 
 def azahar_set_emulation_folder() -> bool:
+    if system == "linux":
+        sysdata = home / ".local" / "share" / "azahar-emu" / "sysdata"
+        sysdata.mkdir(parents=True, exist_ok=True)
+        keys = Path(bios_path) / "azahar" / "keys"
+        keys.parent.mkdir(parents=True, exist_ok=True)
+        if not keys.exists() and not keys.is_symlink():
+            keys.symlink_to(sysdata)
+
     config_file = azahar_config_file()
 
     if not config_file.is_file():
