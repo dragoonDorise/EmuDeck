@@ -5,3 +5,4 @@
 *.pyc
 python/**/windows/*
 python/**/darwin/*
+*.AppImage
