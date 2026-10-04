@@ -42,19 +42,6 @@ melonDS_init(){
 	melonDS_addParser
 }
 
-#update
-melonDS_update(){
-	setMSG "Updating $melonDS_emuName settings."
-	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
-	updateEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
-	melonDS_setupStorage
-	melonDS_setEmulationFolder
-	melonDS_setupSaves
-	melonDS_addSteamInputProfile
-	melonDS_flushEmulatorLauncher
-
-}
-
 #ConfigurePaths
 melonDS_setEmulationFolder(){
 	setMSG "Setting $melonDS_emuName Emulation Folder"

@@ -49,17 +49,6 @@ mGBA_init(){
 	mGBA_addParser
 }
 
-#update
-mGBA_update(){
-	setMSG "Updating $mGBA_emuName settings."
-	configEmuAI "$mGBA_emuName" "config" "$HOME/.config/mgba" "$emudeckBackend/configs/mgba"
-	mGBA_setupStorage
-	mGBA_setEmulationFolder
-	mGBA_setupSaves
-	mGBA_addSteamInputProfile
-	mGBA_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 mGBA_setEmulationFolder(){
 	setMSG "Setting $mGBA_emuName Emulation Folder"

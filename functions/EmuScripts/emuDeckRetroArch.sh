@@ -206,24 +206,6 @@ RetroArch_setRetroAchievements(){
 
 
 
-#update
-RetroArch_update(){
-	setMSG "Updating $RetroArch_emuName settings."
-	RetroArch_backupConfigs
-	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
-	updateEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
-	RetroArch_setEmulationFolder
-	RetroArch_setupSaves
-	RetroArch_setupStorage
-	 RetroArch_setupConfigurations
-	RetroArch_installCores
-	RetroArch_setUpCoreOptAll
-	RetroArch_setConfigAll
-	RetroArch_melonDSDSMigration
-	RetroArch_buildbotDownloader
-	RetroArch_flushEmulatorLauncher
-}
-
 
 #ConfigurePaths
 RetroArch_setEmulationFolder(){

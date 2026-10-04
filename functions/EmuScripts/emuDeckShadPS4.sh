@@ -63,10 +63,6 @@ ShadPS4_init(){
     ShadPS4_setLanguage
 }
 
-ShadPS4_update(){
-    ShadPS4_install "$1"
-}
-
 # Configuration Paths
 ShadPS4_setEmulationFolder(){
     echo "Begin ShadPS4 Path Config"

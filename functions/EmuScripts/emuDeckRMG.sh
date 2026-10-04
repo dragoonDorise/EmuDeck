@@ -39,19 +39,6 @@ RMG_init() {
 
 }
 
-#update
-RMG_update() {
-	setMSG "Installing $RMG_emuName"
-
-	configEmuFP "${RMG_emuName}" "${RMG_emuPath}"
-	updateEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
-	RMG_setupStorage
-	RMG_setEmulationFolder
-	RMG_setupSaves
-	#RMG_addSteamInputProfile
-	RMG_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 RMG_setEmulationFolder(){
 	setMSG "Setting $RMG_emuName Emulation Folder"

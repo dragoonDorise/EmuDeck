@@ -58,17 +58,6 @@ Primehack_init() {
 	
 }
 
-#update
-Primehack_update() {
-	setMSG "Updating $Primehack_emuName settings."
-	configEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" 
-	updateEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
-	Primehack_setupStorage
-	Primehack_setEmulationFolder
-	Primehack_setupSaves
-	Primehack_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 Primehack_setEmulationFolder() {
 	setMSG "Setting $Primehack_emuName Emulation Folder"

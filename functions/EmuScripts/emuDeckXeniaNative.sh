@@ -146,13 +146,6 @@ XeniaNative_cleanLegacyProtonInstall(){
 	rm -f "$romsPath/xbox360/xenia-emu.sh" &> /dev/null
 }
 
-#update
-XeniaNative_update(){
-	echo "NYI"
-	XeniaNative_setupSaves
-	XeniaNative_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 XeniaNative_setEmulationFolder(){
 	echo "NYI"

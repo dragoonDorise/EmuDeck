@@ -42,15 +42,6 @@ ScummVM_setLanguage(){
 	changeLine "$languageOpt" "$newLanguageOpt" "$ScummVM_configFile"
 }
 
-#update
-ScummVM_update(){
-	configEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}"
-	ScummVM_setupStorage
-	ScummVM_setEmulationFolder
-	ScummVM_setupSaves
-	ScummVM_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 ScummVM_setEmulationFolder(){
     gameDirOpt='browser_lastpath='

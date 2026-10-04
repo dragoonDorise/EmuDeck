@@ -35,21 +35,6 @@ ares_init() {
 	ares_flushEmulatorLauncher
 }
 
-#update
-ares_update() {
-	setMSG "Installing $ares_emuName"
-
-	configEmuFP "${ares_emuName}" "${ares_emuPath}"
-	updateEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
-	ares_setupStorage
-	ares_setEmulationFolder
-	ares_setupSaves
-	ares_getDefaultShaders
-  	ares_getQuarkShaders
-	ares_addESConfig
-	ares_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 ares_setEmulationFolder(){
 	setMSG "Setting $ares_emuName Emulation Folder"

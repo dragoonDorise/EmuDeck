@@ -34,18 +34,6 @@ Flycast_init(){
 	Flycast_addParser
 }
 
-#update
-Flycast_update(){
-	setMSG "Updating $Flycast_emuName settings."
-	configEmuFP "${Flycast_emuName}" "${Flycast_emuPath}"
-	Flycast_setupStorage
-	Flycast_setEmulationFolder
-	Flycast_setupSaves
-	#Flycast_addSteamInputProfile
-	Flycast_flushEmulatorLauncher
-	Flycast_addSteamInputProfile
-}
-
 #ConfigurePaths
 Flycast_setEmulationFolder(){
 	setMSG "Setting $Flycast_emuName Emulation Folder"

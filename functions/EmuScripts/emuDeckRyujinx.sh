@@ -96,25 +96,6 @@ Ryujinx_init(){
 
 }
 
-#update
-Ryujinx_update(){
-    echo "Begin Ryujinx update"
-
-    configEmuAI "yuzu" "config" "$HOME/.config/Ryujinx" "$emudeckBackend/configs/Ryujinx"
-
-    Ryujinx_setEmulationFolder
-    Ryujinx_setupStorage
-    Ryujinx_setupSaves
-    Ryujinx_finalize
-    Ryujinx_flushEmulatorLauncher
-
-	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
-		Yuzu_addESConfig
-	else
-		echo "ES-DE not found. Skipped adding custom system."
-	fi
-}
-
 #ConfigurePaths
 Ryujinx_setEmulationFolder(){
     echo "Begin Ryujinx Path Config"

@@ -60,18 +60,6 @@ ARMSX2_addParser(){
 	addParser "sony_ps2_armsx2.json"
 }
 
-#update
-ARMSX2_update() {
-	setMSG "Updating $ARMSX2_emuName settings."
-	configEmuAI "$ARMSX2_emuName" "config" "$HOME/.config/ARMSX2" "$emudeckBackend/configs/armsx2/.config/ARMSX2"
-	ARMSX2_setEmulationFolder
-	ARMSX2_setupStorage
-	ARMSX2_setupSaves
-	ARMSX2_setupControllers
-	ARMSX2_flushEmulatorLauncher
-
-}
-
 #ConfigurePaths
 ARMSX2_setEmulationFolder() {
 	setMSG "Setting $ARMSX2_emuName Emulation Folder"

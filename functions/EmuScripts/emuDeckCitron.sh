@@ -110,13 +110,6 @@ Citron_init() {
 
 }
 
-#update
-Citron_update() {
-    echo "Begin Citron update"
-
-    Citron_init
-}
-
 #ConfigurePaths
 Citron_setEmulationFolder() {
     echo "Begin Citron Path Config"

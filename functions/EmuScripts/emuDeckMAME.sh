@@ -49,17 +49,6 @@ MAME_init(){
 
 }
 
-#update
-MAME_update(){
-	configEmuAI "${MAME_emuName}" "mame" "$HOME/.mame" "$emudeckBackend/configs/mame"
-	updateEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator" ""
-	MAME_setupStorage
-	MAME_setEmulationFolder
-	MAME_setupSaves
-	MAME_flushEmulatorLauncher
-	MAME_addSteamInputProfile
-}
-
 #ConfigurePaths
 MAME_setEmulationFolder(){
 

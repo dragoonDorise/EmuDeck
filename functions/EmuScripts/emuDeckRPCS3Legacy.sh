@@ -33,15 +33,6 @@ Rpcsx3_install(){
 	RPCS3_install
 }
 
-#update
-RPCS3_update(){
-	configEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
-	RPCS3_setupStorage
-	RPCS3_setEmulationFolder
-	RPCS3_setupSaves
-	RPCS3_addESConfig
-}
-
 #ConfigurePaths
 RPCS3_setEmulationFolder(){
    iniFieldUpdate "$RPCS3_VFSConf" "" "/dev_hdd0/" "$storagePath/rpcs3/dev_hdd0/" ": "

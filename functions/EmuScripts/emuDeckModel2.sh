@@ -64,14 +64,6 @@ Model2_addESConfig(){
 	ESDE_setEmulationFolder
 }
 
-#update
-Model2_update(){
-	setMSG "Updating $Model2_emuName settings."
-	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --ignore-existing
-	Model2_flushEmulatorLauncher
-	Model2_addSteamInputProfile
-}
-
 
 #ConfigurePaths
 Model2_setEmulationFolder(){

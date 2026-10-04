@@ -43,16 +43,6 @@ Xemu_init() {
 	Xemu_setupSaves
 }
 
-#update
-Xemu_update() {
-	configEmuFP "${Xemu_emuName}" "${Xemu_emuPath}"
-	Xemu_migrate
-	Xemu_setupStorage
-	Xemu_setEmulationFolder
-	Xemu_setupSaves
-	Xemu_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 Xemu_setEmulationFolder(){
   	

@@ -66,18 +66,6 @@ PCSX2QT_addParser(){
 	addParser "sony_ps2_pcsx2.json"
 }
 
-#update
-PCSX2QT_update() {
-	setMSG "Updating $PCSX2QT_emuName settings."
-	configEmuAI "$PCSX2QT_emuName" "config" "$HOME/.config/PCSX2" "$emudeckBackend/configs/pcsx2qt/.config/PCSX2"
-	PCSX2QT_setEmulationFolder
-	PCSX2QT_setupStorage
-	PCSX2QT_setupSaves
-	PCSX2QT_setupControllers
-	PCSX2QT_flushEmulatorLauncher
-
-}
-
 #ConfigurePaths
 PCSX2QT_setEmulationFolder() {
 	setMSG "Setting $PCSX2QT_emuName Emulation Folder"

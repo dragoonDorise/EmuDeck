@@ -49,19 +49,6 @@ Vita3K_init(){
     Vita3K_flushEmulatorLauncher
 }
 
-#update
-Vita3K_update(){
-    echo "Begin Vita3K update"
-
-    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$emudeckBackend/configs/Vita3K"
-
-    Vita3K_setEmulationFolder
-    Vita3K_setupStorage
-    Vita3K_setupSaves #?
-    Vita3K_finalize
-    Vita3K_flushEmulatorLauncher
-}
-
 
 
 #ConfigurePaths

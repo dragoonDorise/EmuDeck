@@ -172,18 +172,6 @@ RPCS3_setLanguage(){
 	fi
 }
 
-#update
-RPCS3_update(){
-	RPCS3_migrate
-	configEmuAI "$RPCS3_emuName" "config" "$HOME/.config/rpcs3" "$emudeckBackend/configs/rpcs3"
-	RPCS3_setupStorage
-	RPCS3_setEmulationFolder
-	RPCS3_setupSaves
-	RPCS3_addESConfig
-	RPCS3_flushEmulatorLauncher
-
-}
-
 #ConfigurePaths
 RPCS3_setEmulationFolder(){
 	iniFieldUpdate "$RPCS3_VFSConf" "" "/dev_hdd0/" "$storagePath/rpcs3/dev_hdd0/" ": "

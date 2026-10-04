@@ -37,24 +37,6 @@ Supermodel_init(){
 	Supermodel_addSteamInputProfile
 }
 
-#update
-Supermodel_update(){
-	# Flatpak does not install to flatpak directory
-	mkdir -p $HOME/.supermodel/Analysis $HOME/.supermodel/Log
-	rsync -avhp --mkpath "$emudeckBackend/configs/supermodel" "$HOME/.supermodel/" --ignore-existing
-	# Download updated gamelist from source
-	if [ -e "$HOME/.supermodel/Config/Games.xml" ]; then
-		rm -rf "$HOME/.supermodel/Config/Games.xml"
-	fi
-	wget "$Supermodel_gamesList" -P "$HOME/.supermodel/Config/"
-	updateEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}" "emulator" ""
-	Supermodel_setupStorage
-	Supermodel_setEmulationFolder
-	Supermodel_setupSaves
-	Supermodel_flushEmulatorLauncher
-	Supermodel_addSteamInputProfile
-}
-
 #ConfigurePaths
 Supermodel_setEmulationFolder(){
 	echo "NYI"

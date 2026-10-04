@@ -110,13 +110,6 @@ Eden_init() {
 
 }
 
-#update
-Eden_update() {
-    echo "Begin Eden update"
-
-    Eden_init
-}
-
 #ConfigurePaths
 Eden_setEmulationFolder() {
     echo "Begin Eden Path Config"

@@ -35,18 +35,6 @@ PPSSPP_init(){
 	PPSSPP_flushEmulatorLauncher
 }
 
-#update
-PPSSPP_update(){
-	setMSG "Updating $PPSSPP_emuName settings."
-	configEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}"
-	updateEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "emulator" ""
-	PPSSPP_setupStorage
-	PPSSPP_setEmulationFolder
-	PPSSPP_setupSaves
-	#PPSSPP_addSteamInputProfile
-	PPSSPP_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 PPSSPP_setEmulationFolder(){
 	setMSG "Setting $PPSSPP_emuName Emulation Folder"

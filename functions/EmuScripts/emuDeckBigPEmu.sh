@@ -70,21 +70,6 @@ BigPEmu_init(){
 
 }
 
-#update
-BigPEmu_update(){
-	setMSG "Updating $BigPEmu_emuName settings."
-	rsync -avhp "$emudeckBackend/configs/bigpemu/" "$BigPEmu_appData" --ignore-existing
-	sed -E -i "s|/run/media/mmcblk0p1/Emulation|$emulationPath|g" "$BigPEmu_BigPEmuSettings"
-	BigPEmu_setEmulationFolder
-	BigPEmu_setupSaves
-	BigPEmu_flushEmulatorLauncher
-	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
-		BigPEmu_addESConfig
-	else
-		echo "ES-DE not found. Skipped adding custom system."
-	fi
-}
-
 BigPEmu_addESConfig(){
 
 	ESDE_junksettingsFile

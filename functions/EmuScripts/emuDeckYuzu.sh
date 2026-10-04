@@ -109,22 +109,6 @@ Yuzu_init() {
 
 }
 
-#update
-Yuzu_update() {
-    echo "Begin Yuzu update"
-
-    Yuzu_migrate
-
-    configEmuAI "$Yuzu_emuName" "config" "$HOME/.config/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/config/yuzu"
-    configEmuAI "$Yuzu_emuName" "data" "$HOME/.local/share/yuzu" "$emudeckBackend/configs/org.yuzu_emu.yuzu/data/yuzu"
-
-    Yuzu_setEmulationFolder
-    Yuzu_setupStorage
-    Yuzu_setupSaves
-    Yuzu_finalize
-    Yuzu_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 Yuzu_setEmulationFolder() {
     echo "Begin Yuzu Path Config"

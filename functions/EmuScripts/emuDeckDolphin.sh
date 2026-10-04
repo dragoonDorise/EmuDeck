@@ -126,19 +126,6 @@ Dolphin_init(){
     fi
 }
 
-#update
-Dolphin_update(){
-  setMSG "${Dolphin_emuName}: Apply configuration Update"
-	configEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}"
-  updateEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "emulator" ""
-	Dolphin_setupStorage
-	Dolphin_setEmulationFolder
-	Dolphin_setupSaves
-  Dolphin_cleanup
-  Dolphin_flushEmulatorLauncher
-  Dolphin_flushSymlinks
-}
-
 #ConfigurePaths
 Dolphin_setEmulationFolder(){
     setMSG "${Dolphin_emuName}: Configure Emulation folder"
