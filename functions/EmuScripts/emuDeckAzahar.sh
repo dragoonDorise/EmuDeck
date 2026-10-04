@@ -31,10 +31,8 @@ Azahar_install(){
 
 #ApplyInitialSettings
 Azahar_init(){
-	py_run azahar_init || return $?
-	Azahar_addSteamInputProfile
-	Azahar_addESConfig
-	return
+	py_run azahar_init
+	return $?
 	setMSG "Initializing $Azahar_emuName settings."
 	configEmuAI "$Azahar_emuName" "azahar-emu"  "$Azahar_configPath" "$emudeckBackend/configs/azahar" "true"
 	Azahar_setEmulationFolder
