@@ -33,6 +33,7 @@ def _import_all_functions_and_vars():
     for module_name in forced_to_load + remaining:
         #print(f"Importing module: {module_name}")
         module = importlib.import_module(module_name)
+        loaded_modules.append(module)
 
         for fn_name, fn in inspect.getmembers(module, inspect.isfunction):
             globals()[fn_name] = fn
