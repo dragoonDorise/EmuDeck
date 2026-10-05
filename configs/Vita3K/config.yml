@@ -125,7 +125,7 @@ user-auto-connect: false
 user-lang: ''
 show-welcome: true
 warn-missing-firmware: true
-check-for-updates-mode: 1
+check-for-updates-mode: 0
 file-loading-delay: 0
 shader-cache: true
 spirv-shader: false
