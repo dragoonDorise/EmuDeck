@@ -20,7 +20,7 @@
     },
     "disabled": false,
     "executable": {
-        "path": "EMULATIONPATH/tools/launchers/yuzu.sh",
+        "path": "EMULATIONPATH/tools/launchers/yuzu.EXT",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": false
     },

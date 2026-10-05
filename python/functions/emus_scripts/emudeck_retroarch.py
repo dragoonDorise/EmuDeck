@@ -156,8 +156,8 @@ def retroarch_setup_saves():
     origin_saves=f"{retroarch_dir}/saves"
     origin_states=f"{retroarch_dir}/states"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/retroarch/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/retroarch/states")
+    link_to_saves_folder(origin_saves, "retroarch/saves")
+    link_to_saves_folder(origin_states, "retroarch/states")
 
     set_config("savestate_directory", f'"{saves_path}/retroarch/states"', retroarch_cfg_file, " = ")
     set_config("savefile_directory", f'"{saves_path}/retroarch/saves"', retroarch_cfg_file, " = ")
@@ -567,8 +567,7 @@ def retroarch_patch_shader_references():
 
 def retroarch_backup_configs() -> None:
     core_config_folders = [
-        Path(retroarch_dir) / "cores",
-        # Path("/otra/carpeta/de/cores"),  # puedes añadir más rutas aquí
+        Path(retroarch_dir) / "config",
     ]
 
     # 1) Main config
@@ -988,9 +987,9 @@ def retroarch_nes_bezel_on():
     retroarch_set_core_setting('nes.cfg','Nestopia','video_scale_integer','"false"')
     retroarch_set_core_setting('nes.cfg','Nestopia','aspect_ratio_index','"0"')
 
-    if settings.ar.snes == "87":
+    if str(settings.ar.snes) == "87":
         retroarch_nes_ar87()
-    elif settings.ar.snes == "32":
+    elif str(settings.ar.snes) == "32":
         retroarch_nes_ar32()
     else:
         retroarch_nes_ar43()
@@ -1888,9 +1887,9 @@ def retroarch_snes_bezel_on():
     retroarch_set_core_setting('snesna.cfg','Snes9x','input_overlay_opacity','"0.700000"')
     retroarch_set_core_setting('snesna.cfg','Snes9x','video_scale_integer','"false"')
 
-    if settings.ar.snes == "87":
+    if str(settings.ar.snes) == "87":
         retroarch_snes_ar87()
-    elif settings.ar.snes == "32":
+    elif str(settings.ar.snes) == "32":
         retroarch_snes_ar32()
     else:
         retroarch_snes_ar43()
@@ -2730,7 +2729,7 @@ def retroarch_bezels_169_screen():
                     
 def retroarch_set_widescreen():
     # Sega
-    if settings.ar.sega == "32":
+    if str(settings.ar.sega) == "32":
         retroarch_mastersystem_ar32()
         retroarch_genesis_ar32()
         retroarch_segacd_ar32()
@@ -2748,10 +2747,10 @@ def retroarch_set_widescreen():
             retroarch_sega32x_bezel_on()
 
     # SNES and NES
-    if settings.ar.snes == "87":
+    if str(settings.ar.snes) == "87":
         retroarch_snes_ar87()
         retroarch_nes_ar87()
-    elif settings.ar.snes == "32":
+    elif str(settings.ar.snes) == "32":
         retroarch_snes_ar32()
         retroarch_nes_ar32()
     else:

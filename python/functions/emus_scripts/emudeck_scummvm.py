@@ -69,7 +69,7 @@ def scummvm_init():
 
     copy_setting_dir(f"common/scummvm/",destination)
     copy_and_set_settings_file(f"common/scummvm/scummvm.ini", destination)
-   # move_contents_and_link(bios,f"{bios_path}/scummvm")
+   # link_to_emulation_folder(bios,f"{bios_path}/scummvm")
     scummvm_set_emulation_folder()
     scummvm_setup_saves()
     scummvm_set_language()
@@ -101,6 +101,7 @@ def scummvm_set_emulation_folder() -> bool:
 
 
 def scummvm_setup_saves() -> bool:
+    Path(f"{saves_path}/scummvm/saves").mkdir(parents=True, exist_ok=True)
     config_file = scummvm_config_file()
 
     if not config_file.is_file():

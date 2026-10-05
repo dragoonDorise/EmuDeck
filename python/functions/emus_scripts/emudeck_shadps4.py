@@ -232,25 +232,14 @@ def shadps4_setup_storage():
 
 
 def shadps4_setup_saves():
-    origin_saves = None
-
     if system == "linux":
-        origin_saves = f"{home}/.local/share/shadPS4/savedata"
+        origin_saves=f"{home}/.local/share/shadPS4/savedata"
+    if system.startswith("win"):
+        origin_saves=f"{emus_folder}/ShadPS4-qt/user/savedata"
+    if system == "darwin":
+        origin_saves=f"{home}/Library/Application Support/shadPS4/savedata"
 
-    elif system.startswith("win"):
-        base_user = Path(emus_folder) / "ShadPS4-qt" / "user"
-        savedata_path = base_user / "savedata"
-        savedata_path.mkdir(parents=True, exist_ok=True)
-        origin_saves = str(savedata_path)
-
-    elif system == "darwin":
-        origin_saves = f"{home}/Library/Application Support/shadPS4/savedata"
-
-    else:
-        return False
-
-    move_contents_and_link(origin_saves, f"{saves_path}/shadps4/saves")
-    return True
+    link_to_saves_folder(origin_saves, "shadps4/saves")
 
 
 def shadps4_set_emulation_folder():
@@ -264,14 +253,7 @@ def shadps4_set_emulation_folder():
         txt = txt.replace("/run/media/mmcblk0p1/Emulation", str(emulation_path))
         config_path.write_text(txt, encoding="utf-8")
 
-        (Path(bios_path) / "shadps4").mkdir(parents=True, exist_ok=True)
-        sys_modules = Path(home) / ".local" / "share" / "shadPS4" / "sys_modules"
-        sys_modules.mkdir(parents=True, exist_ok=True)
-
-        link_dst = Path(bios_path) / "shadps4" / "sys_modules"
-        if link_dst.is_symlink() or link_dst.exists():
-            link_dst.unlink()
-        link_dst.symlink_to(sys_modules, target_is_directory=True)
+        link_to_bios_folder(Path(home) / ".local" / "share" / "shadPS4" / "sys_modules", "shadps4/sys_modules")
         return True
 
     if system.startswith("win"):

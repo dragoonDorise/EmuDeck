@@ -57,6 +57,7 @@ def armsx2_init():
         copy_and_set_settings_file("common/armsx2/.config/ARMSX2/inis/PCSX2.ini", armsx2_config_file.parent)
 
     armsx2_set_emulation_folder()
+    armsx2_setup_saves()
     armsx2_setup_storage()
     armsx2_setup_controllers()
     armsx2_retro_achievements()
@@ -64,7 +65,7 @@ def armsx2_init():
     armsx2_widescreen()
     flush_emulator_launchers("armsx2")
     armsx2_add_custom_parser()
-    move_contents_and_link(f"{home}/.config/ARMSX2/cheats", f"{storage_path}/pcsx2/cheats")
+    link_to_storage_folder(f"{home}/.config/ARMSX2/cheats", "pcsx2/cheats")
     return True
 
 
@@ -93,46 +94,112 @@ def armsx2_setup_storage():
         Path(f"{storage_path}/armsx2/{folder}").mkdir(parents=True, exist_ok=True)
 
 
-def armsx2_setup_controllers():
-    pad1 = {
-        "Type": "DualShock2", "InvertL": "0", "InvertR": "0", "Deadzone": "0.000000", "AxisScale": "1.330000",
-        "TriggerDeadzone": "0", "TriggerScale": "1", "LargeMotorScale": "1.000000", "SmallMotorScale": "1.000000",
-        "ButtonDeadzone": "0", "PressureModifier": "0.300000",
-        "Up": "SDL-0/DPadUp", "Right": "SDL-0/DPadRight", "Down": "SDL-0/DPadDown", "Left": "SDL-0/DPadLeft",
-        "Triangle": "SDL-0/Y", "Circle": "SDL-0/B", "Cross": "SDL-0/A", "Square": "SDL-0/X",
-        "Select": "SDL-0/Back", "Start": "SDL-0/Start", "L1": "SDL-0/LeftShoulder", "L2": "SDL-0/+LeftTrigger",
-        "R1": "SDL-0/RightShoulder", "R2": "SDL-0/+RightTrigger", "L3": "SDL-0/LeftStick", "R3": "SDL-0/RightStick",
-        "LUp": "SDL-0/-LeftY", "LRight": "SDL-0/+LeftX", "LDown": "SDL-0/+LeftY", "LLeft": "SDL-0/-LeftX",
-        "RUp": "SDL-0/-RightY", "RRight": "SDL-0/+RightX", "RDown": "SDL-0/+RightY", "RLeft": "SDL-0/-RightX",
-        "SmallMotor": "SDL-0/SmallMotor", "LargeMotor": "SDL-0/LargeMotor", "Analog": "Keyboard/F6", "Pressure": "Keyboard/S",
-    }
-    pad2 = {
-        "Type": "DualShock2", "Deadzone": "0.000000", "AxisScale": "1.330000", "LargeMotorScale": "1.000000",
-        "SmallMotorScale": "1.000000", "PressureModifier": "0.300000",
-        "Up": "SDL-1/DPadUp", "Right": "SDL-1/DPadRight", "Down": "SDL-1/DPadDown", "Left": "SDL-1/DPadLeft",
-        "Triangle": "SDL-1/Y", "Circle": "SDL-1/B", "Cross": "SDL-1/A", "Square": "SDL-1/X",
-        "Select": "SDL-1/Back", "Start": "SDL-1/Start", "L1": "SDL-1/LeftShoulder", "L2": "SDL-1/+LeftTrigger",
-        "R1": "SDL-1/RightShoulder", "R2": "SDL-1/+RightTrigger", "L3": "SDL-1/LeftStick", "R3": "SDL-1/RightStick",
-        "Analog": "SDL-1/Guide", "LUp": "SDL-1/-LeftY", "LRight": "SDL-1/+LeftX", "LDown": "SDL-1/+LeftY", "LLeft": "SDL-1/-LeftX",
-        "RUp": "SDL-1/-RightY", "RRight": "SDL-1/+RightX", "RDown": "SDL-1/+RightY", "RLeft": "SDL-1/-RightX",
-        "LargeMotor": "SDL-1/LargeMotor", "SmallMotor": "SDL-1/SmallMotor",
-    }
-    hotkeys = {
-        "ToggleFullscreen": "SDL-0/Start & SDL-0/LeftStick", "CycleInterlaceMode": "Keyboard/F5", "CycleMipmapMode": "Keyboard/Insert",
-        "GSDumpMultiFrame": "Keyboard/Control & Keyboard/Shift & Keyboard/F8", "Screenshot": "Keyboard/F8",
-        "GSDumpSingleFrame": "Keyboard/Shift & Keyboard/F8", "ZoomIn": "Keyboard/Control & Keyboard/Plus",
-        "ZoomOut": "Keyboard/Control & Keyboard/Minus", "InputRecToggleMode": "Keyboard/Shift & Keyboard/R",
-        "LoadStateFromSlot": "SDL-0/Back & SDL-0/LeftShoulder", "SaveStateToSlot": "SDL-0/Back & SDL-0/RightShoulder",
-        "ShutdownVM": "SDL-0/Back & SDL-0/Start", "ToggleFrameLimit": "Keyboard/F4", "TogglePause": "SDL-0/Back & SDL-0/A",
-        "ToggleSlowMotion": "SDL-0/Back & SDL-0/+LeftTrigger", "ToggleTurbo": "SDL-0/Back & SDL-0/+RightTrigger",
-        "HoldTurbo": "Keyboard/Period", "ResetVM": "SDL-0/Back & SDL-0/LeftStick", "OpenPauseMenu": "SDL-0/Back & SDL-0/RightStick",
-        "IncreaseUpscaleMultiplier": "SDL-0/Start & SDL-0/DPadUp", "DecreaseUpscaleMultiplier": "SDL-0/Start & SDL-0/DPadDown",
-        "CycleAspectRatio": "SDL-0/Start & SDL-0/DPadRight", "ToggleSoftwareRendering": "SDL-0/Start & SDL-0/DPadLeft",
-        "NextSaveStateSlot": "SDL-0/Start & SDL-0/RightShoulder", "PreviousSaveStateSlot": "SDL-0/Start & SDL-0/LeftShoulder",
-    }
-    for section, values in (("Hotkeys", hotkeys), ("Pad1", pad1), ("Pad2", pad2)):
-        for key, value in values.items():
-            set_ini_value(armsx2_config_file, section, key, value)
+def armsx2_setup_controllers():   
+    new_pad1_section = """Type = DualShock2
+InvertL = 0
+InvertR = 0
+Deadzone = 0.000000
+AxisScale = 1.330000
+TriggerDeadzone = 0
+TriggerScale = 1
+LargeMotorScale = 1.000000
+SmallMotorScale = 1.000000
+ButtonDeadzone = 0
+PressureModifier = 0.300000
+Up = SDL-0/DPadUp
+Right = SDL-0/DPadRight
+Down = SDL-0/DPadDown
+Left = SDL-0/DPadLeft
+Triangle = SDL-0/Y
+Circle = SDL-0/B
+Cross = SDL-0/A
+Square = SDL-0/X
+Select = SDL-0/Back
+Start = SDL-0/Start
+L1 = SDL-0/LeftShoulder
+L2 = SDL-0/+LeftTrigger
+R1 = SDL-0/RightShoulder
+R2 = SDL-0/+RightTrigger
+L3 = SDL-0/LeftStick
+R3 = SDL-0/RightStick
+LUp = SDL-0/-LeftY
+LRight = SDL-0/+LeftX
+LDown = SDL-0/+LeftY
+LLeft = SDL-0/-LeftX
+RUp = SDL-0/-RightY
+RRight = SDL-0/+RightX
+RDown = SDL-0/+RightY
+RLeft = SDL-0/-RightX
+SmallMotor = SDL-0/SmallMotor
+LargeMotor = SDL-0/LargeMotor
+Analog = Keyboard/F6
+Pressure = Keyboard/S"""
+
+    new_pad2_section = """Type = DualShock2
+Deadzone = 0.000000
+AxisScale = 1.330000
+LargeMotorScale = 1.000000
+SmallMotorScale = 1.000000
+PressureModifier = 0.300000
+Up = SDL-1/DPadUp
+Right = SDL-1/DPadRight
+Down = SDL-1/DPadDown
+Left = SDL-1/DPadLeft
+Triangle = SDL-1/Y
+Circle = SDL-1/B
+Cross = SDL-1/A
+Square = SDL-1/X
+Select = SDL-1/Back
+Start = SDL-1/Start
+L1 = SDL-1/LeftShoulder
+L2 = SDL-1/+LeftTrigger
+R1 = SDL-1/RightShoulder
+R2 = SDL-1/+RightTrigger
+L3 = SDL-1/LeftStick
+R3 = SDL-1/RightStick
+Analog = SDL-1/Guide
+LUp = SDL-1/-LeftY
+LRight = SDL-1/+LeftX
+LDown = SDL-1/+LeftY
+LLeft = SDL-1/-LeftX
+RUp = SDL-1/-RightY
+RRight = SDL-1/+RightX
+RDown = SDL-1/+RightY
+RLeft = SDL-1/-RightX
+LargeMotor = SDL-1/LargeMotor
+SmallMotor = SDL-1/SmallMotor"""
+
+    new_hotkey_section = """ToggleFullscreen = SDL-0/Start & SDL-0/LeftStick
+CycleInterlaceMode = Keyboard/F5
+CycleMipmapMode = Keyboard/Insert
+GSDumpMultiFrame = Keyboard/Control & Keyboard/Shift & Keyboard/F8
+Screenshot = Keyboard/F8
+GSDumpSingleFrame = Keyboard/Shift & Keyboard/F8
+ZoomIn = Keyboard/Control & Keyboard/Plus
+ZoomOut = Keyboard/Control & Keyboard/Minus
+InputRecToggleMode = Keyboard/Shift & Keyboard/R
+LoadStateFromSlot = SDL-0/Back & SDL-0/LeftShoulder
+SaveStateToSlot = SDL-0/Back & SDL-0/RightShoulder
+ShutdownVM = SDL-0/Back & SDL-0/Start
+ToggleFrameLimit = Keyboard/F4
+TogglePause = SDL-0/Back & SDL-0/A
+ToggleSlowMotion = SDL-0/Back & SDL-0/+LeftTrigger
+ToggleTurbo = SDL-0/Back & SDL-0/+RightTrigger
+HoldTurbo = Keyboard/Period
+ResetVM = SDL-0/Back & SDL-0/LeftStick
+OpenPauseMenu = SDL-0/Back & SDL-0/RightStick
+IncreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadUp
+DecreaseUpscaleMultiplier = SDL-0/Start & SDL-0/DPadDown
+CycleAspectRatio = SDL-0/Start & SDL-0/DPadRight
+ToggleSoftwareRendering = SDL-0/Start & SDL-0/DPadLeft
+ToggleSoftwareRendering = Keyboard/F9
+NextSaveStateSlot = SDL-0/Start & SDL-0/RightShoulder
+PreviousSaveStateSlot = SDL-0/Start & SDL-0/LeftShoulder"""
+
+    ini_section_update(armsx2_config_file, "Hotkeys", new_hotkey_section)
+    ini_section_update(armsx2_config_file, "Pad1", new_pad1_section)
+    ini_section_update(armsx2_config_file, "Pad2", new_pad2_section)
+    return True
 
 
 def armsx2_set_resolution():
@@ -158,7 +225,7 @@ def armsx2_widescreen_off():
 
 
 def armsx2_widescreen():
-    if settings.ar.classic3d == "169":
+    if str(settings.ar.classic3d) == "169":
         armsx2_widescreen_on()
     else:
         armsx2_widescreen_off()
@@ -195,3 +262,9 @@ def armsx2_add_to_steam():
     set_msg("Adding ARMSX2 to Steam")
     launcher = tools_path / "launchers" / "armsx2.sh"
     add_steam_shortcut("armsx2", "ARMSX2", str(launcher), str(emus_folder), str(icons_path / "armsx2.png"))
+
+
+def armsx2_setup_saves():
+    for folder in ("states", "saves"):
+        Path(f"{saves_path}/pcsx2/{folder}").mkdir(parents=True, exist_ok=True)
+    return True

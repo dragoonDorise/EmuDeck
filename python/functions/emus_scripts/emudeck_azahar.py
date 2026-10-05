@@ -83,6 +83,8 @@ def azahar_init():
     azahar_set_controller_style()
     esde_set_emu("Azahar (Standalone)","n3ds")
     azahar_add_custom_parser()
+    azahar_add_steam_input_profile()
+    azahar_add_es_config()
 
 def azahar_install_init():
     azahar_install()
@@ -98,13 +100,8 @@ def azahar_setup_storage():
     for folder in ("sdmc", "nand"):
         azahar_move_storage_folder(folder)
 
-    cheats = home / ".local" / "share" / "azahar-emu" / "cheats"
-    cheats.mkdir(parents=True, exist_ok=True)
-    linkToStorageFolder("azahar", "cheats", str(cheats), storage_path, set_msg)
-
-    textures = home / ".local" / "share" / "azahar-emu" / "load" / "textures"
-    textures.mkdir(parents=True, exist_ok=True)
-    linkToStorageFolder("azahar", "textures", str(textures), storage_path, set_msg)
+    link_to_storage_folder(home / ".local" / "share" / "azahar-emu" / "cheats", "azahar/cheats")
+    link_to_storage_folder(home / ".local" / "share" / "azahar-emu" / "load" / "textures", "azahar/textures")
 
 
 def azahar_move_storage_folder(folder: str):
@@ -138,7 +135,7 @@ def azahar_setup_textures():
     """Links Azahar's texture folder into Emulation/texturepacks (Linux)."""
     textures = home / ".local" / "share" / "azahar-emu" / "load" / "textures"
     textures.mkdir(parents=True, exist_ok=True)
-    linkToTexturesFolder("azahar", "textures", str(textures), emulation_path, set_msg)
+    link_to_textures_folder(textures, "azahar/textures")
 
 
 def azahar_migrate():
@@ -153,11 +150,8 @@ def azahar_migrate():
 
 def azahar_setup_saves():
     if system == "linux":
-        states = home / ".local" / "share" / "azahar-emu" / "states"
-        states.mkdir(parents=True, exist_ok=True)
-        linkToSaveFolder("azahar", "saves", f"{storage_path}/azahar/sdmc", saves_path, set_msg)
-        linkToSaveFolder("azahar", "states", str(states), saves_path, set_msg)
-        return
+        origin_saves=f"{storage_path}/azahar/sdmc"
+        origin_states=f"{home}/.local/share/azahar-emu/states"
     if system.startswith("win"):
         origin_saves=f"{emus_folder}/azahar/sdmc"
         origin_states=f"{emus_folder}/azahar/states"
@@ -165,8 +159,8 @@ def azahar_setup_saves():
         origin_saves=f"{home}/.share/azahar/sdmc"
         origin_states=f"{home}/.local/share/azahar-emu/states"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/azahar/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/azahar/states")
+    link_to_saves_folder(origin_saves, "azahar/saves")
+    link_to_saves_folder(origin_states, "azahar/states")
 
 
 def azahar_config_file():
@@ -180,12 +174,7 @@ def azahar_config_file():
 
 def azahar_set_emulation_folder() -> bool:
     if system == "linux":
-        sysdata = home / ".local" / "share" / "azahar-emu" / "sysdata"
-        sysdata.mkdir(parents=True, exist_ok=True)
-        keys = Path(bios_path) / "azahar" / "keys"
-        keys.parent.mkdir(parents=True, exist_ok=True)
-        if not keys.exists() and not keys.is_symlink():
-            keys.symlink_to(sysdata)
+        link_to_bios_folder(home / ".local" / "share" / "azahar-emu" / "sysdata", "azahar/keys")
 
     config_file = azahar_config_file()
 
@@ -251,3 +240,13 @@ def azahar_add_to_steam():
     set_msg("Adding Azahar to Steam")
     launcher = tools_path / "launchers" / ("azahar.bat" if system.startswith("win") else "azahar.sh")
     add_steam_shortcut("azahar", "Azahar", str(launcher), str(emus_folder), str(icons_path / "ico/azahar.ico"))
+
+
+def azahar_add_steam_input_profile():
+    add_steam_input_custom_icons()
+    set_msg("Adding Azahar Steam Input Profile.")
+    add_steam_input_templates()
+
+
+def azahar_add_es_config():
+    return esde_add_custom_systems_file()

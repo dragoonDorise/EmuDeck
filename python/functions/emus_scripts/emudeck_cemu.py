@@ -76,6 +76,7 @@ def cemu_init():
     cemu_set_resolution()
     cemu_set_controller_style()
     cemu_set_language()
+    cemu_add_steam_input_profile()
 
 def cemu_install_init():
     cemu_install()
@@ -149,7 +150,7 @@ def cemu_setup_saves():
     if system == "darwin":
         origin_saves=f"{home}/Library/Application Support/Cemu/mlc01/usr/save"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/Cemu/saves")
+    link_to_saves_folder(origin_saves, "Cemu/saves")
 
 def cemu_setup_storage():
     print("NYI")
@@ -237,3 +238,9 @@ def cemu_add_to_steam():
     set_msg("Adding Cemu to Steam")
     launcher = tools_path / "launchers" / ("cemu.bat" if system.startswith("win") else "cemu.sh")
     add_steam_shortcut("cemu", "Cemu", str(launcher), str(emus_folder), str(icons_path / "ico/cemu.ico"))
+
+
+def cemu_add_steam_input_profile():
+    add_steam_input_custom_icons()
+    set_msg("Adding CemuNative Steam Input Profile.")
+    add_steam_input_templates()

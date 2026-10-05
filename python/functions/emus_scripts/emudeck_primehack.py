@@ -128,10 +128,12 @@ def primehack_install_init():
 
 
 def primehack_setup_saves():
+    saves_folder="primehack/saves"
     if system == "linux":
         origin_saves_gc=f"{home}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/GC"
         origin_saves_wii=f"{home}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/Wii"
         origin_states=f"{home}/.var/app/io.github.shiiion.primehack/data/dolphin-emu/StateSaves"
+        saves_folder="primehack"
     if system.startswith("win"):
         origin_saves_gc=f"{emus_folder}/primehack/User/GC"
         origin_saves_wii=f"{emus_folder}/primehack/User/Wii"
@@ -141,9 +143,9 @@ def primehack_setup_saves():
         origin_saves_wii=f"{home}/Library/Application Support/Dolphin/Wii"
         origin_states=f"{home}/Library/Application Support/Dolphin/StateSaves"
 
-    move_contents_and_link(origin_saves_gc,f"{saves_path}/primehack/saves/GC")
-    move_contents_and_link(origin_saves_wii,f"{saves_path}/primehack/saves/Wii")
-    move_contents_and_link(origin_states,f"{saves_path}/primehack/StateSaves")
+    link_to_saves_folder(origin_saves_gc, f"{saves_folder}/GC")
+    link_to_saves_folder(origin_saves_wii, f"{saves_folder}/Wii")
+    link_to_saves_folder(origin_states, "primehack/StateSaves")
 
 
 def primehack_set_resolution():

@@ -15,7 +15,7 @@
   },
   "disabled": false,
   "executable": {
-    "path": "EMULATIONPATH/tools/launchers/citron.sh",
+    "path": "EMULATIONPATH/tools/launchers/citron.EXT",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
   },

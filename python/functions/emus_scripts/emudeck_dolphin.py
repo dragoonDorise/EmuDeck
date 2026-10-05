@@ -157,47 +157,24 @@ def dolphin_install_init():
     dolphin_init()
 
 def dolphin_setup_saves():
+    saves_folder="dolphin/saves"
     if system == "linux":
         origin_saves_gc=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/GC"
         origin_saves_wii=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/Wii"
         origin_states=f"{home}/.var/app/org.DolphinEmu.dolphin-emu/data/dolphin-emu/StateSaves"
-
+        saves_folder="dolphin"
     if system.startswith("win"):
-        for origin, destination in [
-            (Path(f"{emus_folder}/Dolphin-x64/User/GC"), Path(f"{saves_path}/dolphin/saves/GC")),
-            (Path(f"{emus_folder}/Dolphin-x64/User/Wii"), Path(f"{saves_path}/dolphin/saves/Wii")),
-            (Path(f"{emus_folder}/Dolphin-x64/User/StateSaves"), Path(f"{saves_path}/dolphin/StateSaves")),
-        ]:
-            if origin.is_symlink() or origin.is_junction():
-                continue
-
-            destination.mkdir(parents=True, exist_ok=True)
-
-            if origin.exists():
-                shutil.copytree(origin, destination, dirs_exist_ok=True)
-                shutil.rmtree(origin, ignore_errors=True)
-
-            origin.parent.mkdir(parents=True, exist_ok=True)
-
-            try:
-                os.symlink(str(destination), str(origin), target_is_directory=True)
-            except OSError:
-                subprocess.run(
-                    ["cmd", "/c", "mklink", "/J", str(origin), str(destination)],
-                    shell=True,
-                    check=True
-                )
-
-        return
-
+        origin_saves_gc=f"{emus_folder}/Dolphin-x64/User/GC"
+        origin_saves_wii=f"{emus_folder}/Dolphin-x64/User/Wii"
+        origin_states=f"{emus_folder}/Dolphin-x64/User/StateSaves"
     if system == "darwin":
         origin_saves_gc=f"{home}/Library/Application Support/Dolphin/GC"
         origin_saves_wii=f"{home}/Library/Application Support/Dolphin/Wii"
         origin_states=f"{home}/Library/Application Support/Dolphin/StateSaves"
 
-    move_contents_and_link(origin_saves_gc,f"{saves_path}/dolphin/saves/GC")
-    move_contents_and_link(origin_saves_wii,f"{saves_path}/dolphin/saves/Wii")
-    move_contents_and_link(origin_states,f"{saves_path}/dolphin/StateSaves")
+    link_to_saves_folder(origin_saves_gc, f"{saves_folder}/GC")
+    link_to_saves_folder(origin_saves_wii, f"{saves_folder}/Wii")
+    link_to_saves_folder(origin_states, "dolphin/StateSaves")
 
 
 def dolphin_set_resolution():
@@ -265,7 +242,7 @@ def dolphin_widescreen_off():
 
 
 def dolphin_widescreen():
-    if settings.ar.dolphin == "169":
+    if str(settings.ar.dolphin) == "169":
         dolphin_widescreen_on()
     else:
         dolphin_widescreen_off()

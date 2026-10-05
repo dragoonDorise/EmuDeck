@@ -19,7 +19,7 @@
         ]
     },
     "executable": {
-        "path": "EMULATIONPATH/tools/launchers/flycast.sh",
+        "path": "EMULATIONPATH/tools/launchers/flycast.EXT",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": false
     },

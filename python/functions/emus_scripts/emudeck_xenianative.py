@@ -94,8 +94,7 @@ def xenianative_set_config_defaults():
 
 
 def xenianative_setup_saves():
-    xenianative_content_path.mkdir(parents=True, exist_ok=True)
-    move_contents_and_link(xenianative_content_path, f"{saves_path}/xenia/saves")
+    link_to_saves_folder(xenianative_content_path, "xenia/saves")
 
 
 def xenianative_get_patches():

@@ -26,7 +26,7 @@
         ]
     },
     "executable": {
-        "path": "EMULATIONPATH/tools/launchers/melonds.sh",
+        "path": "EMULATIONPATH/tools/launchers/melonds.EXT",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": false
     },

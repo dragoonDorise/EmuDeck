@@ -110,8 +110,8 @@ def ppsspp_setup_saves():
         origin_saves=f"{home}/.config/ppsspp/PSP/SAVEDATA"
         origin_states=f"{home}/.config/ppsspp/PSP/PPSSPP_STATE"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/ppsspp/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/ppsspp/states")
+    link_to_saves_folder(origin_saves, "ppsspp/saves")
+    link_to_saves_folder(origin_states, "ppsspp/states")
 
 
 def ppsspp_set_emulation_folder() -> bool:
@@ -182,3 +182,7 @@ def ppsspp_add_to_steam():
     set_msg("Adding PPSSPP to Steam")
     launcher = tools_path / "launchers" / ("ppsspp.bat" if system.startswith("win") else "ppsspp.sh")
     add_steam_shortcut("ppsspp", "PPSSPP", str(launcher), str(emus_folder), str(icons_path / "ico/PPSSPP.ico"))
+
+
+def ppsspp_add_steam_input_profile():
+    add_steam_input_custom_icons()

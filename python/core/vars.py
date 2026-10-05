@@ -101,8 +101,8 @@ if settings_data:
     storage_path=Path(os.path.expandvars(installationPath+"/Emulation/storage"))
     ESDEscrapData=Path(os.path.expandvars(installationPath+"/Emulation/tools/downloaded_media"))
 
-    esde_theme_url="https://github.com/anthonycaccese/epic-noir-revisited-es-de.git"
-    esde_theme_name=settings.themeESDE
+    esde_theme_url=settings.themeESDE[0]
+    esde_theme_name=settings.themeESDE[1]
     pegasusThemeUrl=settings.themePegasus[0]
     pegasusThemeName=settings.themePegasus[1]
     achievements_user=settings.achievements.user

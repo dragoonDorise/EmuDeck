@@ -6,6 +6,8 @@ IGNORED = (
     ".config/EmuDeck/python_virtual_env",
     ".cache",
     "__pycache__",
+    ".git/index",
+    ".git/logs",
 )
 INI_SUFFIXES = {".ini", ".cfg", ".conf", ".toml", ".opt", ""}
 
@@ -25,7 +27,7 @@ def scan(root: Path) -> dict:
             if ignored(rel):
                 continue
             if path.is_symlink():
-                entries[rel] = ("link", os.readlink(path).replace(str(root), "$HOME"))
+                entries[rel] = ("link", os.readlink(path).replace(str(root), "$HOME").rstrip("/"))
             elif path.is_dir():
                 entries[rel] = ("dir", None)
             else:
@@ -103,6 +105,8 @@ def main() -> int:
         (kind_a, detail_a), (kind_b, detail_b) = a[rel], b[rel]
         if kind_a != kind_b:
             different.append((rel, f"bash is a {kind_a}, python is a {kind_b}", None))
+        elif kind_a == "dir":
+            identical.append(rel)
         elif kind_a == "link":
             if detail_a == detail_b:
                 identical.append(rel)

@@ -19,7 +19,7 @@
     "specifiedAccounts": ["Global"]
   },
   "executable": {
-    "path": "EMULATIONPATH/tools/launchers/azahar.sh",
+    "path": "EMULATIONPATH/tools/launchers/azahar.EXT",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },

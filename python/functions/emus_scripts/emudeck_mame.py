@@ -132,11 +132,12 @@ def mame_init():
     copy_setting_dir(f"{system}/mame/",destination)
     copy_and_set_settings_file(f"{system}/mame/mame.ini", destination)
 
+    mame_setup_storage()
     mame_set_emulation_folder()
 
 
 
-   # move_contents_and_link(bios,f"{bios_path}/mame")
+   # link_to_emulation_folder(bios,f"{bios_path}/mame")
 
     mame_setup_saves()
     #mame_setup_storage()
@@ -145,6 +146,8 @@ def mame_init():
     mame_widescreen()
     mame_set_esde_emu()
     mame_add_custom_parser()
+    mame_add_steam_input_profile()
+
 
 def mame_install_init():
     mame_install()
@@ -172,6 +175,7 @@ def mame_setup_saves():
 
     for key, sub in (("nvram_directory", "saves"), ("state_directory", "states")):
         set_config(key, f"{saves_path}/mame/{sub}", path, separator=" " * (26 - len(key)))
+        Path(f"{saves_path}/mame/{sub}").mkdir(parents=True, exist_ok=True)
 
 def mame_set_resolution():
     print("NYI")
@@ -208,3 +212,15 @@ def mame_set_esde_emu():
         return
     esde_set_emu("MAME (Standalone)", "arcade")
     esde_set_emu("MAME (Standalone)", "mame")
+
+
+def mame_add_steam_input_profile():
+    set_msg("Adding MAME Steam Input Profile.")
+    add_steam_input_templates("emudeck_steam_deck_light_gun_controls.vdf")
+
+
+def mame_setup_storage():
+    for folder in ("samples", "artwork", "ctrlr", "ini", "cheat", "plugins"):
+        Path(f"{storage_path}/mame/{folder}").mkdir(parents=True, exist_ok=True)
+        (home / ".mame" / folder).mkdir(parents=True, exist_ok=True)
+    return True

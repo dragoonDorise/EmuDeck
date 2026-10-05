@@ -15,7 +15,7 @@
   },
   "disabled": false,
   "executable": {
-    "path": "EMULATIONPATH/tools/launchers/eden.sh",
+    "path": "EMULATIONPATH/tools/launchers/eden.EXT",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
   },

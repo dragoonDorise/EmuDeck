@@ -92,6 +92,8 @@ def bigpemu_init():
     bigpemu_set_controller_style()
     bigpemu_set_esde_emu()
     bigpemu_add_custom_parser()
+    if esde_is_installed():
+        bigpemu_add_es_config()
 
 def bigpemu_install_init():
     bigpemu_install()
@@ -111,7 +113,7 @@ def bigpemu_setup_saves():
     if system == "darwin":
         return
 
-    move_contents_and_link(origin_saves,f"{saves_path}/BigPEmu/saves")
+    link_to_saves_folder(origin_saves, "BigPEmu/saves")
 
 
 
@@ -141,3 +143,12 @@ def bigpemu_set_esde_emu():
         return
     esde_set_emu("BigPEmu (Proton)", "atarijaguar")
     esde_set_emu("BigPEmu (Proton)", "atarijaguarcd")
+
+
+def bigpemu_add_es_config():
+    return esde_add_custom_systems_file()
+
+
+def bigpemu_setup_storage():
+    origin = user_data if system == "linux" else user_data / "screenshots"
+    return link_to_storage_folder(origin, "BigPEmu/screenshots")

@@ -132,12 +132,12 @@ def vita3k_install_init():
 
 def vita3k_setup_saves():
     origin_saves=f"{storage_path}/Vita3K/ux0/user/00/savedata"
-    move_contents_and_link(origin_saves,f"{saves_path}/Vita3K/saves")
+    link_to_saves_folder(origin_saves, "Vita3K/saves")
 
 def vita3k_setup_storage():
     installed_games = f"{roms_path}/psvita/InstalledGames"
     vita3k_apps = f"{storage_path}/Vita3K/ux0/app"
-    move_contents_and_link(vita3k_apps, installed_games)
+    link_to_emulation_folder(vita3k_apps, installed_games)
 
 def vita3k_add_to_steam():
     set_msg("Adding Vita3K to Steam")

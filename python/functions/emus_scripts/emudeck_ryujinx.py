@@ -132,12 +132,15 @@ def ryujinx_init():
     copy_and_set_settings_file(f"{system}/ryujinx/Config.json", destination)
 
     ryujinx_set_emulation_folder()
+    ryujinx_setup_storage()
     ryujinx_setup_saves()
     ryujinx_set_resolution()
     ryujinx_set_controller_style()
     ryujinx_set_language()
     ryujinx_ensure_gyro_dsu()
     esde_set_emu("Ryujinx (Standalone)", "switch")
+    if esde_is_installed():
+        yuzu_add_es_config()
     return True
 
 def ryujinx_install_init():
@@ -164,10 +167,10 @@ def ryujinx_setup_saves():
         system_saves = f"{home}/Library/Application Support/Ryujinx/bis/system/save"
         system_internal = f"{home}/Library/Application Support/Ryujinx/system"
 
-    move_contents_and_link(saves, f"{saves_path}/ryujinx/saves")
-    move_contents_and_link(saveMeta, f"{saves_path}/ryujinx/saveMeta")
-    move_contents_and_link(system_saves, f"{saves_path}/ryujinx/system_saves")
-    move_contents_and_link(system_internal, f"{saves_path}/ryujinx/system")
+    link_to_saves_folder(saves, "ryujinx/saves")
+    link_to_saves_folder(saveMeta, "ryujinx/saveMeta")
+    link_to_saves_folder(system_saves, "ryujinx/system_saves")
+    link_to_saves_folder(system_internal, "ryujinx/system")
 
 # def ryujinx_setup_storage():
 #     if system == "linux":
@@ -180,8 +183,8 @@ def ryujinx_setup_saves():
 #         origin_saves=f"{home}/.share/ryujinx/sdmc"
 #         origin_states=f"{home}/.local/share/ryujinx-emu/states"
 # 
-#     move_contents_and_link(origin_saves,f"{saves_path}/ryujinx/saves")
-#     move_contents_and_link(origin_states,f"{saves_path}/ryujinx/states")
+#     link_to_saves_folder(origin_saves, "ryujinx/saves")
+#     link_to_saves_folder(origin_states, "ryujinx/states")
 
 
 def ryujinx_set_emulation_folder() -> bool:
@@ -493,3 +496,20 @@ def ryujinx_add_to_steam():
     set_msg("Adding Ryujinx to Steam")
     launcher = tools_path / "launchers" / ("ryujinx.bat" if system.startswith("win") else "ryujinx.sh")
     add_steam_shortcut("ryujinx", "Ryujinx", str(launcher), str(emus_folder), str(icons_path / "ico/Ryujinx.ico"))
+
+
+def ryujinx_setup_storage():
+    if system != "linux":
+        return False
+    Path(f"{storage_path}/ryujinx/patchesAndDlc").mkdir(parents=True, exist_ok=True)
+    origin = home / ".config" / "Ryujinx" / "games"
+    target = Path(storage_path) / "ryujinx" / "games"
+    target.mkdir(parents=True, exist_ok=True)
+    if origin.is_dir() and not origin.is_symlink():
+        shutil.copytree(origin, target, dirs_exist_ok=True)
+        shutil.rmtree(origin)
+    if origin.is_symlink():
+        origin.unlink()
+    if origin.parent.is_dir() and not origin.exists():
+        origin.symlink_to(target)
+    return True

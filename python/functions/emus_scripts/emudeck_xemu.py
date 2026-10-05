@@ -77,6 +77,7 @@ def xemu_init():
     copy_and_set_settings_file("common/xemu/xemu.toml", destination)
 
     xemu_setup_storage()
+    xemu_setup_saves()
     xemu_set_resolution()
     xemu_widescreen()
     xemu_set_language()
@@ -190,7 +191,7 @@ def xemu_set_resolution():
 
 
 def xemu_widescreen():
-    if settings.ar.classic3d == "169":
+    if str(settings.ar.classic3d) == "169":
         xemu_widescreen_on()
     else:
         xemu_widescreen_off()
@@ -221,3 +222,11 @@ def xemu_add_to_steam():
     set_msg("Adding xemu to Steam")
     launcher = tools_path / "launchers" / ("xemu-emu.bat" if system.startswith("win") else "xemu-emu.sh")
     add_steam_shortcut("xemu", "xemu", str(launcher), str(emus_folder), str(icons_path / "ico/xemu.ico"))
+
+
+def xemu_setup_saves():
+    Path(f"{saves_path}/xemu").mkdir(parents=True, exist_ok=True)
+    link = Path(f"{saves_path}/xemu/saves")
+    if not link.exists() and not link.is_symlink():
+        link.symlink_to(Path(storage_path) / "xemu")
+    return True

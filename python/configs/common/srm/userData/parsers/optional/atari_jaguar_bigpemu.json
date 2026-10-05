@@ -14,7 +14,7 @@
     "specifiedAccounts": ["Global"]
   },
   "executable": {
-    "path": "EMULATIONPATH/tools/launchers/bigpemu.sh",
+    "path": "EMULATIONPATH/tools/launchers/bigpemu.EXT",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },

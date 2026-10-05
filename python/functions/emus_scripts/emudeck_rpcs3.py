@@ -111,21 +111,17 @@ def rpcs3_install_init():
 
 
 def rpcs3_setup_saves():
-    origin_saves=f"{storage_path}/dev_hdd0/home/00000001/savedata"
-    origin_trophies=f"{storage_path}/dev_hdd0/home/00000001/trophy"
+    origin_saves=f"{storage_path}/rpcs3/dev_hdd0/home/00000001/savedata"
+    origin_trophies=f"{storage_path}/rpcs3/dev_hdd0/home/00000001/trophy"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/rpcs3/saves")
-    move_contents_and_link(origin_trophies,f"{saves_path}/rpcs3/trophy")
+    link_to_saves_folder(origin_saves, "rpcs3/saves")
+    if system.startswith("win"):
+        link_to_saves_folder(origin_trophies, "rpcs3/trophy")
+
 
 def rpcs3_setup_storage():
-    if system == "linux":
-        origin=f"{home}/.config/rpcs3/dev_hdd0"
-    if system.startswith("win"):
-        origin=f"{emus_folder}/dev_hdd0/sdmc"
-    if system == "darwin":
-        origin=f"{home}/Library/Application Support/rpcs3/dev_hdd0"
-
-    move_contents_and_link(origin,f"{storage_path}/rpcs3/dev_hdd0")
+    Path(f"{storage_path}/rpcs3/dev_hdd0/game").mkdir(parents=True, exist_ok=True)
+    return True
 
 
 RPCS3_LANGUAGES = {

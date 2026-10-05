@@ -12,6 +12,7 @@ steam_input_templateFolder = home / ".steam" / "steam" / "controller_base" / "te
 esde_settings_file = esde_settings_folder / "settings" / "es_settings.xml"
 esde_systems_file = esde_settings_folder / "custom_systems" / "es_systems.xml"
 esde_rules_file = esde_settings_folder / "custom_systems" / "es_find_rules.xml"
+esde_settings_file = esde_settings_folder / "settings" / "es_settings.xml"
 
 
 def esde_get_url():
@@ -98,27 +99,78 @@ def esde_init():
 
     esde_settings_folder.mkdir(parents=True, exist_ok=True)
 
-    src = Path(emudeck_backend) / "configs" / "common" / "emulationstation"
-    shutil.copytree(src, esde_settings_folder, dirs_exist_ok=True)
+    if hybrid_mode:
+        esde_add_custom_systems_file()
+        source = Path(bash_backend) / "configs" / "emulationstation"
+        copy_with_backup(source / "es_settings.xml", esde_settings_file)
+        copy_with_backup(source / "custom_systems" / "es_find_rules.xml", esde_rules_file)
+        copy_with_backup(source / "custom_systems" / "es_systems.xml", esde_systems_file)
+        esde_set_default_settings()
+    else:
+        src = Path(emudeck_backend) / "configs" / "common" / "emulationstation"
+        shutil.copytree(src, esde_settings_folder, dirs_exist_ok=True)
 
-    copy_and_set_settings_file(
-        "common/emulationstation/settings/es_settings.xml",
-        esde_settings_folder / "settings",
-    )
+        copy_and_set_settings_file(
+            "common/emulationstation/settings/es_settings.xml",
+            esde_settings_folder / "settings",
+        )
 
     # Replace EMULATIONPATH and .EXT in find rules and systems config
     for config_file in (esde_rules_file, esde_systems_file):
         if config_file.exists():
             sed("EMULATIONPATH", emulation_path, config_file)
+            sed("/run/media/mmcblk0p1/Emulation", emulation_path, config_file)
             ext = ".bat" if system.startswith("win") else ".sh"
             sed(".EXT", ext, config_file)
 
-    dlmedia = Path(storage_path / "es-de/downloaded-media")
-    dlmedia.mkdir(parents=True, exist_ok=True)
+    if not hybrid_mode:
+        dlmedia = Path(storage_path / "es-de/downloaded-media")
+        dlmedia.mkdir(parents=True, exist_ok=True)
 
-    # esde_apply_theme(esde_theme_url, esde_theme_name)
     esde_set_default_emulators()
+    if hybrid_mode:
+        esde_apply_theme(esde_theme_url, esde_theme_name)
+        esde_migrate_downloaded_media()
+    if system == "linux":
+        esde_symlink_gamelists()
+        add_steam_input_custom_icons()
+        esde_flush_tool_launcher()
+        srm_flush_old_symlinks()
+    if hybrid_mode:
+        esde_link_downloaded_media()
     esde_add_arm_cores()
+
+
+def esde_set_default_settings():
+    if not esde_settings_file.is_file():
+        return False
+    update_or_append_config_line(esde_settings_file, '<string name="ROMDirectory"', f'<string name="ROMDirectory" value="{roms_path}" />')
+    media_line = f'<string name="MediaDirectory" value="{ESDEscrapData}" />'
+    text = esde_settings_file.read_text(encoding="utf-8")
+    if "MediaDirectory" not in text:
+        update_or_append_config_line(esde_settings_file, '<string name="MediaDirectory"', media_line)
+    elif '<string name="MediaDirectory" value="" />' not in text or "Emulation/tools/downloaded_media" in text:
+        update_or_append_config_line(esde_settings_file, '<string name="MediaDirectory"', media_line)
+    return True
+
+
+def esde_migrate_downloaded_media():
+    original = esde_settings_folder / "downloaded_media"
+    if original.is_symlink():
+        original.unlink()
+    elif original.is_dir():
+        shutil.copytree(original, Path(tools_path) / "downloaded_media", symlinks=True, dirs_exist_ok=True)
+        shutil.rmtree(original)
+    return True
+
+
+def esde_link_downloaded_media():
+    link = Path(storage_path) / "downloaded_media"
+    if link.is_symlink():
+        link.unlink()
+    if not link.exists():
+        link.symlink_to(Path(ESDEscrapData))
+    return True
 
 
 def esde_add_arm_cores():
@@ -227,16 +279,19 @@ def esde_apply_theme(esde_theme_url: str, esde_theme_name: str):
     themes_dir.mkdir(parents=True, exist_ok=True)
 
     dest = themes_dir / esde_theme_name
-    if not dest.exists():
-        subprocess.run(["git", "clone", esde_theme_url, str(dest)], check=True)
+    if dest.is_dir():
+        subprocess.run(["git", "-C", str(dest), "pull"])
+    else:
+        subprocess.run(["git", "clone", esde_theme_url, str(dest)])
 
-    settings_file = esde_settings_folder / "settings" / "es_settings.xml"
-    text = settings_file.read_text(encoding="utf-8")
-
-    pattern = r'(?<=<string name="ThemeSet" value=").*?(?=" />)'
-    new_text = re.sub(pattern, esde_theme_name, text)
-
-    settings_file.write_text(new_text, encoding="utf-8")
+    for key in ("ThemeSet", "Theme"):
+        update_or_append_config_line(esde_settings_file, f'<string name="{key}"', f'<string name="{key}" value=""')
+    text = esde_settings_file.read_text(encoding="utf-8")
+    for key in ("ThemeSet", "Theme"):
+        new_line = f'<string name="{key}" value="{esde_theme_name}"/>'
+        text = re.sub(rf'<string name="{key}" value="[^"]*"', lambda _: new_line, text)
+    esde_settings_file.write_text(text, encoding="utf-8")
+    return True
 
 
 def esde_set_default_emulators():
@@ -259,6 +314,7 @@ def esde_set_default_emulators():
         ("DuckStation (Standalone)", "psx"),
         ("Beetle Saturn", "saturn"),
         ("ScummVM (Standalone)", "scummvm"),
+        ("Ryujinx (Standalone)", "switch"),
     ]
 
     for label, system_code in emus:
@@ -267,7 +323,7 @@ def esde_set_default_emulators():
     if melonds_is_installed():
         melonds_set_esde_emu()
     else:
-        esde_set_emu("melonDS", "nds")
+        esde_set_emu("melonDS DS", "nds")
 
     for is_installed, set_esde_emu in (
         (mgba_is_installed, mgba_set_esde_emu),
@@ -311,6 +367,44 @@ def esde_set_emu(emu: str, system_code: str) -> None:
 
     gamelist_file.write_text(text, encoding="utf-8")
     print(f"Set {system_code} alternative emulator to '{emu}'")
+
+
+def esde_add_custom_systems_file() -> bool:
+    for junk in (esde_settings_folder / "settings", esde_settings_folder / "custom_systems"):
+        if junk.is_file():
+            junk.unlink()
+
+    if hybrid_mode:
+        source = Path(bash_backend) / "configs" / "emulationstation" / "custom_systems" / "es_systems.xml"
+    else:
+        source = Path(emudeck_backend) / "configs" / "common" / "emulationstation" / "custom_systems" / "es_systems.xml"
+
+    esde_systems_file.parent.mkdir(parents=True, exist_ok=True)
+    if not esde_systems_file.exists() and source.is_file():
+        shutil.copy2(source, esde_systems_file)
+        if not hybrid_mode:
+            sed("EMULATIONPATH", emulation_path, esde_systems_file)
+            sed(".EXT", ".bat" if system.startswith("win") else ".sh", esde_systems_file)
+    return True
+
+
+def esde_flush_tool_launcher():
+    source = get_launchers_source_dir() / "es-de" / "es-de.sh"
+    destination = Path(tools_path) / "launchers" / "es-de" / "es-de.sh"
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, destination)
+    destination.chmod(destination.stat().st_mode | 0o111)
+    return True
+
+
+def esde_symlink_gamelists():
+    old = Path(saves_path) / "es-de"
+    if old.is_symlink():
+        old.unlink()
+    elif old.exists():
+        shutil.rmtree(old, ignore_errors=True)
+    link_to_storage_folder(esde_settings_folder / "gamelists", "es-de/gamelists")
+    return True
 
 
 def esde_add_to_steam():

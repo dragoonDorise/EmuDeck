@@ -26,7 +26,7 @@
         ]
     },
     "executable": {
-        "path": "EMULATIONPATH/tools/launchers/mgba.sh",
+        "path": "EMULATIONPATH/tools/launchers/mgba.EXT",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": false
     },

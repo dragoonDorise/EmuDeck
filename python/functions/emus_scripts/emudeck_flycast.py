@@ -90,7 +90,7 @@ def flycast_init():
 
 
 
-   # move_contents_and_link(bios,f"{bios_path}/flycast")
+   # link_to_emulation_folder(bios,f"{bios_path}/flycast")
 
     flycast_setup_saves()
     #flycast_setup_storage()
@@ -100,6 +100,7 @@ def flycast_init():
 
     flycast_set_esde_emu()
     flycast_add_custom_parser()
+    flycast_add_steam_input_profile()
 
 def flycast_install_init():
     flycast_install()
@@ -116,13 +117,16 @@ def flycast_add_custom_parser():
 
 def flycast_setup_saves():
     if system == "linux":
-        origin_saves=f"{home}/.var/app/org.flycast.Flycast/data/flycast/saves"
+        origin_saves=f"{home}/.var/app/org.flycast.Flycast/data/flycast"
+        origin_states=f"{home}/.var/app/org.flycast.Flycast/config/data/flycast"
     if system.startswith("win"):
         origin_saves=f"{emus_folder}/flycast/saves"
     if system == "darwin":
         origin_saves=f"{home}/Library/Application Support/Flycast/saves"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/flycast/saves")
+    link_to_saves_folder(origin_saves, "flycast/saves")
+    if system == "linux":
+        link_to_saves_folder(origin_states, "flycast/states")
 
 
 def flycast_set_resolution():
@@ -161,7 +165,7 @@ def flycast_set_controller_style():
         flycast_set_bayx_style()
 
 def flycast_widescreen():
-    if settings.ar.classic3d == "169":
+    if str(settings.ar.classic3d) == "169":
         flycast_widescreen_on()
     else:
         flycast_widescreen_off()
@@ -202,3 +206,8 @@ def flycast_set_esde_emu():
     esde_set_emu("Flycast (Standalone)", "naomi2")
     esde_set_emu("Flycast (Standalone)", "naomigd")
     esde_set_emu("Flycast (Standalone)", "atomiswave")
+
+
+def flycast_add_steam_input_profile():
+    set_msg("Adding Flycast Steam Input Profile.")
+    add_steam_input_templates("emudeck_steam_deck_light_gun_controls.vdf")

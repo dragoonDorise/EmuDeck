@@ -15,7 +15,7 @@
     "specifiedAccounts": ["Global"]
   },
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/pcsx2-qt.EXT",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": false
   },

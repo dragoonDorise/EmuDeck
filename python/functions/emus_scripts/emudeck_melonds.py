@@ -70,14 +70,15 @@ def melonds_init():
         sed("\\", "/", f"{destination}/melonDS.ini")
         sed("\\", "/", f"{destination}/melonDS.toml")
 
-    # move_contents_and_link(bios,f"{bios_path}/melonds")
+    # link_to_emulation_folder(bios,f"{bios_path}/melonds")
 
     #melonds_setup_saves()
-    #melonds_setup_storage()
+    melonds_setup_storage()
     melonds_set_resolution()
     melonds_set_controller_style()
     melonds_set_esde_emu()
     melonds_add_custom_parser()
+    melonds_add_steam_input_profile()
 
 def melonds_install_init():
     melonds_install()
@@ -91,7 +92,10 @@ def melonds_add_custom_parser():
 
 
 def melonds_setup_saves():
-    print("NYI")
+    set_msg("Setting melonDS Saves Folder")
+    for folder in ("saves", "states"):
+        Path(f"{saves_path}/melonds/{folder}").mkdir(parents=True, exist_ok=True)
+    return True
 
 
 def melonds_set_resolution():
@@ -151,3 +155,14 @@ def melonds_set_esde_emu():
     if not esde_is_installed():
         return
     esde_set_emu("melonDS (Standalone)", "nds")
+
+
+def melonds_add_steam_input_profile():
+    add_steam_input_custom_icons()
+    set_msg("Adding MelonDS Steam Input Profile.")
+    add_steam_input_templates()
+
+
+def melonds_setup_storage():
+    Path(f"{storage_path}/melonDS/cheats").mkdir(parents=True, exist_ok=True)
+    return True

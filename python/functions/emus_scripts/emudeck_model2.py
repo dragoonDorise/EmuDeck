@@ -21,9 +21,7 @@ def model2_install():
         else:
             return False
 
-        src_launcher = (
-            Path(emudeck_backend) / "tools" / "launchers" / "unix" / "model-2-emulator.sh"
-        )
+        src_launcher = get_launchers_source_dir() / "model-2-emulator.sh"
 
         destinations = [
             tools_path / "launchers" / "model-2-emulator.sh",
@@ -35,26 +33,8 @@ def model2_install():
             shutil.copy2(src_launcher, dest)
             dest.chmod(dest.stat().st_mode | 0o111)
 
-        icon_path = Path(icons_path) / "ico" / "model2.ico"
-        launcher_path = tools_path / "launchers" / "model-2-emulator.sh"
-
-        desktop_entry = "\n".join(
-            [
-                "[Desktop Entry]",
-                "Type=Application",
-                "Name=Model-2-Emulator (Proton)",
-                f"Icon={icon_path}",
-                f"Exec={launcher_path}",
-                "Terminal=false",
-                "Categories=Game;",
-            ]
-        ) + "\n"
-
-        applications_dir = Path.home() / ".local" / "share" / "applications"
-        desktop_file = applications_dir / "Model 2 Emulator (Proton).desktop"
-        desktop_file.parent.mkdir(parents=True, exist_ok=True)
-        desktop_file.write_text(desktop_entry, encoding="utf-8")
-        desktop_file.chmod(0o755)
+        create_desktop_shortcut(Path.home() / ".local" / "share" / "applications" / "Model 2 Emulator (Proton).desktop",
+                                "Model-2-Emulator (Proton)", str(tools_path / "launchers" / "model-2-emulator.sh"))
 
         return True
 
@@ -113,6 +93,9 @@ def model2_init():
         copy_setting_dir("common/model2/CFG", f"{destination}/CFG")
         copy_setting_dir("common/model2/NVDATA", f"{destination}/NVDATA")
         copy_setting_dir("common/model2/scripts", f"{destination}/scripts")
+    model2_add_steam_input_profile()
+    if esde_is_installed():
+        model2_add_es_config()
 
 
 def model2_install_init():
@@ -164,3 +147,12 @@ def model2_add_to_steam():
     set_msg("Adding Model 2 Emulator to Steam")
     launcher = tools_path / "launchers" / ("model-2-emulator.bat" if system.startswith("win") else "model-2-emulator.sh")
     add_steam_shortcut("model2", "Model 2 Emulator", str(launcher), str(emus_folder), str(icons_path / "ico/model2.ico"))
+
+
+def model2_add_steam_input_profile():
+    set_msg("Adding Model-2-Emulator Steam Input Profile.")
+    add_steam_input_templates("emudeck_steam_deck_light_gun_controls.vdf")
+
+
+def model2_add_es_config():
+    return esde_add_custom_systems_file()

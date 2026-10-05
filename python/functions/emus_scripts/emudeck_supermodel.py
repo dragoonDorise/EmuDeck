@@ -69,6 +69,7 @@ def supermodel_init():
     copy_setting_dir(f"common/supermodel/",destination)
     copy_and_set_settings_file(f"common/supermodel/Config/Supermodel.ini", f"{destination}/Config")
     supermodel_update_games_list(f"{destination}/Config/Games.xml")
+    supermodel_add_steam_input_profile()
 
 
 
@@ -94,3 +95,8 @@ def supermodel_add_to_steam():
     set_msg("Adding Supermodel to Steam")
     launcher = tools_path / "launchers" / ("supermodel.bat" if system.startswith("win") else "supermodel.sh")
     add_steam_shortcut("supermodel", "Supermodel", str(launcher), str(emus_folder), str(icons_path / "ico/supermodel.ico"))
+
+
+def supermodel_add_steam_input_profile():
+    set_msg("Adding Supermodel Steam Input Profile.")
+    add_steam_input_templates("emudeck_steam_deck_light_gun_controls.vdf")

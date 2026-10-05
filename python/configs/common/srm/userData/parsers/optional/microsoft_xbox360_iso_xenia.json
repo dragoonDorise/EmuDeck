@@ -14,7 +14,7 @@
     "specifiedAccounts": ["Global"]
   },
   "executable": {
-    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia-emu.sh",
+    "path": "/run/media/mmcblk0p1/Emulation/tools/launchers/xenia-emu.EXT",
     "shortcutPassthrough": false,
     "appendArgsToExecutable": true
   },

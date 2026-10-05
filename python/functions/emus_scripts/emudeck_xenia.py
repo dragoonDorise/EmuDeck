@@ -129,6 +129,8 @@ def xenia_init():
 
     xenia_setup_saves()
 
+    if esde_is_installed():
+        xenia_add_es_config()
     return True
 
 
@@ -159,7 +161,7 @@ def xenia_setup_saves():
     if system == "darwin":
         origin_saves = f"{home}/.share/xenia/sdmc"
 
-    move_contents_and_link(origin_saves, f"{saves_path}/xenia/saves")
+    link_to_saves_folder(origin_saves, "xenia/saves")
 
 
 def xenia_get_patches():
@@ -189,3 +191,7 @@ def xenia_add_to_steam():
     set_msg("Adding Xenia to Steam")
     launcher = tools_path / "launchers" / ("xenia.bat" if system.startswith("win") else "xenia.sh")
     add_steam_shortcut("xenia", "Xenia", str(launcher), str(emus_folder), str(icons_path / "ico/xenia.ico"))
+
+
+def xenia_add_es_config():
+    return esde_add_custom_systems_file()

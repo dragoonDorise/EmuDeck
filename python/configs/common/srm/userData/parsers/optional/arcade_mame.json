@@ -20,7 +20,7 @@
         ]
     },
     "executable": {
-        "path": "EMULATIONPATH/tools/launchers/mame.sh",
+        "path": "EMULATIONPATH/tools/launchers/mame.EXT",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": true
     },

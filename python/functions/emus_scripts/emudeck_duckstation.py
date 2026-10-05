@@ -100,8 +100,8 @@ def duckstation_setup_saves():
         origin_saves=f"{home}/Library/Application Support/DuckStation/memcards"
         origin_states=f"{home}/Library/Application Support/DuckStation/savestates"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/duckstation/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/duckstation/states")
+    link_to_saves_folder(origin_saves, "duckstation/saves")
+    link_to_saves_folder(origin_states, "duckstation/states")
 
 
 def duckstation_set_resolution():
@@ -141,7 +141,7 @@ def duckstation_set_controller_style():
         duckstation_set_bayx_style()
 
 def duckstation_widescreen():
-    if settings.ar.classic3d == "169":
+    if str(settings.ar.classic3d) == "169":
         duckstation_widescreen_on()
     else:
         duckstation_widescreen_off()

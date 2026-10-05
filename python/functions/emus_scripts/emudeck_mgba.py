@@ -61,9 +61,12 @@ def mgba_init():
     copy_setting_dir(f"common/mgba/", destination)
     copy_and_set_settings_file(f"common/mgba/config.ini", destination)
 
+    mgba_setup_storage()
+    mgba_setup_saves()
     mgba_set_controller_style()
     mgba_set_esde_emu()
     mgba_add_custom_parser()
+    mgba_add_steam_input_profile()
 
 def mgba_install_init():
     mgba_install()
@@ -96,3 +99,40 @@ def mgba_set_esde_emu():
     if not esde_is_installed():
         return
     esde_set_emu("mGBA (Standalone)", "gba")
+
+
+def mgba_add_steam_input_profile():
+    add_steam_input_custom_icons()
+    set_msg("Adding mGBA Steam Input Profile.")
+    add_steam_input_templates()
+
+
+def mgba_setup_saves():
+    for folder in ("saves", "states"):
+        Path(f"{saves_path}/mgba/{folder}").mkdir(parents=True, exist_ok=True)
+    if system == "linux":
+        config_file = home / ".config" / "mgba" / "config.ini"
+    if system.startswith("win"):
+        config_file = emus_folder / "mgba" / "config.ini"
+    if system == "darwin":
+        config_file = home / ".config" / "mgba" / "config.ini"
+    if config_file.is_file():
+        set_config("savegamePath", f"{saves_path}/mgba/saves", config_file)
+        set_config("savestatePath", f"{saves_path}/mgba/states", config_file)
+    return True
+
+
+def mgba_setup_storage():
+    for folder in ("cheats", "patches", "screenshots"):
+        Path(f"{storage_path}/mgba/{folder}").mkdir(parents=True, exist_ok=True)
+    if system == "linux":
+        config_file = home / ".config" / "mgba" / "config.ini"
+    if system.startswith("win"):
+        config_file = emus_folder / "mgba" / "config.ini"
+    if system == "darwin":
+        config_file = home / ".config" / "mgba" / "config.ini"
+    if config_file.is_file():
+        set_config("cheatsPath", f"{storage_path}/mgba/cheats", config_file)
+        set_config("patchPath", f"{storage_path}/mgba/patches", config_file)
+        set_config("screenshotPath", f"{storage_path}/mgba/screenshots", config_file)
+    return True

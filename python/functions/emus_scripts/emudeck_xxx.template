@@ -81,8 +81,8 @@ def _xxx_setup_saves():
         origin_saves=f"{home}/.share/_xxx/sdmc"
         origin_states=f"{home}/.local/share/_xxx-emu/states"
 
-    move_contents_and_link(origin_saves,f"{saves_path}/_xxx/saves")
-    move_contents_and_link(origin_states,f"{saves_path}/_xxx/states")
+    link_to_saves_folder(origin_saves, "_xxx/saves")
+    link_to_saves_folder(origin_states, "_xxx/states")
 
 
 def _xxx_set_resolution():

@@ -279,9 +279,22 @@ def update_or_append_config_line(config_file: str, option: str, replacement: str
 
     if not updated:
         print(f"appending: {replacement} to {config_file}")
+        if new_lines and not new_lines[-1].endswith('\n'):
+            new_lines[-1] += '\n'
         new_lines.append(replacement.rstrip('\n') + '\n')
 
     path.write_text(''.join(new_lines), encoding='utf-8')
+
+
+def copy_with_backup(source: Union[str, Path], destination: Union[str, Path]) -> Path:
+    source, destination = Path(source), Path(destination)
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if destination.is_file():
+        if destination.read_bytes() == source.read_bytes():
+            return destination
+        shutil.copy2(destination, destination.with_name(destination.name + ".bak"))
+    shutil.copy2(source, destination)
+    return destination
 
 
 def get_xdg_user_dir(name: str) -> Path:
@@ -326,10 +339,6 @@ FLATPAK_EMULATORS = {
 }
 
 
-def desktop_hidden_on_frame() -> bool:
-    return get_product_name() == "frame"
-
-
 def find_launcher(name: str):
     stem = name.lower()
     launchers_dir = Path(tools_path) / "launchers"
@@ -347,7 +356,7 @@ def create_flatpak_desktop(app_id: str, name: str) -> None:
     if launcher is None:
         return
     dest = Path.home() / ".local" / "share" / "applications" / f"{app_id}.desktop"
-    create_desktop_shortcut(dest, f"{name} Flatpak - EmuDeck", str(launcher), False, hide_on_frame=True)
+    create_desktop_shortcut(dest, name, str(launcher))
 
 
 def flatpak_desktop_regenerate() -> None:
@@ -355,7 +364,7 @@ def flatpak_desktop_regenerate() -> None:
         create_flatpak_desktop(app_id, name)
 
 
-def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: bool, hide_on_frame: bool = True):
+def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: bool = False):
     system = platform.system().lower()
 
     if system.startswith("win"):
@@ -393,37 +402,31 @@ def create_desktop_shortcut(dest: Path, name: str, exec_path: str, terminal: boo
         return
 
     if system == "linux":
-        from pathlib import Path
-        import shutil
-
         icons_dest = Path.home() / ".local" / "share" / "icons" / "emudeck"
         icons_dest.mkdir(parents=True, exist_ok=True)
-
-        icons_src = Path(icons_path)
-        base = name.split(" ", 1)[0]
-        icon = ""
-        for ext in ("svg", "jpg", "png"):
-            src_file = icons_src / f"{base}.{ext}"
-            if src_file.exists():
-                dst_file = icons_dest / src_file.name
-                shutil.copy2(src_file, dst_file)
-                icon = str(dst_file)
+        base = name.split(" ", 1)[0].lower()
+        icon = "steamdeck-gaming-return"
+        for src in sorted(Path(icons_path).glob("*.*")):
+            if src.is_file() and src.stem.lower() == base and src.suffix.lower() in (".svg", ".jpg", ".png"):
+                shutil.copy2(src, icons_dest / src.name)
+                icon = str(icons_dest / src.name)
                 break
 
-        desktop_entry = [
-            "[Desktop Entry]",
-            "Type=Application",
-            f"Name={name}",
-            f"Icon={icon}",
-            f"Exec={exec_path}",
-            f"Terminal={'true' if terminal else 'false'}",
-            "Categories=Utility;"
-        ]
-        if hide_on_frame and desktop_hidden_on_frame():
+        desktop_entry = ["#!/usr/bin/env xdg-open", "[Desktop Entry]"]
+        if "EmuDeck" not in name and "Steam-ROM-Manager" not in name and get_product_name() == "frame":
             desktop_entry.append("NoDisplay=true")
+        desktop_entry += [
+            f"Name={name}",
+            f"Exec={exec_path}",
+            f"Icon={icon}",
+            f"Terminal={'true' if terminal else 'false'}",
+            "Type=Application",
+            "Categories=Game;",
+            "StartupNotify=false",
+        ]
         dest = Path(dest)
         dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text("\n".join(desktop_entry) + "\n", encoding='utf-8')
+        dest.write_text("\n".join(desktop_entry) + "\n", encoding="utf-8")
         dest.chmod(0o755)
         print(f"Created .desktop file: {dest}")
 
@@ -456,8 +459,6 @@ def create_desktop_icon():
         desktop / "EmuDeck.desktop",
         "EmuDeck",
         appimage,
-        terminal=False,
-        hide_on_frame=False
     )
 
     applications_dir = Path.home() / ".local" / "share" / "applications"
@@ -465,8 +466,6 @@ def create_desktop_icon():
         applications_dir / "EmuDeck.desktop",
         "EmuDeck",
         appimage,
-        terminal=False,
-        hide_on_frame=False
     )
 
 def md5_of(path: Path) -> Optional[str]:
@@ -525,81 +524,6 @@ def get_latest_prerelease_gh(repository: str,
                 return asset.get("browser_download_url", "")
 
     return ""
-
-def linkToSaveFolder(emu: str, folderName: str, path: str, saves_path: str, set_msg) -> None:
-    link_path = Path(saves_path) / emu / folderName
-    target_path = Path(path)
-
-    if not link_path.is_dir():
-        if not link_path.is_symlink():
-            (Path(saves_path) / emu).mkdir(parents=True, exist_ok=True)
-            set_msg(f"Linking {emu} {folderName} to the Emulation/saves folder")
-            target_path.mkdir(parents=True, exist_ok=True)
-            link_path.symlink_to(target_path, target_is_directory=True)
-            print(f"Linked: {link_path} → {target_path}")
-    else:
-        if not link_path.is_symlink():
-            print(f"{link_path} is not a link. Please check it.")
-        else:
-            current_target = os.readlink(str(link_path))
-            if Path(current_target) == target_path:
-                print(f"{link_path} is already linked.")
-                print(f"     Target: {current_target}")
-            else:
-                print(f"{link_path} not linked correctly, relinking.")
-                link_path.unlink()
-                linkToSaveFolder(emu, folderName, path, saves_path, set_msg)
-
-def linkToTexturesFolder(emu: str, folderName: str, path: str, emulation_path: str, set_msg) -> None:
-    texturepacks_dir = Path(emulation_path) / "texturepacks"
-    texturepacks_dir.mkdir(parents=True, exist_ok=True)
-
-    link_path = texturepacks_dir / emu / folderName
-    target_path = Path(path)
-
-    if not link_path.is_dir():
-        if not link_path.is_symlink():
-            (texturepacks_dir / emu).mkdir(parents=True, exist_ok=True)
-            set_msg(f"Linking {emu} {folderName} to the Emulation/texturepacks folder")
-            target_path.mkdir(parents=True, exist_ok=True)
-            link_path.symlink_to(target_path, target_is_directory=True)
-            print(f"Linked: {link_path} → {target_path}")
-    else:
-        if not link_path.is_symlink():
-            print(f"{link_path} is not a link. Please check it.")
-        else:
-            current_target = os.readlink(str(link_path))
-            if Path(current_target) == target_path:
-                print(f"{link_path} is already linked.")
-                print(f"     Target: {current_target}")
-            else:
-                print(f"{link_path} not linked correctly, relinking.")
-                link_path.unlink()
-                linkToTexturesFolder(emu, folderName, path, emulation_path, set_msg)
-
-def linkToStorageFolder(emu: str, folderName: str, path: str, storage_path: str, set_msg) -> None:
-    link_path = Path(storage_path) / emu / folderName
-    target_path = Path(path)
-
-    if not link_path.is_dir():
-        if not link_path.is_symlink():
-            (Path(storage_path) / emu).mkdir(parents=True, exist_ok=True)
-            set_msg(f"Linking {emu} {folderName} to the {storage_path} folder")
-            target_path.mkdir(parents=True, exist_ok=True)
-            link_path.symlink_to(target_path, target_is_directory=True)
-            print(f"Linked: {link_path} → {target_path}")
-    else:
-        if not link_path.is_symlink():
-            print(f"{link_path} is not a link. Please check it.")
-        else:
-            current_target = os.readlink(str(link_path))
-            if Path(current_target) == target_path:
-                print(f"{link_path} is already linked.")
-                print(f"     Target: {current_target}")
-            else:
-                print(f"{link_path} not linked correctly, relinking.")
-                link_path.unlink()
-                linkToStorageFolder(emu, folderName, path, storage_path, set_msg)
 
 def calculate_checksum_sha256(file: Union[str, Path]) -> Optional[str]:
     file = Path(file)
@@ -944,7 +868,7 @@ def uninstall_emu(name, type_):
             desktop.unlink()
         print(f"Removed Flatpak")
 
-def create_app_shortcut(name: str):
+def create_app_shortcut(name: str, display_name: Optional[str] = None, terminal: bool = False):
     launcher_name = name
 
     dest = Path(f"{tools_path}/launchers")
@@ -1028,62 +952,26 @@ def create_app_shortcut(name: str):
         return
 
     if system == "linux":
-        icons_src = Path(icons_path)
-        icons_dest = Path.home() / ".local" / "share" / "icons" / "emudeck"
-        icons_dest.mkdir(parents=True, exist_ok=True)
-
-        base = name.split(" ", 1)[0]
-        icon = ""
-        for ext in ("svg", "jpg", "png"):
-            src_file = icons_src / f"{base}.{ext}"
-            if src_file.exists():
-                dst_file = icons_dest / src_file.name
-                shutil.copy2(src_file, dst_file)
-                icon = str(dst_file)
-                break
-
         folder = ""
         script_filename = f"{launcher_name.lower()}.sh"
-        display_name = name
         desktop_filename = f"{name}.desktop"
-        keywords = f"{name.lower()};emudeck;"
-
+        default_name = f"{name} AppImage"
         if name == "ES-DE":
             folder = "es-de"
-
         if name == "srm":
             folder = "srm"
             script_filename = "steamrommanager.sh"
-            display_name = "SteamRomManager"
-            desktop_filename = "srm.desktop"
-            keywords = "srm;steam;rom;manager;steamrommanager;steam rom manager;emudeck;"
+            desktop_filename = "Steam ROM Manager.desktop"
+            default_name = "Steam-ROM-Manager AppImage"
+        display_name = display_name or default_name
 
-        src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / script_filename
+        src_file = get_launchers_source_dir() / folder / script_filename
         exec_path = Path(tools_path) / "launchers" / folder / script_filename
-
         exec_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_file, exec_path)
         exec_path.chmod(exec_path.stat().st_mode | 0o111)
 
-        desktop_entry = [
-            "[Desktop Entry]",
-            "Type=Application",
-            f"Name={display_name} - EmuDeck",
-            f"Icon={icon}",
-            f"Exec={exec_path}",
-            "Terminal=false",
-            "Categories=Utility;",
-            f"Keywords={keywords}",
-        ]
-        if name != "srm" and desktop_hidden_on_frame():
-            desktop_entry.append("NoDisplay=true")
-
-        applications_dir = Path.home() / ".local" / "share" / "applications"
-        dest = applications_dir / desktop_filename
-        dest.parent.mkdir(parents=True, exist_ok=True)
-        dest.write_text("\n".join(desktop_entry) + "\n", encoding="utf-8")
-        dest.chmod(0o755)
-        print(f"Created .desktop file: {dest}")
+        create_desktop_shortcut(Path.home() / ".local" / "share" / "applications" / desktop_filename, display_name, str(exec_path), terminal)
 
     if system == "darwin":
         folder = ""
@@ -1241,11 +1129,14 @@ def extract_tar_gz(archive_path: Path, extract_to: Path):
 
 def copy_setting_dir(src: Path, dst: Path):
     src = Path( emudeck_backend / "configs" / src)
-    shutil.copytree(
-        src,
-        dst,
-        dirs_exist_ok=True
-    )
+    dst = Path(dst)
+    dst.mkdir(parents=True, exist_ok=True)
+    for item in sorted(src.rglob("*")):
+        target = dst / item.relative_to(src)
+        if item.is_dir():
+            target.mkdir(parents=True, exist_ok=True)
+        elif item.is_file():
+            copy_with_backup(item, target)
 def copy_and_set_settings_file(src: Union[str, Path],
                                dst: Union[str, Path]) -> Path:
     src_path = Path(emudeck_backend) / "configs" / Path(src)
@@ -1256,11 +1147,7 @@ def copy_and_set_settings_file(src: Union[str, Path],
     dst_dir.mkdir(parents=True, exist_ok=True)
 
     dst_file = dst_dir / src_path.name
-
-    if dst_file.exists():
-        shutil.copy2(dst_file, dst_file.with_name(dst_file.name + ".bak"))
-
-    shutil.copy2(src_path, dst_file)
+    copy_with_backup(src_path, dst_file)
 
     print(f"Copied {src_path} → {dst_file}")
     sed("EMULATIONPATH",emulation_path,dst_file)
@@ -1278,9 +1165,22 @@ def sed(old: str, replacement: str, file_path: str) -> None:
         f.write(text.replace(old, str(replacement)))
 
 
-def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Path]) -> bool:
+def link_to_emulation_folder(origin: Union[str, Path], destination: Union[str, Path]) -> bool:
+    """ Master function to link folders, used for saves, storage, textures, etc. In Unix systems the emulator folder is a real folder and the simlink is inside Emulation/**/ folders to prevent killing flatpaks by leaving orphaned symlinks, in Windows is other way around, real folders inside the Emulation/**/ folders, symlinks in the Emulator folder"""
     origin = Path(origin)
     destination = Path(destination)
+    if not system.startswith("win"):
+        origin.mkdir(parents=True, exist_ok=True)
+        if destination.is_symlink():
+            if Path(os.readlink(destination)) == origin:
+                return True
+            destination.unlink()
+        elif destination.exists():
+            print(f"{destination} is not a link. Please check it.")
+            return False
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.symlink_to(origin, target_is_directory=True)
+        return True
     print("Linking...")
     
     if not origin.exists() and not origin.is_symlink():
@@ -1337,6 +1237,23 @@ def move_contents_and_link(origin: Union[str, Path], destination: Union[str, Pat
         return True
     
         return False
+
+def link_to_saves_folder(origin: Union[str, Path], folder: str) -> bool:
+    return link_to_emulation_folder(origin, Path(saves_path) / folder)
+
+
+def link_to_storage_folder(origin: Union[str, Path], folder: str) -> bool:   
+    return link_to_emulation_folder(origin, Path(storage_path) / folder)
+
+
+def link_to_textures_folder(origin: Union[str, Path], folder: str) -> bool:
+    return link_to_emulation_folder(origin, Path(emulation_path) / "texturepacks" / folder)
+
+
+def link_to_bios_folder(origin: Union[str, Path], folder: str) -> bool:
+    """Links an emulator folder with Emulation/bios/<folder>."""
+    return link_to_emulation_folder(origin, Path(bios_path) / folder)
+
 
 def set_config(old: str, new: str, file_to_check: Path, separator: str = "=") -> None:
     path = Path(file_to_check)
@@ -1833,6 +1750,61 @@ def popup_show_menu(title: str, options: list) -> Optional[bool]:
     return True
 
 
+def ini_section_update(config_file: Union[str, Path], section: str, content: str) -> bool:
+    path = Path(config_file)
+    if not path.is_file():
+        return False
+    out, inside, trailing = [], False, 0
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if re.match(rf"^\[{re.escape(section)}\]", line):
+            inside, trailing = True, 0
+            out += [line, content]
+            continue
+        if inside:
+            if line.startswith("["):
+                inside = False
+                out += [""] * trailing
+                trailing = 0
+            else:
+                trailing = trailing + 1 if not line.strip() else 0
+                continue
+        out.append(line)
+    out += [""] * trailing
+    path.write_text("\n".join(out) + "\n", encoding="utf-8")
+    return True
+
+
+def add_steam_input_custom_icons() -> bool:
+    if system != "linux":
+        return False
+    
+    source = Path(emudeck_backend) / "configs" / "common" / "steam-input" / "Icons"
+    if hybrid_mode:
+       source = Path(bash_backend) / "configs" / "steam-input" / "Icons"
+        
+    destination = home / ".steam" / "steam" / "tenfoot" / "resource" / "images" / "library" / "controller" / "binding_icons"
+    destination.mkdir(exist_ok=True)
+    shutil.copytree(source, destination, dirs_exist_ok=True)
+    return True
+
+
+def add_steam_input_templates(template: Optional[str] = None) -> bool:
+    if system != "linux":
+        return False
+        
+    source = Path(emudeck_backend) / "configs" / "common" / "steam-input"
+    if hybrid_mode:
+      source = Path(bash_backend) / "configs" / "steam-input"
+        
+    destination = home / ".steam" / "steam" / "controller_base" / "templates"
+    destination.mkdir(exist_ok=True)
+    files = [source / template] if template else [f for f in source.iterdir() if f.is_file()]
+    for file in files:
+        if file.is_file():
+            shutil.copy2(file, destination / file.name)
+    return True
+
+
 def parser_source(custom_parser: str) -> Optional[dict]:
     """Loads an optional SRM parser with its paths set for this install (bash parsers in hybrid mode)."""
     if hybrid_mode:
@@ -1953,12 +1925,17 @@ def calculate_md5(filename):
             hash_md5.update(chunk)
     return hash_md5.hexdigest()
 
+def get_launchers_source_dir() -> Path:
+    win = system.startswith("win")
+    if hybrid_mode and not win:
+        return Path(bash_backend) / "tools" / "launchers"
+    return Path(emudeck_backend) / "tools" / "launchers" / ("windows" if win else "unix")
+
+
 def flush_emulator_launchers(name: str) -> None:
     win = system.startswith("win")
     ext = ".bat" if win else ".sh"
-    src_dir = Path(emudeck_backend) / "tools" / "launchers" / ("windows" if win else "unix")
-    if hybrid_mode and not win:
-        src_dir = Path(bash_backend) / "tools" / "launchers"
+    src_dir = get_launchers_source_dir()
     targets = [Path(tools_path) / "launchers", Path(roms_path) / "emulators"]
 
     stem = str(name).lower()
@@ -2050,7 +2027,60 @@ def start_menu_reset():
     
     
 
-from .helpers_scripts.unused import *
+def get_locations():
+    import wmi
+    c = wmi.WMI()
+    drive_info = []
+
+    for net in c.Win32_LogicalDisk(DriveType=4):
+        if not net.VolumeName or not net.Size:
+            continue
+        try:
+            size_gb = round(int(net.Size) / (1024**3), 2)
+        except Exception:
+            continue
+        drive_info.append({
+            "name":   net.VolumeName,
+            "size":   size_gb,
+            "type":   "Network",
+            "letter": net.DeviceID,
+        })
+
+    for disk in c.Win32_DiskDrive():
+        media = disk.MediaType or ""
+        if "Fixed hard disk media" in media:
+            dtype = "Internal"
+        elif "Removable media" in media:
+            dtype = "External"
+        else:
+            dtype = "Unknown"
+
+        for part in disk.associators("Win32_DiskDriveToDiskPartition"):
+            for ld in part.associators("Win32_LogicalDiskToPartition"):
+                if not ld.DeviceID or not disk.Size:
+                    continue
+                try:
+                    size_gb = round(int(disk.Size) / (1024**3), 2)
+                except Exception:
+                    continue
+                drive_info.append({
+                    "name":   disk.Model.strip(),
+                    "size":   size_gb,
+                    "type":   dtype,
+                    "letter": ld.DeviceID,
+                })
+
+    drive_info.sort(key=lambda d: d["letter"])
+
+    if not drive_info:
+        drive_info = [{
+            "type":   "Internal",
+            "letter": "C:",
+            "name":   "harddisk SSD",
+            "size":   999
+        }]
+
+    return drive_info
 
 
 def _emudeck_namespace():

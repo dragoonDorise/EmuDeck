@@ -3,16 +3,23 @@ set -u
 
 testsDir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 repo="$(cd "$testsDir/../.." && pwd)"
-fn="${1:-}"
+target="${1:-}"
 ref="${2:-main}"
+fn="${target%%:*}"
+pyFn=""
+if [[ "$target" == *:* ]]; then
+	pyFn="${target#*:}"
+fi
+prepare="${EMUDECK_TEST_PREPARE:-}"
 
 if [ -z "$fn" ]; then
-	echo "Usage: $0 <bash_function> [legacy_git_ref=main]"
-	echo "Runs <bash_function> as it is in <legacy_git_ref> and as it is now, each in its own sandbox HOME, and compares the files they leave."
+	echo "Usage: $0 <bash_function>[:<python_function>] [legacy_git_ref=main]"
+	echo "Runs <bash_function> as it is in <legacy_git_ref> and, in another sandbox HOME, as it is now (or <python_function> through py_run), then compares the files they leave."
+	echo "EMUDECK_TEST_PREPARE=<command> runs a legacy bash command in both sandboxes first (for example Eden_init)."
 	exit 2
 fi
 
-work="$(mktemp -d)"
+work="$(mktemp -d "${TMPDIR:-/tmp}/$(date +%Y%m%d-%H%M%S)-${target//:/-}-XXXX")"
 venv="${EMUDECK_TEST_VENV:-${XDG_CACHE_HOME:-$HOME/.cache}/emudeck-tests/venv}"
 export EMUDECK_TEST_STUBLOG="$work/stubs.log"
 
@@ -62,11 +69,23 @@ ensureVenv || exit 2
 makeHome "$work/bash"
 makeHome "$work/python"
 
+if [ -n "$prepare" ]; then
+	echo "Preparing both sandboxes with: $prepare"
+	for side in bash python; do
+		TEST_CMD="$prepare" LEGACY_FILE="$work/legacy.sh" runIn "$work/$side" > "$work/prepare-$side.log" 2>&1
+	done
+fi
+
 echo "Running $fn from $ref ($relFile)..."
 TEST_CMD="$fn" LEGACY_FILE="$work/legacy.sh" runIn "$work/bash" > "$work/bash.log" 2>&1
 echo "  exit code: $?"
-echo "Running $fn from the working tree..."
-TEST_CMD="$fn" LEGACY_FILE="" runIn "$work/python" > "$work/python.log" 2>&1
+if [ -n "$pyFn" ]; then
+	echo "Running $pyFn through py_run..."
+	TEST_CMD="py_run $pyFn" LEGACY_FILE="" runIn "$work/python" > "$work/python.log" 2>&1
+else
+	echo "Running $fn from the working tree..."
+	TEST_CMD="$fn" LEGACY_FILE="" runIn "$work/python" > "$work/python.log" 2>&1
+fi
 echo "  exit code: $?"
 echo
 

@@ -20,7 +20,7 @@
         ]
     },
     "executable": {
-        "path": "EMULATIONPATH/tools/launchers/rosaliesmupengui.sh",
+        "path": "EMULATIONPATH/tools/launchers/rosaliesmupengui.EXT",
         "shortcutPassthrough": false,
         "appendArgsToExecutable": false
     },
