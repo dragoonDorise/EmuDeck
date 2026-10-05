@@ -16,6 +16,7 @@ Vita3K_install(){
     echo "Begin Vita3K Install"
     local showProgress="$1"
     local vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-x86_64.AppImage"
+    vita3kDownloadURL="https://github.com/Vita3K/Vita3K-builds/releases/download/4111/Vita3K-x86_64.AppImage"
 
     if [ $CPUarch == "arm" ]; then
         vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-aarch64.AppImage"
