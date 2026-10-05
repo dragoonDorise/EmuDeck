@@ -18,9 +18,9 @@ def primehack_install():
 
         repo = get_latest_release_gh(
             repository="shiiion/dolphin",
-            fileType="a.zip",                 
-            fileNameContains="PrimeHack.Release"
-        ) or "https://github.com/shiiion/dolphin/releases/download/1.0.8a/PrimeHack.Release.v1.0.8a.zip"
+            fileType=".zip",
+            fileNameContains="PrimeHack"
+        )
 
     if system == "darwin":
         return False
