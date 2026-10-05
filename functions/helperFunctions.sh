@@ -417,8 +417,13 @@ function getLatestReleaseURLGH(){
 		url="https://api.github.com/repos/${repository}/releases/latest"
 	fi
 
-	curl -fSs "$url" | \
-		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty'
+	url=$(curl -fSs "$url" | \
+		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty')
+
+	if [ -z "$url" ]; then
+		url=$(getMirrorURLGH "$repository" "$fileType" "$fileNameContains" "$fileNameStartsWith" "")
+	fi
+	echo "$url"
 }
 
 function getReleaseURLGH(){
@@ -435,7 +440,7 @@ function getReleaseURLGH(){
 	fi
 
 	# fetch and filter assets
-	curl -fSs "$url" | \
+	url=$(curl -fSs "$url" | \
 	jq -r --arg contains "$fileNameContains" \
 		--arg startsWith "$fileNameStartsWith" \
 		--arg endsWith "$fileType" \
@@ -452,6 +457,40 @@ function getReleaseURLGH(){
 						true
 					end)
 			).browser_download_url
+		][0] // empty')
+
+	if [ -z "$url" ]; then
+		url=$(getMirrorURLGH "$repository" "$fileType" "$fileNameContains" "$fileNameStartsWith" "$fileNameDoesNotContain")
+	fi
+	echo "$url"
+}
+
+function getMirrorURLGH(){
+	local repository=$(tr "[:upper:]" "[:lower:]" <<< "$1")
+	local fileType=$2
+	local fileNameContains=$3
+	local fileNameStartsWith=$4
+	local fileNameDoesNotContain=$5
+	local index="${emudeckMirrorIndex:-https://github.com/EmuDeck/emulators-mirror/releases/download/latest/index.json}"
+
+	curl -fsSL "$index" | \
+	jq -r --arg repo "$repository" \
+		--arg contains "$fileNameContains" \
+		--arg startsWith "$fileNameStartsWith" \
+		--arg endsWith "$fileType" \
+		--arg doesNotContain "$fileNameDoesNotContain" '
+		[
+			.repos[$repo].assets[]? |
+			select(.name |
+					contains($contains) and
+					startswith($startsWith) and
+					endswith($endsWith) and
+					(if $doesNotContain != "" then
+						contains($doesNotContain) | not
+					else
+						true
+					end)
+			).url
 		][0] // empty'
 }
 

@@ -487,9 +487,12 @@ def get_latest_release_gh(repository: str,
         "X-GitHub-Api-Version": "2022-11-28",
     }
 
-    resp = requests.get(api_url, headers=headers)
-    resp.raise_for_status()
-    data = resp.json()
+    try:
+        resp = requests.get(api_url, headers=headers, timeout=30)
+        resp.raise_for_status()
+        data = resp.json()
+    except (requests.RequestException, ValueError):
+        data = {}
 
     for asset in data.get("assets", []):
         name = asset.get("name", "")
@@ -502,7 +505,7 @@ def get_latest_release_gh(repository: str,
         ):
             return asset.get("browser_download_url", "")
 
-    return False
+    return get_mirror_release_gh(repository, fileType, fileNameContains, fileNameExclude) or False
 
 def get_latest_prerelease_gh(repository: str,
                     fileType: str,
@@ -513,9 +516,12 @@ def get_latest_prerelease_gh(repository: str,
         "X-GitHub-Api-Version": "2022-11-28",
     }
 
-    resp = requests.get(api_url, headers=headers)
-    resp.raise_for_status()
-    releases = resp.json()
+    try:
+        resp = requests.get(api_url, headers=headers, timeout=30)
+        resp.raise_for_status()
+        releases = resp.json()
+    except (requests.RequestException, ValueError):
+        releases = []
 
     for release in releases:
         for asset in release.get("assets", []):
@@ -523,6 +529,28 @@ def get_latest_prerelease_gh(repository: str,
             if (fileNameContains in name and name.endswith(fileType)):
                 return asset.get("browser_download_url", "")
 
+    return get_mirror_release_gh(repository, fileType, fileNameContains)
+
+
+def get_mirror_release_gh(repository: str, fileType: str, fileNameContains: str, fileNameExclude: str = "") -> str:
+    index = os.environ.get("EMUDECK_MIRROR_INDEX", "https://github.com/EmuDeck/emulators-mirror/releases/download/latest/index.json")
+    try:
+        if index.startswith("file://"):
+            mirror = json.loads(Path(index[len("file://"):]).read_text(encoding="utf-8"))
+        else:
+            resp = requests.get(index, timeout=30)
+            resp.raise_for_status()
+            mirror = resp.json()
+    except (requests.RequestException, ValueError, OSError):
+        return ""
+
+    entry = mirror.get("repos", {}).get(repository.replace("\\", "/").lower(), {})
+    for asset in entry.get("assets", []):
+        name = asset.get("name", "")
+        if (fileNameContains in name
+                and name.endswith(fileType)
+                and (not fileNameExclude or fileNameExclude not in name)):
+            return asset.get("url", "")
     return ""
 
 def calculate_checksum_sha256(file: Union[str, Path]) -> Optional[str]:
