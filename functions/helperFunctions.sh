@@ -413,6 +413,11 @@ function statInstall(){
 	( curl -fsL -m 5 -o /dev/null "https://github.com/EmuDeck/stats/releases/download/beacons/$1-$platform.txt" >/dev/null 2>&1 & )
 }
 
+# Tells if the backend is on an early channel branch (early or early-unstable)
+function isEarlyBranch(){
+	[[ "$(git -C "$emudeckBackend" branch --show-current 2>/dev/null)" == early* ]]
+}
+
 function getLatestReleaseURLGH(){
 	local repository=$1
 	local fileType=$2

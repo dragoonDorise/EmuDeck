@@ -121,6 +121,9 @@ source "$emudeckBackend"/functions/jsonToBashVars.sh
 jsonToBashVars "$emudeckFolder/settings.json"
 source "$emudeckBackend/functions/all.sh"
 statInstall "system"
+if isEarlyBranch; then
+	statInstall "early"
+fi
 
 
 #after sourcing functins, check if path is empty.
