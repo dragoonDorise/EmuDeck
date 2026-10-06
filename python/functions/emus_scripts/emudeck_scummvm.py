@@ -2,6 +2,7 @@ from core.all import *
 
 
 def scummvm_install():
+    stat_install("scummvm")
     set_msg(f"Installing ScummVM")
 
     if system == "linux":

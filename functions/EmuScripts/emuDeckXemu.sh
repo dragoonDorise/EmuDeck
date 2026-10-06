@@ -25,6 +25,7 @@ Xemu_cleanup(){
 
 #Install
 Xemu_install() {
+	statInstall "xemu"
 	installEmuFP "${Xemu_emuName}" "${Xemu_emuPath}" "emulator" ""
 }
 

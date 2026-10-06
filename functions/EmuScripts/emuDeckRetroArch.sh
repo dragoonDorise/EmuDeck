@@ -44,6 +44,7 @@ RetroArch_backupConfigs(){
 
 #Install
 RetroArch_install(){
+	statInstall "ra"
 	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_installCores

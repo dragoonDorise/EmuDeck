@@ -38,6 +38,7 @@ def rpcs3_get_download_url():
     return download_url
 
 def rpcs3_install():
+    stat_install("rpcs3")
     set_msg(f"Installing rpcs3")
 
     if system == "linux":

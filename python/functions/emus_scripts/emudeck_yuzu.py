@@ -2,6 +2,7 @@ from core.all import *
 
 
 def yuzu_install():
+    stat_install("yuzu")
     set_msg(f"Installing yuzu")
     return False
 

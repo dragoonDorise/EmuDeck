@@ -16,6 +16,7 @@ Xenia_cleanup(){
 
 #Install
 Xenia_install(){
+	statInstall "xenia"
 	local version
 	version=$1
 	local showProgress="$2"

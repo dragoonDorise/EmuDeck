@@ -2,6 +2,7 @@ from core.all import *
 
 
 def primehack_install():
+    stat_install("primehack")
     set_msg(f"Installing primehack")
 
     if system == "linux":

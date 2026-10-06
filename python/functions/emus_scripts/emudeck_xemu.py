@@ -5,6 +5,7 @@ import zipfile
 
 
 def xemu_install():
+    stat_install("xemu")
     set_msg("Installing Xemu")
 
     if system == "linux":

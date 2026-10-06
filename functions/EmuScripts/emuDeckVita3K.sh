@@ -13,6 +13,7 @@ Vita3K_cleanup(){
 
 #Install
 Vita3K_install(){
+	statInstall "vita3k"
     echo "Begin Vita3K Install"
     local showProgress="$1"
     local vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-x86_64.AppImage"

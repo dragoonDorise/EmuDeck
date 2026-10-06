@@ -2,6 +2,7 @@ from core.all import *
 
 
 def cemu_install():
+    stat_install("cemu")
     set_msg(f"Installing Cemu")
 
     if system == "linux":

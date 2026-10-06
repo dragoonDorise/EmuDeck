@@ -8,6 +8,7 @@ def armsx2_supported():
 
 
 def armsx2_install():
+    stat_install("armsx2")
     if not armsx2_supported():
         return False
     set_msg("Installing ARMSX2")

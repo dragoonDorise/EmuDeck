@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 def shadps4_install():
+    stat_install("shadps4")
     set_msg("Installing shadps4")
 
     if system == "linux":

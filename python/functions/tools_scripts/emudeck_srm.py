@@ -1,6 +1,7 @@
 from core.all import *
 
 def srm_install():
+    stat_install("srm")
     set_msg(f"Installing Steam Rom Manager")
 
     if system == "linux":

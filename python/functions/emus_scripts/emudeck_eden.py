@@ -2,6 +2,7 @@ from core.all import *
 
 
 def eden_install():
+    stat_install("eden")
     set_msg(f"Installing eden")
     return False
 

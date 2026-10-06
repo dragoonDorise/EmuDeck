@@ -48,6 +48,7 @@ Citron_cleanup() {
 
 #Install
 Citron_install() {
+	statInstall "citron"
   setMSG "Begin Citron Install"
 
   local showProgress=$1

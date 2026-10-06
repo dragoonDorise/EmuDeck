@@ -12,6 +12,7 @@ def xenianative_supported():
 
 
 def xenianative_install():
+    stat_install("xenia")
     if not xenianative_supported():
         return False
     set_msg("Installing Xenia")

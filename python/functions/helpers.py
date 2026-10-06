@@ -477,6 +477,23 @@ def md5_of(path: Path) -> Optional[str]:
             h.update(chunk)
     return h.hexdigest()
 
+def stat_install(name: str) -> None:
+    """ Installation stats """
+    if hybrid_mode:
+        return
+    platform = "windows" if system.startswith("win") else ("linux-arm" if cpu_arch == "arm" else "linux")
+    url = f"https://github.com/EmuDeck/stats/releases/download/beacons/{name}-{platform}.txt"
+    try:
+        if system.startswith("win"):
+            subprocess.Popen(["curl.exe", "-fsL", "-m", "5", "-o", "NUL", url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                             creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0) | getattr(subprocess, "DETACHED_PROCESS", 0))
+        else:
+            subprocess.Popen(["curl", "-fsL", "-m", "5", "-o", os.devnull, url], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                             start_new_session=True)
+    except OSError:
+        pass
+
+
 def get_latest_release_gh(repository: str,
                           fileType: str,
                           fileNameContains: str,

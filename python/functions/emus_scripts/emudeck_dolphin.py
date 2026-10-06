@@ -28,6 +28,7 @@ def dolphin_download_url():
     return None
 
 def dolphin_install():
+    stat_install("dolphin")
     set_msg("Installing dolphin")
 
     # LINUX (Flatpak)

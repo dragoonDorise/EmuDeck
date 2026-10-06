@@ -5,6 +5,7 @@ from core.all import *
 
 
 def xenia_install():
+    stat_install("xenia")
     set_msg("Installing Xenia")
 
     if system == "linux":

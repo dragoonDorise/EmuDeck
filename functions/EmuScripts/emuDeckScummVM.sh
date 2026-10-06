@@ -13,6 +13,7 @@ ScummVM_cleanup(){
 
 #Install
 ScummVM_install(){
+	statInstall "scummvm"
 	installEmuFP "${ScummVM_emuName}" "${ScummVM_emuPath}" "emulator" ""
 
 }

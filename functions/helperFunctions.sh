@@ -404,6 +404,14 @@ function checkForFile(){
 		  fi
 	done
 }
+# Install stats
+function statInstall(){
+	local platform="linux"
+	if [ "$CPUarch" == "arm" ]; then
+		platform="linux-arm"
+	fi
+	( curl -fsL -m 5 -o /dev/null "https://github.com/EmuDeck/stats/releases/download/beacons/$1-$platform.txt" >/dev/null 2>&1 & )
+}
 
 function getLatestReleaseURLGH(){
 	local repository=$1

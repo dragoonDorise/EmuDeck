@@ -1,6 +1,7 @@
 from core.all import *
 
 def vita3k_install():
+    stat_install("vita3k")
     set_msg(f"Installing Vita3K")
 
     if system == "linux":

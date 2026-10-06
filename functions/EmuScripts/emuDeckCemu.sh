@@ -461,6 +461,7 @@ Cemu_uninstall () {
 
 # Install
 Cemu_install () {
+	statInstall "cemu"
 	local showProgress="$1"
 	Cemu_functions "install" "$showProgress"
 }

@@ -2,6 +2,7 @@ from core.all import *
 
 
 def rmg_install():
+    stat_install("rmg")
     set_msg(f"Installing rmg")
 
     if system == "linux":

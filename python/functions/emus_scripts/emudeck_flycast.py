@@ -2,6 +2,7 @@ from core.all import *
 
 
 def flycast_install():
+    stat_install("flycast")
     set_msg(f"Installing Flycast")
 
     if system == "linux":

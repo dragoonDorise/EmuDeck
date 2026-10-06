@@ -14,6 +14,7 @@ melonDS_finalize(){
 
 #Install
 melonDS_install(){
+	statInstall "melonds"
 	setMSG "Installing $melonDS_emuName"
 	installEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }

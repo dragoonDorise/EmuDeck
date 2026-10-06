@@ -12,6 +12,7 @@ def pcsx2_rename_versions(dir_path: Path) -> None:
         f.rename(new_path)
 
 def pcsx2_install():
+    stat_install("pcsx2")
     set_msg(f"Installing pcsx2")
 
     if system == "linux":

@@ -14,6 +14,7 @@ Supermodel_cleanup(){
 
 #Install
 Supermodel_install(){
+	statInstall "supermodel"
 	setMSG "Installing $Supermodel_emuName"
 	installEmuFP "${Supermodel_emuName}" "${Supermodel_emuPath}" "emulator" ""
 }

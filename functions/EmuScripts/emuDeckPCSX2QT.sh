@@ -12,6 +12,7 @@ PCSX2QT_cleanup() {
 
 #Install
 PCSX2QT_install() {
+	statInstall "pcsx2"
 	echo "Begin PCSX2-QT Install"
 	local showProgress="$1"
 

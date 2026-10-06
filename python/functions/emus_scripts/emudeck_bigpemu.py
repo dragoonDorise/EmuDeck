@@ -33,6 +33,7 @@ def bigpemu_get_download_url() -> Optional[str]:
     return filtered[0] if filtered else None
 
 def bigpemu_install():
+    stat_install("bigpemu")
     set_msg(f"Installing bigpemu")
 
     if system == "linux":

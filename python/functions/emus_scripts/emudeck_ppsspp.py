@@ -4,6 +4,7 @@ import requests
 from pathlib import Path
 
 def ppsspp_install():
+    stat_install("ppsspp")
     set_msg(f"Installing ppsspp")
 
     if system == "linux":

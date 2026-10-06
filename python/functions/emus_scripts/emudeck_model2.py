@@ -3,6 +3,7 @@ from pathlib import Path
 
 
 def model2_install():
+    stat_install("model2")
     set_msg(f"Installing model2")
     if system == "linux":
         roms_model2 = roms_path / "model2"

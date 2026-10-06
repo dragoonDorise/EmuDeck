@@ -1,6 +1,7 @@
 from core.all import *
 
 def mame_install():
+    stat_install("mame")
     set_msg(f"Installing mame")
 
     if system == "linux":

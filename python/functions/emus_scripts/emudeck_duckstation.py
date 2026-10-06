@@ -1,6 +1,7 @@
 from core.all import *
 
 def duckstation_install():
+    stat_install("duckstation")
     set_msg(f"Installing DuckStation")
 
     if system == "linux":

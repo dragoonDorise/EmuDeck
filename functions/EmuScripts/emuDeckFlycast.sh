@@ -13,6 +13,7 @@ Flycast_cleanup(){
 
 #Install
 Flycast_install(){
+	statInstall "flycast"
 	setMSG "Installing $Flycast_emuName"
 	installEmuFP "${Flycast_emuName}" "${Flycast_emuPath}" "emulator" ""
 }

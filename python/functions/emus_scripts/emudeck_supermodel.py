@@ -4,6 +4,7 @@ SUPERMODEL_GAMES_LIST = "https://raw.githubusercontent.com/trzy/Supermodel/maste
 
 
 def supermodel_install():
+    stat_install("supermodel")
     set_msg(f"Installing Supermodel")
 
     if system == "linux":

@@ -14,6 +14,7 @@ RPCS3_cleanup(){
 
 #Install
 RPCS3_install(){
+	statInstall "rpcs3"
 	installEmuFP "${RPCS3_remuName}" "${RPCS3_emuPath}"
 }
 

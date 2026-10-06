@@ -1,6 +1,7 @@
 from core.all import *
 
 def mgba_install():
+    stat_install("mgba")
     set_msg(f"Installing mgba")
 
     if system == "linux":

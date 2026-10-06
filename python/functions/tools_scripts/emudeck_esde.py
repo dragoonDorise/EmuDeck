@@ -41,6 +41,7 @@ def esde_get_url():
 
 
 def esde_install():
+    stat_install("esde")
     set_msg("Installing ES-DE")
 
     if system == "linux":

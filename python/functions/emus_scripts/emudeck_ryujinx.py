@@ -40,6 +40,7 @@ def ryujinx_get_url():
 
 
 def ryujinx_install():
+    stat_install("ryujinx")
     set_msg("Installing ryujinx")
     repo = ryujinx_get_url()
 

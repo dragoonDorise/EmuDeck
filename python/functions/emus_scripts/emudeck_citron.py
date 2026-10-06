@@ -2,6 +2,7 @@ from core.all import *
 
 
 def citron_install():
+    stat_install("citron")
     set_msg(f"Installing citron")
     return False
 

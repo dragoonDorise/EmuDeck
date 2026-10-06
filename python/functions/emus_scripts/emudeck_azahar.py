@@ -1,6 +1,7 @@
 from core.all import *
 
 def azahar_install():
+    stat_install("azahar")
     set_msg(f"Installing azahar")
     repository = "azahar-emu/azahar"
 

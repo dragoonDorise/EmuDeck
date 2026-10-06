@@ -2,6 +2,7 @@ from core.all import *
 
 
 def melonds_install():
+    stat_install("melonds")
     set_msg(f"Installing melonds")
 
     if system == "linux":

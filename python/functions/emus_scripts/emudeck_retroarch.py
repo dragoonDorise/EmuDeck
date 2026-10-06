@@ -34,6 +34,7 @@ def ra_init(): # Lecay compat
     retroarch_init()
 
 def retroarch_install():
+    stat_install("ra")
     set_msg(f"Installing retroarch")
 
     if system == "linux":

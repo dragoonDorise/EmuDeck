@@ -14,6 +14,7 @@ pegasus_cleanup(){
 
 #Install
 pegasus_install(){
+	statInstall "pegasus"
 
 	setMSG "Installing $pegasus_toolName"
 	flatpak uninstall "$pegasus_emuPath" --user -y &> /dev/null;
