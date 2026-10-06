@@ -12,6 +12,7 @@ ARMSX2_cleanup() {
 
 #Install
 ARMSX2_install() {
+	statInstall "armsx2"
 	
 	local showProgress="$1"
 

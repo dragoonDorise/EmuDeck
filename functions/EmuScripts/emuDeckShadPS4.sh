@@ -16,6 +16,7 @@ ShadPS4_cleanup(){
 }
 
 ShadPS4_install(){
+	statInstall "shadps4"
     echo "Begin ShadPS4 Install"
     local showProgress=$1
 

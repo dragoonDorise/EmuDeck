@@ -12,6 +12,7 @@ mGBA_cleanup(){
 
 #Install
 mGBA_install(){
+	statInstall "mgba"
 	echo "Begin mGBA Install"
 	local showProgress="$1"
 	local appName="x64.appimage"

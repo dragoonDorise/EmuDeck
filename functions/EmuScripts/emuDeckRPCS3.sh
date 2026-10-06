@@ -118,6 +118,7 @@ RPCS3_ApiGetUpdateInfo(){
 
 #Install
 RPCS3_install(){
+	statInstall "rpcs3"
 	setMSG "Installing RPCS3"
 
 	# Migrates configurations to RPCS3 AppImage

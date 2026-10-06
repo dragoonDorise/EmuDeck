@@ -48,6 +48,7 @@ Eden_cleanup() {
 
 #Install
 Eden_install() {
+	statInstall "eden"
   setMSG "Begin Eden Install"
 
   local showProgress=$1

@@ -13,6 +13,7 @@ MAME_cleanup(){
 
 #Install
 MAME_install(){
+	statInstall "mame"
 	installEmuFP "${MAME_emuName}" "${MAME_emuPath}" "emulator" ""
 }
 

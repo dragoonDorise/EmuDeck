@@ -12,6 +12,7 @@ Model2_cleanup(){
 
 #Install
 Model2_install(){
+	statInstall "model2"
 	setMSG "Installing $Model2_emuName"
 
 	# Create the ROMs and pfx directory if they do not exist

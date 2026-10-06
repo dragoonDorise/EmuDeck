@@ -78,6 +78,7 @@ ESDE_uninstall(){
 
 #Install
 ESDE_install(){
+	statInstall "esde"
 	setMSG "Installing $ESDE_toolName"
 	mkdir -p $ESDE_toolLocation
 

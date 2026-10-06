@@ -96,6 +96,7 @@ Dolphin_cleanup(){
 
 #Install
 Dolphin_install(){
+	statInstall "dolphin"
   setMSG "${Dolphin_emuName}: Install"
   echo ""
 	installEmuFP "${Dolphin_emuName}" "${Dolphin_emuPath}" "emulator" ""

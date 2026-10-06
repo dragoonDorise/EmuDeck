@@ -18,6 +18,7 @@ Primehack_cleanup(){
 
 #Install
 Primehack_install() {
+	statInstall "primehack"
 	setMSG "Installing $Primehack_emuName"
 	installEmuFP "${Primehack_emuName}" "${Primehack_emuPath}" "emulator" ""
 }

@@ -10,6 +10,7 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 
 #Install
 Azahar_install(){
+	statInstall "azahar"
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
 	

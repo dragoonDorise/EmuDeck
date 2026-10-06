@@ -58,6 +58,7 @@ Yuzu_cleanup() {
 
 #Install
 Yuzu_install() {
+	statInstall "yuzu"
     echo "Begin Yuzu Install"
 
     local showProgress=$1

@@ -120,6 +120,7 @@ source "$emudeckBackend"/functions/helperFunctions.sh
 source "$emudeckBackend"/functions/jsonToBashVars.sh
 jsonToBashVars "$emudeckFolder/settings.json"
 source "$emudeckBackend/functions/all.sh"
+statInstall "system"
 
 
 #after sourcing functins, check if path is empty.

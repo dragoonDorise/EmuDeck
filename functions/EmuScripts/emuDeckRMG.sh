@@ -13,6 +13,7 @@ RMG_cleanup(){
 
 #Install
 RMG_install() {
+	statInstall "rmg"
 	setMSG "Installing $RMG_emuName"
 	installEmuFP "${RMG_emuName}" "${RMG_emuPath}" "emulator" ""
 }

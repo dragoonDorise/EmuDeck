@@ -13,6 +13,7 @@ PPSSPP_cleanup(){
 
 #Install
 PPSSPP_install(){
+	statInstall "ppsspp"
 	setMSG "Installing $PPSSPP_emuName" 
 	installEmuFP "${PPSSPP_emuName}" "${PPSSPP_emuPath}" "emulator" ""
 }

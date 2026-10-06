@@ -10,6 +10,7 @@ DuckStation_configFile="$HOME/.local/share/duckstation/settings.ini"
 
 #Install
 DuckStation_install(){
+	statInstall "duckstation"
 	echo "Begin $DuckStation_emuName Install"
 	local showProgress="$1"
 	local format="AppImage"

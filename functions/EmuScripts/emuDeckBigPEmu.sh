@@ -14,6 +14,7 @@ BigPEmu_cleanup(){
 
 #Install
 BigPEmu_install(){
+	statInstall "bigpemu"
 	setMSG "Installing $BigPEmu_emuName"
 
 	mkdir -p $BigPEmu_appData

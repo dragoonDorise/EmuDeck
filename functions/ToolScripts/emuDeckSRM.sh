@@ -9,6 +9,7 @@ SRM_userConfigurations="$HOME/.config/steam-rom-manager/userData/userConfigurati
 #cleanupOlderThings
 
 SRM_install(){
+	statInstall "srm"
   setMSG "Installing Steam ROM Manager"
   local showProgress="$1"
 

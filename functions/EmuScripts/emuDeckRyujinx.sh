@@ -47,6 +47,7 @@ Ryujinx_cleanup(){
 
 #Install
 Ryujinx_install(){
+	statInstall "ryujinx"
     echo "Begin Ryujinx Install"
     local showProgress=$1
     local url

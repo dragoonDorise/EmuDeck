@@ -12,6 +12,7 @@ ares_cleanup(){
 
 #Install
 ares_install() {
+	statInstall "ares"
 	setMSG "Installing $ares_emuName"
 
 	installEmuFP "${ares_emuName}" "${ares_emuPath}" "emulator" ""
