@@ -7,6 +7,10 @@ cloud_sync_install(){
   {
     # startLog ${FUNCNAME[0]}
     local cloud_sync_provider=$1
+    statInstall "cloudsync"
+    if isEarlyBranch; then
+      statInstall "early-cloudsync"
+    fi
     setSetting cloud_sync_provider "$cloud_sync_provider"
     setSetting cloud_sync_status "true"
     rm -rf "$HOME/.config/systemd/user/EmuDeckCloudSync.service" > /dev/null
