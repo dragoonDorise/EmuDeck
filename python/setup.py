@@ -2,6 +2,7 @@
 from functions.env import generate_python_env
 generate_python_env()
 from core.all import *
+stat_install("system")
 progress_bar=0
 #Log reset
 with open(emudeck_logs/'emudeck.log', 'w', encoding='utf-8') as f:
