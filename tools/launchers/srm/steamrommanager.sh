@@ -43,10 +43,11 @@ else
 	#We get the hash for the current state of the non steam shortcuts for all shortcuts.vdf files
 	shortcutsHash=$(find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec md5sum {} + 2>/dev/null | sort | md5sum)
 
-	zenity --question \
+	zenity --info \
 	--width 450 \
 	--title "Steam Frame special instructions" \
-	--text "Remember to exit Steam Rom Manager after adding your games or they won't appear in your library." && $($SRM_toolPath $sandbox)
+	--text "Remember to exit Steam Rom Manager after adding your games or they won't appear in your library."
+	$($SRM_toolPath $sandbox)
 	
 	#We check the hash again to see if there's been any changes...
 	newShortcutsHash=$(find "$HOME/.local/share/Steam/userdata" -name "shortcuts.vdf" -exec md5sum {} + 2>/dev/null | sort | md5sum)
