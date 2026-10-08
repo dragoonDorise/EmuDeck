@@ -1337,7 +1337,15 @@ function emulatorCheckAndInstall(){
 
 	if [ "$("${prefix}_IsInstalled")" != "true" ]; then
 		echo "$prefix is not installed, installing"
+		local nameVar="${prefix}_toolName"
+		[ -n "${!nameVar}" ] || nameVar="${prefix}_emuName"
+		local name="${!nameVar:-$prefix}"
+		zenity --progress --pulsate --no-cancel --width 450 \
+			--title "EmuDeck" \
+			--text "Installing $name, please wait..." 2>/dev/null &
+		local zenityPid=$!
 		"${prefix}_install" && "${prefix}_init"
+		kill "$zenityPid" 2>/dev/null
 	else
 		echo "$prefix is installed"
 	fi

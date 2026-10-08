@@ -161,6 +161,9 @@ cp "$emudeckBackend/tools/appID.py" "${toolsPath}/appID.py"
 cp "$emudeckBackend/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
 chmod +x "${toolsPath}/emu-launch.sh"
 
+#Forced SRM so the App won't fail
+SRM_flushToolLauncher
+
 
 max_jobs=5
 current_jobs=0

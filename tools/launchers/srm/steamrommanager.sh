@@ -10,15 +10,14 @@ if $(grep -q Ubuntu /etc/os-release) ; then
 	sandbox="--no-sandbox"
 fi
 
+emulatorCheckAndInstall "SRM"
+
 if [ -e "${toolsPath}/Steam-ROM-Manager.AppImage" ]; then 
 	SRM_toolPath="${toolsPath}/Steam-ROM-Manager.AppImage"
 elif [ -e "${toolsPath}/Steam ROM Manager.AppImage" ]; then
 	SRM_toolPath="${toolsPath}/Steam ROM Manager.AppImage"
 elif [ -e "${toolsPath}/srm/Steam-ROM-Manager.AppImage" ]; then
 	SRM_toolPath="${toolsPath}/srm/Steam-ROM-Manager.AppImage"
-else
-	SRM_install
-	SRM_init
 fi
 
 SRM_checkParsers
