@@ -31,6 +31,7 @@ function jsonToBashVars(){
     setSetting doInstallSupermodel "$(jq .installEmus.supermodel.status $json)"
     setSetting doInstallModel2  "$(jq .installEmus.model2.status $json)"
     setSetting doInstallBigPEmu  "$(jq .installEmus.bigpemu.status $json)"
+    setSetting doInstallZSNES "$(jq .installEmus.zsnes.status "$json")"
     setSetting doInstallShadPS4  "$(jq .installEmus.shadps4.status $json)"
 
 
@@ -65,6 +66,7 @@ function jsonToBashVars(){
     setSetting doSetupSupermodel "$(jq .overwriteConfigEmus.supermodel.status $json)"
     setSetting doSetupModel2 "$(jq .overwriteConfigEmus.model2.status $json)"
     setSetting doSetupBigPEmu  "$(jq .overwriteConfigEmus.bigpemu.status $json)"
+    setSetting doSetupZSNES "$(jq .overwriteConfigEmus.zsnes.status "$json")"
     setSetting doSetupShadPS4  "$(jq .overwriteConfigEmus.shadps4.status $json)"
 
     #Frontends
