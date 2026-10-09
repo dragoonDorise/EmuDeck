@@ -200,6 +200,7 @@ for install_command in \
 	"$doInstallSupermodel Supermodel_install" \
 	"$doInstallXenia Xenia_install" \
 	"$doInstallModel2 Model2_install" \
+	"$doInstallZSNES ZSNES_install" \
 	"$doInstallShadPS4 ShadPS4_install"; do
 
 	condition=$(echo "$install_command" | awk '{print $1}')
@@ -255,6 +256,7 @@ for setup_command in \
 	"$doSetupModel2 Model2_init" \
 	"$doSetupCemu Cemu_init" \
 	"$doSetupBigPEmu BigPEmu_init" \
+	"$doSetupZSNES ZSNES_init" \
 	"$doSetupXenia Xenia_init"; do
 
 	condition=$(echo "$setup_command" | awk '{print $1}')
