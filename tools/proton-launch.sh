@@ -86,12 +86,15 @@ installProton () {
     fi 
 }
 
-# Find Proton version
 findProton () {
+    local protonName="Proton ${1}"
+    if [ "$(uname -m)" == "aarch64" ]; then
+        protonName="Proton ${1#- } (ARM64)"
+    fi
     # Cycle through steamPaths to find the requested Proton version
     for path in "${steamPaths[@]}"; do
-        if [ -f "${path}/steamapps/common/Proton ${1}/proton" ]; then
-            local proton="${path}/steamapps/common/Proton ${1}/proton"
+        if [ -f "${path}/steamapps/common/${protonName}/proton" ]; then
+            local proton="${path}/steamapps/common/${protonName}/proton"
             break
         elif [ -f "${path}/compatibilitytools.d/${1}/proton" ]; then
             local proton="${path}/compatibilitytools.d/${1}/proton"
