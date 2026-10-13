@@ -51,6 +51,9 @@ Model2_install(){
 Model2_init(){
 	setMSG "Initializing $Model2_emuName settings."
 	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
+	if [ "$(getProductName)" == "frame" ]; then
+		sed -i 's/UseRawInput=1/UseRawInput=0/' "$Model2_configFile"
+	fi
 	#SRM_createParsers
 	Model2_flushEmulatorLauncher
 	addProtonLaunch
