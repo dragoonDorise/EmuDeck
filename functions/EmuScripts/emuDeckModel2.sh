@@ -20,7 +20,11 @@ Model2_install(){
 
 	if safeDownload "Model2" "https://github.com/SeongGino/edc-repo0004/raw/master/m2emulator/1.1c.7z" "$romsPath/model2/Model2.7z" "$showProgress"; then
 
-		7za e -y "$romsPath/model2/Model2.7z" -o"$romsPath/model2"
+		if command -v 7za &> /dev/null; then
+			7za e -y "$romsPath/model2/Model2.7z" -o"$romsPath/model2"
+		else
+			bsdtar -xf "$romsPath/model2/Model2.7z" -C "$romsPath/model2"
+		fi
 		rm -f "$romsPath/model2/Model2.7z"
 
 	else
