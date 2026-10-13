@@ -701,6 +701,7 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+	local frameOption=""
 
 	rm -f "$Shortcutlocation"
 
@@ -723,12 +724,6 @@ function createDesktopShortcut(){
 	if [[ "$name" != *EmuDeck* ]]; then	
 		if [ "$(getProductName)" == "frame" ]; then
 			frameOption="NoDisplay=true"
-		fi	
-	fi
-	
-	if [[ "$name" == *Steam-ROM-Manager* ]]; then	
-		if [ "$(getProductName)" == "frame" ]; then
-			frameOption=""
 		fi	
 	fi
 	
