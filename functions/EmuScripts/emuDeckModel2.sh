@@ -53,6 +53,7 @@ Model2_init(){
 	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
 	#SRM_createParsers
 	Model2_flushEmulatorLauncher
+	addProtonLaunch
 	Model2_addSteamInputProfile
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Model2_addESConfig

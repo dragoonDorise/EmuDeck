@@ -27,10 +27,10 @@ EMUEXE="$romsPath/model2/emulator_multicpu.exe"
 
 if [[ "${*}" == "bel" ||  "${*}" == "gunblade" || "${*}" == "rchase2" ]]; then
     # Disables cursor
-    sed -i 's/DrawCross=1/DrawCross=0/' "M2CONFIGFILE"
+    sed -i 's/DrawCross=1/DrawCross=0/' "$Model2_configFile"
 else
     # Enables cursor for lightgun games (and everything else)
-    sed -i 's/DrawCross=0/DrawCross=1/' "M2CONFIGFILE"
+    sed -i 's/DrawCross=0/DrawCross=1/' "$Model2_configFile"
 fi
 
 # APPID
