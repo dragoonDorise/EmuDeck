@@ -705,7 +705,7 @@ function createDesktopShortcut(){
 
 	rm -f "$Shortcutlocation"
 
-	balooctl check
+	balooctl6 check
 
 	mkdir -p "$HOME/.local/share/applications/"
 
@@ -741,7 +741,7 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
-	balooctl check
+	balooctl6 check
 
 	echo "$Shortcutlocation created"
 }
@@ -786,7 +786,7 @@ function desktopShortcutFieldUpdate(){
 			fi
 		fi
 		sed -E -i "s|$shortcutKey\\s*=\\s*.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
-		balooctl check
+		balooctl6 check
 	fi
 }
 
