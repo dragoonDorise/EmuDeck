@@ -244,23 +244,27 @@ def ryujinx_set_language() -> bool:
 
 
 def ryujinx_set_abxy_style():
+    if not Path(ryujinx_config_file).is_file():
+        return
     sed('"button_x": "Y"','"button_x": "X"',ryujinx_config_file)
-    sed('"button_b": "A"','"button_x": "B"',ryujinx_config_file)
-    sed('"button_y": "X"','"button_x": "Y"',ryujinx_config_file)
-    sed('"button_a": "B"','"button_x": "A"',ryujinx_config_file)
+    sed('"button_b": "A"','"button_b": "B"',ryujinx_config_file)
+    sed('"button_y": "X"','"button_y": "Y"',ryujinx_config_file)
+    sed('"button_a": "B"','"button_a": "A"',ryujinx_config_file)
 
 def ryujinx_set_bayx_style():
+    if not Path(ryujinx_config_file).is_file():
+        return
     sed('"button_x": "X"','"button_x": "Y"',ryujinx_config_file)
-    sed('"button_b": "B"','"button_x": "A"',ryujinx_config_file)
-    sed('"button_y": "Y"','"button_x": "X"',ryujinx_config_file)
-    sed('"button_a": "A"','"button_x": "B"',ryujinx_config_file)
+    sed('"button_b": "B"','"button_b": "A"',ryujinx_config_file)
+    sed('"button_y": "Y"','"button_y": "X"',ryujinx_config_file)
+    sed('"button_a": "A"','"button_a": "B"',ryujinx_config_file)
 
 
 def ryujinx_set_controller_style():
-    if settings.controllerLayout == "bayx":
+    if getattr(settings, "controllerLayout", "") in ("bayx", "baxy"):
         ryujinx_set_bayx_style()
     else:
-        ryujinx_set_bayx_style()
+        ryujinx_set_abxy_style()
 
 
 def _ryujinx_sdl_lib_candidates():
@@ -401,6 +405,15 @@ def ryujinx_get_ordered_gamepads():
 
 
 def ryujinx_set_gamepad_name():
+    if not automap_enabled("yuzu"):
+        return False
+
+    ryujinx_set_controller_style()
+
+    if ryujinx_gamepad_count() > 1:
+        os.environ["SDL_GAMECONTROLLER_IGNORE_DEVICES"] = "0x28de/0x11ff"
+        os.environ["SDL_JOYSTICK_IGNORE_DEVICES"] = "0x28de/0x11ff"
+
     pads = ryujinx_get_ordered_gamepads()
     if not pads:
         print("No controller detected, keeping existing Ryujinx input config")
@@ -488,9 +501,6 @@ def ryujinx_launch_fixes():
     if ryujinx_is_installed() and _ryujinx_uses_sdl2_backend():
         ryujinx_migrate_to_sdl3()
     ryujinx_ensure_gyro_dsu()
-    if system == "linux" and ryujinx_gamepad_count() > 1:
-        os.environ["SDL_GAMECONTROLLER_IGNORE_DEVICES"] = "0x28de/0x11ff"
-        os.environ["SDL_JOYSTICK_IGNORE_DEVICES"] = "0x28de/0x11ff"
     ryujinx_set_gamepad_name()
 
 def ryujinx_add_to_steam():

@@ -124,6 +124,33 @@ def get_product_name() -> Optional[str]:
     except (OSError, UnicodeError):
         return socket.gethostname()
 
+def automap_enabled(emu: str) -> bool:
+    automap = getattr(globals().get("settings"), "automap", None)
+    if automap == "false":
+        return False
+    value = getattr(automap, emu, None) if automap is not None else None
+    if value is None or value == "":
+        return get_product_name() not in ("Jupiter", "Galileo")
+    return str(value).lower() != "false"
+
+def ignore_steam_virtual_gamepad(sdl_lib) -> None:
+    tool = Path(emudeck_backend) / "tools" / "gamepads" / "dolphin_gamepads.py"
+    env = dict(os.environ)
+    env["SDL_LIB"] = str(sdl_lib)
+    result = subprocess.run(
+        [sys.executable, str(tool), "--count"],
+        check=False,
+        env=env,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+        text=True,
+    )
+    count = (result.stdout or "").strip()
+    if count.isdigit() and int(count) > 1:
+        os.environ["SDL_GAMECONTROLLER_IGNORE_DEVICES"] = "0x28de/0x11ff"
+        os.environ["SDL_JOYSTICK_IGNORE_DEVICES"] = "0x28de/0x11ff"
+
 def get_screen_ar() -> int:
     w, h = get_primary_monitor_size()
     screen_width  = w

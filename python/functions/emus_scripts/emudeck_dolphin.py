@@ -206,16 +206,28 @@ def dolphin_set_resolution():
 
 
 def dolphin_set_abxy_style():
-    print("NYI")
+    gamecube_file = f"{dolphin_config_dir()}/GCPadNew.ini"
+    if not Path(gamecube_file).is_file():
+        return
+    sed('Buttons/A = `Button E`', 'Buttons/A = `Button S`', gamecube_file)
+    sed('Buttons/B = `Button S`', 'Buttons/B = `Button E`', gamecube_file)
+    sed('Buttons/X = `Button N`', 'Buttons/X = `Button W`', gamecube_file)
+    sed('Buttons/Y = `Button W`', 'Buttons/Y = `Button N`', gamecube_file)
 
 def dolphin_set_bayx_style():
-    print("NYI")
+    gamecube_file = f"{dolphin_config_dir()}/GCPadNew.ini"
+    if not Path(gamecube_file).is_file():
+        return
+    sed('Buttons/A = `Button S`', 'Buttons/A = `Button E`', gamecube_file)
+    sed('Buttons/B = `Button E`', 'Buttons/B = `Button S`', gamecube_file)
+    sed('Buttons/X = `Button W`', 'Buttons/X = `Button N`', gamecube_file)
+    sed('Buttons/Y = `Button N`', 'Buttons/Y = `Button W`', gamecube_file)
 
 def dolphin_set_controller_style():
-    if settings.controllerLayout == "bayx":
+    if getattr(settings, "controllerLayout", "") in ("bayx", "baxy"):
         dolphin_set_bayx_style()
     else:
-        dolphin_set_bayx_style()
+        dolphin_set_abxy_style()
 
 def dolphin_widescreen_on():
     if system == "linux":
@@ -339,14 +351,9 @@ def _dolphin_sdl_lib_candidates():
 
 
 def dolphin_set_gamepads():
-    
-    
-    automap = getattr(settings, "automap", None)
-    if automap == "false" or str(getattr(automap, "dolphin", True)).lower() == "false":
-      return
-    
-    dolphin_set_controller_style()
-    
+    if not automap_enabled("dolphin"):
+        return
+
     config_dir = dolphin_config_dir()
     if not config_dir or not Path(config_dir).is_dir():
         return
@@ -355,6 +362,8 @@ def dolphin_set_gamepads():
         return
 
     if system == "linux":
+        shutil.copy(Path(emudeck_backend) / "configs" / "linux" / "dolphin-emu" / "GCPadNew.ini", Path(config_dir) / "GCPadNew.ini")
+        dolphin_set_controller_style()
         libs = " ".join(_dolphin_sdl_lib_candidates())
         inner = (
             f'for lib in {libs}; do '
@@ -373,23 +382,33 @@ def dolphin_set_gamepads():
         )
         return
 
-    for candidate in _dolphin_sdl_lib_candidates():
-        if not Path(candidate).is_file():
-            continue
-        env = dict(os.environ)
-        env["SDL_LIB"] = str(candidate)
-        env["DOLPHIN_CONFIG_DIR"] = str(config_dir)
-        result = subprocess.run(
-            [sys.executable, str(tool), "--write"],
-            check=False,
-            env=env,
-            stdin=subprocess.DEVNULL,
-            stdout=subprocess.DEVNULL,
-            stderr=subprocess.DEVNULL,
-        )
-        if result.returncode == 0:
+    sdl_lib = next((c for c in _dolphin_sdl_lib_candidates() if Path(c).is_file()), None)
+    if not sdl_lib:
+        print("Dolphin gamepad detection: no SDL library found")
+        return
+
+    if system.startswith("win"):
+        templates = Path(emudeck_backend) / "configs" / "windows" / "automap" / "dolphin"
+        files = ["GCPadNew.ini", "WiimoteNew.ini", "Hotkeys.ini"]
+        if not all((templates / f).is_file() for f in files):
             return
-    print("Dolphin gamepad detection: no SDL library found")
+        for f in files:
+            shutil.copy(templates / f, Path(config_dir) / f)
+        ignore_steam_virtual_gamepad(sdl_lib)
+
+    dolphin_set_controller_style()
+
+    env = dict(os.environ)
+    env["SDL_LIB"] = str(sdl_lib)
+    env["DOLPHIN_CONFIG_DIR"] = str(config_dir)
+    subprocess.run(
+        [sys.executable, str(tool), "--write"],
+        check=False,
+        env=env,
+        stdin=subprocess.DEVNULL,
+        stdout=subprocess.DEVNULL,
+        stderr=subprocess.DEVNULL,
+    )
 
 
 def dolphin_launch_fixes():

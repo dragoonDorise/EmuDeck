@@ -196,11 +196,16 @@ def _cemu_sdl_lib_candidates():
             "/opt/homebrew/lib/libSDL2-2.0.0.dylib",
             "/usr/local/lib/libSDL2-2.0.0.dylib",
         ]
+    if system.startswith("win"):
+        return [
+            f"{emus_folder}/eden-windows-msvc/SDL2.dll",
+            str(Path(emudeck_backend) / "configs" / "windows" / "yuzu" / "SDL2.dll"),
+        ]
     return []
 
 
 def cemu_set_controllers():
-    if system.startswith("win"):
+    if not automap_enabled("cemu"):
         return
     config_dir = cemu_config_dir()
     if not config_dir:
@@ -215,6 +220,8 @@ def cemu_set_controllers():
     for candidate in _cemu_sdl_lib_candidates():
         if not Path(candidate).is_file():
             continue
+        if system.startswith("win"):
+            ignore_steam_virtual_gamepad(candidate)
         env = dict(os.environ)
         env["SDL_LIB"] = str(candidate)
         env["CEMU_CONTROLLER_DIR"] = str(controller_dir)

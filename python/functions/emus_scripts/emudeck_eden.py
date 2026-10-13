@@ -116,6 +116,62 @@ def eden_set_controller_style():
     else:
         eden_set_abxy_style()
 
+def eden_config_file():
+    if system == "linux":
+        return f"{home}/.config/eden/qt-config.ini"
+    if system.startswith("win"):
+        return str(emus_folder / "eden-windows-msvc" / "user" / "config" / "qt-config.ini")
+    return None
+
+def _eden_sdl_lib_candidates():
+    if system == "linux":
+        return [
+            "/usr/lib/libSDL2-2.0.so.0",
+            "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
+            "/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0",
+            "/usr/lib/libSDL3.so.0",
+            "/usr/lib/x86_64-linux-gnu/libSDL3.so.0",
+            "/usr/lib/aarch64-linux-gnu/libSDL3.so.0",
+        ]
+    if system.startswith("win"):
+        return [
+            f"{emus_folder}/eden-windows-msvc/SDL2.dll",
+            str(Path(emudeck_backend) / "configs" / "windows" / "yuzu" / "SDL2.dll"),
+        ]
+    return []
+
+def eden_set_gamepads():
+    if not automap_enabled("yuzu"):
+        return
+    config_file = eden_config_file()
+    if not config_file or not Path(config_file).is_file():
+        return
+    tool = Path(emudeck_backend) / "tools" / "gamepads" / "eden_gamepads.py"
+    if not tool.is_file():
+        return
+    for candidate in _eden_sdl_lib_candidates():
+        if not Path(candidate).is_file():
+            continue
+        if system.startswith("win"):
+            ignore_steam_virtual_gamepad(candidate)
+        env = dict(os.environ)
+        env["SDL_LIB"] = str(candidate)
+        env["EDEN_CONFIG_FILE"] = str(config_file)
+        result = subprocess.run(
+            [sys.executable, str(tool), "--write"],
+            check=False,
+            env=env,
+            stdin=subprocess.DEVNULL,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+        if result.returncode == 0:
+            return
+    print("Eden gamepad detection: no SDL library found")
+
+def eden_launch_fixes():
+    eden_set_gamepads()
+
 def eden_add_to_steam():
     set_msg("Adding Eden to Steam")
     launcher = tools_path / "launchers" / ("eden.bat" if system.startswith("win") else "eden.sh")
