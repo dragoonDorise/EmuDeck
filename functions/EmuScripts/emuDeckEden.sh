@@ -232,6 +232,33 @@ Eden_setABXYstyle() {
     echo "NYI"
 }
 
+Eden_setGamepads(){
+
+	if [ "$(getProductName)" == "Jupiter" ] || [ "$(getProductName)" == "Galileo" ]; then
+		if [ -z "${autoMapSwitch}" ]; then
+			return 0
+		fi
+	fi
+
+	if [ "${autoMapSwitch}" == "false" ]; then
+		return 0
+	fi
+
+	[ -f "$Eden_configFile" ] || return 0
+	local sdlLib="" cand
+	for cand in /usr/lib/libSDL2-2.0.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0 \
+		/usr/lib/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL3.so.0 /usr/lib/aarch64-linux-gnu/libSDL3.so.0; do
+		if [ -f "$cand" ]; then sdlLib="$cand"; break; fi
+	done
+	[ -n "$sdlLib" ] || return 0
+	SDL_LIB="$sdlLib" EDEN_CONFIG_FILE="$Eden_configFile" \
+		python3 "$emudeckBackend/tools/gamepads/edenGamepads.py" --write >/dev/null 2>&1
+}
+
+Eden_launch_fixes(){
+	Eden_setGamepads
+}
+
 #WideScreenOn
 Eden_wideScreenOn() {
     echo "NYI"

@@ -1211,6 +1211,7 @@ function emulatorInit(){
 	if [ -z $args ];then 
 		case "$emuNameLower" in
 			ryujinx) autoMapEmulatorStatus="$autoMapSwitch" ;;
+			eden)    autoMapEmulatorStatus="$autoMapSwitch" ;;
 			dolphin) autoMapEmulatorStatus="$autoMapDolphin" ;;
 			cemu)    autoMapEmulatorStatus="$autoMapCemu" ;;
 			*)       autoMapEmulatorStatus="false" ;;
