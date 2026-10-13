@@ -56,10 +56,28 @@ Plugins_installPluginLoader(){
 		password=$(Plugins_checkPassword "$password")
         echo $password | sudo -S chown -R $USER:$USER "$HOME/homebrew"
 		curl -L $PluginLoader_releaseURL | sh
+		if [ "$CPUarch" == "arm" ] && [ "$(getProductName)" == "frame" ]; then
+			Plugins_installPluginLoaderARM "$password"
+		fi
 		touch "$HOME/.steam/steam/.cef-enable-remote-debugging"
 		echo $password | sudo -S chown $USER:$USER ~/.steam/steam/.cef-enable-remote-debugging
 		Plugins_install_cleanup $password
 	#fi
+}
+
+Plugins_installPluginLoaderARM(){
+   local password=$1
+   local PluginLoader_armURL="https://github.com/dragoonDorise/decky-loader/releases/download/arm/PluginLoader"
+   local tmp
+   tmp=$(mktemp)
+   if ! curl -fL "$PluginLoader_armURL" --output "$tmp"; then
+      rm -f "$tmp"
+      return 1
+   fi
+   echo $password | sudo -S systemctl stop plugin_loader
+   echo $password | sudo -S install -m 755 "$tmp" "$HOME/homebrew/services/PluginLoader"
+   rm -f "$tmp"
+   echo $password | sudo -S systemctl start plugin_loader
 }
 
 
