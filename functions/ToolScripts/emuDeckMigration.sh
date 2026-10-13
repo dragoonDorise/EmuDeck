@@ -58,16 +58,24 @@ Migration_updatePaths(){
 	setSetting ESDEscrapData "${destination}/tools/downloaded_media"
 
 	#Emu configs
-	#Cemu
+	#Azahar
 	sed -i "s|${origin}|${destination}|g" "$Azahar_configFile"
+	#Cemu
+	sed -i "s|${origin}|${destination}|g" "$HOME/.config/Cemu/settings.xml"
 	#Citra
 	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
-	#Citra
-	sed -i "s|${origin}|${destination}|g" "$Citra_configFile"
+	#Citron
+	sed -i "s|${origin}|${destination}|g" "$Citron_configFile"
 	#Dolphin
 	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 	#Duckstation
 	sed -i "s|${origin}|${destination}|g" "$DuckStation_configFileNew"
+	#Eden
+	sed -i "s|${origin}|${destination}|g" "$Eden_configFile"
+	#ESDE
+	sed -i "s|${origin}|${destination}|g" "$es_settingsFile"
+	#Flycast
+	sed -i "s|${origin}|${destination}|g" "$Flycast_configFile"
 	#Mame
 	sed -i "s|${origin}|${destination}|g" "$MAME_configFile"
 	#MelonDS
