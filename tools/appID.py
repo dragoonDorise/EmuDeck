@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 # We need binascii to convert the path and app name to crc32 and sys to
 # get the command line arguments
