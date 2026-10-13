@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 #Legacy installs
 emulatorInit () {
     emu_name=$1

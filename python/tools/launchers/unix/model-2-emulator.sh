@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Ruta real del launcher
 SELFPATH="$(realpath "$0")"
