@@ -12,8 +12,8 @@ Azahar_texturesPath="$HOME/.config/azahar-emu/load/textures"
 Azahar_install(){
 	statInstall "azahar"
 
-	py_run azahar_install
-	return $?
+	#py_run azahar_install
+	#return $?
 
 	echo "Begin $Azahar_emuName Install"
 	local showProgress="$1"
@@ -34,8 +34,8 @@ Azahar_install(){
 
 #ApplyInitialSettings
 Azahar_init(){
-	py_run azahar_init
-	return $?
+	#py_run azahar_init
+	#return $?
 	setMSG "Initializing $Azahar_emuName settings."
 	configEmuAI "$Azahar_emuName" "azahar-emu"  "$Azahar_configPath" "$emudeckBackend/configs/azahar" "true"
 	Azahar_setEmulationFolder
@@ -235,8 +235,8 @@ Azahar_wipe(){
 
 #Uninstall
 Azahar_uninstall(){
-	py_run azahar_uninstall
-	return $?
+	#py_run azahar_uninstall
+	#return $?
 	setMSG "Uninstalling $Azahar_emuName."
 	removeParser "nintendo_3ds_azahar.json"
 	uninstallEmuAI $Azahar_emuName "azahar-gui" "" "emulator"
@@ -264,8 +264,8 @@ Azahar_finalize(){
 }
 
 Azahar_IsInstalled(){
-	py_run azahar_is_installed
-	return
+	#py_run azahar_is_installed
+	#return
 	if [ -e "$Azahar_emuPath" ]; then
 		echo "true"
 	else
@@ -285,8 +285,8 @@ Azahar_addSteamInputProfile(){
 }
 
 Azahar_setResolution(){
-	py_run azahar_set_resolution
-	return $?
+	#py_run azahar_set_resolution
+	#return $?
 	case $azaharResolution in
 		"720P") multiplier=3;;
 		"1080P") multiplier=5;;
@@ -344,8 +344,8 @@ Azahar_addESConfig(){
 }
 
 Azahar_addToSteam(){
-	py_run azahar_add_to_steam
-	return $?
+	#py_run azahar_add_to_steam
+	#return $?
 	setMSG "Adding Azahar to Steam"
 	add_to_steam "azahar" "Azahar" "$toolsPath/launchers/azahar.sh" "$HOME/Applications/" "" "Emulation"
 }
