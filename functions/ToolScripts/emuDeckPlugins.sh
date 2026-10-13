@@ -48,7 +48,9 @@ Plugins_checkPassword(){
 
 Plugins_installPluginLoader(){
    setMSG  "Installing Decky Loader"
-
+   if [ "$CPUarch" == "arm" ]; then
+    return 0
+   fi
    local password=$1
    local PluginLoader_releaseURL="https://github.com/SteamDeckHomebrew/decky-installer/releases/latest/download/install_release.sh"
    #if [ ! -f $HOME/.steam/steam/.cef-enable-remote-debugging ]; then
