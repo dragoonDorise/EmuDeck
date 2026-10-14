@@ -112,11 +112,6 @@ melonDS_uninstall(){
 	uninstallEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
 }
 
-#setABXYstyle
-melonDS_setABXYstyle(){
-    	echo "NYI"
-}
-
 #Migrate
 melonDS_migrate(){
 echo "NYI"
@@ -199,6 +194,10 @@ melonDS_setABXYstyle(){
 	changeLine "$buttonB" "$buttonB""1" "${melonDS_configFile}"
 	changeLine "$buttonX" "$buttonX""2" "${melonDS_configFile}"
 	changeLine "$buttonY" "$buttonY""3" "${melonDS_configFile}"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "A" "0"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "B" "1"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "X" "2"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "Y" "3"
 
 
 
@@ -214,6 +213,10 @@ melonDS_setBAYXstyle(){
 	changeLine "$buttonB" "$buttonB""0" "${melonDS_configFile}"
 	changeLine "$buttonX" "$buttonX""3" "${melonDS_configFile}"
 	changeLine "$buttonY" "$buttonY""2" "${melonDS_configFile}"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "A" "1"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "B" "0"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "X" "3"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "Y" "2"
 
 
 

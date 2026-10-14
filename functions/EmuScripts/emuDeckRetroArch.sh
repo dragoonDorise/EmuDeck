@@ -376,7 +376,8 @@ RetroArch_setBAYXstyle(){
 	mv "$RetroArch_remapsDir/SameBoy/SameBoy.rmp" "$RetroArch_remapsDir/SameBoy/SameBoy.rmp.disabled"
 	mv "$RetroArch_remapsDir/Snes9x/Snes9x.rmp" "$RetroArch_remapsDir/Snes9x/Snes9x.rmp.disabled"
 	mv "$RetroArch_remapsDir/Mesen/Mesen.rmp" "$RetroArch_remapsDir/Mesen/Mesen.rmp.disabled"
-	mv "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp" mv "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp.disabled"
+	mv "$RetroArch_remapsDir/Nestopia/Nestopia.rmp" "$RetroArch_remapsDir/Nestopia/Nestopia.rmp.disabled"
+	mv "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp" "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp.disabled"
 }
 
 #Migrate
