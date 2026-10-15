@@ -181,7 +181,7 @@ trim3ds() {
 	3dstool -r -f "$file" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Successfully trimmed ${file%.*}.3ds"
-		mv "$file" "${file%%.*}(Trimmed).3ds"
+		mv "$file" "${file%.*}(Trimmed).3ds"
 	else
 		echo "error converting $file"
 	fi
@@ -196,8 +196,8 @@ compressXISO() {
 	extract-xiso -r "$file" -d "$xisoDir" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "$file succesfully converted to ${file%.*}.xiso.iso"
-		mv "$file" "${file%%.*}.xiso.iso"
-		rm -f "${file%%.*}.iso.old"
+		mv "$file" "${file%.*}.xiso.iso"
+		rm -f "${file%.*}.iso.old"
 	else
 		echo "error converting $file"
 	fi
