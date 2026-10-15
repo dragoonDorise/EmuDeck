@@ -11,16 +11,8 @@ appImageInit() {
 	sed -i 's|env LD_LIBRARY_PATH=[^ ]* ||' "$(xdg-user-dir DESKTOP)/EmuDeck.desktop" "$HOME/.local/share/applications/EmuDeck.desktop"
 	  2>/dev/null
 	
-	#EmuDeck icons now open the launcher script instead of the AppImage
-	if ! grep -q "$emudeckFolder/emudeck.sh" "$HOME/.local/share/applications/EmuDeck.desktop" 2>/dev/null; then
-		createDesktopIcons
-		#Restart the app through the new launcher, detached so it survives the kill
-		local sandbox=""
-		if command -v apt-get >/dev/null; then
-			sandbox="--no-sandbox"
-		fi
-		setsid bash -c 'sleep 2; pkill -f "[.]mount_EmuDec"; sleep 1; "$HOME/.config/EmuDeck/emudeck.sh" '"$sandbox" >/dev/null 2>&1 < /dev/null &
-	else
+	#Keep the launcher script updated
+	if grep -q "$emudeckFolder/emudeck.sh" "$HOME/.local/share/applications/EmuDeck.desktop" 2>/dev/null; then
 		cp "$emudeckBackend/tools/launchers/emudeck.sh" "$emudeckFolder/emudeck.sh"
 		chmod +x "$emudeckFolder/emudeck.sh"
 	fi
