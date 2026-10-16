@@ -2,11 +2,6 @@
 appleChip=$(uname -m)
 if [ $(uname) != "Linux" ]; then
     system="darwin"
-    if [ $appleChip = 'arm64' ]; then
-        PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-    else
-        PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-    fi
 fi
 
 if [[ -z "$emudeckBackend" ]]; then
