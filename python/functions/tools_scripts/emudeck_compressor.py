@@ -159,7 +159,7 @@ def compress_rvz(
     output_path = file_path.with_suffix(".rvz")
     windows_tool = f"{emudeck_folder}/Emulators/Dolphin-x64/DolphinTool.exe";
 
-    if system.startswith("Win"):
+    if system.startswith("win"):
         # Windows path: use the provided exe
         if not windows_tool:
             print("Error: on Windows you must provide windows_tool path to dolphin-tool.exe")
@@ -379,17 +379,17 @@ def decompress_rvz(rvz_path: Path) -> None:
         print(f"File not found: {rvz_path}")
         return
 
-    if system == "Linux":
+    if system == "linux":
         tool_cmd = ["flatpak", "run", "--command=dolphin-tool", "org.DolphinEmu.dolphin-emu"]
-    elif system == "Windows":
-        tool_cmd = f"{emudeck_folder}/Emulators/Dolphin-x64/DolphinTool.exe";
-    elif system == "Darwin":
+    elif system.startswith("win"):
+        tool_cmd = [f"{emudeck_folder}/Emulators/Dolphin-x64/DolphinTool.exe"]
+    elif system == "darwin":
         # Inside Dolphin.app bundle
-        default = Path("/Applications/Dolphin.app/Contents/MacOS/dolphin-tool")
+        default = Path(emus_folder) / "Dolphin.app" / "Contents" / "MacOS" / "dolphin-tool"
         if default.exists():
             tool_cmd = [str(default)]
         else:
-            print("dolphin-tool not found in /Applications/Dolphin.app")
+            print(f"dolphin-tool not found in {default.parent}")
             return
     else:
         print(f"Unsupported OS: {system}")
