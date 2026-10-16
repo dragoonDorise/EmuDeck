@@ -22,6 +22,9 @@ pegasus_folder = app_folder
 esde_folder = app_folder
 esde_settings_folder = home / "ES-DE"
 
+if system == "darwin":
+    emus_folder = emudeck_folder / "Emulators"
+
 progress_bar = int(os.environ.get("EMUDECK_PROGRESS", "0")) if os.environ.get("EMUDECK_PROGRESS", "0").isdigit() else 0
 apple_chip = platform.machine()
 
