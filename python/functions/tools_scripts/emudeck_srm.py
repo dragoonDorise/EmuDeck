@@ -9,9 +9,16 @@ def srm_steam_installed():
 
 def srm_install_steam():
     set_msg("Installing Steam")
-    installer = "steam.dmg" if system == "darwin" else "SteamSetup.exe"
-    archive_path = Path(tempfile.mkdtemp()) / installer
-    response = requests.get(f"https://cdn.akamai.steamstatic.com/client/installer/{installer}", stream=True, timeout=30)
+    temp = Path(tempfile.mkdtemp())
+    if system == "darwin":
+        manifest = requests.get("https://client-update.steamstatic.com/steam_client_osx", timeout=30).text
+        package = re.search(r'appdmg_osx\.zip[^"\s]*', manifest).group(0)
+        url = f"https://client-update.steamstatic.com/{package}"
+        archive_path = temp / "steam.zip"
+    else:
+        url = "https://cdn.akamai.steamstatic.com/client/installer/SteamSetup.exe"
+        archive_path = temp / "SteamSetup.exe"
+    response = requests.get(url, stream=True, timeout=30)
     response.raise_for_status()
     with open(archive_path, "wb") as f:
         for chunk in response.iter_content(chunk_size=8192):
@@ -19,17 +26,15 @@ def srm_install_steam():
     if system.startswith("win"):
         subprocess.run([str(archive_path), "/S"], check=True)
         return True
-    mount_point = mount_dmg(archive_path)
-    if not mount_point:
-        return False
+    subprocess.run(["ditto", "-x", "-k", str(archive_path), str(temp)], check=True)
+    subprocess.run(["tar", "-xzf", str(temp / "SteamMacBootstrapper.tar.gz"), "-C", str(temp)], check=True)
+    for junk in (temp / "Steam.app").rglob("._*"):
+        junk.unlink()
     try:
-        try:
-            shutil.copytree(mount_point / "Steam.app", "/Applications/Steam.app", symlinks=True)
-        except PermissionError:
-            (home / "Applications").mkdir(exist_ok=True)
-            shutil.copytree(mount_point / "Steam.app", home / "Applications" / "Steam.app", symlinks=True)
-    finally:
-        subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        shutil.copytree(temp / "Steam.app", "/Applications/Steam.app", symlinks=True)
+    except PermissionError:
+        (home / "Applications").mkdir(exist_ok=True)
+        shutil.copytree(temp / "Steam.app", home / "Applications" / "Steam.app", symlinks=True)
     return True
 
 def srm_wait_steam_users():
