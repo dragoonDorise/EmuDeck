@@ -24,7 +24,7 @@ def _import_all_functions_and_vars():
     forced_to_load = [m for m in forced if m in all_modules]
     missing_forced = [m for m in forced if m not in all_modules]
     if missing_forced:
-        print("⚠️ Forced modules not found:", missing_forced)
+        print("Forced modules not found:", missing_forced)
 
     remaining = sorted(m for m in all_modules if m not in forced_to_load)
     

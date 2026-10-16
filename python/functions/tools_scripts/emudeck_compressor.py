@@ -237,7 +237,7 @@ def compress_cso(file_path: Path) -> None:
         try:
             file_path.unlink()
         except Exception as e:
-            print(f"⚠️ Could not remove original file: {e}")
+            print(f"Could not remove original file: {e}")
     else:
         print(f"Error converting {file_path.name} to CSO")
         # remove any incomplete output
@@ -261,7 +261,7 @@ def trim_3ds(file_path: Path) -> None:
             file_path.rename(trimmed_name)
             print(f"Successfully trimmed {file_path.name} → {trimmed_name.name}")
         except Exception as e:
-            print(f"⚠️ Trim succeeded but failed to rename file: {e}")
+            print(f"Trim succeeded but failed to rename file: {e}")
     else:
         print(f"Error trimming {file_path.name}")
 
@@ -286,7 +286,7 @@ def compress_xiso(file_path: Path) -> None:
             # Rename the original file to the new .xiso.iso name
             file_path.rename(output_path)
         except Exception as e:
-            print(f"⚠️ Conversion succeeded but failed to rename file: {e}")
+            print(f"Conversion succeeded but failed to rename file: {e}")
         # Remove any leftover .iso.old file
         try:
             old_iso_old.unlink(missing_ok=True)
@@ -312,7 +312,7 @@ def decompress_cso_iso(file_path: Path) -> None:
         try:
             file_path.unlink()
         except Exception as e:
-            print(f"⚠️ Decompressed but failed to delete original: {e}")
+            print(f"Decompressed but failed to delete original: {e}")
     else:
         print(f"Error converting {file_path.name} to ISO")
         # Clean up any incomplete ISO
@@ -339,7 +339,7 @@ def decompress_chd_iso(file_path: Path) -> None:
         try:
             file_path.unlink()
         except Exception as e:
-            print(f"⚠️ Decompressed but failed to delete {file_path.name}: {e}")
+            print(f"Decompressed but failed to delete {file_path.name}: {e}")
     else:
         print(f"Conversion of {file_path.name} failed.")
         if iso_path.exists():
@@ -364,7 +364,7 @@ def decompress_cso_iso(cso_path: Path) -> None:
         try:
             cso_path.unlink()
         except Exception as e:
-            print(f"⚠️ Decompressed but failed to delete {cso_path.name}: {e}")
+            print(f"Decompressed but failed to delete {cso_path.name}: {e}")
     else:
         print(f"Error converting {cso_path.name} to ISO")
         if iso_path.exists():
@@ -376,7 +376,7 @@ def decompress_cso_iso(cso_path: Path) -> None:
 def decompress_rvz(rvz_path: Path) -> None:
     rvz_path = Path(rvz_path)
     if not rvz_path.is_file():
-        print(f"❌ File not found: {rvz_path}")
+        print(f"File not found: {rvz_path}")
         return
 
     if system == "Linux":
@@ -389,10 +389,10 @@ def decompress_rvz(rvz_path: Path) -> None:
         if default.exists():
             tool_cmd = [str(default)]
         else:
-            print("❌ dolphin-tool not found in /Applications/Dolphin.app")
+            print("dolphin-tool not found in /Applications/Dolphin.app")
             return
     else:
-        print(f"❌ Unsupported OS: {system}")
+        print(f"Unsupported OS: {system}")
         return
 
     iso_path = rvz_path.with_suffix('.iso')
@@ -409,13 +409,13 @@ def decompress_rvz(rvz_path: Path) -> None:
 
     res = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     if res.returncode == 0:
-        print(f"✅ {rvz_path.name} → {iso_path.name}")
+        print(f"{rvz_path.name} → {iso_path.name}")
         try:
             rvz_path.unlink()
         except Exception as e:
-            print(f"⚠️ Could not delete original {rvz_path.name}: {e}")
+            print(f"Could not delete original {rvz_path.name}: {e}")
     else:
-        print(f"❌ Error converting {rvz_path.name}")
+        print(f"Error converting {rvz_path.name}")
         if iso_path.exists():
             try:
                 iso_path.unlink()
@@ -541,14 +541,14 @@ def compressor_generate_list():
     for f in chd_folder_whitelist:
         print(f"Checking {roms_path / f}")
         if compressor_folder_has_files(f, chd_file_extensions):
-            print(f"✅ found in {f}")
+            print(f"found in {f}")
             candidates.append(f)
 
     # RVZ only if dolphin-tool available (i.e. flatpak on Linux):
     for f in rvz_folder_whitelist:
         print(f"Checking {roms_path / f} WIIIII")
         if compressor_folder_has_files(f, rvz_file_extensions):
-            print(f"✅ found in {f}")
+            print(f"found in {f}")
             candidates.append(f)
 
     # 3DS
@@ -559,7 +559,7 @@ def compressor_generate_list():
         if d.is_dir():
             for p in d.rglob("*.3ds"):
                 if "Trimmed" not in p.name:
-                    print(f"✅ found in {f}")
+                    print(f"found in {f}")
                     candidates.append(f)
                     break
 
@@ -567,7 +567,7 @@ def compressor_generate_list():
     for f in cso_folder_whitelist:
         print(f"Checking {roms_path / f}")
         if compressor_folder_has_files(f, cso_file_extensions):
-            print(f"✅ found in {f}")
+            print(f"found in {f}")
             candidates.append(f)
 
     # XBOX (exclude *.xiso.iso)
@@ -577,7 +577,7 @@ def compressor_generate_list():
         if d.is_dir():
             for p in d.rglob("*.iso"):
                 if not p.name.lower().endswith(".xiso.iso"):
-                    print(f"✅ found in {f}")
+                    print(f"found in {f}")
                     candidates.append(f)
                     break
     return candidates
@@ -678,9 +678,9 @@ def compressor_launch():
             # Lee el modo actual y añade el bit de ejecución para usuario, grupo y otros
             current_mode = exe_file.stat().st_mode
             exe_file.chmod(current_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
-            print(f"✔️ Hecho ejecutable: {exe_file}")
+            print(f"Hecho ejecutable: {exe_file}")
         else:
-            print(f"⚠️ No encontrado (omitido): {exe_file}")
+            print(f"No encontrado (omitido): {exe_file}")
 
     resp = popup_ask_compressor(
         "EmuDeck Compressor",

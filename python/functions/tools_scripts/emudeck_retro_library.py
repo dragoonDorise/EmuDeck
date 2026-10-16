@@ -1094,7 +1094,7 @@ def rl_generate_metadata():
         try:
             text = md.read_text(encoding="utf-8")
         except Exception as e:
-            print(f"❌ no pude leer {md!r}: {e}")
+            print(f"no pude leer {md!r}: {e}")
             continue
         ra_cores_path=os.path.expanduser(f"~/.var/app/org.libretro.RetroArch/config/retroarch/cores")
         if system.startswith("win"):
@@ -1106,6 +1106,6 @@ def rl_generate_metadata():
         if new_text != text:
             try:
                 md.write_text(new_text, encoding="utf-8")
-                print(f"✅ actualizado {md!r}")
+                print(f"actualizado {md!r}")
             except Exception as e:
-                print(f"❌ error al escribir {md!r}: {e}")
+                print(f"error al escribir {md!r}: {e}")
