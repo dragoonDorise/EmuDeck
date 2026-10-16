@@ -1073,6 +1073,10 @@ def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/A
     target_exec.write_text(f'#!/usr/bin/env bash\nexec "{script_path}" "$@"\n', encoding="utf-8")
     target_exec.chmod(0o755)
 
+    icon = next((p for p in Path(icons_path).glob("*.*") if p.stem.lower() == app_name.lower()), None)
+    if icon:
+        subprocess.run(["sips", "-s", "format", "icns", str(icon), "--out", str(resources_dir / "icon.icns")], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     plist = {
         "CFBundleName": app_name,
         "CFBundleDisplayName": app_name,
@@ -1080,6 +1084,7 @@ def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/A
         "CFBundleVersion": "1.0",
         "CFBundlePackageType": "APPL",
         "CFBundleExecutable": exec_name,
+        "CFBundleIconFile": "icon",
         "CFBundleInfoDictionaryVersion": "6.0",
         "LSUIElement": True
     }
@@ -1183,7 +1188,7 @@ def install_dmg(name, archive_path):
             return False
 
         app_bundle = apps[0]
-        target = Path.home() / "Applications" / app_bundle.name
+        target = Path(emus_folder) / app_bundle.name
         target.parent.mkdir(parents=True, exist_ok=True)
         if target.exists():
             shutil.rmtree(target)
