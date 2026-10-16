@@ -1053,6 +1053,7 @@ def create_app_shortcut(name: str, display_name: Optional[str] = None, terminal:
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / f"{launcher_name.lower()}.sh"
         exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
         shutil.copy2(src_file, exec_path)
+        exec_path.chmod(exec_path.stat().st_mode | 0o111)
 
         create_mac_app(name, Path(exec_path))
 
@@ -1069,8 +1070,8 @@ def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/A
 
     exec_name = script_path.stem
     target_exec = macos_dir / exec_name
-    shutil.copy2(script_path, target_exec)
-    target_exec.chmod(target_exec.stat().st_mode | stat.S_IEXEC)
+    target_exec.write_text(f'#!/usr/bin/env bash\nexec "{script_path}" "$@"\n', encoding="utf-8")
+    target_exec.chmod(0o755)
 
     plist = {
         "CFBundleName": app_name,
@@ -1079,12 +1080,13 @@ def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/A
         "CFBundleVersion": "1.0",
         "CFBundlePackageType": "APPL",
         "CFBundleExecutable": exec_name,
-        "CFBundleInfoDictionaryVersion": "6.0"
+        "CFBundleInfoDictionaryVersion": "6.0",
+        "LSUIElement": True
     }
     with open(contents_dir / "Info.plist", "wb") as f:
         plistlib.dump(plist, f)
 
-    print(f"✅ Created macOS app bundle at: {app_bundle}")
+    print(f"Created macOS app bundle at: {app_bundle}")
 
 def extract(zip_path: Path, extract_to: Path) -> None:
     extract_to.mkdir(parents=True, exist_ok=True)
@@ -1161,38 +1163,37 @@ def extract7z_flat(archive_path: Path, extract_to: Path):
             child.rename(extract_to / child.name)
         top.rmdir()
 
+def mount_dmg(archive_path):
+    attach = subprocess.run(["hdiutil", "attach", "-nobrowse", "-readonly", "-plist", str(archive_path)], check=True, capture_output=True)
+    mounts = [e["mount-point"] for e in plistlib.loads(attach.stdout).get("system-entities", []) if e.get("mount-point")]
+    return Path(mounts[0]) if mounts else None
+
 def install_dmg(name, archive_path):
-    subprocess.run(["open", str(archive_path)], check=True)
-    mount_point = None
-    for _ in range(30):
-        for vol in Path("/Volumes").iterdir():
-            mount_point = vol
-            break
-        if mount_point:
-            break
-
+    mount_point = mount_dmg(archive_path)
     if not mount_point:
-        print("❌ Timeout: DMG did not mount in /Volumes.")
+        print("DMG did not mount.")
         return False
 
-    print(f"✅ Mounted at {mount_point}")
+    print(f"Mounted at {mount_point}")
 
-    apps = list(mount_point.glob("*.app"))
-    if not apps:
-        print("❌ No .app found inside the DMG.")
-        input("Press Enter to unmount…")
-        subprocess.run(["hdiutil", "detach", str(mount_point)])
-        return False
+    try:
+        apps = list(mount_point.glob("*.app"))
+        if not apps:
+            print("No .app found inside the DMG.")
+            return False
 
-    app_bundle = apps[0]
-    target = Path.home() / "Applications" / app_bundle.name
-    target.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copytree(app_bundle, target, dirs_exist_ok=True)
-    print(f"✔️  Copied {app_bundle.name} → {target}")
-    darwin_trust_app(target)
-    subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL)
-    print("✔️  DMG detached.")
-    return True
+        app_bundle = apps[0]
+        target = Path.home() / "Applications" / app_bundle.name
+        target.parent.mkdir(parents=True, exist_ok=True)
+        if target.exists():
+            shutil.rmtree(target)
+        shutil.copytree(app_bundle, target, symlinks=True)
+        print(f" Copied {app_bundle.name} → {target}")
+        darwin_trust_app(target)
+        return True
+    finally:
+        subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+        print(" DMG detached.")
 
 def extract_tar_gz(archive_path: Path, extract_to: Path):
     extract_to.mkdir(parents=True, exist_ok=True)
@@ -1242,6 +1243,8 @@ def link_to_emulation_folder(origin: Union[str, Path], destination: Union[str, P
     origin = Path(origin)
     destination = Path(destination)
     if not system.startswith("win"):
+        if origin.is_symlink() and not origin.exists():
+            origin.unlink()
         origin.mkdir(parents=True, exist_ok=True)
         if destination.is_symlink():
             if Path(os.readlink(destination)) == origin:
@@ -1420,7 +1423,7 @@ def set_setting(key: str, value: Any) -> None:
     with json_path.open('w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         f.write("\n")
-    if hybrid_settings:
+    if hybrid_mode:
         from core.settings_sh import write_setting_sh
         write_setting_sh(settings_sh_path, json_to_bash_vars_path, key, value)
     json_settings_path = Path(emudeck_folder) / "settings.json"
@@ -1999,7 +2002,7 @@ def calculate_md5(filename):
 
 def get_launchers_source_dir() -> Path:
     win = system.startswith("win")
-    if hybrid_mode and not win:
+    if hybrid_mode and system == "linux":
         return Path(bash_backend) / "tools" / "launchers"
     return Path(emudeck_backend) / "tools" / "launchers" / ("windows" if win else "unix")
 
@@ -2031,7 +2034,7 @@ def flush_emulator_launchers(name: str) -> None:
             shutil.copy2(src, dst)
             dst.chmod(dst.stat().st_mode | 0o111)
 
-    if not win:
+    if system == "linux":
         for app_id, emu_name in FLATPAK_EMULATORS.items():
             if emu_name.lower() in (stem, f"{stem}-emu", stem.removesuffix("-emu")):
                 create_flatpak_desktop(app_id, emu_name)
