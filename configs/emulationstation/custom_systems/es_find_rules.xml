@@ -103,6 +103,11 @@
             <entry>/run/media/mmcblk0p1/Emulation/tools/launchers/xenia.sh</entry>
         </rule>
     </emulator>
+        <emulator name="SUPERZSNES">
+        <rule type="staticpath">
+            <entry>~/Applications/zsnes/SUPERZSNES</entry>
+        </rule>
+    </emulator>
     <!--armcores 
     <emulator name="ARMSX2">
         <rule type="staticpath">

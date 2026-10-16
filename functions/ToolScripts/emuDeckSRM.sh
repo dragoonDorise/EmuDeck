@@ -260,6 +260,7 @@ SRM_addExtraParsers(){
   
   for install_command in \
   "BigPEmu_IsInstalled BigPEmu_addParser" \
+  "ZSNES_IsInstalled ZSNES_addParser" \
   "Flycast_IsInstalled Flycast_addParser" \
   "Azahar_IsInstalled Azahar_addParser" \
   "MAME_IsInstalled MAME_addParser" \
