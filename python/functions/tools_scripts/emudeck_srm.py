@@ -26,7 +26,7 @@ def srm_install_steam():
     if system.startswith("win"):
         subprocess.run([str(archive_path), "/S"], check=True)
         return True
-    subprocess.run(["ditto", "-x", "-k", str(archive_path), str(temp)], check=True)
+    zipfile.ZipFile(archive_path).extractall(temp)
     subprocess.run(["tar", "-xzf", str(temp / "SteamMacBootstrapper.tar.gz"), "-C", str(temp)], check=True)
     for junk in (temp / "Steam.app").rglob("._*"):
         junk.unlink()
