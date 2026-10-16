@@ -1,10 +1,12 @@
 from core.all import *
 
-armsx2_config_file = Path(f"{home}/.config/ARMSX2/inis/PCSX2.ini")
+armsx2_config_dir = Path(f"{home}/Library/Application Support/ARMSX2") if system == "darwin" else Path(f"{home}/.config/ARMSX2")
+armsx2_config_file = armsx2_config_dir / "inis" / "PCSX2.ini"
+armsx2_app = emus_folder / ("ARMSX2.app" if system == "darwin" else "armsx2.AppImage")
 
 
 def armsx2_supported():
-    return system == "linux" and cpu_arch == "arm"
+    return system in ("linux", "darwin") and cpu_arch == "arm"
 
 
 def armsx2_install():
@@ -13,11 +15,20 @@ def armsx2_install():
         return False
     set_msg("Installing ARMSX2")
     try:
-        repo = get_latest_prerelease_gh("ARMSX2/ARMSX2", "AppImage", "4K-pages")
+        if system == "darwin":
+            repo = get_latest_prerelease_gh("ARMSX2/ARMSX2", "tar.xz", "macOS-arm64")
+        else:
+            repo = get_latest_prerelease_gh("ARMSX2/ARMSX2", "AppImage", "4K-pages")
         if not repo:
-            print("No ARMSX2 AppImage found")
+            print("No ARMSX2 build found")
             return False
-        install_emu("armsx2", repo, "AppImage", emus_folder)
+        if system == "darwin":
+            install_emu("ARMSX2", repo, "tar.xz", emus_folder)
+            for app in emus_folder.glob("armsx2-macos-*.app"):
+                shutil.rmtree(armsx2_app, ignore_errors=True)
+                app.rename(armsx2_app)
+        else:
+            install_emu("armsx2", repo, "AppImage", emus_folder)
         return armsx2_is_installed()
     except Exception as e:
         print(f"Error during install: {e}")
@@ -28,7 +39,10 @@ def armsx2_uninstall():
     if not armsx2_supported():
         return False
     try:
-        uninstall_emu("armsx2", "AppImage")
+        if system == "darwin":
+            uninstall_emu("ARMSX2", "app")
+        else:
+            uninstall_emu("armsx2", "AppImage")
         return True
     except Exception as e:
         print(f"Error during uninstall: {e}")
@@ -38,7 +52,7 @@ def armsx2_uninstall():
 def armsx2_is_installed():
     if not armsx2_supported():
         return False
-    return (emus_folder / "armsx2.AppImage").exists()
+    return armsx2_app.exists()
 
 
 def armsx2_init():
@@ -51,7 +65,8 @@ def armsx2_init():
 
     generated = False
     try:
-        generated = subprocess.run([str(emus_folder / "armsx2.AppImage"), "-testconfig"], check=False).returncode == 0
+        exe = armsx2_app / "Contents" / "MacOS" / "ARMSX2" if system == "darwin" else armsx2_app
+        generated = subprocess.run([str(exe), "-testconfig"], check=False).returncode == 0
     except Exception:
         generated = False
     if not generated or not armsx2_config_file.exists():
@@ -66,7 +81,7 @@ def armsx2_init():
     armsx2_widescreen()
     flush_emulator_launchers("armsx2")
     armsx2_add_custom_parser()
-    link_to_storage_folder(f"{home}/.config/ARMSX2/cheats", "pcsx2/cheats")
+    link_to_storage_folder(armsx2_config_dir / "cheats", "pcsx2/cheats")
     return True
 
 
@@ -209,7 +224,7 @@ def armsx2_set_resolution():
     resolution_map = {"720P": 2, "1080P": 3, "1440P": 4, "4K": 6}
     resolution = settings.resolutions.pcsx2
     multiplier = resolution_map.get(resolution, 2)
-    if resolution == "4K" and get_screen_width() < 3840:
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
         multiplier = 3
     set_config("upscale_multiplier", multiplier, armsx2_config_file, separator=" = ")
     return True

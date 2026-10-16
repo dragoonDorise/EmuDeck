@@ -145,6 +145,8 @@ if system == "darwin":
         exe = f"{emus_folder}/ES-DE.app"
     if emu.lower() == "steamrommanager":
         exe = f"{emus_folder}/Steam Rom Manager.app"
+    if emu.lower() == "armsx2":
+        exe = f"{emus_folder}/ARMSX2.app"
     if emu.lower() == "azahar":
         exe = f"{emus_folder}/Azahar.app"
     if emu.lower() == "bigpemu":

@@ -1028,6 +1028,7 @@ zipLogs() {
 
 setResolutions(){
 	Eden_setResolution
+	ARMSX2_setResolution
 	Azahar_setResolution
 	Dolphin_setResolution
 	DuckStation_setResolution
