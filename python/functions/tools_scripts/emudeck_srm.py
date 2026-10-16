@@ -23,7 +23,11 @@ def srm_install_steam():
     if not mount_point:
         return False
     try:
-        shutil.copytree(mount_point / "Steam.app", "/Applications/Steam.app", symlinks=True)
+        try:
+            shutil.copytree(mount_point / "Steam.app", "/Applications/Steam.app", symlinks=True)
+        except PermissionError:
+            (home / "Applications").mkdir(exist_ok=True)
+            shutil.copytree(mount_point / "Steam.app", home / "Applications" / "Steam.app", symlinks=True)
     finally:
         subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return True
@@ -39,7 +43,8 @@ def srm_wait_steam_users():
         popup_show_progress("Steam", "Installing Steam, please wait...", srm_install_steam)
     try:
         if system == "darwin":
-            subprocess.Popen(["open", "-a", "Steam"])
+            steam_app = next(app for app in (Path("/Applications/Steam.app"), home / "Applications" / "Steam.app") if app.exists())
+            subprocess.run(["open", str(steam_app)], check=True)
         elif system.startswith("win"):
             subprocess.Popen([get_steam_paths()[2]])
         else:
