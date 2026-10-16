@@ -1064,6 +1064,7 @@ def create_app_shortcut(name: str, display_name: Optional[str] = None, terminal:
 
         src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / f"{launcher_name.lower()}.sh"
         exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
+        exec_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_file, exec_path)
         exec_path.chmod(exec_path.stat().st_mode | 0o111)
 
@@ -1205,7 +1206,18 @@ def download_sdl3_darwin():
         subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def mount_dmg(archive_path):
-    attach = subprocess.run(["hdiutil", "attach", "-nobrowse", "-readonly", "-plist", str(archive_path)], check=True, capture_output=True)
+    info = plistlib.loads(subprocess.run(["hdiutil", "imageinfo", "-plist", str(archive_path)], check=True, capture_output=True).stdout)
+    if info.get("Properties", {}).get("Software License Agreement"):
+        # Support for ESDE license message in the DMG
+        before = set(Path("/Volumes").iterdir())
+        subprocess.run(["open", str(archive_path)], check=True)
+        for _ in range(300):
+            new_volumes = set(Path("/Volumes").iterdir()) - before
+            if new_volumes:
+                return new_volumes.pop()
+            time.sleep(1)
+        return None
+    attach = subprocess.run(["hdiutil", "attach", "-nobrowse", "-readonly", "-plist", str(archive_path)], check=True, capture_output=True, stdin=subprocess.DEVNULL)
     mounts = [e["mount-point"] for e in plistlib.loads(attach.stdout).get("system-entities", []) if e.get("mount-point")]
     return Path(mounts[0]) if mounts else None
 
