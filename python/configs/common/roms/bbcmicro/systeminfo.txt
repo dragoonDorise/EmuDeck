@@ -1,0 +1,17 @@
+System name:
+bbcmicro
+
+Full system name:
+BBC Micro
+
+Supported file extensions:
+.7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+bbcmicro
+
+Theme folder:
+bbcmicro

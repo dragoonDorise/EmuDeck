@@ -1,0 +1,17 @@
+System name:
+crvision
+
+Full system name:
+VTech CreatiVision
+
+Supported file extensions:
+.bin .BIN .rom .ROM .7z .7Z .zip .ZIP
+
+Launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/crvision crvision -cart %ROM%
+
+Platform (for scraping):
+crvision
+
+Theme folder:
+crvision

@@ -1,0 +1,4 @@
+collection: Arcade
+shortname: arcade
+extensions: cmd, CMD, 7z, 7Z, zip, ZIP
+launch:EMULATIONPATH/tools/launchers/mame.sh {file.path}

@@ -91,22 +91,6 @@ suyu_init() {
 
 }
 
-#update
-suyu_update() {
-    echo "Begin suyu update"
-
-    suyu_migrate
-
-    configEmuAI "$suyu_emuName" "config" "$HOME/.config/suyu" "$emudeckBackend/configs/org.suyu_emu.suyu/config/suyu"
-    configEmuAI "$suyu_emuName" "data" "$HOME/.local/share/suyu" "$emudeckBackend/configs/org.suyu_emu.suyu/data/suyu"
-
-    suyu_setEmulationFolder
-    suyu_setupStorage
-    suyu_setupSaves
-    suyu_finalize
-    suyu_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 suyu_setEmulationFolder() {
     echo "Begin suyu Path Config"

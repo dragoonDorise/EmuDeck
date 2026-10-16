@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function import_emudeck(){
 	#We make sure the ESDE artwork files and gamelists are in the same place as windows, at least as a symlink...

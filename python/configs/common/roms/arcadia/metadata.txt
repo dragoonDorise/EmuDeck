@@ -1,0 +1,6 @@
+collection: Emerson Arcadia 2001
+shortname: arcadia
+extensions: bin, BIN, 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

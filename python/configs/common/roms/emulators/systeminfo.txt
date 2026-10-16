@@ -1,0 +1,22 @@
+System name:
+emulators
+
+Full system name:
+Emulators
+
+Supported file extensions:
+.AppImage .desktop .sh
+
+Launch command:
+%ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Alternative launch commands:
+%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+%EMULATOR_OS-SHELL% -c "%ROM%"
+%RUNINBACKGROUND% %EMULATOR_OS-SHELL% -c "%ROM%"
+
+Platform (for scraping):
+pcwindows
+
+Theme folder:
+emulators

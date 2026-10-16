@@ -3,5 +3,6 @@
 *.log
 .nova/Configuration.json
 *.pyc
-python/
-tests/
+python/**/windows/*
+python/**/darwin/*
+*.AppImage

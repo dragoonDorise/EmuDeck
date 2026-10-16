@@ -1,0 +1,21 @@
+System name:
+wii
+
+Full system name:
+Nintendo Wii
+
+Supported file extensions:
+.gcm .GCM .iso .ISO .wbfs .WBFS .wia .WIA .ciso .CISO .gcz .GCZ .elf .ELF .dol .DOL .dff .DFF .json .JSON .rvz .RVZ .tgc .TGC .wad .WAD .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/dolphin_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_DOLPHIN% -b -e %ROM%
+%EMULATOR_PRIMEHACK% -b -e %ROM%
+
+Platform (for scraping):
+wii
+
+Theme folder:
+wii

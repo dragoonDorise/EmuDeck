@@ -43,6 +43,7 @@ source "$emudeckBackend"/functions/createDesktopIcons.sh
 source "$emudeckBackend"/functions/installEmuFP.sh
 source "$emudeckBackend"/functions/uninstallEmuFP.sh
 source "$emudeckBackend"/functions/setMSG.sh
+source "$emudeckBackend"/functions/pythonHybrid.sh
 source "$emudeckBackend"/functions/emuDeckPrereqs.sh
 source "$emudeckBackend"/functions/installEmuAI.sh
 source "$emudeckBackend"/functions/uninstallEmuAI.sh

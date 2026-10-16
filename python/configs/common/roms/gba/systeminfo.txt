@@ -1,0 +1,24 @@
+System name:
+gba
+
+Full system name:
+Nintendo Game Boy Advance
+
+Supported file extensions:
+.agb .AGB .bin .BIN .cgb .CGB .dmg .DMG .gb .GB .gba .GBA .gbc .GBC .sgb .SGB .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mgba_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_MGBA% -f %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vbam_libretro.so %ROM%
+%EMULATOR_VBA-M% -f %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vba_next_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gpsp_libretro.so %ROM%
+
+Platform (for scraping):
+gba
+
+Theme folder:
+gba

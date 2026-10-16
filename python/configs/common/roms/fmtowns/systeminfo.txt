@@ -1,0 +1,17 @@
+System name:
+fmtowns
+
+Full system name:
+Fujitsu FM Towns
+
+Supported file extensions:
+.cue .CUE .iso .ISO
+
+Launch command:
+%EMULATOR_TSUGARU% %EMUDIR%/roms -HOSTSHORTCUT ESC 0 0 FORCEQUIT -FULLSCREEN -CD %ROM% %INJECT%=%BASENAME%.cfg
+
+Platform (for scraping):
+fmtowns
+
+Theme folder:
+fmtowns

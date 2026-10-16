@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "pkill $*" >> "${EMUDECK_TEST_STUBLOG:-/dev/null}"
+exit 0

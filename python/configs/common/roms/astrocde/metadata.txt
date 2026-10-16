@@ -1,0 +1,4 @@
+collection: Bally Astrocade
+shortname: astrocde
+extensions: 7z, 7Z, zip, ZIP
+launch:EMULATIONPATH/tools/launchers/retroarch.sh -L CORESPATH/mame_libretro.so {file.path}

@@ -1,0 +1,20 @@
+System name:
+supergrafx
+
+Full system name:
+NEC SuperGrafx
+
+Supported file extensions:
+.pce .PCE .sgx .SGX .cue .CUE .ccd .CCD .chd .CHD .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_supergrafx_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%
+
+Platform (for scraping):
+supergrafx
+
+Theme folder:
+supergrafx

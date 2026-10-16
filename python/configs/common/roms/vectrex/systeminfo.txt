@@ -1,0 +1,17 @@
+System name:
+vectrex
+
+Full system name:
+Vectrex
+
+Supported file extensions:
+.bin .BIN .vec .VEC .gam .GAM .vc .VC .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vecx_libretro.so %ROM%
+
+Platform (for scraping):
+vectrex
+
+Theme folder:
+vectrex

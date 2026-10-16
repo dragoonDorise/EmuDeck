@@ -1,0 +1,20 @@
+System name:
+cloud
+
+Full system name:
+Cloud Services
+
+Supported file extensions:
+.sh
+
+Launch command:
+/bin/bash %ROM%
+
+Platform (for scraping):
+cloud
+
+Theme folder:
+cloud
+
+Requires:
+cloud.conf

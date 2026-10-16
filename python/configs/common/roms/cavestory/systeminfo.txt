@@ -1,0 +1,17 @@
+System name:
+cavestory
+
+Full system name:
+Cave Story (NXEngine)
+
+Supported file extensions:
+.exe .EXE .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/nxengine_libretro.so %ROM%
+
+Platform (for scraping):
+cavestory
+
+Theme folder:
+cavestory

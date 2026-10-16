@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+python3 "$HOME/.config/EmuDeck/backend/api.py" cloud_sync_download_emu_all

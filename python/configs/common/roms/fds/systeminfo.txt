@@ -1,0 +1,23 @@
+System name:
+fds
+
+Full system name:
+Nintendo Famicom Disk System
+
+Supported file extensions:
+.nes .NES .fds .FDS .unf .UNF .UNIF .UNIF .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mesen_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/nestopia_libretro.so %ROM%
+%EMULATOR_NESTOPIA-UE% --fullscreen %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fceumm_libretro.so %ROM%
+%EMULATOR_MEDNAFEN% -force_module nes %ROM%
+
+Platform (for scraping):
+fds
+
+Theme folder:
+fds

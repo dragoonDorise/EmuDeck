@@ -1,0 +1,17 @@
+System name:
+fbneo
+
+Full system name:
+FinalBurn Neo
+
+Supported file extensions:
+.ccd .CCD .cue .CUE .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%
+
+Platform (for scraping):
+arcade
+
+Theme folder:
+fbneo

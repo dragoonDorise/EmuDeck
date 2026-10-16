@@ -1,0 +1,17 @@
+System name:
+epic
+
+Full system name:
+Epic Games Store
+
+Supported file extensions:
+.desktop .sh
+
+Launch command:
+%RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% %ROM%
+
+Platform (for scraping):
+pcwindows
+
+Theme folder:
+epic

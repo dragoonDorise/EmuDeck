@@ -1,0 +1,20 @@
+System name:
+pc98
+
+Full system name:
+NEC PC-9800 Series
+
+Supported file extensions:
+.2hd .2HD .88d .88D .98d .98D .d88 .D88 .d98 .D98 .cmd .CMD .dup .DUP .fdd .FDD .fdi .FDI .hdd .HDD .hdi .HDI .hdm .HDM .hdn .HDN .nhd .NHD .tfd .TFD .thd .THD . xdf .XDF .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/np2kai_libretro.so %ROM%
+
+Alternative launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/nekop2_libretro.so %ROM%
+
+Platform (for scraping):
+pc98
+
+Theme folder:
+pc98

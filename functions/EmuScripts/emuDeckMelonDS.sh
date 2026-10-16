@@ -43,19 +43,6 @@ melonDS_init(){
 	melonDS_addParser
 }
 
-#update
-melonDS_update(){
-	setMSG "Updating $melonDS_emuName settings."
-	configEmuFP "${melonDS_emuName}" "${melonDS_emuPath}"
-	updateEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
-	melonDS_setupStorage
-	melonDS_setEmulationFolder
-	melonDS_setupSaves
-	melonDS_addSteamInputProfile
-	melonDS_flushEmulatorLauncher
-
-}
-
 #ConfigurePaths
 melonDS_setEmulationFolder(){
 	setMSG "Setting $melonDS_emuName Emulation Folder"
@@ -123,11 +110,6 @@ melonDS_uninstall(){
 	setMSG "Uninstalling $melonDS_emuName."
 	removeParser "nintendo_nds_melonds.json"
 	uninstallEmuFP "${melonDS_emuName}" "${melonDS_emuPath}" "emulator" ""
-}
-
-#setABXYstyle
-melonDS_setABXYstyle(){
-    	echo "NYI"
 }
 
 #Migrate
@@ -212,6 +194,10 @@ melonDS_setABXYstyle(){
 	changeLine "$buttonB" "$buttonB""1" "${melonDS_configFile}"
 	changeLine "$buttonX" "$buttonX""2" "${melonDS_configFile}"
 	changeLine "$buttonY" "$buttonY""3" "${melonDS_configFile}"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "A" "0"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "B" "1"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "X" "2"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "Y" "3"
 
 
 
@@ -227,6 +213,10 @@ melonDS_setBAYXstyle(){
 	changeLine "$buttonB" "$buttonB""0" "${melonDS_configFile}"
 	changeLine "$buttonX" "$buttonX""3" "${melonDS_configFile}"
 	changeLine "$buttonY" "$buttonY""2" "${melonDS_configFile}"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "A" "1"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "B" "0"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "X" "3"
+	iniFieldUpdate "$melonDS_resolutionFile" "Instance0.Joystick" "Y" "2"
 
 
 

@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rom uploader</title>
+    <style>
+      body {
+        font-family: Avenir, Arial;
+        background: #221d2d;
+        color: #fff;
+      }
+
+      .container {
+        padding: 0 16px;
+        max-width: 1190px;
+        margin: 0 auto;
+      }
+
+      button {
+        -webkit-appearance: none;
+        background: linear-gradient(180deg, #f2ebff 0%, #e7d8ff 75%);
+        border: 1px solid var(--color-surface-deep-low, #00000033);
+        box-shadow: 0px 1px 4px 0px #221d2d29;
+        border-radius: 24px;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 10px 20px 10px 20px;
+        font-size: 16px;
+      }
+
+      /* Estilos para la animación de cargando */
+      #loading {
+        display: none;
+        position: fixed;
+        left: 0%;
+        top: 0%;
+        width: 100vw;
+        height: 100vh;
+        font-size: 20px;
+        backdrop-filter: blur(10px);
+        justify-content: space-around;
+        align-items: center;
+      }
+      #loading .modal {
+        background: #fff;
+        color: #221d2d;
+        border-radius: 12px;
+        width: 50vw;
+        height: 50vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+      #loading .modal__inner {
+        text-align: center;
+      }
+      #loading .modal__inner div {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        margin: 3px;
+        border-radius: 50%;
+        background: #221d2d;
+        animation: loading 1s infinite alternate;
+      }
+
+      #loading .modal__inner div:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      #loading .modal__inner div:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+
+      @keyframes loading {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0.1;
+        }
+      }
+
+      /* Estilos para la zona de arrastrar y soltar */
+      #drop-area {
+        border: 2px dashed #ccc;
+        border-radius: 20px;
+        margin: 0px auto;
+        padding: 20px;
+        text-align: center;
+        font-family: sans-serif;
+        margin-bottom: 24px;
+      }
+
+      #drop-area.highlight {
+        border-color: purple;
+      }
+
+      /* Estilos para la lista de archivos */
+      #file-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      #file-list li {
+        margin: 5px 0;
+      }
+
+      input[type="radio"] {
+        display: none;
+      }
+
+      label {
+        padding: 20px;
+        border: 1px solid var(--color-stroke-light, #ffffff29);
+        border-radius: 12px;
+        display: flex;
+        gap: 12px;
+        transition: 0.5s;
+      }
+      label:hover {
+        transform: scale(1.1);
+        transition: 0.5s;
+      }
+      input:checked + label {
+        outline: 2px solid var(--color-surface-brand-base, #e7d8ff);
+        background: linear-gradient(180deg, rgba(242, 235, 255, 0.16) 0%, rgba(242, 235, 255, 0.08) 100%);
+      }
+
+      .systems {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(14%, 1fr));
+        gap: 12px;
+      }
+
+      label img {
+        width: 100%;
+      }
+      h1 {
+        margin-bottom: 16px;
+      }
+      .lead {
+        margin-bottom: 16px;
+        display: inline-block;
+      }
+      .hidden {
+        display: none;
+      }
+      input[type="text"] {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 24px;
+        color: #fff;
+        font-size: 16px;
+        font-family: Avenir, Arial;
+      }
+      .search {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Upload roms</h1>
+      <span class="lead">Pick your system, <strong>one at a time</strong></span>
+      <form id="uploadForm" enctype="multipart/form-data">
+        <div class="search">
+          <input type="text" id="filter" placeholder="Filter by system..." />
+        </div>
+        <div class="systems">
+          <input id="3do" name="folder" value="3do" type="radio" /><label for="3do"
+            ><img src="https://www.emudeck.com/logos/3do.svg"
+          /></label>
+          <input id="amiga" name="folder" value="amiga" type="radio" /><label for="amiga"
+            ><img src="https://www.emudeck.com/logos/amiga.svg"
+          /></label>
+          <input id="amstradcpc" name="folder" value="amstradcpc" type="radio" /><label for="amstradcpc"
+            ><img src="https://www.emudeck.com/logos/amstradcpc.svg"
+          /></label>
+          <input id="archimedes" name="folder" value="archimedes" type="radio" /><label for="archimedes"
+            ><img src="https://www.emudeck.com/logos/archimedes.svg"
+          /></label>
+          <input id="arduboy" name="folder" value="arduboy" type="radio" /><label for="arduboy"
+            ><img src="https://www.emudeck.com/logos/arduboy.svg"
+          /></label>
+          <input id="astrocade" name="folder" value="astrocade" type="radio" /><label for="astrocade"
+            ><img src="https://www.emudeck.com/logos/astrocade.svg"
+          /></label>
+          <input id="atari800" name="folder" value="atari800" type="radio" /><label for="atari800"
+            ><img src="https://www.emudeck.com/logos/atari800.svg"
+          /></label>
+          <input id="atari2600" name="folder" value="atari2600" type="radio" /><label for="atari2600"
+            ><img src="https://www.emudeck.com/logos/atari2600.svg"
+          /></label>
+          <input id="atari5200" name="folder" value="atari5200" type="radio" /><label for="atari5200"
+            ><img src="https://www.emudeck.com/logos/atari5200.svg"
+          /></label>
+          <input id="atari7800" name="folder" value="atari7800" type="radio" /><label for="atari7800"
+            ><img src="https://www.emudeck.com/logos/atari7800.svg"
+          /></label>
+          <input id="atarijaguar" name="folder" value="atarijaguar" type="radio" /><label for="atarijaguar"
+            ><img src="https://www.emudeck.com/logos/atarijaguar.svg"
+          /></label>
+          <input id="atarijaguarcd" name="folder" value="atarijaguarcd" type="radio" /><label for="atarijaguarcd"
+            ><img src="https://www.emudeck.com/logos/atarijaguarcd.svg"
+          /></label>
+          <input id="atarilynx" name="folder" value="atarilynx" type="radio" /><label for="atarilynx"
+            ><img src="https://www.emudeck.com/logos/atarilynx.svg"
+          /></label>
+          <input id="atarist" name="folder" value="atarist" type="radio" /><label for="atarist"
+            ><img src="https://www.emudeck.com/logos/atarist.svg"
+          /></label>
+          <input id="atarixe" name="folder" value="atarixe" type="radio" /><label for="atarixe"
+            ><img src="https://www.emudeck.com/logos/atarixe.svg"
+          /></label>
+          <input id="atomiswave" name="folder" value="atomiswave" type="radio" /><label for="atomiswave"
+            ><img src="https://www.emudeck.com/logos/atomiswave.svg"
+          /></label>
+          <input id="bbcmicro" name="folder" value="bbcmicro" type="radio" /><label for="bbcmicro"
+            ><img src="https://www.emudeck.com/logos/bbcmicro.svg"
+          /></label>
+          <input id="c64" name="folder" value="c64" type="radio" /><label for="c64"
+            ><img src="https://www.emudeck.com/logos/c64.svg"
+          /></label>
+          <input id="cdimono1" name="folder" value="cdimono1" type="radio" /><label for="cdimono1"
+            ><img src="https://www.emudeck.com/logos/cdimono1.svg"
+          /></label>
+          <input id="cdtv" name="folder" value="cdtv" type="radio" /><label for="cdtv"
+            ><img src="https://www.emudeck.com/logos/cdtv.svg"
+          /></label>
+          <input id="chailove" name="folder" value="chailove" type="radio" /><label for="chailove"
+            ><img src="https://www.emudeck.com/logos/chailove.svg"
+          /></label>
+          <input id="channelf" name="folder" value="channelf" type="radio" /><label for="channelf"
+            ><img src="https://www.emudeck.com/logos/channelf.svg"
+          /></label>
+          <input id="coco" name="folder" value="coco" type="radio" /><label for="coco"
+            ><img src="https://www.emudeck.com/logos/coco.svg"
+          /></label>
+          <input id="colecovision" name="folder" value="colecovision" type="radio" /><label for="colecovision"
+            ><img src="https://www.emudeck.com/logos/colecovision.svg"
+          /></label>
+          <input id="cps" name="folder" value="cps" type="radio" /><label for="cps"
+            ><img src="https://www.emudeck.com/logos/cps.svg"
+          /></label>
+          <input id="cps1" name="folder" value="cps1" type="radio" /><label for="cps1"
+            ><img src="https://www.emudeck.com/logos/cps1.svg"
+          /></label>
+          <input id="cps2" name="folder" value="cps2" type="radio" /><label for="cps2"
+            ><img src="https://www.emudeck.com/logos/cps2.svg"
+          /></label>
+          <input id="cps3" name="folder" value="cps3" type="radio" /><label for="cps3"
+            ><img src="https://www.emudeck.com/logos/cps3.svg"
+          /></label>
+          <input id="crvision" name="folder" value="crvision" type="radio" /><label for="crvision"
+            ><img src="https://www.emudeck.com/logos/crvision.svg"
+          /></label>
+          <input id="custom-collections" name="folder" value="custom-collections" type="radio" /><label
+            for="custom-collections"
+            ><img src="https://www.emudeck.com/logos/custom-collections.svg"
+          /></label>
+          <input id="daphne" name="folder" value="daphne" type="radio" /><label for="daphne"
+            ><img src="https://www.emudeck.com/logos/daphne.svg"
+          /></label>
+          <input id="doom" name="folder" value="doom" type="radio" /><label for="doom"
+            ><img src="https://www.emudeck.com/logos/doom.svg"
+          /></label>
+          <input id="dos" name="folder" value="dos" type="radio" /><label for="dos"
+            ><img src="https://www.emudeck.com/logos/dos.svg"
+          /></label>
+          <input id="dragon32" name="folder" value="dragon32" type="radio" /><label for="dragon32"
+            ><img src="https://www.emudeck.com/logos/dragon32.svg"
+          /></label>
+          <input id="dreamcast" name="folder" value="dreamcast" type="radio" /><label for="dreamcast"
+            ><img src="https://www.emudeck.com/logos/dreamcast.svg"
+          /></label>
+          <input id="easyrpg" name="folder" value="easyrpg" type="radio" /><label for="easyrpg"
+            ><img src="https://www.emudeck.com/logos/easyrpg.svg"
+          /></label>
+          <input id="electron" name="folder" value="electron" type="radio" /><label for="electron"
+            ><img src="https://www.emudeck.com/logos/electron.svg"
+          /></label>
+          <input id="famicom" name="folder" value="famicom" type="radio" /><label for="famicom"
+            ><img src="https://www.emudeck.com/logos/famicom.svg"
+          /></label>
+          <input id="fba" name="folder" value="fba" type="radio" /><label for="fba"
+            ><img src="https://www.emudeck.com/logos/fba.svg"
+          /></label>
+          <input id="fbneo" name="folder" value="fbneo" type="radio" /><label for="fbneo"
+            ><img src="https://www.emudeck.com/logos/fbneo.svg"
+          /></label>
+          <input id="fds" name="folder" value="fds" type="radio" /><label for="fds"
+            ><img src="https://www.emudeck.com/logos/fds.svg"
+          /></label>
+          <input id="fm7" name="folder" value="fm7" type="radio" /><label for="fm7"
+            ><img src="https://www.emudeck.com/logos/fm7.svg"
+          /></label>
+          <input id="fmtowns" name="folder" value="fmtowns" type="radio" /><label for="fmtowns"
+            ><img src="https://www.emudeck.com/logos/fmtowns.svg"
+          /></label>
+          <input id="fpinball" name="folder" value="fpinball" type="radio" /><label for="fpinball"
+            ><img src="https://www.emudeck.com/logos/fpinball.svg"
+          /></label>
+          <input id="gamate" name="folder" value="gamate" type="radio" /><label for="gamate"
+            ><img src="https://www.emudeck.com/logos/gamate.svg"
+          /></label>
+          <input id="gameandwatch" name="folder" value="gameandwatch" type="radio" /><label for="gameandwatch"
+            ><img src="https://www.emudeck.com/logos/gameandwatch.svg"
+          /></label>
+          <input id="gamecom" name="folder" value="gamecom" type="radio" /><label for="gamecom"
+            ><img src="https://www.emudeck.com/logos/gamecom.svg"
+          /></label>
+          <input id="gamegear" name="folder" value="gamegear" type="radio" /><label for="gamegear"
+            ><img src="https://www.emudeck.com/logos/gamegear.svg"
+          /></label>
+          <input id="gb" name="folder" value="gb" type="radio" /><label for="gb"
+            ><img src="https://www.emudeck.com/logos/gb.svg"
+          /></label>
+          <input id="gba" name="folder" value="gba" type="radio" /><label for="gba"
+            ><img src="https://www.emudeck.com/logos/gba.svg"
+          /></label>
+          <input id="gbc" name="folder" value="gbc" type="radio" /><label for="gbc"
+            ><img src="https://www.emudeck.com/logos/gbc.svg"
+          /></label>
+          <input id="gc" name="folder" value="gc" type="radio" /><label for="gc"
+            ><img src="https://www.emudeck.com/logos/gc.svg"
+          /></label>
+          <input id="genesis" name="folder" value="genesis" type="radio" /><label for="genesis"
+            ><img src="https://www.emudeck.com/logos/genesis.svg"
+          /></label>
+          <input id="gmaster" name="folder" value="gmaster" type="radio" /><label for="gmaster"
+            ><img src="https://www.emudeck.com/logos/gmaster.svg"
+          /></label>
+          <input id="gx4000" name="folder" value="gx4000" type="radio" /><label for="gx4000"
+            ><img src="https://www.emudeck.com/logos/gx4000.svg"
+          /></label>
+          <input id="intellivision" name="folder" value="intellivision" type="radio" /><label for="intellivision"
+            ><img src="https://www.emudeck.com/logos/intellivision.svg"
+          /></label>
+          <input id="laserdisc" name="folder" value="laserdisc" type="radio" /><label for="laserdisc"
+            ><img src="https://www.emudeck.com/logos/laserdisc.svg"
+          /></label>
+          <input id="lcdgames" name="folder" value="lcdgames" type="radio" /><label for="lcdgames"
+            ><img src="https://www.emudeck.com/logos/lcdgames.svg"
+          /></label>
+          <input id="lowresnx" name="folder" value="lowresnx" type="radio" /><label for="lowresnx"
+            ><img src="https://www.emudeck.com/logos/lowresnx.svg"
+          /></label>
+          <input id="lutro" name="folder" value="lutro" type="radio" /><label for="lutro"
+            ><img src="https://www.emudeck.com/logos/lutro.svg"
+          /></label>
+          <input id="macintosh" name="folder" value="macintosh" type="radio" /><label for="macintosh"
+            ><img src="https://www.emudeck.com/logos/macintosh.svg"
+          /></label>
+          <input id="mame" name="folder" value="mame" type="radio" /><label for="mame"
+            ><img src="https://www.emudeck.com/logos/mame.svg"
+          /></label>
+          <input id="mastersystem" name="folder" value="mastersystem" type="radio" /><label for="mastersystem"
+            ><img src="https://www.emudeck.com/logos/mastersystem.svg"
+          /></label>
+          <input id="megacd" name="folder" value="megacd" type="radio" /><label for="megacd"
+            ><img src="https://www.emudeck.com/logos/megacd.svg"
+          /></label>
+          <input id="megadrive" name="folder" value="megadrive" type="radio" /><label for="megadrive"
+            ><img src="https://www.emudeck.com/logos/megadrive.svg"
+          /></label>
+          <input id="megaduck" name="folder" value="megaduck" type="radio" /><label for="megaduck"
+            ><img src="https://www.emudeck.com/logos/megaduck.svg"
+          /></label>
+          <input id="model2" name="folder" value="model2" type="radio" /><label for="model2"
+            ><img src="https://www.emudeck.com/logos/model2.svg"
+          /></label>
+          <input id="model3" name="folder" value="model3" type="radio" /><label for="model3"
+            ><img src="https://www.emudeck.com/logos/model3.svg"
+          /></label>
+          <input id="moto" name="folder" value="moto" type="radio" /><label for="moto"
+            ><img src="https://www.emudeck.com/logos/moto.svg"
+          /></label>
+          <input id="msx" name="folder" value="msx" type="radio" /><label for="msx"
+            ><img src="https://www.emudeck.com/logos/msx.svg"
+          /></label>
+          <input id="msx1" name="folder" value="msx1" type="radio" /><label for="msx1"
+            ><img src="https://www.emudeck.com/logos/msx1.svg"
+          /></label>
+          <input id="msx2" name="folder" value="msx2" type="radio" /><label for="msx2"
+            ><img src="https://www.emudeck.com/logos/msx2.svg"
+          /></label>
+          <input id="msxturbor" name="folder" value="msxturbor" type="radio" /><label for="msxturbor"
+            ><img src="https://www.emudeck.com/logos/msxturbor.svg"
+          /></label>
+          <input id="mugen" name="folder" value="mugen" type="radio" /><label for="mugen"
+            ><img src="https://www.emudeck.com/logos/mugen.svg"
+          /></label>
+          <input id="multivision" name="folder" value="multivision" type="radio" /><label for="multivision"
+            ><img src="https://www.emudeck.com/logos/multivision.svg"
+          /></label>
+          <input id="n3ds" name="folder" value="n3ds" type="radio" /><label for="n3ds"
+            ><img src="https://www.emudeck.com/logos/n3ds.svg"
+          /></label>
+          <input id="n64" name="folder" value="n64" type="radio" /><label for="n64"
+            ><img src="https://www.emudeck.com/logos/n64.svg"
+          /></label>
+          <input id="n64dd" name="folder" value="n64dd" type="radio" /><label for="n64dd"
+            ><img src="https://www.emudeck.com/logos/n64dd.svg"
+          /></label>
+          <input id="naomi" name="folder" value="naomi" type="radio" /><label for="naomi"
+            ><img src="https://www.emudeck.com/logos/naomi.svg"
+          /></label>
+          <input id="naomi2" name="folder" value="naomi2" type="radio" /><label for="naomi2"
+            ><img src="https://www.emudeck.com/logos/naomi2.svg"
+          /></label>
+          <input id="naomigd" name="folder" value="naomigd" type="radio" /><label for="naomigd"
+            ><img src="https://www.emudeck.com/logos/naomigd.svg"
+          /></label>
+          <input id="nds" name="folder" value="nds" type="radio" /><label for="nds"
+            ><img src="https://www.emudeck.com/logos/nds.svg"
+          /></label>
+          <input id="neogeo" name="folder" value="neogeo" type="radio" /><label for="neogeo"
+            ><img src="https://www.emudeck.com/logos/neogeo.svg"
+          /></label>
+          <input id="neogeocdjp" name="folder" value="neogeocdjp" type="radio" /><label for="neogeocdjp"
+            ><img src="https://www.emudeck.com/logos/neogeocdjp.svg"
+          /></label>
+          <input id="nes" name="folder" value="nes" type="radio" /><label for="nes"
+            ><img src="https://www.emudeck.com/logos/nes.svg"
+          /></label>
+          <input id="ngp" name="folder" value="ngp" type="radio" /><label for="ngp"
+            ><img src="https://www.emudeck.com/logos/ngp.svg"
+          /></label>
+          <input id="ngpc" name="folder" value="ngpc" type="radio" /><label for="ngpc"
+            ><img src="https://www.emudeck.com/logos/ngpc.svg"
+          /></label>
+          <input id="odyssey2" name="folder" value="odyssey2" type="radio" /><label for="odyssey2"
+            ><img src="https://www.emudeck.com/logos/odyssey2.svg"
+          /></label>
+          <input id="openbor" name="folder" value="openbor" type="radio" /><label for="openbor"
+            ><img src="https://www.emudeck.com/logos/openbor.svg"
+          /></label>
+          <input id="oric" name="folder" value="oric" type="radio" /><label for="oric"
+            ><img src="https://www.emudeck.com/logos/oric.svg"
+          /></label>
+          <input id="pc88" name="folder" value="pc88" type="radio" /><label for="pc88"
+            ><img src="https://www.emudeck.com/logos/pc88.svg"
+          /></label>
+          <input id="pc98" name="folder" value="pc98" type="radio" /><label for="pc98"
+            ><img src="https://www.emudeck.com/logos/pc98.svg"
+          /></label>
+          <input id="pcengine" name="folder" value="pcengine" type="radio" /><label for="pcengine"
+            ><img src="https://www.emudeck.com/logos/pcengine.svg"
+          /></label>
+          <input id="pcenginecd" name="folder" value="pcenginecd" type="radio" /><label for="pcenginecd"
+            ><img src="https://www.emudeck.com/logos/pcenginecd.svg"
+          /></label>
+          <input id="pcfx" name="folder" value="pcfx" type="radio" /><label for="pcfx"
+            ><img src="https://www.emudeck.com/logos/pcfx.svg"
+          /></label>
+          <input id="pico8" name="folder" value="pico8" type="radio" /><label for="pico8"
+            ><img src="https://www.emudeck.com/logos/pico8.svg"
+          /></label>
+          <input id="playdate" name="folder" value="playdate" type="radio" /><label for="playdate"
+            ><img src="https://www.emudeck.com/logos/playdate.svg"
+          /></label>
+          <input id="plus4" name="folder" value="plus4" type="radio" /><label for="plus4"
+            ><img src="https://www.emudeck.com/logos/plus4.svg"
+          /></label>
+          <input id="pokemini" name="folder" value="pokemini" type="radio" /><label for="pokemini"
+            ><img src="https://www.emudeck.com/logos/pokemini.svg"
+          /></label>
+          <input id="psx" name="folder" value="psx" type="radio" /><label for="psx"
+            ><img src="https://www.emudeck.com/logos/psx.svg"
+          /></label>
+
+          <input id="ps2" name="folder" value="ps2" type="radio" /><label for="ps2"
+            ><img src="https://www.emudeck.com/logos/ps2.svg"
+          /></label>
+          <input id="ps3" name="folder" value="ps3" type="radio" /><label for="ps3"
+            ><img src="https://www.emudeck.com/logos/ps3.svg"
+          /></label>
+          <input id="ps4" name="folder" value="ps4" type="radio" /><label for="ps4"
+            ><img src="https://www.emudeck.com/logos/ps4.svg"
+          /></label>
+          <input id="psp" name="folder" value="psp" type="radio" /><label for="psp"
+            ><img src="https://www.emudeck.com/logos/psp.svg"
+          /></label>
+          <input id="psvita" name="folder" value="psvita" type="radio" /><label for="psvita"
+            ><img src="https://www.emudeck.com/logos/psvita.svg"
+          /></label>
+          <input id="pv1000" name="folder" value="pv1000" type="radio" /><label for="pv1000"
+            ><img src="https://www.emudeck.com/logos/pv1000.svg"
+          /></label>
+          <input id="samcoupe" name="folder" value="samcoupe" type="radio" /><label for="samcoupe"
+            ><img src="https://www.emudeck.com/logos/samcoupe.svg"
+          /></label>
+          <input id="satellaview" name="folder" value="satellaview" type="radio" /><label for="satellaview"
+            ><img src="https://www.emudeck.com/logos/satellaview.svg"
+          /></label>
+          <input id="saturn" name="folder" value="saturn" type="radio" /><label for="saturn"
+            ><img src="https://www.emudeck.com/logos/saturn.svg"
+          /></label>
+          <input id="scummvm" name="folder" value="scummvm" type="radio" /><label for="scummvm"
+            ><img src="https://www.emudeck.com/logos/scummvm.svg"
+          /></label>
+          <input id="scv" name="folder" value="scv" type="radio" /><label for="scv"
+            ><img src="https://www.emudeck.com/logos/scv.svg"
+          /></label>
+          <input id="sega32x" name="folder" value="sega32x" type="radio" /><label for="sega32x"
+            ><img src="https://www.emudeck.com/logos/sega32x.svg"
+          /></label>
+          <input id="segacd" name="folder" value="segacd" type="radio" /><label for="segacd"
+            ><img src="https://www.emudeck.com/logos/segacd.svg"
+          /></label>
+          <input id="sfc" name="folder" value="sfc" type="radio" /><label for="sfc"
+            ><img src="https://www.emudeck.com/logos/sfc.svg"
+          /></label>
+          <input id="sg-1000" name="folder" value="sg-1000" type="radio" /><label for="sg-1000"
+            ><img src="https://www.emudeck.com/logos/sg-1000.svg"
+          /></label>
+          <input id="sgb" name="folder" value="sgb" type="radio" /><label for="sgb"
+            ><img src="https://www.emudeck.com/logos/sgb.svg"
+          /></label>
+          <input id="snes" name="folder" value="snes" type="radio" /><label for="snes"
+            ><img src="https://www.emudeck.com/logos/snes.svg"
+          /></label>
+          <input id="solarus" name="folder" value="solarus" type="radio" /><label for="solarus"
+            ><img src="https://www.emudeck.com/logos/solarus.svg"
+          /></label>
+          <input id="spectravideo" name="folder" value="spectravideo" type="radio" /><label for="spectravideo"
+            ><img src="https://www.emudeck.com/logos/spectravideo.svg"
+          /></label>
+          <input id="stv" name="folder" value="stv" type="radio" /><label for="stv"
+            ><img src="https://www.emudeck.com/logos/stv.svg"
+          /></label>
+          <input id="sufami" name="folder" value="sufami" type="radio" /><label for="sufami"
+            ><img src="https://www.emudeck.com/logos/sufami.svg"
+          /></label>
+          <input id="supergrafx" name="folder" value="supergrafx" type="radio" /><label for="supergrafx"
+            ><img src="https://www.emudeck.com/logos/supergrafx.svg"
+          /></label>
+          <input id="supervision" name="folder" value="supervision" type="radio" /><label for="supervision"
+            ><img src="https://www.emudeck.com/logos/supervision.svg"
+          /></label>
+          <input id="supracan" name="folder" value="supracan" type="radio" /><label for="supracan"
+            ><img src="https://www.emudeck.com/logos/supracan.svg"
+          /></label>
+          <input id="switch" name="folder" value="switch" type="radio" /><label for="switch"
+            ><img src="https://www.emudeck.com/logos/switch.svg"
+          /></label>
+          <input id="tanodragon" name="folder" value="tanodragon" type="radio" /><label for="tanodragon"
+            ><img src="https://www.emudeck.com/logos/tanodragon.svg"
+          /></label>
+          <input id="tg-cd" name="folder" value="tg-cd" type="radio" /><label for="tg-cd"
+            ><img src="https://www.emudeck.com/logos/tg-cd.svg"
+          /></label>
+          <input id="tg16" name="folder" value="tg16" type="radio" /><label for="tg16"
+            ><img src="https://www.emudeck.com/logos/tg16.svg"
+          /></label>
+          <input id="ti99" name="folder" value="ti99" type="radio" /><label for="ti99"
+            ><img src="https://www.emudeck.com/logos/ti99.svg"
+          /></label>
+          <input id="tic80" name="folder" value="tic80" type="radio" /><label for="tic80"
+            ><img src="https://www.emudeck.com/logos/tic80.svg"
+          /></label>
+          <input id="to8" name="folder" value="to8" type="radio" /><label for="to8"
+            ><img src="https://www.emudeck.com/logos/to8.svg"
+          /></label>
+          <input id="triforce" name="folder" value="triforce" type="radio" /><label for="triforce"
+            ><img src="https://www.emudeck.com/logos/triforce.svg"
+          /></label>
+          <input id="trs-80" name="folder" value="trs-80" type="radio" /><label for="trs-80"
+            ><img src="https://www.emudeck.com/logos/trs-80.svg"
+          /></label>
+          <input id="type-x" name="folder" value="type-x" type="radio" /><label for="type-x"
+            ><img src="https://www.emudeck.com/logos/type-x.svg"
+          /></label>
+          <input id="uzebox" name="folder" value="uzebox" type="radio" /><label for="uzebox"
+            ><img src="https://www.emudeck.com/logos/uzebox.svg"
+          /></label>
+          <input id="vectrex" name="folder" value="vectrex" type="radio" /><label for="vectrex"
+            ><img src="https://www.emudeck.com/logos/vectrex.svg"
+          /></label>
+          <input id="vic20" name="folder" value="vic20" type="radio" /><label for="vic20"
+            ><img src="https://www.emudeck.com/logos/vic20.svg"
+          /></label>
+          <input id="videopac" name="folder" value="videopac" type="radio" /><label for="videopac"
+            ><img src="https://www.emudeck.com/logos/videopac.svg"
+          /></label>
+          <input id="virtualboy" name="folder" value="virtualboy" type="radio" /><label for="virtualboy"
+            ><img src="https://www.emudeck.com/logos/virtualboy.svg"
+          /></label>
+          <input id="vpinball" name="folder" value="vpinball" type="radio" /><label for="vpinball"
+            ><img src="https://www.emudeck.com/logos/vpinball.svg"
+          /></label>
+          <input id="vsmile" name="folder" value="vsmile" type="radio" /><label for="vsmile"
+            ><img src="https://www.emudeck.com/logos/vsmile.svg"
+          /></label>
+          <input id="wasm4" name="folder" value="wasm4" type="radio" /><label for="wasm4"
+            ><img src="https://www.emudeck.com/logos/wasm4.svg"
+          /></label>
+          <input id="wii" name="folder" value="wii" type="radio" /><label for="wii"
+            ><img src="https://www.emudeck.com/logos/wii.svg"
+          /></label>
+          <input id="wiiu" name="folder" value="wiiu" type="radio" /><label for="wiiu"
+            ><img src="https://www.emudeck.com/logos/wiiu.svg"
+          /></label>
+          <input id="wonderswan" name="folder" value="wonderswan" type="radio" /><label for="wonderswan"
+            ><img src="https://www.emudeck.com/logos/wonderswan.svg"
+          /></label>
+          <input id="wonderswancolor" name="folder" value="wonderswancolor" type="radio" /><label for="wonderswancolor"
+            ><img src="https://www.emudeck.com/logos/wonderswancolor.svg"
+          /></label>
+          <input id="x1" name="folder" value="x1" type="radio" /><label for="x1"
+            ><img src="https://www.emudeck.com/logos/x1.svg"
+          /></label>
+          <input id="x68000" name="folder" value="x68000" type="radio" /><label for="x68000"
+            ><img src="https://www.emudeck.com/logos/x68000.svg"
+          /></label>
+          <input id="xbox" name="folder" value="xbox" type="radio" /><label for="xbox"
+            ><img src="https://www.emudeck.com/logos/xbox.svg"
+          /></label>
+          <input id="xbox360" name="folder" value="xbox360" type="radio" /><label for="xbox360"
+            ><img src="https://www.emudeck.com/logos/xbox360.svg"
+          /></label>
+          <input id="zmachine" name="folder" value="zmachine" type="radio" /><label for="zmachine"
+            ><img src="https://www.emudeck.com/logos/zmachine.svg"
+          /></label>
+          <input id="zx81" name="folder" value="zx81" type="radio" /><label for="zx81"
+            ><img src="https://www.emudeck.com/logos/zx81.svg"
+          /></label>
+          <input id="zxnext" name="folder" value="zxnext" type="radio" /><label for="zxnext"
+            ><img src="https://www.emudeck.com/logos/zxnext.svg"
+          /></label>
+          <input id="zxspectrum" name="folder" value="zxspectrum" type="radio" />
+          <label for="zxspectrum"><img src="https://www.emudeck.com/logos/zxspectrum.svg" /></label>
+        </div>
+        <br />
+        <div id="drop-area">
+          <p>Drag & drop your games or click to select them</p>
+          <input type="file" id="fileElem" multiple style="display: none" />
+          <ul id="file-list"></ul>
+        </div>
+        <button type="submit">Upload!</button>
+      </form>
+
+      <div id="loading">
+        <div class="modal">
+          <div class="modal__inner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <br />
+            Uploading files, please wait
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      let dropArea = document.getElementById("drop-area");
+      let fileElem = document.getElementById("fileElem");
+      let filesList = [];
+      let fileListElement = document.getElementById("file-list");
+
+      ["dragenter", "dragover", "dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, preventDefaults, false);
+      });
+
+      function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+
+      ["dragenter", "dragover"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, highlight, false);
+      });
+      ["dragleave", "drop"].forEach((eventName) => {
+        dropArea.addEventListener(eventName, unhighlight, false);
+      });
+
+      function highlight(e) {
+        dropArea.classList.add("highlight");
+      }
+
+      function unhighlight(e) {
+        dropArea.classList.remove("highlight");
+      }
+
+      dropArea.addEventListener("drop", handleDrop, false);
+
+      function handleDrop(e) {
+        let dt = e.dataTransfer;
+        let files = dt.files;
+
+        handleFiles(files);
+      }
+
+      dropArea.addEventListener("click", () => fileElem.click());
+      fileElem.addEventListener("change", () => handleFiles(fileElem.files));
+
+      function handleFiles(files) {
+        files = [...files];
+        filesList = filesList.concat(files);
+        files.forEach(displayFile);
+      }
+
+      function displayFile(file) {
+        let li = document.createElement("li");
+        li.textContent = file.name;
+        fileListElement.appendChild(li);
+      }
+
+      document.getElementById("uploadForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+
+        let form = document.getElementById("uploadForm");
+        let formData = new FormData(form);
+
+        filesList.forEach((file) => {
+          formData.append("files", file);
+        });
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", "/upload", true);
+
+        xhr.onloadstart = function () {
+          document.getElementById("loading").style.display = "flex";
+        };
+
+        xhr.onload = function () {
+          document.getElementById("loading").style.display = "none";
+          if (xhr.status === 200) {
+            alert("File upload complete");
+            document.querySelectorAll("label").forEach((lbl) => {
+              lbl.classList.remove("hidden");
+            });
+            // Limpiar la lista de archivos
+            filesList = [];
+            fileListElement.innerHTML = "";
+          } else {
+            alert("File upload failed");
+          }
+        };
+
+        xhr.send(formData);
+      });
+    </script>
+    <script>
+      document.querySelectorAll("label").forEach((label) => {
+        label.addEventListener("click", function () {
+          document.querySelectorAll("label").forEach((lbl) => {
+            if (lbl !== label) {
+              lbl.classList.add("hidden");
+            }
+          });
+        });
+      });
+      document.getElementById("filter").addEventListener("input", function () {
+        document.querySelectorAll("label").forEach((lbl) => {
+          lbl.classList.remove("hidden");
+        });
+
+        var filterValue = this.value.toLowerCase();
+        var inputs = document.querySelectorAll('.systems input[type="radio"]');
+
+        inputs.forEach(function (input) {
+          var label = document.querySelector('label[for="' + input.id + '"]');
+          if (input.value.toLowerCase().includes(filterValue)) {
+            label.classList.remove("hidden");
+          } else {
+            label.classList.add("hidden");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

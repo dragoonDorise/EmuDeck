@@ -1,0 +1,17 @@
+System name:
+solarus
+
+Full system name:
+Solarus Game Engine
+
+Supported file extensions:
+.solarus
+
+Launch command:
+%EMULATOR_SOLARUS% %ROM%
+
+Platform (for scraping):
+solarus
+
+Theme folder:
+solarus

@@ -1,0 +1,21 @@
+System name:
+tg-cd
+
+Full system name:
+NEC TurboGrafx-CD
+
+Supported file extensions:
+.ccd .CCD .chd .CHD .cue .CUE .img .IMG .iso .ISO .m3u .M3U .pce .PCE .sgx .SGX .toc .TOC .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_pce_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mednafen_pce_fast_libretro.so %ROM%
+%EMULATOR_MEDNAFEN% -force_module pce %ROM%
+
+Platform (for scraping):
+pcenginecd
+
+Theme folder:
+tg-cd

@@ -1,0 +1,5 @@
+collection: Lutris Open Gaming Platform
+shortname: lutris
+extensions: desktop, sh
+launch: PLACEHOLDER {file.path}
+

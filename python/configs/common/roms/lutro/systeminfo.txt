@@ -1,0 +1,17 @@
+System name:
+lutro
+
+Full system name:
+Lutro Game Engine
+
+Supported file extensions:
+.lua .LUA .lutro .LUTRO .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/lutro_libretro.so %ROM%
+
+Platform (for scraping):
+lutro
+
+Theme folder:
+lutro

@@ -1,0 +1,4 @@
+collection: Generic Applications
+shortname: generic-applications
+extensions: sh
+launch:  {file.path}

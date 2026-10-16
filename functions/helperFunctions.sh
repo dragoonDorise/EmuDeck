@@ -432,7 +432,7 @@ function getLatestReleaseURLGH(){
 
 	url=$(curl -fSs "$url" | \
 		jq -r '[ .assets[] | select(.name | contains("'"$fileNameContains"'") and startswith("'"$fileNameStartsWith"'") and endswith("'"$fileType"'")).browser_download_url ][0] // empty')
-	
+		
 	if [ -z "$url" ]; then
 		url=$(getMirrorURLGH "$repository" "$fileType" "$fileNameContains" "$fileNameStartsWith" "")
 	fi
@@ -471,10 +471,12 @@ function getReleaseURLGH(){
 					end)
 			).browser_download_url
 		][0] // empty')
-		if [ -z "$url" ]; then
-			url=$(getMirrorURLGH "$repository" "$fileType" "$fileNameContains" "$fileNameStartsWith" "$fileNameDoesNotContain")
-		fi
-		echo "$url"
+
+	if [ -z "$url" ]; then
+		url=$(getMirrorURLGH "$repository" "$fileType" "$fileNameContains" "$fileNameStartsWith" "$fileNameDoesNotContain")
+	fi
+	echo "$url"
+
 }
 
 function getMirrorURLGH(){
@@ -699,10 +701,11 @@ function createDesktopShortcut(){
 	local exec=$3
 	local terminal=$4
 	local icon
+	local frameOption=""
 
 	rm -f "$Shortcutlocation"
 
-	balooctl check
+	balooctl6 check
 
 	mkdir -p "$HOME/.local/share/applications/"
 
@@ -724,12 +727,6 @@ function createDesktopShortcut(){
 		fi	
 	fi
 	
-	if [[ "$name" == *Steam-ROM-Manager* ]]; then	
-		if [ "$(getProductName)" == "frame" ]; then
-			frameOption=""
-		fi	
-	fi
-	
 	
 
 	echo "#!/usr/bin/env xdg-open
@@ -744,7 +741,7 @@ function createDesktopShortcut(){
 	StartupNotify=false" > "$Shortcutlocation"
 	chmod +x "$Shortcutlocation"
 
-	balooctl check
+	balooctl6 check
 
 	echo "$Shortcutlocation created"
 }
@@ -789,7 +786,7 @@ function desktopShortcutFieldUpdate(){
 			fi
 		fi
 		sed -E -i "s|$shortcutKey\\s*=\\s*.*|$shortcutKey=$shortcutValue|g" "$shortcutFile"
-		balooctl check
+		balooctl6 check
 	fi
 }
 
@@ -1214,6 +1211,7 @@ function emulatorInit(){
 	if [ -z $args ];then 
 		case "$emuNameLower" in
 			ryujinx) autoMapEmulatorStatus="$autoMapSwitch" ;;
+			eden)    autoMapEmulatorStatus="$autoMapSwitch" ;;
 			dolphin) autoMapEmulatorStatus="$autoMapDolphin" ;;
 			cemu)    autoMapEmulatorStatus="$autoMapCemu" ;;
 			*)       autoMapEmulatorStatus="false" ;;
