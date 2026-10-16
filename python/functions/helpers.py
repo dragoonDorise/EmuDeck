@@ -864,12 +864,14 @@ def install_emu(name, url, type_, destination):
                 print(f"{name}.AppImage installed at {dest_file}")
                 return
 
-            if system == "darwin":
-                extract_to = emus_folder
-                extract_to.mkdir(parents=True, exist_ok=True)
-                with zipfile.ZipFile(archive_path, 'r') as zf:
-                    zf.extractall(path=extract_to)
-                return
+            if system == "darwin":               
+                extract_to = temp_dir / name
+                subprocess.run(["ditto", "-x", "-k", str(archive_path), str(extract_to)], check=True)
+                for app in list(extract_to.glob("*.app")) or list(extract_to.glob("*/*.app")):
+                    shutil.rmtree(emus_folder / app.name, ignore_errors=True)
+                    shutil.move(str(app), str(emus_folder / app.name))
+                create_app_shortcut(name)
+                return True
 
             try:
                 extract_flat(archive_path, extract_to)
@@ -882,6 +884,16 @@ def install_emu(name, url, type_, destination):
         elif type_ in ("7z"):
             extract_to = emus_folder / destination if destination else emus_folder / name
             extract_to.mkdir(parents=True, exist_ok=True)
+
+            if system == "darwin":
+                extract_to = temp_dir / name
+                extract_to.mkdir(parents=True, exist_ok=True)
+                subprocess.run(["tar", "-xf", str(archive_path), "-C", str(extract_to)], check=True)
+                for app in list(extract_to.glob("*.app")) or list(extract_to.glob("*/*.app")):
+                    shutil.rmtree(emus_folder / app.name, ignore_errors=True)
+                    shutil.move(str(app), str(emus_folder / app.name))
+                create_app_shortcut(name)
+                return True
 
             extract7z_flat(archive_path, extract_to)
 
@@ -1060,7 +1072,10 @@ def create_app_shortcut(name: str, display_name: Optional[str] = None, terminal:
 
 def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/Applications/EmuDeck")):
 
+    # Use the real emulator App Name
+    app_name = next((p.stem for p in Path(emus_folder).glob("*.app") if p.stem.lower() == app_name.lower()), app_name)
     app_bundle = output_dir / f"{app_name}.app"
+    shutil.rmtree(app_bundle, ignore_errors=True)
     contents_dir = app_bundle / "Contents"
     macos_dir = contents_dir / "MacOS"
     resources_dir = contents_dir / "Resources"
@@ -1073,8 +1088,13 @@ def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/A
     target_exec.write_text(f'#!/usr/bin/env bash\nexec "{script_path}" "$@"\n', encoding="utf-8")
     target_exec.chmod(0o755)
 
-    icon = next((p for p in Path(icons_path).glob("*.*") if p.stem.lower() == app_name.lower()), None)
-    if icon:
+    # Use the official emulator app icon
+    icon = None
+    real_plist = Path(emus_folder) / f"{app_name}.app" / "Contents" / "Info.plist"
+    if real_plist.is_file():
+        icon_name = plistlib.loads(real_plist.read_bytes()).get("CFBundleIconFile", "")
+        icon = real_plist.parent / "Resources" / (icon_name if icon_name.endswith(".icns") else f"{icon_name}.icns")
+    if icon and icon.is_file():
         subprocess.run(["sips", "-s", "format", "icns", str(icon), "--out", str(resources_dir / "icon.icns")], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
     plist = {
