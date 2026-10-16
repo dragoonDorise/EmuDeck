@@ -504,6 +504,13 @@ def md5_of(path: Path) -> Optional[str]:
             h.update(chunk)
     return h.hexdigest()
 
+def create_folders():
+    for folder in (emulation_path, tools_path / "launchers", saves_path, roms_path, storage_path, bios_path):
+        folder.mkdir(parents=True, exist_ok=True)
+    set_msg(f"Creating roms folder in {roms_path}")
+    shutil.copytree(Path(emudeck_backend) / "configs" / "common" / "roms", roms_path, dirs_exist_ok=True, copy_function=lambda src, dst: None if os.path.exists(dst) else shutil.copy2(src, dst))
+    return True
+
 def stat_install(name: str) -> None:
     """ Installation stats """
     if hybrid_mode:
