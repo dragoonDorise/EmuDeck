@@ -21,3 +21,5 @@ setSetting(){
 	# shellcheck source=settings.sh
 	source "$emuDecksettingsFile"
 }
+
+customLocation(){ py_run --print custom_location; }

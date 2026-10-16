@@ -27,11 +27,11 @@ def custom_location() -> Optional[str]:
     
     elif system.startswith("darwin"):
         r = subprocess.run(
-            ["osascript", "-e",
+            ["osascript", "-e", "activate", "-e",
             'POSIX path of (choose folder with prompt "Select a destination for the Emulation directory.")'],
             capture_output=True, text=True
         )
-        return r.stdout.strip() or None
+        return r.stdout.strip().rstrip("/") or None
     
     elif system.startswith("win"):
         ps = (
