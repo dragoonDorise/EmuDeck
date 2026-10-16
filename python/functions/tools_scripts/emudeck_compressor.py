@@ -599,24 +599,24 @@ def compressor_folder_has_files(folder: str, exts: list[str]) -> bool:
     print("   ✖ no matching files found")
     return False
 
-def compressor_generate_list():
+def compressor_generate_list(decompress: bool = False):
     # CHD folders
     candidates: List[str] = []
     for f in chd_folder_whitelist if Path(chdman_cmd).exists() else []:
         print(f"Checking {roms_path / f}")
-        if compressor_folder_has_files(f, chd_file_extensions):
+        if compressor_folder_has_files(f, ["chd"] if decompress else ["gdi", "cue", "iso"]):
             print(f"found in {f}")
             candidates.append(f)
 
     # RVZ only if dolphin-tool available (i.e. flatpak on Linux):
     for f in rvz_folder_whitelist if system != "darwin" or (Path(emus_folder) / "Dolphin.app" / "Contents" / "MacOS" / "dolphin-tool").exists() else []:
         print(f"Checking {roms_path / f}")
-        if compressor_folder_has_files(f, rvz_file_extensions):
+        if compressor_folder_has_files(f, ["rvz"] if decompress else ["gcm", "iso"]):
             print(f"found in {f}")
             candidates.append(f)
 
     # 3DS
-    for f in n3ds_folder_whitelist:
+    for f in [] if decompress else n3ds_folder_whitelist:
         print(f"Checking {roms_path / f}")
         # ignore *Trimmed*
         d = roms_path / f
@@ -630,12 +630,12 @@ def compressor_generate_list():
     # CSO (just .iso)
     for f in cso_folder_whitelist:
         print(f"Checking {roms_path / f}")
-        if compressor_folder_has_files(f, cso_file_extensions):
+        if compressor_folder_has_files(f, ["cso"] if decompress else ["iso"]):
             print(f"found in {f}")
             candidates.append(f)
 
     # XBOX (exclude *.xiso.iso)
-    for f in xbox_folder_whitelist:
+    for f in [] if decompress else xbox_folder_whitelist:
         print(f"Checking {roms_path / f}")
         d = roms_path / f
         if d.is_dir():
@@ -762,7 +762,7 @@ def compressor_launch():
         # user chose Bulk deompress
         print(f"🔍 Checking {roms_path} for files eligible for conversion.")
 
-        folders = compressor_generate_list()
+        folders = compressor_generate_list(True)
 
         if not folders:
             popup_show_info("EmuDeck Compressor", "No suitable ROMs were found for conversion.")
