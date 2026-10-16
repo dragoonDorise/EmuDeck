@@ -65,8 +65,20 @@ def check_ryujinx_bios() -> bool:
     if system.startswith("win"):
         fir = emus_folder / "Ryujinx" / "bis"    / "system" / "Contents" / "registered"
         keys = emus_folder / "Ryujinx" / "system" / "prod.keys"
+    if system == "darwin":
+        fir = home / "Library" / "Application Support" / "Ryujinx" / "bis" / "system" / "Contents" / "registered"
+        keys = home / "Library" / "Application Support" / "Ryujinx" / "system" / "prod.keys"
 
-    return keys.is_file() and any(fir.iterdir())
+    return keys.is_file() and fir.is_dir() and any(fir.iterdir())
+
+
+def check_ps3_firmware() -> bool:
+    rpcs3_dirs = [home / ".config" / "rpcs3", home / ".var" / "app" / "net.rpcs3.RPCS3" / "config" / "rpcs3"]
+    if system.startswith("win"):
+        rpcs3_dirs = [emus_folder / "rpcs3"]
+    if system == "darwin":
+        rpcs3_dirs = [home / "Library" / "Application Support" / "rpcs3"]
+    return any((d / "dev_flash" / "vsh" / "etc" / "version.txt").is_file() for d in rpcs3_dirs)
 
 
 def check_yuzu_bios() -> bool:
