@@ -4,6 +4,7 @@ from core.all import *
 def cemu_install():
     stat_install("cemu")
     set_msg(f"Installing Cemu")
+    repo_name = "cemu-project/Cemu"
 
     if system == "linux":
         type="AppImage"
@@ -19,12 +20,13 @@ def cemu_install():
 
     if system == "darwin":
         type="dmg"
-        look_for="macos"
+        look_for="Cemu"
         destination = emus_folder
         name="Cemu"
+        repo_name = "dragoonDorise/Cemu"
 
     try:
-        repo=get_latest_release_gh("cemu-project/Cemu",type,look_for)
+        repo=get_latest_release_gh(repo_name,type,look_for)
         install_emu(name, repo, type, destination)
     except Exception as e:
         print(f"Error during install: {e}")
@@ -190,12 +192,7 @@ def _cemu_sdl_lib_candidates():
             "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
         ]
     if system == "darwin":
-        return [
-            f"{emus_folder}/Cemu.app/Contents/Frameworks/libSDL2-2.0.0.dylib",
-            f"{emus_folder}/Cemu.app/Contents/Frameworks/libSDL2.dylib",
-            "/opt/homebrew/lib/libSDL2-2.0.0.dylib",
-            "/usr/local/lib/libSDL2-2.0.0.dylib",
-        ]
+        return [f"{emudeck_folder}/automap/libSDL3.dylib"]
     if system.startswith("win"):
         return [
             f"{emus_folder}/eden-windows-msvc/SDL2.dll",
@@ -217,6 +214,8 @@ def cemu_set_controllers():
     template_dir = Path(emudeck_backend) / "configs" / system / "cemu" / "controllerTemplates"
     if not tool.is_file() or not template_dir.is_dir():
         return
+    if system == "darwin":
+        download_sdl3_darwin()
     for candidate in _cemu_sdl_lib_candidates():
         if not Path(candidate).is_file():
             continue
