@@ -20,7 +20,7 @@ def azahar_install():
 
     if system == "darwin":
         type="zip"
-        look_for="macos"
+        look_for="azahar-macos-arm64"
         path=emus_folder
 
     try:
@@ -58,7 +58,7 @@ def azahar_is_installed():
     if system.startswith("win"):
       return (emus_folder / "azahar" / "azahar.exe").exists()
     if system == "darwin":
-      return (emus_folder / "azahar.app").exists()
+      return (emus_folder / "Azahar.app").exists()
 
 
 def azahar_init():
@@ -69,7 +69,7 @@ def azahar_init():
     if system.startswith("win"):
         destination = f"{emus_folder}/azahar/user/config"
     if system == "darwin":
-        destination=f"{home}/Library/Application Support/azahar/"
+        destination=f"{home}/.config/azahar-emu"
 
     copy_and_set_settings_file(f"{system}/azahar/qt-config.ini", destination)
 
@@ -157,7 +157,7 @@ def azahar_setup_saves():
         origin_saves=f"{emus_folder}/azahar/sdmc"
         origin_states=f"{emus_folder}/azahar/states"
     if system == "darwin":
-        origin_saves=f"{home}/.share/azahar/sdmc"
+        origin_saves=f"{storage_path}/azahar/sdmc"
         origin_states=f"{home}/.local/share/azahar-emu/states"
 
     link_to_saves_folder(origin_saves, "azahar/saves")
@@ -170,7 +170,7 @@ def azahar_config_file():
     if system.startswith("win"):
         return Path(f"{emus_folder}/azahar/qt-config.ini")
     if system == "darwin":
-        return Path(f"{home}/Library/Application Support/azahar/qt-config.ini")
+        return Path(f"{home}/.config/azahar-emu/qt-config.ini")
 
 
 def azahar_set_emulation_folder() -> bool:
@@ -203,7 +203,7 @@ def azahar_set_resolution() -> bool:
     elif system.startswith("win"):
         config_path = f"{emus_folder}/azahar/user/config/qt-config.ini"
     elif system == "darwin":
-        config_path=f"{home}/Library/Application Support/azahar/qt-config.ini"
+        config_path=f"{home}/.config/azahar-emu/qt-config.ini"
     else:
         return False
 
