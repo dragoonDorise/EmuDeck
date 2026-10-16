@@ -1222,12 +1222,12 @@ def mount_dmg(archive_path):
     info = plistlib.loads(subprocess.run(["hdiutil", "imageinfo", "-plist", str(archive_path)], check=True, capture_output=True).stdout)
     if info.get("Properties", {}).get("Software License Agreement"):
         # Support for ESDE license message in the DMG
-        before = set(Path("/Volumes").iterdir())
         subprocess.run(["open", str(archive_path)], check=True)
         for _ in range(300):
-            new_volumes = set(Path("/Volumes").iterdir()) - before
-            if new_volumes:
-                return new_volumes.pop()
+            images = plistlib.loads(subprocess.run(["hdiutil", "info", "-plist"], check=True, capture_output=True).stdout).get("images", [])
+            mounts = [e["mount-point"] for i in images if Path(i.get("image-path", "")).resolve() == Path(archive_path).resolve() for e in i.get("system-entities", []) if e.get("mount-point")]
+            if mounts:
+                return Path(mounts[0])
             time.sleep(1)
         return None
     attach = subprocess.run(["hdiutil", "attach", "-nobrowse", "-readonly", "-plist", str(archive_path)], check=True, capture_output=True, stdin=subprocess.DEVNULL)
