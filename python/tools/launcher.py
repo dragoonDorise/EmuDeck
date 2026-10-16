@@ -413,8 +413,12 @@ if cloud_sync_provider and getattr(settings, "netplay", False) == False:
     cloudsync_remote = load_remote_cloud_sync()
 
     if cloudsync_remote:
+        cloud_emu = {"dolphin-emu": "dolphin", "pcsx2-qt": "pcsx2", "armsx2": "pcsx2", "xemu-emu": "xemu", "model-2-emulator": "model2", "es-de": "all"}.get(emu.lower(), emu.lower())
+        if cloud_emu != "all":
+            cloud_emu = next((p.name for p in Path(saves_path).iterdir() if p.is_dir() and p.name.lower() == cloud_emu), None)
         try:
-            cloudsync_remote.cloud_sync_download_emu(emu)
+            if cloud_emu:
+                cloudsync_remote.cloud_sync_download_emu(cloud_emu)
         except Exception as e:
             print(f"Error en cloud_sync_download_emu: {e}")
 

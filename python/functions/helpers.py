@@ -1637,6 +1637,11 @@ def popup_show_progress(title: str, message: str, task: Callable) -> None:
         app.processEvents()
         QtCore.QThread.msleep(50)
     dlg.close()
+    dlg.deleteLater()
+    end = time.time() + 0.2
+    while time.time() < end:
+        app.processEvents()
+        QtCore.QThread.msleep(10)
 
 def popup_show_commands(title: str, commands: list) -> bool:
     app = ensure_app()
