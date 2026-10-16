@@ -167,7 +167,7 @@ class BaseDialog(QtWidgets.QDialog if QtWidgets is not None else object):
         outer.addWidget(content)
 
         inner = QtWidgets.QVBoxLayout(content)
-        inner.setContentsMargins(20,20,20,28)
+        inner.setContentsMargins(20,20,20,32)
         inner.setSpacing(10)
         self._inner = inner
 
