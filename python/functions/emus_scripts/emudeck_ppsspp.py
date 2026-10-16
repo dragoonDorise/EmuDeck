@@ -69,7 +69,7 @@ def ppsspp_config_dir():
     if system.startswith("win"):
         return Path(f"{emus_folder}/ppsspp/memstick/PSP/SYSTEM")
     if system == "darwin":
-        return Path(f"{home}/Library/Application Support/PPSSPP/PSP/SYSTEM")
+        return Path(f"{home}/.config/ppsspp/PSP/SYSTEM")
 
 
 def ppsspp_config_file():
@@ -112,8 +112,8 @@ def ppsspp_setup_saves():
         origin_saves=f"{emus_folder}/ppsspp/memstick/SAVEDATA"
         origin_states=f"{emus_folder}/ppsspp/memstick/PPSSPP_STATE"
     if system == "darwin":
-        origin_saves=f"{home}/Library/Application Support/PPSSPP/PSP/SAVEDATA"
-        origin_states=f"{home}/Library/Application Support/PPSSPP/PSP/PPSSPP_STATE"
+        origin_saves=f"{home}/.config/ppsspp/PSP/SAVEDATA"
+        origin_states=f"{home}/.config/ppsspp/PSP/PPSSPP_STATE"
 
     link_to_saves_folder(origin_saves, "ppsspp/saves")
     link_to_saves_folder(origin_states, "ppsspp/states")
