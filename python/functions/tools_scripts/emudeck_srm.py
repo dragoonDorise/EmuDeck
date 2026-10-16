@@ -17,7 +17,7 @@ def srm_install():
 
     if system == "darwin":
         type="dmg"
-        look_for=""
+        look_for="arm64"
         destination = f"{emus_folder}"
 
     try:
@@ -69,7 +69,7 @@ def srm_is_installed():
 
 def srm_init():
     set_msg(f"Setting up Steam Rom Manager")
-    if hybrid_mode:
+    if hybrid_mode and system == "linux":
         (Path(emudeck_folder) / "customParsers").mkdir(parents=True, exist_ok=True)
         source = Path(bash_backend) / "configs" / "steam-rom-manager" / "userData"
         copy_with_backup(source / "userConfigurations.json", Path(srm_path) / "userData" / "userConfigurations.json")
@@ -173,7 +173,7 @@ def srm_flush_old_symlinks():
 
 
 def srm_add_extra_parsers():
-    if hybrid_mode:
+    if hybrid_mode and system == "linux":
         copy_with_backup(Path(bash_backend) / "configs" / "steam-rom-manager" / "userData" / "userConfigurations.json",
                          Path(srm_path) / "userData" / "userConfigurations.json")
     else:

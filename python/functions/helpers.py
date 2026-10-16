@@ -1059,16 +1059,22 @@ def create_app_shortcut(name: str, display_name: Optional[str] = None, terminal:
 
     if system == "darwin":
         folder = ""
+        script_filename = f"{launcher_name.lower()}.sh"
+        app_name = name
         if name == "ES-DE":
             folder = "es-de"
+        if name == "srm":
+            folder = "srm"
+            script_filename = "steamrommanager.sh"
+            app_name = "Steam ROM Manager"
 
-        src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / f"{launcher_name.lower()}.sh"
-        exec_path = Path(tools_path) / "launchers" / folder / f"{launcher_name.lower()}.sh"
+        src_file = Path(emudeck_backend) / "tools" / "launchers" / "unix" / folder / script_filename
+        exec_path = Path(tools_path) / "launchers" / folder / script_filename
         exec_path.parent.mkdir(parents=True, exist_ok=True)
         shutil.copy2(src_file, exec_path)
         exec_path.chmod(exec_path.stat().st_mode | 0o111)
 
-        create_mac_app(name, Path(exec_path))
+        create_mac_app(app_name, Path(exec_path))
 
 
 def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/Applications/EmuDeck")):
