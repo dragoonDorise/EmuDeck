@@ -2186,6 +2186,9 @@ def start_menu_reset():
     
 
 def get_locations():
+    if not system.startswith("win"):
+        script = Path(bash_backend if hybrid_mode else emudeck_backend) / "tools" / "importExport.py"
+        return json.loads(subprocess.run([sys.executable, str(script), "get_locations"], capture_output=True, text=True).stdout)
     import wmi
     c = wmi.WMI()
     drive_info = []
