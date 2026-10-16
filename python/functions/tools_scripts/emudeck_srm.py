@@ -35,6 +35,15 @@ def srm_wait_steam_users():
         return userdata.is_dir() and any(d.is_dir() and d.name.isdigit() and d.name != "0" for d in userdata.iterdir())
     if has_users():
         return True
+    try:
+        if system == "darwin":
+            subprocess.Popen(["open", "-a", "Steam"])
+        elif system.startswith("win"):
+            subprocess.Popen([get_steam_paths()[2]])
+        else:
+            subprocess.Popen(["steam"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    except Exception as e:
+        print(f"Unable to launch Steam: {e}")
     def wait():
         deadline = time.time() + 1800
         while not has_users() and time.time() < deadline:
