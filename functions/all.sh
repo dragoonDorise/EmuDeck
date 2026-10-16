@@ -29,6 +29,15 @@ else
     source "$HOME/emudeck/settings.sh"
 fi
 
+if [ "$(uname)" == "Darwin" ]; then
+    source "$emudeckBackend"/functions/pythonHybrid.sh
+    source "$emudeckBackend"/functions/jsonToBashVars.sh
+    for darwinScript in "$emudeckBackend"/functions/darwin/*.sh "$emudeckBackend"/functions/darwin/*/*.sh; do
+        [ -f "$darwinScript" ] && source "$darwinScript"
+    done
+    return 0
+fi
+
 if [ "$system" != "darwin" ]; then
     export PATH="$emudeckBackend/tools/binaries/:$PATH"
     chmod +x "$emudeckBackend/tools/binaries/xmlstarlet"
