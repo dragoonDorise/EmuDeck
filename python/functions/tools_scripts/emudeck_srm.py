@@ -60,7 +60,7 @@ def srm_wait_steam_users():
         deadline = time.time() + 1800
         while not has_users() and time.time() < deadline:
             time.sleep(2)
-    popup_show_progress("Steam", "Open Steam and log in with your account. Steam ROM Manager will open as soon as you do.", wait)
+    popup_show_progress("Steam", "We are opening Steam for you, please log in with your account. Steam ROM Manager will open as soon as you do.", wait)
     return has_users()
 
 def srm_install():
