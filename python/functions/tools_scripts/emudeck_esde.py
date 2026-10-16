@@ -428,7 +428,7 @@ def esde_add_to_steam():
         return
 
     add_steam_shortcut(
-        "esde",
+        "es-de",
         "EmulationStationDE",
         launcher,
         start_dir,
