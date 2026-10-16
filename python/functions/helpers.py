@@ -1614,6 +1614,9 @@ def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
     return answer.get("value")
 
 def popup_show_progress(title: str, message: str, task: Callable) -> None:
+    if QtWidgets is None:
+        task()
+        return
     app = ensure_app()
     dlg = BaseDialog(title)
 

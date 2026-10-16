@@ -407,6 +407,8 @@ if system == "darwin":
     if netplay_args or args:
         cmd += ["--args"] + netplay_args + args
 
+cloudsync_remote = None
+cloudsync_monitor = None
 if cloud_sync_provider and getattr(settings, "netplay", False) == False:
     cloudsync_remote = load_remote_cloud_sync()
 
@@ -416,12 +418,12 @@ if cloud_sync_provider and getattr(settings, "netplay", False) == False:
         except Exception as e:
             print(f"Error en cloud_sync_download_emu: {e}")
 
-        t = threading.Thread(
+        cloudsync_monitor = threading.Thread(
             target=cloudsync_remote.monitor_and_upload,
             kwargs={"poll_interval": 1.0},
             daemon=True
         )
-        t.start()
+        cloudsync_monitor.start()
         
 if system == "linux" and emu.lower() == "xenia":
     launcher_path = (Path(tools_path) / "launchers" / "xenia.sh").resolve()
@@ -498,3 +500,9 @@ subprocess.run(cmd, check=True, shell=shell_status)
 watch_file = Path(saves_path) / ".watching"
 if watch_file.exists():
    watch_file.unlink()
+
+if cloudsync_monitor:
+   try:
+      cloudsync_remote.cloud_sync_stop_monitor(cloudsync_monitor)
+   except Exception as e:
+      print(f"Error en cloud_sync_stop_monitor: {e}")
