@@ -407,15 +407,16 @@ if args:
         args[-1] = last[1:-1]
 
 
-cmd = [exe] + shlex.split(settings.netplay_cmd) + args
+netplay_args = shlex.split(getattr(settings, "netplay_cmd", "") or "")
+cmd = [exe] + netplay_args + args
 
 
 if system.startswith("win"):
-    cmd = [str(exe)] + shlex.split(settings.netplay_cmd) + args
+    cmd = [str(exe)] + netplay_args + args
     cmd = [part.replace("/", "\\") for part in cmd]
 if system == "darwin":
     darwin_trust_app(exe)
-    cmd = ["open", "-W", "-a", exe, settings.netplay_cmd] + args
+    cmd = ["open", "-W", "-a", exe] + netplay_args + args
 
 if cloud_sync_provider and settings.netplay == False:
     REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
