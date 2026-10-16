@@ -11,7 +11,11 @@ if system in ("darwin", "linux"):
 else:
     emu = sys.argv[1]
 
-emulator_check_and_install(emu)
+emu_aliases = {
+    "rosaliesmupengui": "rmg",
+    "steamrommanager": "srm",
+}
+emulator_check_and_install(emu_aliases.get(emu.lower(), emu))
 
 args = sys.argv[2:]
 raw = sys.argv[2:]
@@ -327,26 +331,6 @@ if emu.lower() == "retroarch":
    else:
       set_setting("netplay_cmd",'')
 
-
-# Auto-install if not installed
-emu_aliases = {
-    "dolphin-emu": "dolphin",
-    "pcsx2-qt": "pcsx2",
-    "xemu-emu": "xemu",
-    "model-2-emulator": "model2",
-    "rosaliesmupengui": "rmg",
-}
-emu_key = emu_aliases.get(emu.lower(), emu.lower())
-is_installed_fn = globals().get(f"{emu_key}_is_installed")
-install_fn = globals().get(f"{emu_key}_install")
-
-if is_installed_fn and install_fn:
-    try:
-        if not is_installed_fn():
-            print(f"{emu} not found, installing...")
-            install_fn()
-    except Exception as e:
-        print(f"Auto-install check failed for {emu}: {e}")
 
 # SRM: regenerate userConfigurations.json if missing or incomplete
 if emu.lower() == "steamrommanager":

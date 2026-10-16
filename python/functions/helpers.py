@@ -2275,5 +2275,6 @@ def emulator_check_and_install(emu_name):
         return
     if not ns[f"{prefix}_is_installed"]():
         print(f"{prefix} is not installed, installing")
+        popup_show_info("EmuDeck", f"{prefix} is not installed, it will be installed now. Please wait until it opens.")
         install()
         init()
