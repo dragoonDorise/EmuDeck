@@ -4,6 +4,9 @@ from core.all import *
 
 def cloud_sync_install_and_config(provider: str, token: str) -> bool:
     cloudsync_remote = load_remote_cloud_sync()
+    if cloudsync_remote is None:
+        print("CloudSync: unable to load the remote module, check your Patreon token")
+        return False
 
     system = sys.platform  # "linux", "darwin", "win32", etc.
 
@@ -41,8 +44,8 @@ def cloud_sync_install_and_config(provider: str, token: str) -> bool:
 
     # 3. Configurar provider
     ok = cloudsync_remote.cloud_sync_config(provider, token)
-    if ok:
-        return True
+    set_setting("cloudSync", provider)
+    set_setting("cloudSyncStatus", True)
 
     # 5. Restaurar navegador original
     if system.startswith("linux") and previous_browser and previous_browser != chrome_desktop:
@@ -51,7 +54,15 @@ def cloud_sync_install_and_config(provider: str, token: str) -> bool:
             check=False
         )
 
-    return True
+    return ok
+
+def cloud_sync_toggle(status: str) -> None:
+    load_remote_cloud_sync().cloud_sync_toggle(status)
+
+
+def cloud_sync_uninstall() -> bool:
+    return load_remote_cloud_sync().cloud_sync_uninstall()
+
 
 def cloud_sync_download_emu_all() -> None:
     cloudsync_remote = load_remote_cloud_sync()
@@ -65,9 +76,9 @@ def cloud_sync_upload_emu_all() -> None:
 
 def cloud_sync_health_check_bin() -> bool:
     provider = cloud_sync_provider
-    user = settings.cs_user
+    user = getattr(settings, "cs_user", "")
     test_file = "cloudsync.emudeck"
-    remote = f"{provider}:{user}/Emudeck/saves/{test_file}"
+    remote = f"{provider}:{user}Emudeck/saves/{test_file}"
 
     # Cleanup prior remote & local artifacts
     subprocess.run([str(cloud_sync_bin), "delete", remote],
@@ -99,10 +110,10 @@ def cloud_sync_health_check_service_starts() -> bool:
 
 def cloud_sync_health_upload() -> bool:
     provider = cloud_sync_provider
-    user = settings.cs_user
+    user = getattr(settings, "cs_user", "")
     test_file = "cloudsync.emudeck"
     local = saves_path / test_file
-    remote = f"{provider}:{user}/Emudeck/saves/{test_file}"
+    remote = f"{provider}:{user}Emudeck/saves/{test_file}"
 
     # Write test content
     local.write_text("test", encoding="utf-8")
@@ -118,9 +129,9 @@ def cloud_sync_health_upload() -> bool:
 
 def cloud_sync_health_is_file_uploaded() -> bool:
     provider = cloud_sync_provider
-    user = settings.cs_user
+    user = getattr(settings, "cs_user", "")
     test_file = "cloudsync.emudeck"
-    remote_dir = f"{provider}:{user}/Emudeck/saves/"
+    remote_dir = f"{provider}:{user}Emudeck/saves/"
     result = subprocess.run(
         [str(cloud_sync_bin), "lsf", remote_dir, "--include", test_file],
         stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True
@@ -131,10 +142,10 @@ def cloud_sync_health_is_file_uploaded() -> bool:
 
 def cloud_sync_health_download() -> bool:
     provider = cloud_sync_provider
-    user = settings.cs_user
+    user = getattr(settings, "cs_user", "")
     test_file = "cloudsync.emudeck"
     local = saves_path / f"dl_{test_file}"
-    remote = f"{provider}:{user}/Emudeck/saves/{test_file}"
+    remote = f"{provider}:{user}Emudeck/saves/{test_file}"
 
     result = subprocess.run(
         [str(cloud_sync_bin), "-q", "copyto", "--fast-list", "--checkers=50",
@@ -151,8 +162,8 @@ def cloud_sync_health_is_file_downloaded() -> bool:
     exists = test_file.is_file()
     # Cleanup remote + local
     provider = cloud_sync_provider
-    user = settings.cs_user
-    remote = f"{provider}:{user}/Emudeck/saves/cloudsync.emudeck"
+    user = getattr(settings, "cs_user", "")
+    remote = f"{provider}:{user}Emudeck/saves/cloudsync.emudeck"
     subprocess.run([str(cloud_sync_bin), "delete", remote],
                    stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     test_file.unlink(missing_ok=True)

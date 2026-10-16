@@ -408,17 +408,13 @@ if system == "darwin":
         cmd += ["--args"] + netplay_args + args
 
 if cloud_sync_provider and getattr(settings, "netplay", False) == False:
-    REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
-    try:
-        cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
-    except Exception as e:
-        cloudsync_remote = None
+    cloudsync_remote = load_remote_cloud_sync()
 
     if cloudsync_remote:
         try:
             cloudsync_remote.cloud_sync_download_emu(emu)
         except Exception as e:
-            print(f"Error en cloud_sync_download_emu: {e}", exc_info=True)
+            print(f"Error en cloud_sync_download_emu: {e}")
 
         t = threading.Thread(
             target=cloudsync_remote.monitor_and_upload,

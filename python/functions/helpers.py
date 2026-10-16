@@ -1561,6 +1561,58 @@ def popup_show_info(title: str, message: str) -> None:
             dlg.accept()
         QtCore.QThread.msleep(50)
 
+def popup_ask_string(message: str, title: str, password: bool = False) -> Optional[str]:
+    app = ensure_app()
+    dlg = BaseDialog(title)
+
+    lbl = QtWidgets.QLabel(message)
+    lbl.setWordWrap(True)
+    lbl.setStyleSheet("margin-bottom: 8px;")
+    dlg._add(lbl)
+
+    edit = QtWidgets.QLineEdit()
+    if password:
+        edit.setEchoMode(QtWidgets.QLineEdit.Password)
+    edit.returnPressed.connect(dlg.accept)
+    dlg._add(edit)
+
+    row = QtWidgets.QHBoxLayout()
+    row.addStretch()
+    cancel = QtWidgets.QPushButton("Cancel")
+    cancel.clicked.connect(dlg.reject)
+    ok = QtWidgets.QPushButton("OK")
+    ok.clicked.connect(dlg.accept)
+    row.addWidget(cancel)
+    row.addWidget(ok)
+    dlg._inner.addLayout(row)
+
+    if dlg.exec() != QtWidgets.QDialog.Accepted:
+        return None
+    return edit.text()
+
+def popup_ask_password(message: str, title: str) -> Optional[str]:
+    return popup_ask_string(message, title, password=True)
+
+def popup_ask_conflict(title: str, message: str) -> Optional[bool]:
+    app = ensure_app()
+    dlg = BaseDialog(title)
+
+    lbl = QtWidgets.QLabel(message)
+    lbl.setWordWrap(True)
+    dlg._add(lbl)
+
+    answer = {}
+    row = QtWidgets.QHBoxLayout()
+    row.addStretch()
+    for text, value in (("Cancel", None), ("No", False), ("Yes", True)):
+        btn = QtWidgets.QPushButton(text)
+        btn.clicked.connect(lambda _=False, v=value: (answer.update(value=v), dlg.accept()))
+        row.addWidget(btn)
+    dlg._inner.addLayout(row)
+
+    dlg.exec()
+    return answer.get("value")
+
 def popup_show_progress(title: str, message: str, task: Callable) -> None:
     app = ensure_app()
     dlg = BaseDialog(title)
@@ -2042,11 +2094,14 @@ def load_remote_module(url: str, module_name: str):
     return module
 
 def load_remote_cloud_sync():
-    REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={getattr(settings, 'patreonToken', '')}"
     try:
-       cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
+        spec = importlib.util.spec_from_file_location("cloudsync_remote", Path(emudeck_backend) / "emudeck_cloudsync.py")
+        cloudsync_remote = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cloudsync_remote)
+        sys.modules["cloudsync_remote"] = cloudsync_remote
     except Exception as e:
-       cloudsync_remote = None
+        print(f"CloudSync: unable to load emudeck_cloudsync.py: {e}")
+        cloudsync_remote = None
 
     return cloudsync_remote
 
