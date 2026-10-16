@@ -1561,6 +1561,27 @@ def popup_show_info(title: str, message: str) -> None:
             dlg.accept()
         QtCore.QThread.msleep(50)
 
+def popup_show_progress(title: str, message: str, task: Callable) -> None:
+    app = ensure_app()
+    dlg = BaseDialog(title)
+
+    lbl = QtWidgets.QLabel(message)
+    lbl.setWordWrap(True)
+    dlg._add(lbl)
+
+    bar = QtWidgets.QProgressBar()
+    bar.setRange(0, 0)
+    bar.setTextVisible(False)
+    dlg._add(bar)
+
+    dlg.show()
+    worker = threading.Thread(target=task)
+    worker.start()
+    while worker.is_alive():
+        app.processEvents()
+        QtCore.QThread.msleep(50)
+    dlg.close()
+
 def popup_show_commands(title: str, commands: list) -> bool:
     app = ensure_app()
     dlg = QtWidgets.QDialog(None)
@@ -2275,6 +2296,4 @@ def emulator_check_and_install(emu_name):
         return
     if not ns[f"{prefix}_is_installed"]():
         print(f"{prefix} is not installed, installing")
-        popup_show_info("EmuDeck", f"{prefix} is not installed, it will be installed now. Please wait until it opens.")
-        install()
-        init()
+        popup_show_progress("EmuDeck", f"Installing {prefix}, please wait...", lambda: (install(), init()))
