@@ -334,6 +334,7 @@ if emu.lower() == "retroarch":
 
 # SRM: regenerate userConfigurations.json if missing or incomplete
 if emu.lower() == "steamrommanager":
+    srm_wait_steam_users()
     srm_config = Path(srm_path) / "userData" / "userConfigurations.json"
     regenerate = False
     if not srm_config.exists():

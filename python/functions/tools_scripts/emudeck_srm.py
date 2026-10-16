@@ -28,6 +28,20 @@ def srm_install_steam():
         subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     return True
 
+def srm_wait_steam_users():
+    def has_users():
+        steam_dir = get_steam_paths()[0] if system.startswith("win") else steam_install_path
+        userdata = Path(steam_dir) / "userdata"
+        return userdata.is_dir() and any(d.is_dir() and d.name.isdigit() and d.name != "0" for d in userdata.iterdir())
+    if has_users():
+        return True
+    def wait():
+        deadline = time.time() + 1800
+        while not has_users() and time.time() < deadline:
+            time.sleep(2)
+    popup_show_progress("Steam", "Open Steam and log in with your account. Steam ROM Manager will open as soon as you do.", wait)
+    return has_users()
+
 def srm_install():
     stat_install("srm")
     set_msg(f"Installing Steam Rom Manager")
