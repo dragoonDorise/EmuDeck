@@ -50,7 +50,7 @@ def vita3k_install():
 
     if system == "darwin":
         type="dmg"
-        look_for="macos-latest"
+        look_for="macos-arm64-latest"
         path=emus_folder
 
     try:
@@ -91,7 +91,7 @@ def vita3k_init():
     if system.startswith("win"):
         destination = f"{emus_folder}/vita3k/"
     if system == "darwin":
-        destination = f"{home}/.config/vita3k/"
+        destination = f"{home}/Library/Application Support/Vita3K/Vita3K/"
 
     copy_and_set_settings_file(f"common/vita3k/config.yml", destination)
 
@@ -108,7 +108,7 @@ def vita3k_set_resolution():
     if system.startswith("win"):
         config_path = f"{emus_folder}/vita3k/config.yml"
     if system == "darwin":
-        config_path = f"{home}/.config/vita3k/config.yml"
+        config_path = f"{home}/Library/Application Support/Vita3K/Vita3K/config.yml"
 
     resolution_map = {
         "720P": 1.25,
