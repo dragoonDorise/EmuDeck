@@ -1,74 +1,88 @@
-/* popup.qss */
 
-/* Hacemos que los QDialogs sean transparentes */
 QDialog {
   background: transparent;
 }
 
-/* El contenedor interno (el widget con objectName="content") */
 QWidget#content {
   background-color: #221d2d;
-  border: 1px solid transparent;
-  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 27);
+  border-radius: 8px;
+  min-width: 600px;
 }
 
 /* Estilo general de botones */
-QPushButton {
-  background: qlineargradient(
-  x1:0, y1:0, x2:0, y2:1,
-  stop:0 rgba(242, 235, 255, 41),
-  stop:1 rgba(242, 235, 255, 20)
-);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 6px 12px;
-  min-width: 80px;
-  opacity:0.8
+QWidget {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
 }
 
-QPushButton:focus {
- color: #221d2d;
- opacity:1;
- background: qlineargradient(
-     x1:0, y1:0,         /* punto inicial en la esquina superior */
-     x2:0, y2:1,         /* punto final en la esquina inferior */
-     stop:0   #f2ebff,   /* color al 0% */
-     stop:0.2409 #f2ebff,/* color al 24.09% */
-     stop:1   #e5d6ff    /* color al 100% */
- );
-
-}
-QPushButton:hover {
- color: #221d2d;
- opacity:1;
- background: qlineargradient(
-     x1:0, y1:0,         /* punto inicial en la esquina superior */
-     x2:0, y2:1,         /* punto final en la esquina inferior */
-     stop:0   #f2ebff,   /* color al 0% */
-     stop:0.2409 #f2ebff,/* color al 24.09% */
-     stop:1   #e5d6ff    /* color al 100% */
- );
-}
-
-
-/* Etiquetas */
 QLabel {
-  color: white;
-  font-size: 14px;
-  margin-bottom: 14px
+  color: #ffffff;
+  font-size: 16px;
+  margin-bottom: 40px;
 }
 
-/* LineEdits (por si los usas) */
+QLabel#title {
+  font-family: "Avenir", "Avenir Next", "Segoe UI", "Noto Sans", sans-serif;
+  font-size: 30px;
+  font-weight: 500;
+  margin-bottom: 10px;
+}
+
+QPushButton {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 rgba(242, 235, 255, 41), stop:1 rgba(242, 235, 255, 20));
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 26);
+  border-radius: 20px;
+  padding: 10px 20px 10px 16px;
+  min-width: 24px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+QPushButton:focus,
+QPushButton:hover {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f2ebff, stop:0.2409 #f2ebff, stop:1 #e5d6ff);
+  color: rgba(0, 0, 0, 204);
+  border: 1px solid #e5d6ff;
+}
+
+QPushButton:pressed {
+  background: #e5d6ff;
+}
+
+QPushButton:disabled {
+  color: rgba(255, 255, 255, 51);
+  border-color: rgba(255, 255, 255, 51);
+}
+
+QProgressBar {
+  background-color: #e3e3e3;
+  border: none;
+  border-radius: 2px;
+  max-height: 4px;
+  min-height: 4px;
+}
+
+QProgressBar::chunk {
+  background-color: #1a9fff;
+  border-radius: 2px;
+}
+
 QLineEdit {
-  border: 1px solid #aaa;
-  border-radius: 4px;
-  padding: 4px;
-  background: #fafafa;
+  background: rgba(255, 255, 255, 20);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 41);
+  border-radius: 8px;
+  padding: 8px;
+  font-size: 16px;
+}
+
+QLineEdit:focus {
+  border-color: #1a9fff;
 }
 
 QCheckBox {
   spacing: 10px;
-  font-size: 14px;
-  color: #fff
+  font-size: 16px;
+  color: #ffffff;
 }

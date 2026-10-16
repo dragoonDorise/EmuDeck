@@ -72,13 +72,26 @@ sys.stderr = StreamToLogger(logger.error)
 
 _qapp: Optional[QtWidgets.QApplication] = None
 
+class _DragFilter(QtCore.QObject if QtCore is not None else object):
+    def eventFilter(self, obj, event):
+        if event.type() == QtCore.QEvent.MouseButtonPress and event.button() == QtCore.Qt.LeftButton and isinstance(obj, QtWidgets.QWidget) and not isinstance(obj, (QtWidgets.QAbstractButton, QtWidgets.QLineEdit, QtWidgets.QComboBox, QtWidgets.QAbstractSpinBox, QtWidgets.QAbstractItemView)):
+            win = obj.window()
+            if win.windowFlags() & QtCore.Qt.FramelessWindowHint and win.windowHandle():
+                win.windowHandle().startSystemMove()
+                return True
+        return False
+
+_drag_filter = None
+
 def ensure_app() -> QtWidgets.QApplication:
-    global _qapp
+    global _qapp, _drag_filter
     if _qapp is None:
         _qapp = QtWidgets.QApplication.instance() or QtWidgets.QApplication(sys.argv)
         qss = Path(__file__).parent / "dialog.qss"
         if qss.exists():
             _qapp.setStyleSheet(qss.read_text(encoding="utf-8"))
+        _drag_filter = _DragFilter()
+        _qapp.installEventFilter(_drag_filter)
     return _qapp
 
 
@@ -157,6 +170,10 @@ class BaseDialog(QtWidgets.QDialog if QtWidgets is not None else object):
         inner.setContentsMargins(20,20,20,20)
         inner.setSpacing(10)
         self._inner = inner
+
+        heading = QtWidgets.QLabel(title)
+        heading.setObjectName("title")
+        inner.addWidget(heading)
 
     def _add(self, widget: QtWidgets.QWidget, *, alignment=None):
         if alignment is not None:

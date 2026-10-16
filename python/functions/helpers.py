@@ -1567,6 +1567,7 @@ def popup_show_progress(title: str, message: str, task: Callable) -> None:
 
     lbl = QtWidgets.QLabel(message)
     lbl.setWordWrap(True)
+    lbl.setStyleSheet("margin-bottom: 8px;")
     dlg._add(lbl)
 
     bar = QtWidgets.QProgressBar()
@@ -1852,11 +1853,6 @@ def popup_show_menu(title: str, options: list) -> Optional[bool]:
 
     app = ensure_app()
     dlg = BaseDialog(title)
-
-    heading = QtWidgets.QLabel(title)
-    heading.setAlignment(QtCore.Qt.AlignCenter)
-    heading.setStyleSheet("font-size: 18px; font-weight: bold;")
-    dlg._add(heading)
 
     btn_layout = QtWidgets.QVBoxLayout()
     btn_layout.setSpacing(10)

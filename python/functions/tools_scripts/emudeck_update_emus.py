@@ -1,11 +1,5 @@
 from core.all import *
 
-def load_qss(path: Path) -> str:
-    try:
-        return path.read_text(encoding='utf-8')
-    except Exception:
-        return ""
-
 def get_available_emulators() -> list[str]:
     avail = []
     for name, fn in globals().items():
@@ -76,11 +70,7 @@ class InstallDialog(QtWidgets.QDialog if QtWidgets is not None else object):
         return [emu for emu, cb in self.checks.items() if cb.isChecked()]
 
 def show_dialog_update_emulators():
-    app = QtWidgets.QApplication(sys.argv)
-    # cargar QSS
-    qss = load_qss(Path(emudeck_backend) / "core/dialog.qss")
-    if qss:
-        app.setStyleSheet(qss)
+    app = ensure_app()
 
     emus = get_available_emulators()
     if not emus:
