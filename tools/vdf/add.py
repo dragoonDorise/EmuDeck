@@ -238,6 +238,9 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
             changed = add_tag(shortcut, collection)
             if changed:
                 print(f"Etiqueta '{collection}' añadida al acceso directo existente '{name}'")
+            if shortcut.get("icon", "") != icon_path:
+                shortcut["icon"] = icon_path
+                changed = True
             if recent:
                 shortcut["LastPlayTime"] = int(time.time())
                 changed = True
@@ -248,6 +251,9 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
             existing_id = to_unsigned_app_id(shortcut.get("appid"))
             if existing_id is None:
                 existing_id = int(generate_short_app_id(shortcut.get("exe", "").strip('"'), shortcut.get("appname", "")))
+            if not os.path.exists(os.path.join(grid_path, f"{existing_id}p.png")):
+                os.makedirs(grid_path, exist_ok=True)
+                copy_steam_images(grid_path, id, existing_id)
             add_to_collection(user_id, collection, existing_id)
             return  # Salir sin añadir el acceso directo
 
@@ -263,7 +269,7 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, steam_dir, u
         "appname": name,
         "exe": f'"{target_path}"',
         "StartDir": f'"{start_dir}"',
-        "icon": f'"{icon_path}"',
+        "icon": icon_path,
         "ShortcutPath": "",
         "LaunchOptions": "",
         "IsHidden": 0,
