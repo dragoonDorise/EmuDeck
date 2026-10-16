@@ -35,6 +35,8 @@ def srm_wait_steam_users():
         return userdata.is_dir() and any(d.is_dir() and d.name.isdigit() and d.name != "0" for d in userdata.iterdir())
     if has_users():
         return True
+    if not srm_steam_installed():
+        popup_show_progress("Steam", "Installing Steam, please wait...", srm_install_steam)
     try:
         if system == "darwin":
             subprocess.Popen(["open", "-a", "Steam"])
