@@ -418,7 +418,9 @@ if system.startswith("win"):
     cmd = [part.replace("/", "\\") for part in cmd]
 if system == "darwin":
     darwin_trust_app(exe)
-    cmd = ["open", "-W", "-a", exe] + netplay_args + args
+    cmd = ["open", "-W", "-a", exe]
+    if netplay_args or args:
+        cmd += ["--args"] + netplay_args + args
 
 if cloud_sync_provider and getattr(settings, "netplay", False) == False:
     REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
