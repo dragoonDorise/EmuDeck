@@ -345,23 +345,6 @@ def _dolphin_sdl_lib_candidates():
     return []
 
 
-def dolphin_download_sdl():
-    lib = Path(emudeck_folder) / "automap" / "libSDL3.dylib"
-    if lib.is_file():
-        return
-    dmg = Path(tempfile.mkdtemp()) / "SDL3.dmg"
-    if not safeDownload("SDL3", "https://github.com/libsdl-org/SDL/releases/download/release-3.4.12/SDL3-3.4.12.dmg", dmg):
-        return
-    mount_point = mount_dmg(dmg)
-    if not mount_point:
-        return
-    try:
-        lib.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy(mount_point / "SDL3.xcframework" / "macos-arm64_x86_64" / "SDL3.framework" / "Versions" / "A" / "SDL3", lib)
-    finally:
-        subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-
-
 def dolphin_set_gamepads():
     if not automap_enabled("dolphin"):
         return
@@ -395,7 +378,7 @@ def dolphin_set_gamepads():
         return
 
     if system == "darwin":
-        dolphin_download_sdl()
+        download_sdl3_darwin()
 
     sdl_lib = next((c for c in _dolphin_sdl_lib_candidates() if Path(c).is_file()), None)
     if not sdl_lib:

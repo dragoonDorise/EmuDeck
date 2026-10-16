@@ -1168,6 +1168,22 @@ def extract7z_flat(archive_path: Path, extract_to: Path):
             child.rename(extract_to / child.name)
         top.rmdir()
 
+def download_sdl3_darwin():
+    lib = Path(emudeck_folder) / "automap" / "libSDL3.dylib"
+    if lib.is_file():
+        return
+    dmg = Path(tempfile.mkdtemp()) / "SDL3.dmg"
+    if not safeDownload("SDL3", "https://github.com/libsdl-org/SDL/releases/download/release-3.4.12/SDL3-3.4.12.dmg", dmg):
+        return
+    mount_point = mount_dmg(dmg)
+    if not mount_point:
+        return
+    try:
+        lib.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy(mount_point / "SDL3.xcframework" / "macos-arm64_x86_64" / "SDL3.framework" / "Versions" / "A" / "SDL3", lib)
+    finally:
+        subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 def mount_dmg(archive_path):
     attach = subprocess.run(["hdiutil", "attach", "-nobrowse", "-readonly", "-plist", str(archive_path)], check=True, capture_output=True)
     mounts = [e["mount-point"] for e in plistlib.loads(attach.stdout).get("system-entities", []) if e.get("mount-point")]
