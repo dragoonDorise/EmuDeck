@@ -60,7 +60,7 @@ def ensure_packages():
     venv_site = str(candidates[0]) if candidates else None
 
     packages = list(REQUIRED_PACKAGES)
-    if os.environ.get("EMUDECK_HYBRID") != "1":
+    if os.environ.get("EMUDECK_HYBRID") != "1" or system == "darwin":
         packages += GUI_REQUIRED_PACKAGES
     if system.startswith("win"):
         packages += WIN_REQUIRED_PACKAGES

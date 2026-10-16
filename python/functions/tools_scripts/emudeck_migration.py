@@ -20,7 +20,7 @@ def migration_init(destination: Path) -> bool:
 
     needed = sum(f.stat().st_size for f in origin.rglob("*") if f.is_file())
     if shutil.disk_usage(dest).free < needed:
-        print(f"Make sure you have enough space in {dest}. You need at least {human_readable(needed)} available")
+        popup_show_info("EmuDeck Migration tool", f"Make sure you have enough space in {dest}. You need at least {human_readable(needed)} available")
         return False
 
     if migration_move(origin, dest, human_readable(needed)):
@@ -30,8 +30,12 @@ def migration_init(destination: Path) -> bool:
 
 
 def migration_move(origin: Path, destination: Path, size_human: str) -> bool:
-    print(f"Migrating your current {size_human} Emulation folder to {destination}")
-    return subprocess.run(["rsync", "-a", str(origin), str(destination)]).returncode == 0
+    result = {}
+    popup_show_progress("EmuDeck Migration tool", f"Migrating your current {size_human} Emulation folder to {destination}", lambda: result.update(code=subprocess.run(["rsync", "-a", str(origin), str(destination)]).returncode))
+    if result.get("code") != 0:
+        popup_show_info("Migration Error", f"There was an error copying your Emulation folder to {destination}")
+        return False
+    return True
 
 
 def migration_update_paths(origin: Path, destination: Path) -> None:
@@ -62,18 +66,21 @@ def migration_update_paths(origin: Path, destination: Path) -> None:
 
 def migration_update_emus() -> None:
     ns = sys.modules["core.all"].__dict__
-    for name, fn in list(ns.items()):
-        if not name.endswith("_is_installed") or not callable(fn):
-            continue
-        prefix = name[: -len("_is_installed")]
-        try:
-            if not fn():
+    def update():
+        for name, fn in list(ns.items()):
+            if not name.endswith("_is_installed") or not callable(fn):
                 continue
-            for suffix in ("_set_emulation_folder", "_setup_saves"):
-                if callable(ns.get(prefix + suffix)):
-                    ns[prefix + suffix]()
-        except Exception as e:
-            print(f"Migration: {prefix} failed: {e}")
+            prefix = name[: -len("_is_installed")]
+            try:
+                if not fn():
+                    continue
+                for suffix in ("_set_emulation_folder", "_setup_saves"):
+                    if callable(ns.get(prefix + suffix)):
+                        ns[prefix + suffix]()
+            except Exception as e:
+                print(f"Migration: {prefix} failed: {e}")
+    popup_show_progress("EmuDeck Migration tool", "Updating your emulators to the new location...", update)
+    popup_show_info("Success", f"Your library has been moved to {emulation_path}. Please restart EmuDeck to apply the changes")
 
 
 def migration_update_srm(origin: str, destination: str) -> None:
