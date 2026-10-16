@@ -1,6 +1,7 @@
 from core.all import *
 
 esde_release_json = "https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
+esde_hybrid = hybrid_mode and system == "linux"
 esde_add_steam_input_file = (
     Path(emudeck_backend)
     / "configs"
@@ -61,8 +62,11 @@ def esde_install():
 
     try:
         install_emu("ES-DE", esde_get_url(), type_, esde_folder)
-        esde_add_to_steam()
-        return True
+        try:
+            esde_add_to_steam()
+        except Exception as e:
+            print(f"Could not add ES-DE to Steam: {e}")
+        return esde_is_installed()
     except Exception as e:
         print(f"Error during install: {e}")
         return False
@@ -100,7 +104,7 @@ def esde_init():
 
     esde_settings_folder.mkdir(parents=True, exist_ok=True)
 
-    if hybrid_mode:
+    if esde_hybrid:
         esde_add_custom_systems_file()
         source = Path(bash_backend) / "configs" / "emulationstation"
         copy_with_backup(source / "es_settings.xml", esde_settings_file)
@@ -124,20 +128,21 @@ def esde_init():
             ext = ".bat" if system.startswith("win") else ".sh"
             sed(".EXT", ext, config_file)
 
-    if not hybrid_mode:
+    if not esde_hybrid:
         dlmedia = Path(storage_path / "es-de/downloaded-media")
         dlmedia.mkdir(parents=True, exist_ok=True)
 
     esde_set_default_emulators()
     if hybrid_mode:
         esde_apply_theme(esde_theme_url, esde_theme_name)
+    if esde_hybrid:
         esde_migrate_downloaded_media()
     if system == "linux":
         esde_symlink_gamelists()
         add_steam_input_custom_icons()
         esde_flush_tool_launcher()
         srm_flush_old_symlinks()
-    if hybrid_mode:
+    if esde_hybrid:
         esde_link_downloaded_media()
     esde_add_arm_cores()
 
@@ -342,7 +347,7 @@ def esde_set_emu(emu: str, system_code: str) -> None:
     gamelist_file.parent.mkdir(parents=True, exist_ok=True)
 
     if not gamelist_file.exists():
-        if hybrid_mode:
+        if esde_hybrid:
             template = Path(bash_backend) / "configs" / "emulationstation" / "gamelists" / system_code / "gamelist.xml"
         else:
             template = Path(emudeck_backend) / "configs" / "common" / "emulationstation" / "gamelists" / system_code / "gamelist.xml"
@@ -375,7 +380,7 @@ def esde_add_custom_systems_file() -> bool:
         if junk.is_file():
             junk.unlink()
 
-    if hybrid_mode:
+    if esde_hybrid:
         source = Path(bash_backend) / "configs" / "emulationstation" / "custom_systems" / "es_systems.xml"
     else:
         source = Path(emudeck_backend) / "configs" / "common" / "emulationstation" / "custom_systems" / "es_systems.xml"
@@ -383,7 +388,7 @@ def esde_add_custom_systems_file() -> bool:
     esde_systems_file.parent.mkdir(parents=True, exist_ok=True)
     if not esde_systems_file.exists() and source.is_file():
         shutil.copy2(source, esde_systems_file)
-        if not hybrid_mode:
+        if not esde_hybrid:
             sed("EMULATIONPATH", emulation_path, esde_systems_file)
             sed(".EXT", ".bat" if system.startswith("win") else ".sh", esde_systems_file)
     return True
