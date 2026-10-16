@@ -148,6 +148,7 @@ def dolphin_init():
     if system == "darwin":
         copy_and_set_settings_file(f"{system}/dolphin-emu/Dolphin.ini", destination)
 
+    dolphin_set_emulation_folder()
     dolphin_setup_saves()
     dolphin_set_resolution()
     dolphin_set_controller_style()
@@ -416,3 +417,17 @@ def dolphin_add_to_steam():
     set_msg("Adding Dolphin to Steam")
     launcher = tools_path / "launchers" / ("dolphin-emu.bat" if system.startswith("win") else "dolphin-emu.sh")
     add_steam_shortcut("dolphin", "Dolphin", str(launcher), str(emus_folder), str(icons_path / "ico/dolphin.ico"))
+
+
+def dolphin_set_emulation_folder() -> bool:
+    if system == "linux":
+        config_file = Path(f"{home}/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini")
+    if system.startswith("win"):
+        config_file = Path(f"{emus_folder}/Dolphin-x64/User/Config/Dolphin.ini")
+    if system == "darwin":
+        config_file = Path(f"{home}/Library/Application Support/Dolphin/Config/Dolphin.ini")
+    if not config_file.is_file():
+        return False
+    set_ini_value(config_file, "General", "ISOPath0", f"{roms_path}/gc")
+    set_ini_value(config_file, "General", "ISOPath1", f"{roms_path}/wii")
+    return True

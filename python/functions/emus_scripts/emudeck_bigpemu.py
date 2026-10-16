@@ -88,6 +88,7 @@ def bigpemu_init():
 
     copy_and_set_settings_file(f"common/bigpemu/BigPEmuConfig.bigpcfg", destination)
 
+    bigpemu_set_emulation_folder()
     bigpemu_setup_saves()
     bigpemu_set_resolution()
     bigpemu_set_controller_style()
@@ -153,3 +154,11 @@ def bigpemu_add_es_config():
 def bigpemu_setup_storage():
     origin = user_data if system == "linux" else user_data / "screenshots"
     return link_to_storage_folder(origin, "BigPEmu/screenshots")
+
+
+def bigpemu_set_emulation_folder() -> bool:
+    config_file = Path(f"{emus_folder}/BigPEmu/UserData/BigPEmuConfig.bigpcfg")
+    if not config_file.is_file():
+        return False
+    set_config('"ROMPath"', f'{json.dumps(f"{roms_path}/atarijaguar")},', config_file, ": ")
+    return True

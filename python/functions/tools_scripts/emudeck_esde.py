@@ -128,6 +128,8 @@ def esde_init():
             ext = ".bat" if system.startswith("win") else ".sh"
             sed(".EXT", ext, config_file)
 
+    esde_set_emulation_folder()
+
     if not esde_hybrid:
         dlmedia = Path(storage_path / "es-de/downloaded-media")
         dlmedia.mkdir(parents=True, exist_ok=True)
@@ -435,3 +437,14 @@ def esde_add_to_steam():
         str(icon_path),
         recent=True,
     )
+
+
+def esde_set_emulation_folder() -> bool:
+    if not Path(esde_settings_file).is_file():
+        return False
+    update_or_append_config_line(esde_settings_file, '<string name="ROMDirectory"', f'<string name="ROMDirectory" value="{roms_path}" />')
+    update_or_append_config_line(esde_settings_file, '<string name="MediaDirectory"', f'<string name="MediaDirectory" value="{ESDEscrapData}" />')
+    for config_file in (esde_rules_file, esde_systems_file):
+        if config_file.is_file():
+            config_file.write_text(re.sub(r"[^\s<>\"'=]*[/\\]+Emulation(?=[/\\]+tools[/\\])", lambda m: str(emulation_path), config_file.read_text(encoding="utf-8")), encoding="utf-8")
+    return True

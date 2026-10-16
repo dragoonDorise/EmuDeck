@@ -109,15 +109,22 @@ def model2_update():
     model2_init()
 
 
-def model2_set_emulation_folder(ini_path: Path) -> None:
+def model2_set_emulation_folder(ini_path: Path = None) -> bool:
+    if ini_path is None:
+        if not system.startswith("win"):
+            return False
+        ini_path = Path(f"{emus_folder}/m2emulator/EMULATOR.INI")
+    if not ini_path.is_file():
+        return False
     win_roms_dir = (emulation_path / "roms" / "model2")
     win_roms_dir_str = str(win_roms_dir).replace("/", "\\")
 
     text = ini_path.read_text(encoding="utf-8", errors="ignore")
-    text = text.replace("Dir1=roms", f"Dir1={win_roms_dir_str}")
+    text = re.sub(r"^Dir1=.*$", lambda m: f"Dir1={win_roms_dir_str}", text, flags=re.M)
     text = text.replace(':\\"', ':\\\\')
 
     ini_path.write_text(text, encoding="utf-8")
+    return True
 
 
 def model2_uninstall():

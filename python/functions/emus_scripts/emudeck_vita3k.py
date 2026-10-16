@@ -95,8 +95,7 @@ def vita3k_init():
 
     copy_and_set_settings_file(f"common/vita3k/config.yml", destination)
 
-    config_file = Path(destination) / "config.yml"
-    sed("STORAGEPATH", str(storage_path).replace("\\", "/"), config_file)
+    vita3k_set_emulation_folder()
 
     vita3k_setup_storage()
     vita3k_setup_saves()
@@ -144,3 +143,16 @@ def vita3k_add_to_steam():
     set_msg("Adding Vita3K to Steam")
     launcher = tools_path / "launchers" / ("vita3k.bat" if system.startswith("win") else "vita3k.sh")
     add_steam_shortcut("vita3k", "Vita3K", str(launcher), str(emus_folder), str(icons_path / "ico/vita3k.ico"))
+
+
+def vita3k_set_emulation_folder() -> bool:
+    if system == "linux":
+        config_file = Path(f"{home}/.config/Vita3K/config.yml")
+    if system.startswith("win"):
+        config_file = Path(f"{emus_folder}/vita3k/config.yml")
+    if system == "darwin":
+        config_file = Path(f"{home}/Library/Application Support/Vita3K/Vita3K/config.yml")
+    if not config_file.is_file():
+        return False
+    set_config("pref-path", f"{str(storage_path).replace(chr(92), '/')}/Vita3K/", config_file, ": ")
+    return True

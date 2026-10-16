@@ -9,8 +9,8 @@ def human_readable(nbytes: int) -> str:
 
 def replace_in_file(path: Path, old: str, new: str) -> None:
     txt = path.read_text(encoding="utf-8")
-    txt2 = txt.replace(old, new)
-    path.write_text(txt2, encoding="utf-8")
+    if old in txt:
+        path.write_text(txt.replace(old, new), encoding="utf-8")
 
 # ─── MIGRATION FUNCTIONS ────────────────────────────────────────────────────
 

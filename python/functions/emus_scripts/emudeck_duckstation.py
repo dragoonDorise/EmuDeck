@@ -78,6 +78,7 @@ def duckstation_init():
     if system.startswith("win"):
         copy_setting_dir(f"{system}/duckstation/",destination)
 
+    duckstation_set_emulation_folder()
     duckstation_setup_saves()
     #duckstation_setup_storage()
     duckstation_set_resolution()
@@ -256,3 +257,19 @@ def duckstation_add_to_steam():
     set_msg("Adding DuckStation to Steam")
     launcher = tools_path / "launchers" / ("duckstation.bat" if system.startswith("win") else "duckstation.sh")
     add_steam_shortcut("duckstation", "DuckStation", str(launcher), str(emus_folder), str(icons_path / "ico/duckstation.ico"))
+
+
+def duckstation_set_emulation_folder() -> bool:
+    if system == "linux":
+        config_file = Path(f"{home}/.local/share/duckstation/settings.ini")
+    if system.startswith("win"):
+        config_file = Path(f"{emus_folder}/duckstation/settings.ini")
+    if system == "darwin":
+        config_file = Path(f"{home}/Library/Application Support/DuckStation/settings.ini")
+    if not config_file.is_file():
+        return False
+    set_ini_value(config_file, "BIOS", "SearchDirectory", f"{bios_path}")
+    set_ini_value(config_file, "MemoryCards", "Directory", f"{saves_path}/duckstation/saves")
+    set_ini_value(config_file, "Folders", "SaveStates", f"{saves_path}/duckstation/states")
+    set_ini_value(config_file, "GameList", "RecursivePaths", f"{roms_path}/psx")
+    return True

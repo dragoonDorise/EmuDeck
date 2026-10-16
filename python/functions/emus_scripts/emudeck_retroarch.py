@@ -115,6 +115,7 @@ def retroarch_init():
     copy_setting_dir(f"common/retroarch/",retroarch_dir)
     #copy_and_set_settings_file(f"common/retroarch/retroarch.cfg", retroarch_dir)
     retroarch_setup_cfg_file_paths()
+    retroarch_set_emulation_folder()
     retroarch_patch_shader_references()
     retroarch_setup_saves()
     retroarch_set_controller_style()
@@ -2789,3 +2790,16 @@ def retroarch_add_to_steam():
     set_msg("Adding RetroArch to Steam")
     launcher = tools_path / "launchers" / ("retroarch.bat" if system.startswith("win") else "retroarch.sh")
     add_steam_shortcut("retroarch", "RetroArch", str(launcher), str(emus_folder), str(icons_path / "ico/retroarch.ico"))
+
+
+def retroarch_set_emulation_folder() -> bool:
+    if not retroarch_cfg_file.is_file():
+        return False
+    set_config("system_directory", f'"{bios_path}"', retroarch_cfg_file, " = ")
+    set_config("rgui_browser_directory", f'"{roms_path}"', retroarch_cfg_file, " = ")
+    set_config("cheat_database_path", f'"{storage_path}/retroarch/cheats"', retroarch_cfg_file, " = ")
+    new_path = json.dumps(str(emulation_path))[1:-1]
+    for playlist in (retroarch_dir / "playlists").glob("*.lpl"):
+        text = re.sub(r"[^\s<>\"'=]*[/\\]+Emulation(?=[/\\]+roms[/\\])", lambda m: new_path, playlist.read_text(encoding="utf-8"))
+        playlist.write_text(text, encoding="utf-8")
+    return True

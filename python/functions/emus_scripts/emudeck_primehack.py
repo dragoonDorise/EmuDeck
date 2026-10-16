@@ -108,6 +108,7 @@ def primehack_init():
 
     copy_and_set_settings_file(f"{config_src}Dolphin.ini", destination)
 
+    primehack_set_emulation_folder()
     primehack_setup_saves()
     primehack_set_resolution()
     primehack_set_controller_style()
@@ -192,3 +193,16 @@ def primehack_add_to_steam():
     set_msg("Adding PrimeHack to Steam")
     launcher = tools_path / "launchers" / ("primehack.bat" if system.startswith("win") else "primehack.sh")
     add_steam_shortcut("primehack", "PrimeHack", str(launcher), str(emus_folder), str(icons_path / "ico/primehack.ico"))
+
+
+def primehack_set_emulation_folder() -> bool:
+    if system == "linux":
+        config_file = Path(f"{home}/.var/app/io.github.shiiion.primehack/config/dolphin-emu/Dolphin.ini")
+    if system.startswith("win"):
+        config_file = Path(f"{emus_folder}/primehack/User/Config/Dolphin.ini")
+    if system == "darwin":
+        return False
+    if not config_file.is_file():
+        return False
+    set_ini_value(config_file, "General", "ISOPath0", f"{roms_path}/primehacks")
+    return True
