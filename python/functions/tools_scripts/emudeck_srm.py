@@ -1,8 +1,42 @@
 from core.all import *
 
+def srm_steam_installed():
+    if system == "darwin":
+        return Path("/Applications/Steam.app").exists() or (home / "Applications" / "Steam.app").exists()
+    if system.startswith("win"):
+        return bool(steam_install_path) and (Path(steam_install_path) / "steam.exe").exists()
+    return True
+
+def srm_install_steam():
+    set_msg("Installing Steam")
+    installer = "steam.dmg" if system == "darwin" else "SteamSetup.exe"
+    archive_path = Path(tempfile.mkdtemp()) / installer
+    response = requests.get(f"https://cdn.akamai.steamstatic.com/client/installer/{installer}", stream=True, timeout=30)
+    response.raise_for_status()
+    with open(archive_path, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+    if system.startswith("win"):
+        subprocess.run([str(archive_path), "/S"], check=True)
+        return True
+    mount_point = mount_dmg(archive_path)
+    if not mount_point:
+        return False
+    try:
+        shutil.copytree(mount_point / "Steam.app", "/Applications/Steam.app", symlinks=True)
+    finally:
+        subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    return True
+
 def srm_install():
     stat_install("srm")
     set_msg(f"Installing Steam Rom Manager")
+
+    if not srm_steam_installed():
+        try:
+            srm_install_steam()
+        except Exception as e:
+            print(f"Error installing Steam: {e}")
 
     if system == "linux":
         type="AppImage"
