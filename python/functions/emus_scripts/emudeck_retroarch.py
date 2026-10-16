@@ -422,12 +422,14 @@ def retroarch_install_cores():
             "swanstation_libretro",
             "opera_libretro",
         ]
-    elif system == "linux":
-        if cpu_arch == "arm":
+    elif system in ("linux", "darwin"):
+        if system == "darwin":
+            base_url = "https://buildbot.libretro.com/nightly/apple/osx/arm64/latest/"
+        elif cpu_arch == "arm":
             base_url = "https://buildbot.libretro.com/nightly/linux/aarch64/latest/"
         else:
             base_url = "https://buildbot.libretro.com/nightly/linux/x86_64/latest/"
-        archive_extension = "so.zip"
+        archive_extension = "dylib.zip" if system == "darwin" else "so.zip"
         ra_cores = [
             "81_libretro",
             "a5200_libretro",
@@ -2662,7 +2664,7 @@ def retroarch_set_shaders_matrix():
 def retroarch_bezels_169_screen():
     set_msg("Applying RetroArch bezel corrections for 16:9 screens")
     
-    root = Path(RetroArch_coreConfigFolders)
+    root = retroarch_dir / "config"
     
     config_map = {
         ('pcengine.cfg',): [
