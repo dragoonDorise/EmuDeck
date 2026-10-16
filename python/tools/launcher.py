@@ -192,7 +192,7 @@ if system == "darwin":
     if emu.lower() == "vita3k":
         exe = f"{emus_folder}/vita3k.app"
     if emu.lower() == "xemu-emu":
-        exe = f"{emus_folder}/xemu-emu.app"
+        exe = f"{emus_folder}/xemu.app"
     if emu.lower() == "xenia":
         exe = f"{emus_folder}/xenia.app"
     if emu.lower() == "yuzu":
@@ -321,7 +321,7 @@ if system.startswith("win"):
 
 #netplay
 if emu.lower() == "retroarch":
-   if settings.netplay == True:
+   if getattr(settings, "netplay", False) == True:
       set_setting("netplay_cmd","-H")
       netplay_set_ip()
    else:
@@ -420,7 +420,7 @@ if system == "darwin":
     darwin_trust_app(exe)
     cmd = ["open", "-W", "-a", exe] + netplay_args + args
 
-if cloud_sync_provider and settings.netplay == False:
+if cloud_sync_provider and getattr(settings, "netplay", False) == False:
     REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
     try:
         cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")

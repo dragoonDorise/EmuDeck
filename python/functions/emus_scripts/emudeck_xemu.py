@@ -23,7 +23,7 @@ def xemu_install():
     elif system == "darwin":
         name = "xemu"
         type = "zip"
-        look_for = "macos-universal"
+        look_for = "macos-universal.zip"
         destination = f"{emus_folder}"
 
     try:
@@ -72,7 +72,7 @@ def xemu_init():
     elif system.startswith("win"):
         destination = f"{emus_folder}/xemu/"
     elif system == "darwin":
-        destination = f"{home}/Library/Application Support/xemu"
+        destination = f"{home}/Library/Application Support/xemu/xemu"
 
     copy_setting_dir("common/xemu/", destination)
     copy_and_set_settings_file("common/xemu/xemu.toml", destination)
@@ -156,7 +156,7 @@ def xemu_set_resolution():
     if system.startswith("win"):
         config_path = f"{emus_folder}/xemu/xemu.toml"
     if system == "darwin":
-        config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
+        config_path = f"{home}/Library/Application Support/xemu/xemu/xemu.toml"
 
     resolution_map = {
         "720P": 1,
@@ -204,7 +204,7 @@ def xemu_widescreen_on():
     elif system.startswith("win"):
         config_path = f"{emus_folder}/xemu/xemu.toml"
     elif system == "darwin":
-        config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
+        config_path = f"{home}/Library/Application Support/xemu/xemu/xemu.toml"
 
     set_config("fit", "'scale_16_9'", config_path, separator=" = ")
 
@@ -215,7 +215,7 @@ def xemu_widescreen_off():
     elif system.startswith("win"):
         config_path = f"{emus_folder}/xemu/xemu.toml"
     elif system == "darwin":
-        config_path = f"{home}/Library/Application Support/xemu/xemu.toml"
+        config_path = f"{home}/Library/Application Support/xemu/xemu/xemu.toml"
 
     set_config("fit", "'scale_4_3'", config_path, separator=" = ")
 
