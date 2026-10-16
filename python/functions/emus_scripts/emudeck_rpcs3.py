@@ -31,7 +31,7 @@ def rpcs3_get_download_url():
         return code or -99, None, None
 
     # 2) Pull out download link & remote checksum
-    latest = data.get("latest_build", {}).get("linux", {})
+    latest = data.get("latest_build", {}).get("mac" if system == "darwin" else "linux", {})
     download_url     = latest.get("download")
     remote_checksum  = latest.get("checksum", "").lower()
 
@@ -98,6 +98,8 @@ def rpcs3_init():
 
     copy_setting_dir(f"common/rpcs3/", destination)
     copy_and_set_settings_file(f"common/rpcs3/config.yml", destination)
+    if system == "darwin":
+        sed("Handler: Evdev", "Handler: SDL", f"{destination}/input_configs/global/Default.yml")
 
     rpcs3_setup_storage()
     rpcs3_set_emulation_folder()
