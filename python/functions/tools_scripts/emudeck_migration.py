@@ -18,112 +18,77 @@ def migration_init(destination: Path) -> bool:
     origin = emulation_path
     dest   = Path(destination)
 
-    # Calculate sizes
     needed = sum(f.stat().st_size for f in origin.rglob("*") if f.is_file())
-    free   = shutil.disk_usage(dest).free
-    needed_h = human_readable(needed)
-    free_h   = human_readable(free)
+    if shutil.disk_usage(dest).free < needed:
+        print(f"Make sure you have enough space in {dest}. You need at least {human_readable(needed)} available")
+        return False
 
-    if free < needed:
-        ans = _ask_conflict(
-            "EmuDeck Migration tool",
-            f"Make sure you have enough space in {dest}.\n"
-            f"You need at least {needed_h} (you have {free_h}). Continue?"
-        )
-        if not ans:
-            return False
-
-    # Move and update
-    if migration_move(origin, dest, needed_h):
+    if migration_move(origin, dest, human_readable(needed)):
         migration_update_paths(origin, dest / "Emulation")
         return True
     return False
 
 
 def migration_move(origin: Path, destination: Path, size_human: str) -> bool:
-    popup_show_info(
-        "Migrating",
-        f"Migrating your current {size_human} Emulation folder to {destination}"
-    )
-    try:
-        subprocess.run(
-            ["rsync", "-av", "--progress", f"{origin}/", str(destination)],
-            check=True
-        )
-        return True
-    except subprocess.CalledProcessError as e:
-        popup_show_info("Migration Error", f"rsync failed:\n{e}")
-        return False
+    print(f"Migrating your current {size_human} Emulation folder to {destination}")
+    return subprocess.run(["rsync", "-a", str(origin), str(destination)]).returncode == 0
 
 
 def migration_update_paths(origin: Path, destination: Path) -> None:
     o = str(origin)
     d = str(destination)
 
-    # Settings generales
-    set_setting("emulationPath",   d)
-    set_setting("toolsPath",       f"{d}/tools")
-    set_setting("romsPath",        f"{d}/roms")
-    set_setting("biosPath",        f"{d}/bios")
-    set_setting("savesPath",       f"{d}/saves")
-    set_setting("storagePath",     f"{d}/storage")
-    set_setting("ESDEscrapData",   f"{d}/tools/downloaded_media")
+    set_setting("storagePath", str(destination.parent))
+    if hybrid_mode:
+        from core.settings_sh import write_setting_sh
+        for var, value in {
+            "emulationPath": d,
+            "toolsPath": f"{d}/tools",
+            "romsPath": f"{d}/roms",
+            "biosPath": f"{d}/bios",
+            "savesPath": f"{d}/saves",
+            "storagePath": f"{d}/storage",
+            "ESDEscrapData": f"{d}/tools/downloaded_media",
+        }.items():
+            write_setting_sh(settings_sh_path, json_to_bash_vars_path, f"sh.{var}", value)
 
-    # Configs y paths de emus
-    bigpemu_init()
-    cemu_init()
-    citron_init()
-    dolphin_init()
-    duckstation_init()
-    eden_init()
-    flycast_init()
-    mame_init()
-    melonds_init()
-    mgba_init()
-    model2_init()
-    pcsx2_init()
-    ppsspp_init()
-    primehack_init()
-    retroarch_init()
-    rmg_init()
-    rpcs3_init()
-    ryujinx_init()
-    scummvm_init()
-    shadps4_init()
-    supermodel_init()
-    vita3k_init()
-    xemu_init()
-    xenia_init()
-    yuzu_init()
+    if system == "darwin":
+        for launcher in Path("/Applications/EmuDeck").glob("*.app/Contents/MacOS/*"):
+            replace_in_file(launcher, o, d)
 
-
-    # Steam Rom Manager
     migration_update_srm(o, d)
+    migration_update_parsers(o, d)
 
-    popup_show_info(
-        "Migration Success",
-        f"Your library has been moved to {d}\nPlease restart to apply changes."
-    )
+
+def migration_update_emus() -> None:
+    ns = sys.modules["core.all"].__dict__
+    for name, fn in list(ns.items()):
+        if not name.endswith("_is_installed") or not callable(fn):
+            continue
+        prefix = name[: -len("_is_installed")]
+        try:
+            if not fn():
+                continue
+            for suffix in ("_set_emulation_folder", "_setup_saves"):
+                if callable(ns.get(prefix + suffix)):
+                    ns[prefix + suffix]()
+        except Exception as e:
+            print(f"Migration: {prefix} failed: {e}")
 
 
 def migration_update_srm(origin: str, destination: str) -> None:
-    # 1) shortcuts.vdf
-    for path in steam_userdata_path.rglob("shortcuts.vdf"):
-        txt = path.read_text(encoding="utf-8")
-        path.write_text(txt.replace(origin, destination), encoding="utf-8")
+    for path in (Path(steam_install_path) / "userdata").rglob("shortcuts.vdf"):
+        path.write_bytes(path.read_bytes().replace(origin.encode(), destination.encode()))
 
-    # 2) Steam Rom Manager settings
-    srm_json = Path.home() / ".config" / "steam-rom-manager" / "userData" / \
-               "userSettings.json"
+    srm_json = Path(srm_path) / "userData" / "userSettings.json"
     if srm_json.exists():
         data = json.loads(srm_json.read_text(encoding="utf-8"))
-        data.setdefault("environmentVariables", {})["romsDirectory"] = str(roms_path)
+        data.setdefault("environmentVariables", {})["romsDirectory"] = f"{destination}/roms"
         srm_json.write_text(json.dumps(data, indent=2), encoding="utf-8")
 
 
 def migration_update_parsers(origin: str, destination: str) -> None:
-    parsers_json = Path.home() / ".config" / "steam-rom-manager" / "userData" / \
-                   "userConfigurations.json"
+    parsers_json = Path(srm_path) / "userData" / "userConfigurations.json"
     if parsers_json.exists():
         txt = parsers_json.read_text(encoding="utf-8")
         parsers_json.write_text(txt.replace(origin, destination), encoding="utf-8")
