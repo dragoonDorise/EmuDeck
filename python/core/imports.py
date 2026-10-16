@@ -74,7 +74,12 @@ _qapp: Optional[QtWidgets.QApplication] = None
 
 class _DragFilter(QtCore.QObject if QtCore is not None else object):
     def eventFilter(self, obj, event):
-        if event.type() == QtCore.QEvent.MouseButtonPress and event.button() == QtCore.Qt.LeftButton and isinstance(obj, QtWidgets.QWidget) and not isinstance(obj, (QtWidgets.QAbstractButton, QtWidgets.QLineEdit, QtWidgets.QComboBox, QtWidgets.QAbstractSpinBox, QtWidgets.QAbstractItemView)):
+        if event.type() == QtCore.QEvent.MouseButtonPress and event.button() == QtCore.Qt.LeftButton and isinstance(obj, QtWidgets.QWidget):
+            widget = obj
+            while widget is not None:
+                if isinstance(widget, (QtWidgets.QAbstractButton, QtWidgets.QLineEdit, QtWidgets.QComboBox, QtWidgets.QAbstractSpinBox, QtWidgets.QAbstractItemView, QtWidgets.QScrollBar)):
+                    return False
+                widget = widget.parentWidget()
             win = obj.window()
             if win.windowFlags() & QtCore.Qt.FramelessWindowHint and win.windowHandle():
                 win.windowHandle().startSystemMove()

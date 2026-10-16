@@ -23,3 +23,5 @@ setSetting(){
 }
 
 customLocation(){ py_run --print custom_location; }
+
+startCompressor(){ py_run compressor_launch; }

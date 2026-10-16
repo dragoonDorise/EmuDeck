@@ -1,4 +1,5 @@
 from core.all import *
+import struct
 
 
 chd_folder_whitelist = [
@@ -54,6 +55,106 @@ sevenzip_file_extensions = [
     "sfc", "smc", "swx", "32x", "gg",
     "gen", "md", "smd"
 ]
+
+compressor_tools_dir = Path(emudeck_folder) / "compressor-tools"
+if system.startswith("win"):
+    chd_path = compressor_tools_dir / "win_x86"
+    chdman_cmd = str(chd_path / "chdman.exe")
+    ciso_cmd = str(chd_path / "ciso.exe")
+    tool_cmd = str(chd_path / "3dstool.exe")
+    extract_cmd = str(chd_path / "extract-xiso.exe")
+elif system == "darwin":
+    chd_path = compressor_tools_dir / "darwin"
+    chdman_cmd = str(chd_path / "chdman")
+    ciso_cmd = None
+    tool_cmd = None
+    extract_cmd = str(chd_path / "extract-xiso")
+else:
+    chd_path = compressor_tools_dir / ("arm64" if cpu_arch == "arm" else "x86")
+    chdman_cmd = str(chd_path / "chdman5")
+    ciso_cmd = str(chd_path / "ciso")
+    tool_cmd = str(chd_path / "3dstool")
+    extract_cmd = str(chd_path / "extract-xiso")
+
+def compressor_install_tools() -> None:
+    if system == "darwin":
+        if Path(extract_cmd).exists():
+            return
+        url = get_latest_release_gh("XboxDev/extract-xiso", "zip", "macOS")
+    else:
+        if Path(chdman_cmd).exists():
+            return
+        url = get_latest_release_gh("EmuDeck/compressor-tools", "zip", chd_path.name, "" if system.startswith("win") else "win")
+    if not url:
+        print("Unable to find the compressor tools download")
+        return
+    chd_path.mkdir(parents=True, exist_ok=True)
+    archive = chd_path / "tools.zip"
+    response = requests.get(url, stream=True, timeout=30)
+    response.raise_for_status()
+    with open(archive, "wb") as f:
+        for chunk in response.iter_content(chunk_size=8192):
+            f.write(chunk)
+    zipfile.ZipFile(archive).extractall(chd_path if system == "darwin" else compressor_tools_dir)
+    archive.unlink(missing_ok=True)
+    for exe in filter(None, [chdman_cmd, ciso_cmd, tool_cmd, extract_cmd]):
+        if Path(exe).exists():
+            Path(exe).chmod(Path(exe).stat().st_mode | stat.S_IXUSR | stat.S_IXGRP | stat.S_IXOTH)
+
+def cso_compress_file(src: Path, dst: Path, level: int = 9) -> None:
+    block_size = 2048
+    total = src.stat().st_size
+    blocks = (total + block_size - 1) // block_size
+    with open(src, "rb") as fi, open(dst, "wb") as fo:
+        fo.write(struct.pack("<4sIQIBB2x", b"CISO", 0x18, total, block_size, 1, 0))
+        fo.write(b"\0" * 4 * (blocks + 1))
+        index = []
+        for _ in range(blocks):
+            data = fi.read(block_size)
+            offset = fo.tell()
+            packer = zlib.compressobj(level, zlib.DEFLATED, -15)
+            packed = packer.compress(data) + packer.flush()
+            if len(packed) >= len(data):
+                index.append(offset | 0x80000000)
+                fo.write(data)
+            else:
+                index.append(offset)
+                fo.write(packed)
+        index.append(fo.tell())
+        if index[-1] >= 0x80000000:
+            raise ValueError("CSO output bigger than 2GB is not supported")
+        fo.seek(0x18)
+        fo.write(struct.pack(f"<{blocks + 1}I", *index))
+
+def cso_decompress_file(src: Path, dst: Path) -> None:
+    with open(src, "rb") as fi, open(dst, "wb") as fo:
+        magic, header_size, total, block_size, version, align = struct.unpack("<4sIQIBB2x", fi.read(0x18))
+        if magic != b"CISO":
+            raise ValueError(f"{src.name} is not a CSO file")
+        blocks = (total + block_size - 1) // block_size
+        fi.seek(header_size)
+        index = struct.unpack(f"<{blocks + 1}I", fi.read(4 * (blocks + 1)))
+        for i in range(blocks):
+            start = (index[i] & 0x7FFFFFFF) << align
+            end = (index[i + 1] & 0x7FFFFFFF) << align
+            fi.seek(start)
+            data = fi.read(end - start)
+            if not index[i] & 0x80000000:
+                data = zlib.decompressobj(-15).decompress(data)
+            fo.write(data[:block_size])
+        fo.truncate(total)
+
+def trim_3ds_file(path: Path) -> bool:
+    with open(path, "r+b") as f:
+        f.seek(0x100)
+        if f.read(4) != b"NCSD":
+            return False
+        f.seek(0x120)
+        table = struct.unpack("<16I", f.read(0x40))
+        f.seek(0x18E)
+        media_unit = 0x200 << f.read(1)[0]
+        f.truncate(max(table[i * 2] + table[i * 2 + 1] for i in range(8)) * media_unit)
+    return True
 
 def compress_chd(file_path: Path) -> None:
     file_path = Path(file_path)
@@ -225,14 +326,21 @@ def compress_cso(file_path: Path) -> None:
     file_path = Path(file_path)
     output_path = file_path.with_suffix(".cso")
 
-    # Run: ciso 9 input_file output_file
-    result = subprocess.run(
-        [ciso_cmd, "9", str(file_path), str(output_path)],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
-    )
+    if system == "darwin":
+        try:
+            cso_compress_file(file_path, output_path)
+            returncode = 0
+        except Exception as e:
+            print(e)
+            returncode = 1
+    else:
+        returncode = subprocess.run(
+            [ciso_cmd, "9", str(file_path), str(output_path)],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        ).returncode
 
-    if result.returncode == 0:
+    if returncode == 0:
         print(f"{file_path.name} successfully converted to {output_path.name}")
         try:
             file_path.unlink()
@@ -248,14 +356,16 @@ def compress_cso(file_path: Path) -> None:
 
 def trim_3ds(file_path: Path) -> None:
     file_path = Path(file_path)
-    # Run: 3dstool -r -f input_file
-    result = subprocess.run(
-        [tool_cmd, "-r", "-f", str(file_path)],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
-    )
+    if system == "darwin":
+        returncode = 0 if trim_3ds_file(file_path) else 1
+    else:
+        returncode = subprocess.run(
+            [tool_cmd, "-r", "-f", str(file_path)],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL
+        ).returncode
 
-    if result.returncode == 0:
+    if returncode == 0:
         trimmed_name = file_path.with_name(f"{file_path.stem}(Trimmed){file_path.suffix}")
         try:
             file_path.rename(trimmed_name)
@@ -296,70 +406,20 @@ def compress_xiso(file_path: Path) -> None:
         # Conversion failed
         print(f"Error converting {file_path.name} to XISO")
 
-def decompress_cso_iso(file_path: Path) -> None:
-    file_path = Path(file_path)
-    iso_path = file_path.with_suffix(".iso")
-
-    # Run the decompression command
-    result = subprocess.run(
-        [ciso_cmd, "0", str(file_path), str(iso_path)],
-        stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL
-    )
-
-    if result.returncode == 0:
-        print(f"{file_path.name} successfully converted to {iso_path.name}")
-        try:
-            file_path.unlink()
-        except Exception as e:
-            print(f"Decompressed but failed to delete original: {e}")
-    else:
-        print(f"Error converting {file_path.name} to ISO")
-        # Clean up any incomplete ISO
-        if iso_path.exists():
-            try:
-                iso_path.unlink()
-            except Exception:
-                pass
-
-def decompress_chd_iso(file_path: Path) -> None:
-    file_path = Path(file_path)
-    iso_path = chd_path.with_suffix(".iso")
-
-    cmd = [
-        chdman_cmd,
-        "extractdvd",
-        "-i", str(file_path),
-        "-o", str(iso_path)
-    ]
-    result = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    if result.returncode == 0:
-        print(f"Decompressing {file_path.name} to ISO using the extractdvd flag.")
-        print(f"{file_path.name} successfully decompressed to {iso_path.name}")
-        try:
-            file_path.unlink()
-        except Exception as e:
-            print(f"Decompressed but failed to delete {file_path.name}: {e}")
-    else:
-        print(f"Conversion of {file_path.name} failed.")
-        if iso_path.exists():
-            try:
-                iso_path.unlink()
-            except Exception:
-                pass
-
 def decompress_cso_iso(cso_path: Path) -> None:
     cso_path = Path(cso_path)
     iso_path = cso_path.with_suffix(".iso")
 
-    cmd = [
-        ciso_cmd,
-        "0",
-        str(cso_path),
-        str(iso_path)
-    ]
-    result = subprocess.run(cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    if result.returncode == 0:
+    if system == "darwin":
+        try:
+            cso_decompress_file(cso_path, iso_path)
+            returncode = 0
+        except Exception as e:
+            print(e)
+            returncode = 1
+    else:
+        returncode = subprocess.run([ciso_cmd, "0", str(cso_path), str(iso_path)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL).returncode
+    if returncode == 0:
         print(f"{cso_path.name} successfully converted to {iso_path.name}")
         try:
             cso_path.unlink()
@@ -461,42 +521,46 @@ def popup_select_folder(
     title: str,
     message: str,
     candidates: Sequence[str]
-) -> Optional[str]:
+) -> list:
     app = ensure_app()
     dlg = BaseDialog(title)
 
-    # message
+    names = {"psp": "PSP", "psx": "PlayStation", "ps2": "PlayStation 2", "gc": "GameCube", "wii": "Wii", "primehacks": "Metroid Prime (PrimeHack)",
+             "n3ds": "Nintendo 3DS", "xbox": "Xbox", "dreamcast": "Dreamcast", "saturn": "Saturn", "saturnjp": "Saturn (JP)", "segacd": "Sega CD",
+             "megacd": "Mega CD", "pcenginecd": "PC Engine CD", "neogeocd": "Neo Geo CD", "3do": "3DO", "naomi": "Naomi", "atomiswave": "Atomiswave"}
+
     lbl = QtWidgets.QLabel(message)
     lbl.setWordWrap(True)
-    dlg._inner.addWidget(lbl)
+    lbl.setStyleSheet("margin-bottom: 8px;")
+    dlg._add(lbl)
 
-    # list
     listw = QtWidgets.QListWidget()
-    for item in candidates:
-        listw.addItem(item.capitalize())
-    listw.setCurrentRow(0)
-    dlg._inner.addWidget(listw)
+    for folder in candidates:
+        item = QtWidgets.QListWidgetItem(names.get(folder, folder.capitalize()))
+        item.setData(QtCore.Qt.UserRole, folder)
+        listw.addItem(item)
+    listw.setSelectionMode(QtWidgets.QAbstractItemView.MultiSelection)
+    listw.setMinimumHeight(min(len(candidates), 6) * 48 + 16)
+    dlg._add(listw)
 
-    # buttons
     btns = QtWidgets.QHBoxLayout()
-    ok    = QtWidgets.QPushButton("OK")
-    cancel= QtWidgets.QPushButton("Cancel")
-    btns.addWidget(ok)
+    btns.addStretch()
+    cancel = QtWidgets.QPushButton("Cancel")
+    ok = QtWidgets.QPushButton("OK")
     btns.addWidget(cancel)
+    btns.addWidget(ok)
     dlg._inner.addLayout(btns)
 
-    choice: Optional[str] = None
+    choice: list = []
 
     def do_ok():
         nonlocal choice
-        it = listw.currentItem()
-        if it:
-            choice = it.text().lower()  # returns lowercase folder name
+        choice = [it.data(QtCore.Qt.UserRole) for it in listw.selectedItems()]
         dlg.accept()
 
     def do_cancel():
         nonlocal choice
-        choice = None
+        choice = []
         dlg.reject()
 
     ok.clicked.connect(do_ok)
@@ -538,15 +602,15 @@ def compressor_folder_has_files(folder: str, exts: list[str]) -> bool:
 def compressor_generate_list():
     # CHD folders
     candidates: List[str] = []
-    for f in chd_folder_whitelist:
+    for f in chd_folder_whitelist if Path(chdman_cmd).exists() else []:
         print(f"Checking {roms_path / f}")
         if compressor_folder_has_files(f, chd_file_extensions):
             print(f"found in {f}")
             candidates.append(f)
 
     # RVZ only if dolphin-tool available (i.e. flatpak on Linux):
-    for f in rvz_folder_whitelist:
-        print(f"Checking {roms_path / f} WIIIII")
+    for f in rvz_folder_whitelist if system != "darwin" or (Path(emus_folder) / "Dolphin.app" / "Contents" / "MacOS" / "dolphin-tool").exists() else []:
+        print(f"Checking {roms_path / f}")
         if compressor_folder_has_files(f, rvz_file_extensions):
             print(f"found in {f}")
             candidates.append(f)
@@ -584,6 +648,8 @@ def compressor_generate_list():
 
 
 def compressor_compress(romfolder: any):
+    if romfolder is None:
+        return
     base = roms_path / romfolder
     if romfolder is not None:
         if romfolder in chd_folder_whitelist:
@@ -621,47 +687,32 @@ def compressor_compress(romfolder: any):
             print(f"No compression rules for '{romfolder}'")
 
 def compressor_decompress(romfolder: any):
+    if romfolder is None:
+        return
     base = roms_path / romfolder
     if romfolder is not None:
         if romfolder in chd_folder_whitelist:
-            for ext in ("*.gdi", "*.cue"):
-                for f in base.rglob(ext):
-                    print(f"Converting: {f} using the createcd flag")
-                    decompress_chd(str(f))
-            for f in base.rglob("*.iso"):
-                print(f"Converting: {f} using the createdvd flag")
-                decompress_chd_dvd(str(f))
+            for f in base.rglob("*.chd"):
+                print(f"Decompressing: {f}")
+                decompress_chd_iso(str(f))
 
         elif romfolder in rvz_folder_whitelist:
-            for pattern in ("*.gcm", "*.iso"):
-                for f in base.rglob(pattern):
-                    print(f"Converting: {f} to RVZ")
-                    decompress_rvz(str(f))
+            for f in base.rglob("*.rvz"):
+                print(f"Decompressing: {f}")
+                decompress_rvz(str(f))
 
         elif romfolder in cso_folder_whitelist:
-            for f in base.rglob("*.iso"):
-                print(f"Converting: {f} to CSO")
-                decompress_cso(str(f))
+            for f in base.rglob("*.cso"):
+                print(f"Decompressing: {f}")
+                decompress_cso_iso(str(f))
         else:
-            print(f"No compression rules for '{romfolder}'")
+            print(f"No decompression rules for '{romfolder}'")
 
 
 
 def compressor_launch():
-    chd_path = Path(emudeck_backend) / "tools" / "compressor" / "linux"
-    executables = ["chdman5", "ciso", "3dstool", "extract-xiso"]
-    chdman_cmd = f"{chd_path}/chdman5"
-    ciso_cmd = f"{chd_path}/ciso"
-    tool_cmd = f"{chd_path}/3dstool"
-    extract_cmd = f"{chd_path}/extract-xiso"
-
-    if system.startswith("win"):
-        chd_path = Path(emudeck_backend) / "tools" / "compressor" / "windows"
-        executables = ["chdman5.exe", "ciso.exe", "3dstool.exe", "extract-xiso.exe"]
-        chdman_cmd = f"{chd_path}/chdman.exe"
-        ciso_cmd = f"{chd_path}/ciso.exe"
-        tool_cmd = f"{chd_path}/3dstool.exe"
-        extract_cmd = f"{chd_path}/extract-xiso.exe"
+    compressor_install_tools()
+    executables = [chdman_cmd, ciso_cmd, tool_cmd, extract_cmd]
 
     combined_file_extensions = (
         n3ds_file_extensions
@@ -672,8 +723,8 @@ def compressor_launch():
         + sevenzip_file_extensions
     )
 
-    for exe_name in executables:
-        exe_file = chd_path / exe_name
+    for exe_name in filter(None, executables):
+        exe_file = Path(exe_name)
         if exe_file.exists():
             # Lee el modo actual y añade el bit de ejecución para usuario, grupo y otros
             current_mode = exe_file.stat().st_mode
@@ -693,13 +744,19 @@ def compressor_launch():
 
         folders = compressor_generate_list()
 
-        romfolder = popup_select_folder(
-            "Choose System",
-            "Select which system’s ROM folder you want to compress:",
+        if not folders:
+            popup_show_info("EmuDeck Compressor", "No suitable ROMs were found for conversion.")
+            return
+
+        romfolders = popup_select_folder(
+            "Choose Systems",
+            "Select which systems you want to compress:",
             folders
         )
 
-        compressor_compress(romfolder)
+        if romfolders:
+            popup_show_progress("EmuDeck Compressor", f"Compressing your {', '.join(romfolders)} games, this can take a while...", lambda: [compressor_compress(romfolder) for romfolder in romfolders])
+            popup_show_info("EmuDeck Compressor", "All done! Check the log if any game failed.")
 
     elif resp is False:
         # user chose Bulk deompress
@@ -707,10 +764,16 @@ def compressor_launch():
 
         folders = compressor_generate_list()
 
-        romfolder = popup_select_folder(
-            "Choose System",
-            "Select which system’s ROM folder you want to compress:",
+        if not folders:
+            popup_show_info("EmuDeck Compressor", "No suitable ROMs were found for conversion.")
+            return
+
+        romfolders = popup_select_folder(
+            "Choose Systems",
+            "Select which systems you want to decompress:",
             folders
         )
 
-        compressor_decompress(romfolder)
+        if romfolders:
+            popup_show_progress("EmuDeck Compressor", f"Decompressing your {', '.join(romfolders)} games, this can take a while...", lambda: [compressor_decompress(romfolder) for romfolder in romfolders])
+            popup_show_info("EmuDeck Compressor", "All done! Check the log if any game failed.")

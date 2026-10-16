@@ -86,3 +86,44 @@ QCheckBox {
   font-size: 16px;
   color: #ffffff;
 }
+
+QListWidget {
+  background: rgba(255, 255, 255, 10);
+  border: 1px solid rgba(255, 255, 255, 26);
+  border-radius: 8px;
+  padding: 6px;
+  color: #ffffff;
+  font-size: 16px;
+  outline: 0;
+  margin-bottom: 14px;
+}
+
+QListWidget::item {
+  padding: 10px 12px;
+  margin: 2px 0;
+  border-radius: 6px;
+}
+
+QListWidget::item:hover {
+  background: rgba(242, 235, 255, 26);
+}
+
+QListWidget::item:selected {
+  background: qlineargradient(x1:0, y1:0, x2:0, y2:1, stop:0 #f2ebff, stop:0.2409 #f2ebff, stop:1 #e5d6ff);
+  color: rgba(0, 0, 0, 204);
+}
+
+QScrollBar:vertical {
+  background: transparent;
+  width: 8px;
+}
+
+QScrollBar::handle:vertical {
+  background: rgba(255, 255, 255, 51);
+  border-radius: 4px;
+  min-height: 24px;
+}
+
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {
+  height: 0;
+}
