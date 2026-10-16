@@ -2042,7 +2042,7 @@ def load_remote_module(url: str, module_name: str):
     return module
 
 def load_remote_cloud_sync():
-    REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={settings.patreonToken}"
+    REMOTE_URL = f"https://token.emudeck.com/cloud-check.php?access_token={getattr(settings, 'patreonToken', '')}"
     try:
        cloudsync_remote = load_remote_module(REMOTE_URL, "cloudsync_remote")
     except Exception as e:
