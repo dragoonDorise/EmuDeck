@@ -88,6 +88,7 @@ def generate_python_env():
 
     if not venv_dir.exists():
         venv.EnvBuilder(with_pip=True).create(str(venv_dir))
+        install_pip("pip")
 
     if Path(sys.prefix).resolve() != venv_dir.resolve():
         os.execv(str(python_venv), [str(python_venv)] + sys.argv)
