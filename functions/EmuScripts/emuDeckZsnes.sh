@@ -39,6 +39,8 @@ ZSNES_init(){
 		"$ZSNES_configPath/" --backup --suffix=.bak || return 1
 
 	ZSNES_setupSaves
+	ZSNES_addParser
+    ZSNES_addESConfig
 }
 
 ZSNES_setupSaves(){
@@ -85,7 +87,8 @@ ZSNES_IsInstalled(){
 }
 
 ZSNES_uninstall(){
-	rm -rf "$emusFolder/zsnes" && echo "true" || echo "false"
+    removeParser "nintendo_snes-zsnes.json"
+    rm -rf "$emusFolder/zsnes" && echo "true" || echo "false"
 }
 
 ZSNES_resetConfig(){
@@ -104,6 +107,15 @@ ZSNES_addToSteam(){
 		"$emusFolder/zsnes" \
 		"$emudeckBackend/icons/ZSNES.png" \
 		"Emulation"
+}
+
+ZSNES_addParser(){
+    addParser "nintendo_snes-zsnes.json"
+}
+
+ZSNES_addESConfig(){
+    rsync -avhp --mkpath "$emudeckBackend/configs/emulationstation/custom_systems/es_find_rules.xml" "$(dirname "$es_rulesFile")" --backup --suffix=.bak
+    sed -i "s|/run/media/mmcblk0p1/Emulation|${emulationPath}|g" "$es_rulesFile"
 }
 
 ZSNES_update(){
