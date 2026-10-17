@@ -15,22 +15,47 @@
     </emulator>
     <core name="RETROARCH">
         <rule type="corepath">
+            <!-- Flatpak package -->
             <entry>~/.var/app/org.libretro.RetroArch/config/retroarch/cores</entry>
+            <!-- Snap package -->
+            <entry>~/snap/retroarch/current/.config/retroarch/cores</entry>
+            <!-- AppImage and compiled from source -->
+            <entry>~/.config/retroarch/cores</entry>
+            <!-- Ubuntu and Linux Mint repository -->
+            <entry>/usr/lib/x86_64-linux-gnu/libretro</entry>
+            <!-- Fedora repository -->
+            <entry>/usr/lib64/libretro</entry>
+            <!-- Manjaro repository -->
+            <entry>/usr/lib/libretro</entry>
+            <!-- FreeBSD and OpenBSD repository -->
+            <entry>/usr/local/lib/libretro</entry>
+            <!-- NetBSD repository -->
+            <entry>/usr/pkg/lib/libretro</entry>
         </rule>
     </core>
-    <emulator name="SHADPS4">
+    <emulator name="ARES">
         <rule type="staticpath">
-            <entry>EMULATIONPATH/tools/launchers/shadps4.sh</entry>
+            <entry>EMULATIONPATH/tools/launchers/ares-emu.sh</entry>
         </rule>
     </emulator>
-    <emulator name="YUZU">
+    <emulator name="AZAHAR">
         <rule type="staticpath">
-            <entry>EMULATIONPATH/tools/launchers/yuzu.sh</entry>
+            <entry>EMULATIONPATH/tools/launchers/azahar.sh</entry>
+        </rule>
+    </emulator>
+    <emulator name="BIGPEMU">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/bigpemu.sh</entry>
         </rule>
     </emulator>
     <emulator name="CEMU">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/cemu.sh</entry>
+        </rule>
+    </emulator>
+    <emulator name="CITRON">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/citron.sh</entry>
         </rule>
     </emulator>
     <emulator name="DOLPHIN">
@@ -43,14 +68,14 @@
             <entry>EMULATIONPATH/tools/launchers/duckstation.sh</entry>
         </rule>
     </emulator>
+    <emulator name="EDEN">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/eden.sh</entry>
+        </rule>
+    </emulator>
     <emulator name="FLYCAST">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/flycast.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="AZAHAR">
-        <rule type="staticpath">
-            <entry>EMULATIONPATH/tools/launchers/azahar.sh</entry>
         </rule>
     </emulator>
     <emulator name="MAME">
@@ -73,12 +98,7 @@
             <entry>EMULATIONPATH/tools/launchers/model-2-emulator.sh</entry>
         </rule>
     </emulator>
-    <emulator name="SUPERMODEL">
-        <rule type="staticpath">
-            <entry>EMULATIONPATH/tools/launchers/supermodel.sh</entry>
-        </rule>
-    </emulator>
-    <emulator name="PCSX2QT">
+    <emulator name="PCSX2">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/pcsx2-qt.sh</entry>
         </rule>
@@ -93,7 +113,7 @@
             <entry>EMULATIONPATH/tools/launchers/primehack.sh</entry>
         </rule>
     </emulator>
-    <emulator name="RMG">
+    <emulator name="ROSALIES-MUPEN-GUI">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/rosaliesmupengui.sh</entry>
         </rule>
@@ -113,6 +133,16 @@
             <entry>EMULATIONPATH/tools/launchers/scummvm.sh</entry>
         </rule>
     </emulator>
+    <emulator name="SHADPS4">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/shadps4.sh</entry>
+        </rule>
+    </emulator>
+    <emulator name="SUPERMODEL">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/supermodel.sh</entry>
+        </rule>
+    </emulator>
     <emulator name="VITA3K">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/vita3k.sh</entry>
@@ -120,12 +150,17 @@
     </emulator>
     <emulator name="XEMU">
         <rule type="staticpath">
-            <entry>EMULATIONPATH/tools/launchers/xemu.sh</entry>
+            <entry>EMULATIONPATH/tools/launchers/xemu-emu.sh</entry>
         </rule>
     </emulator>
     <emulator name="XENIA">
         <rule type="staticpath">
             <entry>EMULATIONPATH/tools/launchers/xenia.sh</entry>
+        </rule>
+    </emulator>
+    <emulator name="YUZU">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/yuzu.sh</entry>
         </rule>
     </emulator>
     <!--armcores 

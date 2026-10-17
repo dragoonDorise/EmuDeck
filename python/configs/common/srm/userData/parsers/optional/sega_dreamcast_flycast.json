@@ -7,7 +7,7 @@
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
     "executableArgs": "\"${filePath}\"",
-    "onlineImageQueries": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "imageProviders": [
         "sgdb",

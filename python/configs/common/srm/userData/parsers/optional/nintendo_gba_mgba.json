@@ -6,7 +6,7 @@
     "steamCategories": [
         "Nintendo Game Boy Advance - mGBA (Standalone)"
     ],
-    "executableArgs": "-f \"'${filePath}'\"",
+    "executableArgs": "-f \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
@@ -17,7 +17,7 @@
         "sgdb",
         "steamCDN"
     ],
-    "onlineImageQueries": "${fuzzyTitle}",
+    "onlineImageQueries": "${${fuzzyTitle}}",
     "imagePool": "${fuzzyTitle}",
     "drmProtect": false,
     "userAccounts": {

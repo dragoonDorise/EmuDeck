@@ -68,36 +68,17 @@
 	  <platform>ps4</platform>
 	  <theme>ps4</theme>
   </system>
-  <!-- <system>
-		<name>ps4-pkg</name>
-		<fullname>Sony PlayStation 4</fullname>
-		<path>%ROMPATH%\ps4</path>
-		<extension>.desktop</extension>
-		<command label="ShadPS4 PKG (Standalone)">%EMULATOR_SHADPS4% %ROM%</command>
-		<platform>ps4</platform>
-		<theme>ps4</theme>
-	</system> -->
-	<system>
-		  <name>n3ds</name>
-		  <fullname>Nintendo 3DS</fullname>
-		  <path>%ROMPATH%/n3ds</path>
-		  <extension>.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP .zcci .ZCCI .z3dsx .Z3DSX .zcxi .ZCXI</extension>
-		  <command label="Citra">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\citra_libretro.dll %ROM%</command>
-		  <command label="Citra 2018">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\citra2018_libretro.dll %ROM%</command>
-		  <command label="Azahar (Standalone)">%EMULATOR_AZAHAR% %ROM%</command>
-		  <platform>n3ds</platform>
-		  <theme>n3ds</theme>
-	  </system>
-  <!--armcores <system>
-		<name>ps2</name>
-		<fullname>Sony PlayStation 2</fullname>
-		<path>%ROMPATH%/ps2</path>
-		<extension>.bin .BIN .chd .CHD .cso .CSO .dump .DUMP .gz .GZ .img .IMG .iso .ISO .mdf .MDF .nrg .NRG .zso .ZSO</extension>
-		<command label="ARMSX2 (Standalone)">%EMULATOR_ARMSX2% -batch -fullscreen -nogui %ROM%</command>
-		<platform>ps2</platform>
-		<theme>ps2</theme> 
-  </system>
+  <!--armcores
   <system>
+		  <name>ps2</name>
+		  <fullname>Sony PlayStation 2</fullname>
+		  <path>%ROMPATH%/ps2</path>
+		  <extension>.bin .BIN .chd .CHD .cso .CSO .dump .DUMP .gz .GZ .img .IMG .iso .ISO .mdf .MDF .nrg .NRG .zso .ZSO</extension>
+		  <command label="ARMSX2 (Standalone)">%EMULATOR_ARMSX2% -batch -fullscreen -nogui %ROM%</command>
+		  <platform>ps2</platform>
+		  <theme>ps2</theme> 
+	</system>
+	<system>
 		<name>nds</name>
 		<fullname>Nintendo DS</fullname>
 		<path>%ROMPATH%/nds</path>
@@ -122,4 +103,15 @@
 		<theme>saturn</theme>
   </system>
   armcores-->
+	<system>
+		  <name>n3ds</name>
+		  <fullname>Nintendo 3DS</fullname>
+		  <path>%ROMPATH%/n3ds</path>
+		  <extension>.3ds .3DS .3dsx .3DSX .app .APP .axf .AXF .cci .CCI .cxi .CXI .elf .ELF .7z .7Z .zip .ZIP .zcci .ZCCI .z3dsx .Z3DSX .zcxi .ZCXI</extension>
+		  <command label="Citra">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\citra_libretro.dll %ROM%</command>
+		  <command label="Citra 2018">%EMULATOR_RETROARCH% -L %CORE_RETROARCH%\citra2018_libretro.dll %ROM%</command>
+		  <command label="Azahar (Standalone)">%EMULATOR_AZAHAR% %ROM%</command>
+		  <platform>n3ds</platform>
+		  <theme>n3ds</theme>
+	  </system>
 </systemList>
