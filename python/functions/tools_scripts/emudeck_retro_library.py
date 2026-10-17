@@ -1083,10 +1083,16 @@ def rl_generate_metadata():
             print(f"no pude leer {md!r}: {e}")
             continue
         ra_cores_path=os.path.expanduser(f"~/.var/app/org.libretro.RetroArch/config/retroarch/cores")
+        core_ext = "so"
         if system.startswith("win"):
             ra_cores_path=f"{emus_folder}/RetroArch/cores"
+            core_ext = "dll"
+        if system == "darwin":
+            ra_cores_path=f"{home}/Library/Application Support/RetroArch/cores"
+            core_ext = "dylib"
 
-        new_text = core_pattern.sub(ra_cores_path, text)
+        new_text = re.sub(r"\bCORESPATH/([\w.-]+)\.so\b", lambda m: f'"{ra_cores_path}/{m.group(1)}.{core_ext}"', text)
+        new_text = core_pattern.sub(ra_cores_path, new_text)
         new_text = emu_pattern.sub(f"{emulation_path}", new_text)
 
         if new_text != text:
