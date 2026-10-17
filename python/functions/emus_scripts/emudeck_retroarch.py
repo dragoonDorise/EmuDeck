@@ -11,7 +11,7 @@ if system.startswith("win"):
     retroarch_video_path=Path(f"{retroarch_dir}/filters/video")
     retroarch_assets_setting=Path(f"{retroarch_dir}/assets")
 if system == "darwin":
-    retroarch_cfg_file=Path(f"{home}/Library/Application Support/RetroArch/retroarch.cfg")
+    retroarch_cfg_file=Path(f"{home}/Library/Application Support/RetroArch/config/retroarch.cfg")
     retroarch_dir=Path(f"{home}/Library/Application Support/RetroArch")
     retroarch_video_path=Path(f"{retroarch_dir}/filters/video")
     retroarch_assets_setting=Path(f"{retroarch_dir}/assets")
@@ -633,6 +633,11 @@ def retroarch_setup_extra_configurations():
     if system == "linux":
         set_config("input_driver", '"sdl2"', retroarch_cfg_file, " = ")
         set_config("microphone_driver", '"sdl2"', retroarch_cfg_file, " = ")
+    if system == "darwin":
+        set_config("audio_driver", '"coreaudio"', retroarch_cfg_file, " = ")
+        set_config("camera_driver", '"ffmpeg"', retroarch_cfg_file, " = ")
+        set_config("input_driver", '"cocoa"', retroarch_cfg_file, " = ")
+        set_config("midi_driver", '"coremidi"', retroarch_cfg_file, " = ")
 
     set_config("savestate_thumbnail_enable", '"true"', retroarch_cfg_file, " = ")
 
