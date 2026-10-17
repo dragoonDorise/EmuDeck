@@ -64,6 +64,7 @@ def primehack_install_textures():
 
 def primehack_uninstall():
     try:
+        srm_remove_emulator_parsers("primehack")
         if system == "linux":
             uninstall_emu("io.github.shiiion.primehack", "flatpak")
         if system.startswith("win"):
@@ -113,6 +114,7 @@ def primehack_init():
     primehack_set_resolution()
     primehack_set_controller_style()
     primehack_set_frame_controllers()
+    srm_add_emulator_parsers("primehack")
 
 
 def primehack_set_frame_controllers():

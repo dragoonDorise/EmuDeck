@@ -29,6 +29,7 @@ def mgba_install():
 
 def mgba_uninstall():
     try:
+        srm_remove_emulator_parsers("mgba")
         if system == "linux":
             uninstall_emu("mGBA", "AppImage")
         if system.startswith("win"):
@@ -67,17 +68,12 @@ def mgba_init():
     mgba_setup_saves()
     mgba_set_controller_style()
     mgba_set_esde_emu()
-    mgba_add_optional_parser()
+    srm_add_emulator_parsers("mgba")
     mgba_add_steam_input_profile()
 
 def mgba_install_init():
     mgba_install()
     mgba_init()
-
-def mgba_add_optional_parser():
-    if mgba_is_installed() and srm_is_installed():
-        srm_add_parser("nintendo_gba_mgba")
-
 
 def mgba_set_abxy_style():
     print("NYI")

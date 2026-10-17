@@ -66,6 +66,7 @@ def rpcs3_install():
 
 def rpcs3_uninstall():
     try:
+        srm_remove_emulator_parsers("rpcs3")
         if system == "linux":
             uninstall_emu("rpcs3", "AppImage")
         if system.startswith("win"):
@@ -106,6 +107,7 @@ def rpcs3_init():
     rpcs3_setup_saves()
     rpcs3_set_resolution()
     rpcs3_set_language()
+    srm_add_emulator_parsers("rpcs3")
 
 def rpcs3_install_init():
     rpcs3_install()

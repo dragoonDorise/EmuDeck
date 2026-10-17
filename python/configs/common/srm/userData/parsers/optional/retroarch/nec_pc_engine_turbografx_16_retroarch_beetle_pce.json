@@ -1,0 +1,87 @@
+{
+  "parserType": "Glob",
+  "configTitle": "NEC PC Engine/TurboGrafx 16 - RetroArch Beetle PCE",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_pce_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "imageProviders": [
+    "sgdb",
+    "steamCDN"
+  ],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": [
+      "Global"
+    ]
+  },
+  "executable": {
+    "path": "${retroarchpath}",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "@(pcengine|tg16)/**/${title}@(.7z|.7Z|.bin|.BIN|.pce|.PCE|.zip|.ZIP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "imageProviderAPIs": {
+    "sgdb": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": [
+        "static"
+      ]
+    }
+  },
+  "parserId": "165855998563219386",
+  "version": 22,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "ps5_edge": null,
+    "xbox360": null,
+    "xboxone": null,
+    "xboxelite": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": null,
+    "steamcontroller_gordon": null
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "steamInputEnabled": "1",
+  "drmProtect": false,
+  "steamCategories": [
+    "NEC PC Engine/TurboGrafx 16"
+  ]
+}

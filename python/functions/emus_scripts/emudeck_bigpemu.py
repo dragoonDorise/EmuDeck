@@ -56,6 +56,7 @@ def bigpemu_install():
 
 def bigpemu_uninstall():
     try:
+        srm_remove_emulator_parsers("bigpemu")
         if system == "linux":
             uninstall_emu("bigpemu", "dir")
         if system.startswith("win"):
@@ -93,18 +94,13 @@ def bigpemu_init():
     bigpemu_set_resolution()
     bigpemu_set_controller_style()
     bigpemu_set_esde_emu()
-    bigpemu_add_optional_parser()
+    srm_add_emulator_parsers("bigpemu")
     if esde_is_installed():
         bigpemu_add_es_config()
 
 def bigpemu_install_init():
     bigpemu_install()
     bigpemu_init()
-
-
-def bigpemu_add_optional_parser():
-    if bigpemu_is_installed() and srm_is_installed():
-        srm_add_parser("atari_jaguar_bigpemu")
 
 
 def bigpemu_setup_saves():

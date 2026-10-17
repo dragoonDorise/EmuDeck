@@ -54,6 +54,7 @@ def mame_install():
 
 def mame_uninstall():
     try:
+        srm_remove_emulator_parsers("mame")
         if system == "linux":
             uninstall_emu("org.mamedev.MAME", "flatpak")
         if system.startswith("win"):
@@ -146,18 +147,13 @@ def mame_init():
     mame_set_controller_style()
     mame_widescreen()
     mame_set_esde_emu()
-    mame_add_optional_parser()
+    srm_add_emulator_parsers("mame")
     mame_add_steam_input_profile()
 
 
 def mame_install_init():
     mame_install()
     mame_init()
-
-
-def mame_add_optional_parser():
-    if mame_is_installed() and srm_is_installed():
-        srm_add_parser("arcade_mame")
 
 
 def mame_setup_saves():

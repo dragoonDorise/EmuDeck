@@ -42,6 +42,7 @@ def xemu_install():
 
 def xemu_uninstall():
     try:
+        srm_remove_emulator_parsers("xemu")
         if system == "linux":
             uninstall_emu("app.xemu.xemu", "flatpak")
         elif system.startswith("win"):
@@ -83,6 +84,7 @@ def xemu_init():
     xemu_set_resolution()
     xemu_widescreen()
     xemu_set_language()
+    srm_add_emulator_parsers("xemu")
 
 
 def xemu_install_init():

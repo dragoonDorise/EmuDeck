@@ -35,6 +35,7 @@ def cemu_install():
 
 def cemu_uninstall():
     try:
+        srm_remove_emulator_parsers("cemu")
         if system == "linux":
             uninstall_emu("Cemu", "AppImage")
         if system.startswith("win"):
@@ -80,6 +81,7 @@ def cemu_init():
     cemu_set_controller_style()
     cemu_set_language()
     cemu_add_steam_input_profile()
+    srm_add_emulator_parsers("cemu")
 
 def cemu_install_init():
     cemu_install()

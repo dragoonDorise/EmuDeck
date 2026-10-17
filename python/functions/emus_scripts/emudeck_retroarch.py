@@ -86,6 +86,7 @@ def retroarch_install_bezels():
 
 def retroarch_uninstall():
     try:
+        srm_remove_emulator_parsers("retroarch")
         if system == "linux":
             uninstall_emu("org.libretro.RetroArch", "flatpak")
         if system.startswith("win"):
@@ -131,6 +132,7 @@ def retroarch_init():
     retroarch_retro_achievements()
     retroarch_buildbot_downloader()
     retroarch_setup_bios_readmes()
+    srm_add_emulator_parsers("retroarch")
 
     #Customizations
 

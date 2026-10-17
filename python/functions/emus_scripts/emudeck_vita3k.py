@@ -63,6 +63,7 @@ def vita3k_install():
 
 def vita3k_uninstall():
     try:
+        srm_remove_emulator_parsers("vita3k")
         if system == "linux":
             uninstall_emu("Vita3K", "dir")
         if system.startswith("win"):
@@ -100,6 +101,7 @@ def vita3k_init():
     vita3k_setup_storage()
     vita3k_setup_saves()
     vita3k_set_resolution()
+    srm_add_emulator_parsers("vita3k")
 
 def vita3k_set_resolution():
     if system == "linux":

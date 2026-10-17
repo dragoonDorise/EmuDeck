@@ -109,6 +109,7 @@ def dolphin_install():
 
 def dolphin_uninstall():
     try:
+        srm_remove_emulator_parsers("dolphin")
         if system == "linux":
             uninstall_emu("org.DolphinEmu.dolphin-emu", "flatpak")
         if system.startswith("win"):
@@ -153,6 +154,7 @@ def dolphin_init():
     dolphin_set_resolution()
     dolphin_set_controller_style()
     dolphin_widescreen()
+    srm_add_emulator_parsers("dolphin")
 
 def dolphin_install_init():
     dolphin_install()

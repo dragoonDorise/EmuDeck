@@ -42,6 +42,7 @@ def duckstation_install():
 
 def duckstation_uninstall():
     try:
+        srm_remove_emulator_parsers("duckstation")
         if system == "linux":
             uninstall_emu("duckstation", "AppImage")
         if system.startswith("win"):
@@ -85,6 +86,7 @@ def duckstation_init():
     duckstation_set_controller_style()
     duckstation_widescreen()
     duckstation_retro_achievements()
+    srm_add_emulator_parsers("duckstation")
 
 def duckstation_install_init():
     duckstation_install()

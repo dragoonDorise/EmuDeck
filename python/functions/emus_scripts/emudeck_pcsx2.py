@@ -42,6 +42,7 @@ def pcsx2_install():
 
 def pcsx2_uninstall():
     try:
+        srm_remove_emulator_parsers("pcsx2")
         if system == "linux":
             uninstall_emu("pcsx2", "AppImage")
         if system.startswith("win"):
@@ -99,11 +100,7 @@ def pcsx2_init():
     pcsx2_set_resolution()
     pcsx2_widescreen()
     pcsx2_retro_achievements()
-
-def pcsx2_add_optional_parser():
-    if pcsx2_is_installed() and srm_is_installed():
-        srm_add_parser("sony_ps2_pcsx2")
-
+    srm_add_emulator_parsers("pcsx2")
 
 def pcsx2_install_init():
     pcsx2_install()

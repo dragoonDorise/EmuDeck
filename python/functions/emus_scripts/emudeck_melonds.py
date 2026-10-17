@@ -33,6 +33,7 @@ def melonds_install():
 
 def melonds_uninstall():
     try:
+        srm_remove_emulator_parsers("melonds")
         if system == "linux":
             uninstall_emu("net.kuribo64.melonDS", "flatpak")
         if system.startswith("win"):
@@ -80,18 +81,12 @@ def melonds_init():
     melonds_set_resolution()
     melonds_set_controller_style()
     melonds_set_esde_emu()
-    melonds_add_optional_parser()
+    srm_add_emulator_parsers("melonds")
     melonds_add_steam_input_profile()
 
 def melonds_install_init():
     melonds_install()
     melonds_init()
-
-
-def melonds_add_optional_parser():
-   if melonds_is_installed() and srm_is_installed():
-      srm_add_parser("nintendo_nds_melonds")
-
 
 
 def melonds_setup_saves():

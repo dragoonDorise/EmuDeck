@@ -1,0 +1,127 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Nintendo Wii U - Cemu (.rpx)",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/wiiu/roms/",
+  "steamCategories": [
+    "Nintendo Wii U - Cemu Native"
+  ],
+  "executableArgs": "vblank_mode=0 %command% -f -g \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "fetchControllerTemplatesButton": null,
+  "removeControllersButton": null,
+  "steamInputEnabled": "1",
+  "imageProviders": [
+    "sgdb",
+    "steamCDN"
+  ],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "drmProtect": false,
+  "userAccounts": {
+    "specifiedAccounts": [
+      "Global"
+    ]
+  },
+  "executable": {
+    "path": "EMULATIONPATH/tools/launchers/cemu.EXT",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": false
+  },
+  "parserInputs": {
+    "glob": "${title}/**/*.rpx"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "controllers": {
+    "ps4": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_ps4.vdf",
+      "profileType": "template"
+    },
+    "ps5": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_ps5.vdf",
+      "profileType": "template"
+    },
+    "ps5_edge": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_ps5_dualsense_edge.vdf",
+      "profileType": "template"
+    },
+    "xbox360": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_xbox360.vdf",
+      "profileType": "template"
+    },
+    "xboxone": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_xboxone.vdf",
+      "profileType": "template"
+    },
+    "xboxelite": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_xboxelite.vdf",
+      "profileType": "template"
+    },
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_switch_pro.vdf",
+      "profileType": "template"
+    },
+    "neptune": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_steamdeck.vdf",
+      "profileType": "template"
+    },
+    "steamcontroller_gordon": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_steamcontroller.vdf",
+      "profileType": "template"
+    }
+  },
+  "imageProviderAPIs": {
+    "sgdb": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": [
+        "static"
+      ],
+      "sizes": [],
+      "sizesHero": [],
+      "sizesIcon": []
+    }
+  },
+  "defaultImage": {
+    "tall": "",
+    "long": "",
+    "hero": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/hero.png",
+    "logo": "/home/deck/.config/EmuDeck/backend/configs/steam-rom-manager/userData/img/default/logo.png",
+    "icon": ""
+  },
+  "localImages": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "parserId": "166758881839575782",
+  "version": 22
+}

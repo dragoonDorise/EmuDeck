@@ -35,6 +35,7 @@ def scummvm_install():
 
 def scummvm_uninstall():
     try:
+        srm_remove_emulator_parsers("scummvm")
         if system == "linux":
             uninstall_emu("org.scummvm.ScummVM", "flatpak")
         if system.startswith("win"):
@@ -75,6 +76,7 @@ def scummvm_init():
     scummvm_setup_saves()
     scummvm_set_language()
     scummvm_set_resolution()
+    srm_add_emulator_parsers("scummvm")
 
 def scummvm_install_init():
     scummvm_install()

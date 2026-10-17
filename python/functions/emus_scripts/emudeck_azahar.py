@@ -40,8 +40,8 @@ def azahar_install():
 
 def azahar_uninstall():
     try:
+        srm_remove_emulator_parsers("azahar")
         if system == "linux":
-            srm_remove_parser("nintendo_3ds_azahar")
             uninstall_emu("azahar", "AppImage")
         if system.startswith("win"):
           uninstall_emu("Azahar", "dir")
@@ -83,18 +83,13 @@ def azahar_init():
     azahar_set_resolution()
     azahar_set_controller_style()
     esde_set_emu("Azahar (Standalone)","n3ds")
-    azahar_add_optional_parser()
+    srm_add_emulator_parsers("azahar")
     azahar_add_steam_input_profile()
     azahar_add_es_config()
 
 def azahar_install_init():
     azahar_install()
     azahar_init()
-
-def azahar_add_optional_parser():
-    if azahar_is_installed() and srm_is_installed():
-        srm_add_parser("nintendo_3ds_azahar")
-
 
 def azahar_setup_storage():
     """Moves Citra or old Azahar sdmc/nand into Emulation/storage/azahar and links cheats/textures (Linux)."""

@@ -37,6 +37,7 @@ def supermodel_install():
 
 def supermodel_uninstall():
     try:
+        srm_remove_emulator_parsers("supermodel")
         if system == "linux":
             uninstall_emu("com.supermodel3.Supermodel", "flatpak")
         if system.startswith("win"):
@@ -71,6 +72,7 @@ def supermodel_init():
     copy_and_set_settings_file(f"common/supermodel/Config/Supermodel.ini", f"{destination}/Config")
     supermodel_update_games_list(f"{destination}/Config/Games.xml")
     supermodel_add_steam_input_profile()
+    srm_add_emulator_parsers("supermodel")
 
 
 

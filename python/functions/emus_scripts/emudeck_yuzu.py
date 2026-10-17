@@ -40,16 +40,10 @@ def yuzu_init():
     if esde_is_installed():
         esde_set_emu("Yuzu (Standalone)","switch")
     create_app_shortcut("yuzu", "yuzu (AppImage)", False)
-    yuzu_add_optional_parser()
+    srm_add_emulator_parsers("yuzu")
     if esde_is_installed():
         yuzu_add_es_config()
     yuzu_set_language()
-
-def yuzu_add_optional_parser():
-    if yuzu_is_installed() and srm_is_installed():
-        srm_add_parser("nintendo_switch_yuzu")
-
-
 
 def yuzu_setup_saves():
     if system == "linux":

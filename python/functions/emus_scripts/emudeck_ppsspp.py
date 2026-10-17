@@ -43,6 +43,7 @@ def ppsspp_install():
 
 def ppsspp_uninstall():
     try:
+        srm_remove_emulator_parsers("ppsspp")
         if system == "linux":
             uninstall_emu("org.ppsspp.PPSSPP", "flatpak")
         if system.startswith("win"):
@@ -98,6 +99,7 @@ def ppsspp_init():
     ppsspp_setup_saves()
     ppsspp_set_resolution()
     ppsspp_retro_achievements()
+    srm_add_emulator_parsers("ppsspp")
 
 def ppsspp_install_init():
     ppsspp_install()

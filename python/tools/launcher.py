@@ -344,7 +344,7 @@ if emu.lower() == "steamrommanager":
         try:
             with open(srm_config, encoding="utf-8") as f:
                 data = json.loads(f.read())
-            if not isinstance(data, list) or len(data) < 10:
+            if not isinstance(data, list) or not data:
                 regenerate = True
         except Exception:
             regenerate = True

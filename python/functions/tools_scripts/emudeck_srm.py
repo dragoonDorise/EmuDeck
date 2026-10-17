@@ -158,7 +158,6 @@ def srm_init():
     if system.startswith("win"):
         srm_windows_paths()
     srm_set_steam_account()
-    srm_sort_parsers()
     return True
 
 
@@ -262,17 +261,10 @@ def srm_add_extra_parsers():
     copy_and_set_settings_file("common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
     srm_add_optional_parsers()
     srm_set_emulation_folder()
-    srm_sort_parsers()
     return True
 
 
-def srm_parser_source(custom_parser: str) -> Optional[dict]:
-    parser_path = Path(emudeck_backend) / "configs" / system / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
-    if not parser_path.is_file():
-        parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
-    if not parser_path.is_file():
-        return None
-
+def srm_get_parser(parser_path: Path) -> dict:
     text = parser_path.read_text(encoding="utf-8")
     text = text.replace("/run/media/mmcblk0p1/Emulation/tools", str(tools_path))
     text = text.replace("/run/media/mmcblk0p1/Emulation/storage", str(storage_path))
@@ -282,10 +274,8 @@ def srm_parser_source(custom_parser: str) -> Optional[dict]:
     return json.loads(text)
 
 
-def srm_add_parser(custom_parser: str) -> bool:
-    new_cfg = srm_parser_source(custom_parser)
-    if new_cfg is None:
-        return False
+def srm_add_parser(parser_path: Path) -> bool:
+    new_cfg = srm_get_parser(parser_path)
     parser_id = new_cfg.get("parserId")
     print(f"Parser ID: {parser_id}")
 
@@ -305,16 +295,14 @@ def srm_add_parser(custom_parser: str) -> bool:
     srm_user_configurations.write_text(
         json.dumps(configs, indent=2, ensure_ascii=False), encoding="utf-8"
     )
-    srm_sort_parsers()
     return True
 
 
-def srm_remove_parser(custom_parser: str) -> bool:
-    cfg = srm_parser_source(custom_parser)
+def srm_remove_parser(parser_path: Path) -> bool:
     srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
-    if cfg is None or not srm_user_configurations.exists():
+    if not srm_user_configurations.exists():
         return False
-    parser_id = cfg.get("parserId")
+    parser_id = srm_get_parser(parser_path).get("parserId")
 
     configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
     remaining = [item for item in configs if item.get("parserId") != parser_id]
@@ -325,8 +313,29 @@ def srm_remove_parser(custom_parser: str) -> bool:
     srm_user_configurations.write_text(
         json.dumps(remaining, indent=2, ensure_ascii=False), encoding="utf-8"
     )
-    srm_sort_parsers()
     return True
+
+
+def srm_get_emulator_parsers(emu: str) -> list:
+    parsers = []
+    for os_dir in ("common", system):
+        folder = Path(emudeck_backend) / "configs" / os_dir / "srm" / "userData" / "parsers" / "optional" / emu
+        if folder.is_dir():
+            parsers += sorted(folder.glob("*.json"))
+    return parsers
+
+
+def srm_add_emulator_parsers(emu: str) -> None:
+    if not srm_is_installed():
+        return
+    for parser in srm_get_emulator_parsers(emu):
+        srm_add_parser(parser)
+    srm_sort_parsers()
+
+
+def srm_remove_emulator_parsers(emu: str) -> None:
+    for parser in srm_get_emulator_parsers(emu):
+        srm_remove_parser(parser)
 
 
 def srm_sort_parsers() -> None:
@@ -420,15 +429,11 @@ def srm_install_init():
     srm_init()
 
 def srm_add_optional_parsers():
-    funcs = [
-        name for name, obj in globals().items()
-        if inspect.isfunction(obj)
-        and name.endswith('_add_optional_parser')
-    ]
-    for name in sorted(funcs):
-        print(name)
-        globals()[name]()
-    system_parsers = Path(emudeck_backend) / "configs" / system / "srm" / "userData" / "parsers" / "optional"
-    if system_parsers.is_dir():
-        for parser in sorted(system_parsers.glob("*.json")):
-            srm_add_parser(parser.stem)
+    folders = [Path(emudeck_backend) / "configs" / os_dir / "srm" / "userData" / "parsers" / "optional" for os_dir in ("common", system)]
+    emulators = sorted({d.name for folder in folders if folder.is_dir() for d in folder.iterdir() if d.is_dir()})
+    for emu in emulators:
+        is_installed = globals().get(f"{emu}_is_installed")
+        if emu == "steam" or (is_installed and is_installed()):
+            for parser in srm_get_emulator_parsers(emu):
+                srm_add_parser(parser)
+    srm_sort_parsers()

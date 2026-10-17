@@ -96,6 +96,7 @@ def ryujinx_install():
 
 def ryujinx_uninstall():
     try:
+        srm_remove_emulator_parsers("ryujinx")
         if system == "linux":
             uninstall_emu("ryujinx", "AppImage")
         if system.startswith("win"):
@@ -142,6 +143,7 @@ def ryujinx_init():
     esde_set_emu("Ryujinx (Standalone)", "switch")
     if esde_is_installed():
         yuzu_add_es_config()
+    srm_add_emulator_parsers("ryujinx")
     return True
 
 def ryujinx_install_init():

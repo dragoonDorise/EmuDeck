@@ -36,6 +36,7 @@ def flycast_install():
 
 def flycast_uninstall():
     try:
+        srm_remove_emulator_parsers("flycast")
         if system == "linux":
             uninstall_emu("org.flycast.Flycast", "flatpak")
         if system.startswith("win"):
@@ -100,20 +101,12 @@ def flycast_init():
     flycast_widescreen()
 
     flycast_set_esde_emu()
-    flycast_add_optional_parser()
+    srm_add_emulator_parsers("flycast")
     flycast_add_steam_input_profile()
 
 def flycast_install_init():
     flycast_install()
     flycast_init()
-
-
-def flycast_add_optional_parser():
-    if flycast_is_installed() and srm_is_installed():
-      srm_add_parser("atomiswave_flycast")
-      srm_add_parser("naomi_flycast")
-      srm_add_parser("naomi2_flycast")
-      srm_add_parser("sega_dreamcast_flycast")
 
 
 def flycast_setup_saves():

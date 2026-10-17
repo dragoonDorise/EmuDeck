@@ -97,6 +97,7 @@ def model2_init():
     model2_add_steam_input_profile()
     if esde_is_installed():
         model2_add_es_config()
+    srm_add_emulator_parsers("model2")
 
 
 def model2_install_init():
@@ -128,6 +129,7 @@ def model2_set_emulation_folder(ini_path: Path = None) -> bool:
 
 
 def model2_uninstall():
+    srm_remove_emulator_parsers("model2")
     if system.startswith("win"):
         uninstall_emu("m2emulator", "dir")
         return True

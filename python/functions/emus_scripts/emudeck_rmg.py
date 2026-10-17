@@ -27,6 +27,7 @@ def rmg_install():
 
 def rmg_uninstall():
     try:
+        srm_remove_emulator_parsers("rmg")
         if system == "linux":
             uninstall_emu("com.github.Rosalie241.RMG", "flatpak")
         if system.startswith("win"):
@@ -66,16 +67,12 @@ def rmg_init():
     rmg_set_resolution()
     rmg_set_controller_style()
     esde_set_emu("Rosalie's Mupen GUI (Standalone)","n64")
-    rmg_add_optional_parser()
+    srm_add_emulator_parsers("rmg")
 
 def rmg_install_init():
     rmg_install()
     rmg_init()
 
-
-def rmg_add_optional_parser():
-    if rmg_is_installed() and srm_is_installed():
-       srm_add_parser("nintendo_64_rmg")
 
 def rmg_config_paths():
     if system == "linux":

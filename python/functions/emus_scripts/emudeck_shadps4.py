@@ -123,6 +123,7 @@ def shadps4_install():
 
 def shadps4_uninstall():
     try:
+        srm_remove_emulator_parsers("shadps4")
         if system == "linux":
             uninstall_emu("Shadps4-qt", "AppImage")
 
@@ -199,6 +200,7 @@ def shadps4_init():
     shadps4_set_language()
 
     esde_set_emu("ShadPS4 Shortcuts (Standalone)", "ps4")
+    srm_add_emulator_parsers("shadps4")
     return True
 
 

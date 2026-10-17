@@ -67,6 +67,7 @@ def xenia_install():
 
 def xenia_uninstall():
     try:
+        srm_remove_emulator_parsers("xenia")
         if system == "linux":
             xenia_path = roms_path / "xbox360"
 
@@ -129,6 +130,7 @@ def xenia_init():
     copy_and_set_settings_file("common/xenia/portable.txt", destination)
 
     xenia_setup_saves()
+    srm_add_emulator_parsers("xenia")
 
     if esde_is_installed():
         xenia_add_es_config()
@@ -137,12 +139,6 @@ def xenia_init():
 
 def xenia_set_resolution():
     print("NYI")
-
-
-def xenia_add_optional_parser():
-    if system == "linux" and xenia_is_installed() and srm_is_installed():
-        srm_add_parser("microsoft_xbox360_iso_xenia_proton")
-        srm_add_parser("microsoft_xbox360_xbla_xenia_proton")
 
 
 def xenia_install_init():
