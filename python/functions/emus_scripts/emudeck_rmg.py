@@ -66,14 +66,14 @@ def rmg_init():
     rmg_set_resolution()
     rmg_set_controller_style()
     esde_set_emu("Rosalie's Mupen GUI (Standalone)","n64")
-    rmg_add_custom_parser()
+    rmg_add_optional_parser()
 
 def rmg_install_init():
     rmg_install()
     rmg_init()
 
 
-def rmg_add_custom_parser():
+def rmg_add_optional_parser():
     if rmg_is_installed() and srm_is_installed():
        srm_add_parser("nintendo_64_rmg")
 

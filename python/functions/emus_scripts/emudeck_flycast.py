@@ -100,7 +100,7 @@ def flycast_init():
     flycast_widescreen()
 
     flycast_set_esde_emu()
-    flycast_add_custom_parser()
+    flycast_add_optional_parser()
     flycast_add_steam_input_profile()
 
 def flycast_install_init():
@@ -108,7 +108,7 @@ def flycast_install_init():
     flycast_init()
 
 
-def flycast_add_custom_parser():
+def flycast_add_optional_parser():
     if flycast_is_installed() and srm_is_installed():
       srm_add_parser("atomiswave_flycast")
       srm_add_parser("naomi_flycast")

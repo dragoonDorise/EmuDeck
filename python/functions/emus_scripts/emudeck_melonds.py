@@ -80,7 +80,7 @@ def melonds_init():
     melonds_set_resolution()
     melonds_set_controller_style()
     melonds_set_esde_emu()
-    melonds_add_custom_parser()
+    melonds_add_optional_parser()
     melonds_add_steam_input_profile()
 
 def melonds_install_init():
@@ -88,7 +88,7 @@ def melonds_install_init():
     melonds_init()
 
 
-def melonds_add_custom_parser():
+def melonds_add_optional_parser():
    if melonds_is_installed() and srm_is_installed():
       srm_add_parser("nintendo_nds_melonds")
 

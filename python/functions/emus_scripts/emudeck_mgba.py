@@ -67,14 +67,14 @@ def mgba_init():
     mgba_setup_saves()
     mgba_set_controller_style()
     mgba_set_esde_emu()
-    mgba_add_custom_parser()
+    mgba_add_optional_parser()
     mgba_add_steam_input_profile()
 
 def mgba_install_init():
     mgba_install()
     mgba_init()
 
-def mgba_add_custom_parser():
+def mgba_add_optional_parser():
     if mgba_is_installed() and srm_is_installed():
         srm_add_parser("nintendo_gba_mgba")
 

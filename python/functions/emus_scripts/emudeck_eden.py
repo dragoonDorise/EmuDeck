@@ -42,12 +42,12 @@ def eden_init():
 
     if esde_is_installed():
         esde_set_emu("Eden (Standalone)","switch")
-    eden_add_custom_parser()
+    eden_add_optional_parser()
     create_app_shortcut("eden", "Eden (AppImage)", False)
     if esde_is_installed():
         eden_add_es_config()
 
-def eden_add_custom_parser():
+def eden_add_optional_parser():
     if eden_is_installed() and srm_is_installed():
         srm_add_parser("nintendo_switch_eden")
 

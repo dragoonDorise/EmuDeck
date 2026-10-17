@@ -100,7 +100,7 @@ def pcsx2_init():
     pcsx2_widescreen()
     pcsx2_retro_achievements()
 
-def pcsx2_add_custom_parser():
+def pcsx2_add_optional_parser():
     if pcsx2_is_installed() and srm_is_installed():
         srm_add_parser("sony_ps2_pcsx2")
 

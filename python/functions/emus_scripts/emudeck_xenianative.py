@@ -75,7 +75,7 @@ def xenianative_init():
     xenianative_get_patches()
     flush_emulator_launchers("xenia-emu")
     xenianative_add_es_config()
-    xenianative_add_custom_parser()
+    xenianative_add_optional_parser()
     return True
 
 
@@ -124,7 +124,7 @@ def xenianative_get_patches():
         patches_zip.unlink(missing_ok=True)
 
 
-def xenianative_add_custom_parser():
+def xenianative_add_optional_parser():
     if xenianative_is_installed() and srm_is_installed():
         srm_add_parser("microsoft_xbox360_iso_xenia")
         srm_add_parser("microsoft_xbox360_xbla_xenia")

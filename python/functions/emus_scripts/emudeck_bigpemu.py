@@ -93,7 +93,7 @@ def bigpemu_init():
     bigpemu_set_resolution()
     bigpemu_set_controller_style()
     bigpemu_set_esde_emu()
-    bigpemu_add_custom_parser()
+    bigpemu_add_optional_parser()
     if esde_is_installed():
         bigpemu_add_es_config()
 
@@ -102,7 +102,7 @@ def bigpemu_install_init():
     bigpemu_init()
 
 
-def bigpemu_add_custom_parser():
+def bigpemu_add_optional_parser():
     if bigpemu_is_installed() and srm_is_installed():
         srm_add_parser("atari_jaguar_bigpemu")
 

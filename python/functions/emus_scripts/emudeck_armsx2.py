@@ -80,7 +80,7 @@ def armsx2_init():
     armsx2_set_resolution()
     armsx2_widescreen()
     flush_emulator_launchers("armsx2")
-    armsx2_add_custom_parser()
+    armsx2_add_optional_parser()
     link_to_storage_folder(armsx2_config_dir / "cheats", "pcsx2/cheats")
     return True
 
@@ -267,7 +267,7 @@ def armsx2_retro_achievements_off():
     set_ini_value(armsx2_config_file, "Achievements", "ChallengeMode", "false")
 
 
-def armsx2_add_custom_parser():
+def armsx2_add_optional_parser():
     if armsx2_is_installed() and srm_is_installed():
         srm_add_parser("sony_ps2_armsx2")
 

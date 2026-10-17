@@ -148,7 +148,7 @@ def srm_init():
         copy_and_set_settings_file(f"common/srm/userData/userSettings.json", f"{srm_path}/userData")
         copy_and_set_settings_file(f"common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
         srm_frame_settings()
-        srm_add_custom_parsers()
+        srm_add_optional_parsers()
     if system == "linux":
         srm_add_controller_template()
         srm_add_steam_input_profiles()
@@ -158,7 +158,7 @@ def srm_init():
     if system.startswith("win"):
         srm_windows_paths()
     srm_set_steam_account()
-    srm_sort_user_configurations()
+    srm_sort_parsers()
     return True
 
 
@@ -260,14 +260,16 @@ def srm_flush_old_symlinks():
 
 def srm_add_extra_parsers():
     copy_and_set_settings_file("common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
-    srm_add_custom_parsers()
+    srm_add_optional_parsers()
     srm_set_emulation_folder()
-    srm_sort_user_configurations()
+    srm_sort_parsers()
     return True
 
 
 def srm_parser_source(custom_parser: str) -> Optional[dict]:
-    parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
+    parser_path = Path(emudeck_backend) / "configs" / system / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
+    if not parser_path.is_file():
+        parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
     if not parser_path.is_file():
         return None
 
@@ -301,8 +303,9 @@ def srm_add_parser(custom_parser: str) -> bool:
     configs.append(new_cfg)
 
     srm_user_configurations.write_text(
-        json.dumps(srm_sort_parsers(configs), indent=2, ensure_ascii=False), encoding="utf-8"
+        json.dumps(configs, indent=2, ensure_ascii=False), encoding="utf-8"
     )
+    srm_sort_parsers()
     return True
 
 
@@ -320,17 +323,22 @@ def srm_remove_parser(custom_parser: str) -> bool:
         return True
 
     srm_user_configurations.write_text(
-        json.dumps(srm_sort_parsers(remaining), indent=2, ensure_ascii=False), encoding="utf-8"
+        json.dumps(remaining, indent=2, ensure_ascii=False), encoding="utf-8"
     )
+    srm_sort_parsers()
     return True
 
 
-def srm_sort_parsers(configs: list) -> list:
+def srm_sort_parsers() -> None:
+    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
+    if not srm_user_configurations.is_file():
+        return
     srm_top_parsers = (
         "Emulators - Emulators",
         "Cloud Services - Cloud Services",
         "Generic Applications - Generic Applications",
         "Remote Play Clients - Remote Play Clients",
+        "Desktop Applications",
     )
 
     def natural(text):
@@ -342,16 +350,10 @@ def srm_sort_parsers(configs: list) -> list:
             return (0, srm_top_parsers.index(title), [], [])
         system_name, _, emulator = title.partition(" - ")
         return (1, 0, natural(system_name), natural(emulator))
-    return sorted(configs, key=sort_key)
 
-
-def srm_sort_user_configurations() -> None:
-    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
-    if not srm_user_configurations.is_file():
-        return
     configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
     srm_user_configurations.write_text(
-        json.dumps(srm_sort_parsers(configs), indent=2, ensure_ascii=False), encoding="utf-8"
+        json.dumps(sorted(configs, key=sort_key), indent=2, ensure_ascii=False), encoding="utf-8"
     )
 
 
@@ -417,12 +419,16 @@ def srm_install_init():
     srm_install()
     srm_init()
 
-def srm_add_custom_parsers():
+def srm_add_optional_parsers():
     funcs = [
         name for name, obj in globals().items()
         if inspect.isfunction(obj)
-        and name.endswith('_add_custom_parser')
+        and name.endswith('_add_optional_parser')
     ]
     for name in sorted(funcs):
         print(name)
         globals()[name]()
+    system_parsers = Path(emudeck_backend) / "configs" / system / "srm" / "userData" / "parsers" / "optional"
+    if system_parsers.is_dir():
+        for parser in sorted(system_parsers.glob("*.json")):
+            srm_add_parser(parser.stem)

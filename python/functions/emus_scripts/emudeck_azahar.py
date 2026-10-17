@@ -83,7 +83,7 @@ def azahar_init():
     azahar_set_resolution()
     azahar_set_controller_style()
     esde_set_emu("Azahar (Standalone)","n3ds")
-    azahar_add_custom_parser()
+    azahar_add_optional_parser()
     azahar_add_steam_input_profile()
     azahar_add_es_config()
 
@@ -91,7 +91,7 @@ def azahar_install_init():
     azahar_install()
     azahar_init()
 
-def azahar_add_custom_parser():
+def azahar_add_optional_parser():
     if azahar_is_installed() and srm_is_installed():
         srm_add_parser("nintendo_3ds_azahar")
 

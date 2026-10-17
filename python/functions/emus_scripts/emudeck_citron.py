@@ -43,9 +43,9 @@ def citron_init():
     if esde_is_installed():
         esde_set_emu("Citron (Standalone)","switch")
     create_app_shortcut("citron", "Citron (AppImage)", False)
-    citron_add_custom_parser()
+    citron_add_optional_parser()
 
-def citron_add_custom_parser():
+def citron_add_optional_parser():
     if citron_is_installed() and srm_is_installed():
         srm_add_parser("nintendo_switch_citron")
 

@@ -146,7 +146,7 @@ def mame_init():
     mame_set_controller_style()
     mame_widescreen()
     mame_set_esde_emu()
-    mame_add_custom_parser()
+    mame_add_optional_parser()
     mame_add_steam_input_profile()
 
 
@@ -155,7 +155,7 @@ def mame_install_init():
     mame_init()
 
 
-def mame_add_custom_parser():
+def mame_add_optional_parser():
     if mame_is_installed() and srm_is_installed():
         srm_add_parser("arcade_mame")
 
