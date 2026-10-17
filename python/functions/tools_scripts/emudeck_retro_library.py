@@ -1,5 +1,6 @@
 from core.all import *
 from functools import lru_cache
+import socket
 
 rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]
 json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
@@ -484,7 +485,7 @@ def rl_generate_missing_artwork_lists():
         f.write(json_output)
         #print(json_output)
 
-def rl_download_and_extract_artwork_platforms():
+def rl_download_and_extract_artwork_platforms(on_platform_done=None):
     output_dir = Path(storage_path / "retrolibrary/artwork")
 
     # Fixed path to the JSON file
@@ -542,6 +543,8 @@ def rl_download_and_extract_artwork_platforms():
 
             log_message(f"Extracted: {platform} to {output_dir}")
             print(f"Extracted: {platform} to {output_dir}")
+            if on_platform_done:
+                on_platform_done()
 
         except requests.exceptions.RequestException as e:
             log_message(f"Error downloading {platform}: {e}")
@@ -1012,15 +1015,61 @@ def rl_print_json(): #generateGameListsJson
     data = json.loads(f.read_text(encoding="utf-8"))
     print(json.dumps(data, indent=2, ensure_ascii=False))
 
-def rl_get_artwork(*types): #generateGameLists_artwork
-    #missing_artwork_platforms
-    rl_generate_systems_with_missing_images()
-    #download_art_platforms
-    rl_download_and_extract_artwork_platforms()
-    #missing_artwork_nohash
+def rl_notify_artwork_status(types, finished=False):
     rl_generate_missing_artwork_lists(*types)
-    #download_art_nohash
-    rl_process_json_artwork()
+    port = os.environ.get("EMUDECK_BACKEND_PORT")
+    if not port:
+        return
+    missing_file = storage_path / "retrolibrary" / "cache" / "missing_artwork_no_hash.json"
+    missing = [item["id"] for item in json.loads(missing_file.read_text(encoding="utf-8")) if item["games"]]
+    payload = {"key": "retrolibrary.artwork", "missing": missing, "finished": finished}
+    try:
+        with socket.create_connection(("127.0.0.1", int(port)), timeout=2) as sock:
+            sock.sendall((json.dumps(payload) + "\n").encode("utf-8"))
+    except OSError:
+        pass
+
+
+def rl_artwork_lock() -> bool:
+    lock_file = storage_path / "retrolibrary" / "cache" / "artwork.lock"
+    lock_file.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        fd = os.open(lock_file, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        if system.startswith("win"):
+            return False
+        pid = lock_file.read_text(encoding="utf-8").strip()
+        if not pid:
+            return False
+        try:
+            os.kill(int(pid), 0)
+            return False
+        except PermissionError:
+            return False
+        except (ValueError, OSError):
+            lock_file.unlink(missing_ok=True)
+            return rl_artwork_lock()
+    with os.fdopen(fd, "w") as f:
+        f.write(str(os.getpid()))
+    return True
+
+
+def rl_get_artwork(*types): #generateGameLists_artwork
+    if not rl_artwork_lock():
+        print("Artwork download already running")
+        return
+    try:
+        #missing_artwork_platforms
+        rl_generate_systems_with_missing_images()
+        #download_art_platforms
+        rl_download_and_extract_artwork_platforms(lambda: rl_notify_artwork_status(types))
+        #missing_artwork_nohash
+        rl_generate_missing_artwork_lists(*types)
+        #download_art_nohash
+        rl_process_json_artwork()
+        rl_notify_artwork_status(types, finished=True)
+    finally:
+        (storage_path / "retrolibrary" / "cache" / "artwork.lock").unlink(missing_ok=True)
 
 def rl_generate_metadata():
     shutil.copytree(f"{emudeck_backend}/configs/common/roms", roms_path, dirs_exist_ok=True)
