@@ -723,6 +723,7 @@ def rl_download_image(name, platform, img_url, save_folder, type):
         #rl_create_empty_image(name, platform, save_folder, type)
 
 def rl_fetch_image_data(game):
+    save_folder = Path(storage_path / "retrolibrary/artwork")
     name = game['name']
     platform = game['platform']
     type = game['type']
@@ -757,7 +758,6 @@ def rl_fetch_image_data(game):
         #rl_create_empty_image(name, platform, save_folder, type)
 
 def rl_process_json_artwork():
-    save_folder = Path(storage_path / "retrolibrary/artwork")
     # Read the original JSON
     with open(json_path, 'r') as file:
         systems = json.load(file)
