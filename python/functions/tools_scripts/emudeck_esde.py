@@ -106,8 +106,8 @@ def esde_init():
 
     if esde_hybrid:
         esde_add_custom_systems_file()
-        source = Path(bash_backend) / "configs" / "emulationstation"
-        copy_with_backup(source / "es_settings.xml", esde_settings_file)
+        source = Path(emudeck_backend) / "configs" / "common" / "emulationstation"
+        copy_and_set_settings_file("common/emulationstation/settings/es_settings.xml", esde_settings_file.parent)
         copy_with_backup(source / "custom_systems" / "es_find_rules.xml", esde_rules_file)
         copy_with_backup(source / "custom_systems" / "es_systems.xml", esde_systems_file)
         esde_set_default_settings()
@@ -351,10 +351,7 @@ def esde_set_emu(emu: str, system_code: str) -> None:
     gamelist_file.parent.mkdir(parents=True, exist_ok=True)
 
     if not gamelist_file.exists():
-        if esde_hybrid:
-            template = Path(bash_backend) / "configs" / "emulationstation" / "gamelists" / system_code / "gamelist.xml"
-        else:
-            template = Path(emudeck_backend) / "configs" / "common" / "emulationstation" / "gamelists" / system_code / "gamelist.xml"
+        template = Path(emudeck_backend) / "configs" / "common" / "emulationstation" / "gamelists" / system_code / "gamelist.xml"
         if template.is_file():
             shutil.copy(template, gamelist_file)
         else:
@@ -384,17 +381,13 @@ def esde_add_custom_systems_file() -> bool:
         if junk.is_file():
             junk.unlink()
 
-    if esde_hybrid:
-        source = Path(bash_backend) / "configs" / "emulationstation" / "custom_systems" / "es_systems.xml"
-    else:
-        source = Path(emudeck_backend) / "configs" / ("darwin" if system == "darwin" else "common") / "emulationstation" / "custom_systems" / "es_systems.xml"
+    source = Path(emudeck_backend) / "configs" / ("darwin" if system == "darwin" else "common") / "emulationstation" / "custom_systems" / "es_systems.xml"
 
     esde_systems_file.parent.mkdir(parents=True, exist_ok=True)
     if not esde_systems_file.exists() and source.is_file():
         shutil.copy2(source, esde_systems_file)
-        if not esde_hybrid:
-            sed("EMULATIONPATH", emulation_path, esde_systems_file)
-            sed(".EXT", ".bat" if system.startswith("win") else ".sh", esde_systems_file)
+        sed("EMULATIONPATH", emulation_path, esde_systems_file)
+        sed(".EXT", ".bat" if system.startswith("win") else ".sh", esde_systems_file)
     return True
 
 

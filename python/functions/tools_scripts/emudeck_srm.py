@@ -139,10 +139,7 @@ def srm_is_installed():
 def srm_init():
     set_msg(f"Setting up Steam Rom Manager")
     if hybrid_mode and system == "linux":
-        (Path(emudeck_folder) / "customParsers").mkdir(parents=True, exist_ok=True)
-        source = Path(bash_backend) / "configs" / "steam-rom-manager" / "userData"
-        copy_with_backup(source / "userConfigurations.json", Path(srm_path) / "userData" / "userConfigurations.json")
-        copy_with_backup(source / "userSettings.json", Path(srm_path) / "userData" / "userSettings.json")
+        copy_and_set_settings_file("common/srm/userData/userSettings.json", f"{srm_path}/userData")
         srm_add_extra_parsers()
         srm_set_emulation_folder()
         srm_set_env()
@@ -203,10 +200,7 @@ def srm_steam_path() -> Optional[Path]:
 
 
 def srm_add_controller_template():
-    if hybrid_mode:
-        source = Path(bash_backend) / "configs" / "steam-rom-manager" / "userData" / "controllerTemplates.json"
-    else:
-        source = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "controllerTemplates.json"
+    source = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "controllerTemplates.json"
     destination = copy_with_backup(source, Path(srm_path) / "userData" / "controllerTemplates.json")
     steam = srm_steam_path()
     if steam is None:
@@ -242,16 +236,8 @@ def srm_flush_old_symlinks():
 
 
 def srm_add_extra_parsers():
-    if hybrid_mode and system == "linux":
-        copy_with_backup(Path(bash_backend) / "configs" / "steam-rom-manager" / "userData" / "userConfigurations.json",
-                         Path(srm_path) / "userData" / "userConfigurations.json")
-    else:
-        copy_and_set_settings_file("common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
+    copy_and_set_settings_file("common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
     srm_add_custom_parsers()
-    custom_parsers = Path(emudeck_folder) / "customParsers"
-    if custom_parsers.is_dir():
-        for parser in sorted(custom_parsers.glob("*.json")):
-            add_parser(parser.stem)
     srm_set_emulation_folder()
     return True
 

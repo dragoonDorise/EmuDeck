@@ -1997,9 +1997,6 @@ def add_steam_input_custom_icons() -> bool:
         return False
     
     source = Path(emudeck_backend) / "configs" / "common" / "steam-input" / "Icons"
-    if hybrid_mode:
-       source = Path(bash_backend) / "configs" / "steam-input" / "Icons"
-        
     destination = home / ".steam" / "steam" / "tenfoot" / "resource" / "images" / "library" / "controller" / "binding_icons"
     destination.mkdir(exist_ok=True)
     shutil.copytree(source, destination, dirs_exist_ok=True)
@@ -2011,9 +2008,6 @@ def add_steam_input_templates(template: Optional[str] = None) -> bool:
         return False
         
     source = Path(emudeck_backend) / "configs" / "common" / "steam-input"
-    if hybrid_mode:
-      source = Path(bash_backend) / "configs" / "steam-input"
-        
     destination = home / ".steam" / "steam" / "controller_base" / "templates"
     destination.mkdir(exist_ok=True)
     files = [source / template] if template else [f for f in source.iterdir() if f.is_file()]
@@ -2024,11 +2018,7 @@ def add_steam_input_templates(template: Optional[str] = None) -> bool:
 
 
 def parser_source(custom_parser: str) -> Optional[dict]:
-    """Loads an optional SRM parser with its paths set for this install (bash parsers in hybrid mode)."""
-    if hybrid_mode:
-        parser_path = Path(bash_backend) / "configs" / "steam-rom-manager" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
-    else:
-        parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
+    parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
     if not parser_path.is_file():
         return None
 
