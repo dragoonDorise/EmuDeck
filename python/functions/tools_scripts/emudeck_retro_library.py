@@ -44,7 +44,8 @@ def rl_clean_name(name):
     name_cleaned = name_cleaned.lower()
     return name_cleaned
 
-def rl_collect_game_data(system_dir, extensions, images_path=None):
+def rl_collect_game_data(system_dir, extensions, images_path=None, types=None):
+    artwork_types = [(t, e) for t, e in (("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")) if not types or t in types]
     #images_path = os.path.join(storage_path ,"/retrolibrary/artwork")
     game_data = []
 
@@ -78,7 +79,7 @@ def rl_collect_game_data(system_dir, extensions, images_path=None):
                 if images_path:
                     # Check for missing images
                     missing_images = False
-                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
+                    for img_type, ext in artwork_types:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
 
                         if not os.path.exists(img_path):
@@ -151,7 +152,7 @@ def rl_collect_game_data(system_dir, extensions, images_path=None):
                 if images_path:
                     # Check for missing images
                     missing_images = False
-                    for img_type, ext in [("box2dfront", ".jpg"), ("wheel", ".png"), ("screenshot", ".jpg")]:
+                    for img_type, ext in artwork_types:
                         img_path = os.path.join(images_path, f"{platform}/media/{img_type}/{name_cleaned}{ext}")
 
                         if not os.path.exists(img_path):
@@ -767,7 +768,7 @@ def rl_process_json_artwork():
     log_message("Processing completed.")
     print("Processing completed.")
 
-def rl_generate_missing_artwork_lists():
+def rl_generate_missing_artwork_lists(*types):
     images_path = Path(storage_path / "retrolibrary/artwork")
     roms_dir = roms_path
     valid_system_dirs = []
@@ -785,7 +786,7 @@ def rl_generate_missing_artwork_lists():
         launcher = metadata["launcher"]
         extensions = metadata["extensions"]
 
-        games = rl_collect_game_data(system_dir, extensions, images_path)
+        games = rl_collect_game_data(system_dir, extensions, images_path, types)
         if games:
             system_info = {
                 "title": collection,
@@ -1011,13 +1012,13 @@ def rl_print_json(): #generateGameListsJson
     data = json.loads(f.read_text(encoding="utf-8"))
     print(json.dumps(data, indent=2, ensure_ascii=False))
 
-def rl_get_artwork(): #generateGameLists_artwork
+def rl_get_artwork(*types): #generateGameLists_artwork
     #missing_artwork_platforms
     rl_generate_systems_with_missing_images()
     #download_art_platforms
     rl_download_and_extract_artwork_platforms()
     #missing_artwork_nohash
-    rl_generate_missing_artwork_lists()
+    rl_generate_missing_artwork_lists(*types)
     #download_art_nohash
     rl_process_json_artwork()
 
