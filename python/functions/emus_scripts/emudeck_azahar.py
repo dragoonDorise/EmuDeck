@@ -41,7 +41,7 @@ def azahar_install():
 def azahar_uninstall():
     try:
         if system == "linux":
-            remove_parser("nintendo_3ds_azahar")
+            srm_remove_parser("nintendo_3ds_azahar")
             uninstall_emu("azahar", "AppImage")
         if system.startswith("win"):
           uninstall_emu("Azahar", "dir")
@@ -93,7 +93,7 @@ def azahar_install_init():
 
 def azahar_add_custom_parser():
     if azahar_is_installed() and srm_is_installed():
-        add_parser("nintendo_3ds_azahar")
+        srm_add_parser("nintendo_3ds_azahar")
 
 
 def azahar_setup_storage():

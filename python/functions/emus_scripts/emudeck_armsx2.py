@@ -269,7 +269,7 @@ def armsx2_retro_achievements_off():
 
 def armsx2_add_custom_parser():
     if armsx2_is_installed() and srm_is_installed():
-        add_parser("sony_ps2_armsx2")
+        srm_add_parser("sony_ps2_armsx2")
 
 
 def armsx2_add_to_steam():

@@ -686,46 +686,6 @@ def is_flatpak_installed(flatPakID: str) -> bool:
 
     return any(line.strip() == flatPakID for line in user + system)
 
-def addParser(custom_parser: str) -> None:
-    source = Path(emudeck_backend) / "configs" / "steam-rom-manager" / "userData" / "parsers" / "optional"
-    parser_path = source / custom_parser
-
-    if not parser_path.is_file():
-        print(f"Parser file not found: {parser_path}")
-        return
-
-    with parser_path.open(encoding='utf-8') as f:
-        parser_cfg = json.load(f)
-
-    parser_id = parser_cfg.get("parserId")
-    print(f"Parser ID: {parser_id}")
-
-    srm_path = Path(SRM_userConfigurations)
-    if not srm_path.is_file():
-        srm_path.write_text("[]\n", encoding='utf-8')
-
-    with srm_path.open(encoding='utf-8') as f:
-        try:
-            configs = json.load(f)
-            if not isinstance(configs, list):
-                raise ValueError
-        except Exception:
-            configs = []
-
-    if any(cfg.get("parserId") == parser_id for cfg in configs):
-        print(f"Parser {parser_id} already exists in configuration.")
-        return
-
-    print("adding parser")
-    configs.append(parser_cfg)
-    try:
-        SRM_setEmulationFolder()
-    except NameError:
-        print("NYI SRM_setEmulationFolder")
-
-    configs.sort(key=lambda x: x.get("configTitle", ""))
-    srm_path.write_text(json.dumps(configs, ensure_ascii=False, indent=2) + "\n", encoding='utf-8')
-
 def server_install() -> None:
     src = Path(emudeck_backend) / "tools" / "server.sh"
     dst = Path(tools_path) / "server.sh"
@@ -2014,69 +1974,6 @@ def add_steam_input_templates(template: Optional[str] = None) -> bool:
     for file in files:
         if file.is_file():
             shutil.copy2(file, destination / file.name)
-    return True
-
-
-def parser_source(custom_parser: str) -> Optional[dict]:
-    parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
-    if not parser_path.is_file():
-        return None
-
-    text = parser_path.read_text(encoding="utf-8")
-    text = text.replace("/run/media/mmcblk0p1/Emulation/tools", str(tools_path))
-    text = text.replace("/run/media/mmcblk0p1/Emulation/storage", str(storage_path))
-    text = text.replace("/home/deck", str(home))
-    text = text.replace("EMULATIONPATH", str(emulation_path))
-    text = text.replace(".EXT", ".bat" if system.startswith("win") else ".sh")
-    return json.loads(text)
-
-
-def add_parser(custom_parser: str) -> bool:
-    """Adds an optional parser to SRM's userConfigurations.json if it isn't there yet."""
-    new_cfg = parser_source(custom_parser)
-    if new_cfg is None:
-        return False
-    parser_id = new_cfg.get("parserId")
-    print(f"Parser ID: {parser_id}")
-
-    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
-    srm_user_configurations.parent.mkdir(parents=True, exist_ok=True)
-    if not srm_user_configurations.exists():
-        srm_user_configurations.write_text("[]", encoding="utf-8")
-
-    configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
-
-    if any(item.get("parserId") == parser_id for item in configs):
-        return True
-
-    print("adding parser")
-    configs.append(new_cfg)
-    configs.sort(key=lambda x: x.get("configTitle", ""))
-
-    srm_user_configurations.write_text(
-        json.dumps(configs, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
-    return True
-
-
-def remove_parser(custom_parser: str) -> bool:
-    """Removes an optional parser from SRM's userConfigurations.json."""
-    cfg = parser_source(custom_parser)
-    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
-    if cfg is None or not srm_user_configurations.exists():
-        return False
-    parser_id = cfg.get("parserId")
-
-    configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
-    remaining = [item for item in configs if item.get("parserId") != parser_id]
-    if len(remaining) == len(configs):
-        print(f"Parser {parser_id} not found in SRM configuration")
-        return True
-
-    remaining.sort(key=lambda x: x.get("configTitle", ""))
-    srm_user_configurations.write_text(
-        json.dumps(remaining, indent=2, ensure_ascii=False), encoding="utf-8"
-    )
     return True
 
 

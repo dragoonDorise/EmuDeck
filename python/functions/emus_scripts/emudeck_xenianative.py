@@ -126,8 +126,8 @@ def xenianative_get_patches():
 
 def xenianative_add_custom_parser():
     if xenianative_is_installed() and srm_is_installed():
-        add_parser("microsoft_xbox360_iso_xenia")
-        add_parser("microsoft_xbox360_xbla_xenia")
+        srm_add_parser("microsoft_xbox360_iso_xenia")
+        srm_add_parser("microsoft_xbox360_xbla_xenia")
 
 
 def xenianative_add_es_config():

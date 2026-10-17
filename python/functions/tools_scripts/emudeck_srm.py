@@ -157,6 +157,29 @@ def srm_init():
         srm_flush_old_symlinks()
     if system.startswith("win"):
         srm_windows_paths()
+    srm_set_steam_account()
+    srm_sort_user_configurations()
+    return True
+
+
+def srm_set_steam_account():
+    userdata = Path(steam_install_path) / "userdata"
+    user_settings = Path(srm_path) / "userData" / "userSettings.json"
+    if not userdata.is_dir() or not user_settings.is_file():
+        return False
+    accounts = [d for d in userdata.iterdir() if d.is_dir() and d.name.isdigit() and d.name != "0"]
+    if not accounts:
+        return False
+
+    def last_used(account):
+        localconfig = account / "config" / "localconfig.vdf"
+        return max(account.stat().st_mtime, localconfig.stat().st_mtime if localconfig.is_file() else 0)
+
+    account_id = max(accounts, key=last_used).name
+    data = json.loads(user_settings.read_text(encoding="utf-8"))
+    data.setdefault("environmentVariables", {})["userAccounts"] = [account_id]
+    user_settings.write_text(json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    print(f"SRM Steam account: {account_id}")
     return True
 
 
@@ -239,7 +262,97 @@ def srm_add_extra_parsers():
     copy_and_set_settings_file("common/srm/userData/userConfigurations.json", f"{srm_path}/userData")
     srm_add_custom_parsers()
     srm_set_emulation_folder()
+    srm_sort_user_configurations()
     return True
+
+
+def srm_parser_source(custom_parser: str) -> Optional[dict]:
+    parser_path = Path(emudeck_backend) / "configs" / "common" / "srm" / "userData" / "parsers" / "optional" / f"{custom_parser}.json"
+    if not parser_path.is_file():
+        return None
+
+    text = parser_path.read_text(encoding="utf-8")
+    text = text.replace("/run/media/mmcblk0p1/Emulation/tools", str(tools_path))
+    text = text.replace("/run/media/mmcblk0p1/Emulation/storage", str(storage_path))
+    text = text.replace("/home/deck", str(home))
+    text = text.replace("EMULATIONPATH", str(emulation_path))
+    text = text.replace(".EXT", ".bat" if system.startswith("win") else ".sh")
+    return json.loads(text)
+
+
+def srm_add_parser(custom_parser: str) -> bool:
+    new_cfg = srm_parser_source(custom_parser)
+    if new_cfg is None:
+        return False
+    parser_id = new_cfg.get("parserId")
+    print(f"Parser ID: {parser_id}")
+
+    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
+    srm_user_configurations.parent.mkdir(parents=True, exist_ok=True)
+    if not srm_user_configurations.exists():
+        srm_user_configurations.write_text("[]", encoding="utf-8")
+
+    configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
+
+    if any(item.get("parserId") == parser_id for item in configs):
+        return True
+
+    print("adding parser")
+    configs.append(new_cfg)
+
+    srm_user_configurations.write_text(
+        json.dumps(srm_sort_parsers(configs), indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    return True
+
+
+def srm_remove_parser(custom_parser: str) -> bool:
+    cfg = srm_parser_source(custom_parser)
+    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
+    if cfg is None or not srm_user_configurations.exists():
+        return False
+    parser_id = cfg.get("parserId")
+
+    configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
+    remaining = [item for item in configs if item.get("parserId") != parser_id]
+    if len(remaining) == len(configs):
+        print(f"Parser {parser_id} not found in SRM configuration")
+        return True
+
+    srm_user_configurations.write_text(
+        json.dumps(srm_sort_parsers(remaining), indent=2, ensure_ascii=False), encoding="utf-8"
+    )
+    return True
+
+
+def srm_sort_parsers(configs: list) -> list:
+    srm_top_parsers = (
+        "Emulators - Emulators",
+        "Cloud Services - Cloud Services",
+        "Generic Applications - Generic Applications",
+        "Remote Play Clients - Remote Play Clients",
+    )
+
+    def natural(text):
+        return [int(part) if part.isdigit() else part.casefold() for part in re.split(r"(\d+)", text)]
+
+    def sort_key(cfg):
+        title = cfg.get("configTitle", "")
+        if title in srm_top_parsers:
+            return (0, srm_top_parsers.index(title), [], [])
+        system_name, _, emulator = title.partition(" - ")
+        return (1, 0, natural(system_name), natural(emulator))
+    return sorted(configs, key=sort_key)
+
+
+def srm_sort_user_configurations() -> None:
+    srm_user_configurations = Path(srm_path) / "userData" / "userConfigurations.json"
+    if not srm_user_configurations.is_file():
+        return
+    configs = json.loads(srm_user_configurations.read_text(encoding="utf-8"))
+    srm_user_configurations.write_text(
+        json.dumps(srm_sort_parsers(configs), indent=2, ensure_ascii=False), encoding="utf-8"
+    )
 
 
 def srm_check_parsers():

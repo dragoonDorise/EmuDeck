@@ -47,7 +47,7 @@ def citron_init():
 
 def citron_add_custom_parser():
     if citron_is_installed() and srm_is_installed():
-        add_parser("nintendo_switch_citron")
+        srm_add_parser("nintendo_switch_citron")
 
 
 def citron_set_emulation_folder():

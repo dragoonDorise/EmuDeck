@@ -110,10 +110,10 @@ def flycast_install_init():
 
 def flycast_add_custom_parser():
     if flycast_is_installed() and srm_is_installed():
-      add_parser("atomiswave_flycast")
-      add_parser("naomi_flycast")
-      add_parser("naomi2_flycast")
-      add_parser("sega_dreamcast_flycast")
+      srm_add_parser("atomiswave_flycast")
+      srm_add_parser("naomi_flycast")
+      srm_add_parser("naomi2_flycast")
+      srm_add_parser("sega_dreamcast_flycast")
 
 
 def flycast_setup_saves():

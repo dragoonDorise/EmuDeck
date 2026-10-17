@@ -102,7 +102,7 @@ def pcsx2_init():
 
 def pcsx2_add_custom_parser():
     if pcsx2_is_installed() and srm_is_installed():
-        add_parser("sony_ps2_pcsx2")
+        srm_add_parser("sony_ps2_pcsx2")
 
 
 def pcsx2_install_init():
