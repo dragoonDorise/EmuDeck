@@ -1,4 +1,5 @@
 from core.all import *
+from functools import lru_cache
 
 rl_excluded_systems = ["/model2", "/genesiswide", "/mame", "/emulators", "/desktop", "/sneswide"]
 json_path = os.path.join(storage_path, "retrolibrary/cache/missing_artwork_no_hash.json")
@@ -622,13 +623,23 @@ def rl_fetch_game_artwork(name, platform, media_type):
     else:
         return json.dumps({"name": None, "img": None})
 
+@lru_cache(maxsize=None)
+def rl_get_rom_md5(filename):
+    if os.path.getsize(filename) > 64 * 1024 * 1024:
+        return None
+    return calculate_md5(filename)
+
+
 def rl_fetch_game_artwork_md5(filename, platform, media_type):
     username_ss = "djrodtc"
     password_ss = "diFay35WElL"
     api_url_ss = "https://www.screenscraper.fr/api2/"
 
     s_id = rl_rom_parser_ss_get_alias(platform)
-    rom_md5 = calculate_md5(filename)
+    rom_md5 = rl_get_rom_md5(filename)
+    if not rom_md5:
+        return json.dumps({"name": None, "img": None})
+    name = Path(filename).stem
 
     params = {
         "devid": username_ss,
