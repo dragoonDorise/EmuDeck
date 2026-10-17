@@ -114,6 +114,8 @@ def esde_init():
     else:
         src = Path(emudeck_backend) / "configs" / "common" / "emulationstation"
         shutil.copytree(src, esde_settings_folder, dirs_exist_ok=True)
+        if system == "darwin":
+            shutil.copytree(Path(emudeck_backend) / "configs" / "darwin" / "emulationstation", esde_settings_folder, dirs_exist_ok=True)
 
         copy_and_set_settings_file(
             "common/emulationstation/settings/es_settings.xml",
@@ -316,7 +318,7 @@ def esde_set_default_emulators():
         ("Dolphin (Standalone)", "gc"),
         ("PPSSPP (Standalone)", "psp"),
         ("Dolphin (Standalone)", "wii"),
-        ("PCSX2 (Standalone)", "ps2"),
+        ("ARMSX2 (Standalone)" if system == "darwin" else "PCSX2 (Standalone)", "ps2"),
         ("Azahar (Standalone)", "n3ds"),
         ("Beetle Lynx", "atarilynx"),
         ("DuckStation (Standalone)", "psx"),
@@ -385,7 +387,7 @@ def esde_add_custom_systems_file() -> bool:
     if esde_hybrid:
         source = Path(bash_backend) / "configs" / "emulationstation" / "custom_systems" / "es_systems.xml"
     else:
-        source = Path(emudeck_backend) / "configs" / "common" / "emulationstation" / "custom_systems" / "es_systems.xml"
+        source = Path(emudeck_backend) / "configs" / ("darwin" if system == "darwin" else "common") / "emulationstation" / "custom_systems" / "es_systems.xml"
 
     esde_systems_file.parent.mkdir(parents=True, exist_ok=True)
     if not esde_systems_file.exists() and source.is_file():

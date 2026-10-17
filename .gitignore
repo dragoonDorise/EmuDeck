@@ -4,5 +4,4 @@
 .nova/Configuration.json
 *.pyc
 python/**/windows/*
-python/**/darwin/*
 *.AppImage
