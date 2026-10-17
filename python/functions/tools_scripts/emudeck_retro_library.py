@@ -426,49 +426,23 @@ def rl_download_assets() -> None:
 
 def rl_generate_systems_with_missing_images():
     images_path = Path(storage_path / "retrolibrary/artwork")
+    game_list_file = Path(storage_path / "retrolibrary/cache/roms_games.json")
+    systems_with_missing_images = []
 
-    def has_missing_images(system_dir, extensions):
-        platform = os.path.basename(system_dir)  # Extrae el nombre de la plataforma del directorio
-        media_folder_path = os.path.join(images_path, platform, "media")  # Ruta de la carpeta 'media'
-
-        print(media_folder_path)
-
-        file_count = count_visible_files(system_dir)
-
-        if file_count <= 2:
-            return False
-
-        if not os.path.isdir(media_folder_path):
-            return True
-
-        return False
-
-    roms_dir = roms_path
-    valid_system_dirs = []
-
-    valid_system_dirs = rl_get_valid_system_dirs(valid_system_dirs)
-
-    systems_with_missing_images = set()
-
-    for system_dir in valid_system_dirs:
-        if any(x in system_dir for x in rl_excluded_systems):
-            log_message(f"MAP: Skipping directory: {system_dir}")
-            continue
-
-        with open(os.path.join(system_dir, 'metadata.txt')) as f:
-            metadata = f.read()
-        extensions = next((line.split(':')[1].strip().replace(',', ' ') for line in metadata.splitlines() if line.startswith('extensions:')), '').split()
-
-        if has_missing_images(system_dir, extensions):
-            systems_with_missing_images.add(os.path.basename(system_dir))
-            log_message(f"MAP: System with missing images: {os.path.basename(system_dir)}")
-
-    json_output = json.dumps(list(systems_with_missing_images), indent=4)
+    if game_list_file.is_file():
+        for system in json.loads(game_list_file.read_text(encoding="utf-8")):
+            missing = [
+                game for game in system.get("games", [])
+                if not (images_path / game["platform"] / "media" / "box2dfront" / f"{game['name']}.jpg").exists()
+            ]
+            if len(missing) >= 10:
+                systems_with_missing_images.append(missing[0]["platform"])
+                log_message(f"MAP: {missing[0]['platform']} has {len(missing)} games without artwork")
 
     output_file = os.path.join(storage_path, "retrolibrary/cache/missing_systems.json")
     os.makedirs(os.path.dirname(output_file), exist_ok=True)
     with open(output_file, 'w') as f:
-        f.write(json_output)
+        f.write(json.dumps(systems_with_missing_images, indent=4))
 
 def rl_generate_missing_artwork_lists():
     images_path = os.path.join(storage_path ,"/retrolibrary/artwork")
