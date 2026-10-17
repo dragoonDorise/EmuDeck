@@ -476,6 +476,8 @@ if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     args = [ raw[0], raw[1], " ".join(raw[2:]) ]
     cmd = [str(exe)] + netplay_cmd + args
     shell_status = True
+elif system == "darwin":
+    shell_status = False
 else:
     cmd = shlex.join(cmd)
 #    popup_show_info("title",cmd)
