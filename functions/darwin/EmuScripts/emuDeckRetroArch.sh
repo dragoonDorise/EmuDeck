@@ -42,3 +42,7 @@ RetroArch_snes_bezelOn(){ py_run retroarch_snes_bezel_on; }
 RetroArch_retroAchievementsSetLogin(){ py_run retroarch_retro_achievements_set_login; }
 RetroArch_retroAchievementsHardCoreOn(){ py_run retroarch_retro_achievements_hardcore_on; }
 RetroArch_retroAchievementsHardCoreOff(){ py_run retroarch_retro_achievements_hardcore_off; }
+RetroArch_Beetle_PSX_HW_wideScreenOn(){ py_run retroarch_Beetle_PSX_HW_wideScreenOn; }
+RetroArch_Beetle_PSX_HW_wideScreenOff(){ py_run retroarch_Beetle_PSX_HW_wideScreenOff; }
+RetroArch_Flycast_wideScreenOn(){ py_run retroarch_Flycast_wideScreenOn; }
+RetroArch_Flycast_wideScreenOff(){ py_run retroarch_Flycast_wideScreenOff; }

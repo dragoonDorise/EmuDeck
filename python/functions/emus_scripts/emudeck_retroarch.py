@@ -545,16 +545,17 @@ def retroarch_install_cores():
     return True
 
 def retroarch_patch_shader_references():
-    if not system.startswith("win"):
+    if system == "linux":
         return
 
     config_root = Path(retroarch_dir) / "config"
     if not config_root.exists():
         return
 
+    shaders = ":/shaders" if system.startswith("win") else f"{retroarch_dir}/shaders"
     replacements = {
-        "/app/share/libretro/shaders/shaders_glsl": ":/shaders/shaders_glsl",
-        "/app/share/libretro/shaders/shaders_slang": ":/shaders/shaders_slang",
+        "/app/share/libretro/shaders/shaders_glsl": f"{shaders}/shaders_glsl",
+        "/app/share/libretro/shaders/shaders_slang": f"{shaders}/shaders_slang",
     }
 
     for pattern in ("*.glslp", "*.slangp"):
@@ -564,6 +565,7 @@ def retroarch_patch_shader_references():
 
             for source, target in replacements.items():
                 updated = updated.replace(source, target)
+            updated = re.sub(r'^#reference (?!")(.+?)\s*$', r'#reference "\1"', updated, flags=re.M)
 
             if updated != content:
                 preset_path.write_text(updated, encoding="utf-8")
