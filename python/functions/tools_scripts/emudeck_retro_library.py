@@ -291,6 +291,16 @@ def rl_generate_game_list():
         f.write(json_output)
         #print(json_output)
 
+def rl_get_steam_account() -> Optional[Path]:
+    userdata_dir = Path(steam_install_path) / "userdata"
+    if not userdata_dir.is_dir():
+        return None
+    accounts = [p for p in userdata_dir.iterdir() if p.is_dir() and p.name != "0"]
+    if not accounts:
+        return None
+    return max(accounts, key=lambda p: p.stat().st_mtime)
+
+
 def rl_download_achievements():
     achievements_dir = storage_path / "retrolibrary" / "achievements"
 
@@ -303,26 +313,13 @@ def rl_download_achievements():
         # 4) Crear (o forzar) symlink:
         target = achievements_dir
 
-        userdata_dir = home / ".steam" / "steam" / "userdata"
-
-        if not userdata_dir.exists():
-            raise FileNotFoundError(f"{userdata_dir!s} no existe")
-
-        account_folders = sorted(
-            [p for p in userdata_dir.iterdir() if p.is_dir()],
-            key=lambda p: p.stat().st_mtime,
-            reverse=True
-        )
-        if not account_folders:
-            raise RuntimeError("No se encontró ninguna carpeta de userdata de Steam")
-
-        account_folder = account_folders[0]
-
-        link = account_folder / "config" / "grid" / "retrolibrary" / "achievements"
-        link.parent.mkdir(parents=True, exist_ok=True)
-        if link.exists() or link.is_symlink():
-            link.unlink()
-        link.symlink_to(target, target_is_directory=True)
+        account_folder = rl_get_steam_account()
+        if account_folder:
+            link = account_folder / "config" / "grid" / "retrolibrary" / "achievements"
+            link.parent.mkdir(parents=True, exist_ok=True)
+            if link.exists() or link.is_symlink():
+                link.unlink()
+            link.symlink_to(target, target_is_directory=True)
 
         zip_path = achievements_dir / "achievements.zip"
         url = "https://artwork.emudeck.com/achievements/achievements.zip"
@@ -339,27 +336,18 @@ def rl_download_data() -> None:
     data_dir = storage_path / "retrolibrary" / "data"
 
     # 2) Obtener carpeta de usuario Steam más reciente
-    userdata_root = Path.home() / ".steam" / "steam" / "userdata"
-    steam_accounts = [p for p in userdata_root.iterdir() if p.is_dir()]
-    if not steam_accounts:
-        return  # No hay userdata, salimos
-    # Ordenar por última modificación y tomar la más reciente
-    account_folder = sorted(
-        steam_accounts,
-        key=lambda p: p.stat().st_mtime,
-        reverse=True
-    )[0]
+    account_folder = rl_get_steam_account()
 
     if not data_dir.is_dir():
 
         # 4) Crear carpeta y symlink
         data_dir.mkdir(parents=True, exist_ok=True)
-        link_target = data_dir
-        link_path = account_folder / "config" / "grid" / "retrolibrary" / "data"
-        link_path.parent.mkdir(parents=True, exist_ok=True)
-        if link_path.exists() or link_path.is_symlink():
-            link_path.unlink()
-        link_path.symlink_to(link_target, target_is_directory=True)
+        if account_folder:
+            link_path = account_folder / "config" / "grid" / "retrolibrary" / "data"
+            link_path.parent.mkdir(parents=True, exist_ok=True)
+            if link_path.exists() or link_path.is_symlink():
+                link_path.unlink()
+            link_path.symlink_to(data_dir, target_is_directory=True)
 
         # 5) Descargar ZIP
         zip_path = data_dir / "data.zip"
@@ -375,27 +363,22 @@ def rl_download_data() -> None:
 
 def rl_download_assets() -> None:
     # 1) Encontrar carpeta Steam userdata más reciente
-    userdata_root = Path.home() / ".steam" / "steam" / "userdata"
-    steam_accounts = [p for p in userdata_root.iterdir() if p.is_dir()]
-    if not steam_accounts:
-        return
-    account_folder = sorted(
-        steam_accounts, key=lambda p: p.stat().st_mtime, reverse=True
-    )[0]
+    account_folder = rl_get_steam_account()
 
     # 2) Rutas de carpetas
     assets_dir     = storage_path / "retrolibrary" / "assets"
-    dest_dir       = account_folder / "config" / "grid" / "retrolibrary" / "assets"
     default_dir    = assets_dir / "default"
     bezels_dir     = assets_dir / "bezels"
     wii_dir        = assets_dir / "wii"
 
     # 3) Crear carpeta assets y symlink
     assets_dir.mkdir(parents=True, exist_ok=True)
-    dest_dir.parent.mkdir(parents=True, exist_ok=True)
-    if dest_dir.exists() or dest_dir.is_symlink():
-        dest_dir.unlink()
-    dest_dir.symlink_to(assets_dir, target_is_directory=True)
+    if account_folder:
+        dest_dir = account_folder / "config" / "grid" / "retrolibrary" / "assets"
+        dest_dir.parent.mkdir(parents=True, exist_ok=True)
+        if dest_dir.exists() or dest_dir.is_symlink():
+            dest_dir.unlink()
+        dest_dir.symlink_to(assets_dir, target_is_directory=True)
 
     # 4) Función auxiliar de descarga y extracción
     def _download_and_extract(name: str, url: str, target_subdir: Path):
@@ -838,15 +821,6 @@ def rl_generate_missing_artwork_lists():
         #print(json_output)
 
 def rl_save_image(url: str, name: str, system: str) -> Path:
-    # 1) Find most-recent Steam userdata folder (if you need it for symlinks later)
-    userdata_root = Path.home() / ".steam" / "steam" / "userdata"
-    account_folders = sorted(
-        (p for p in userdata_root.iterdir() if p.is_dir()),
-        key=lambda p: p.stat().st_mtime,
-        reverse=True
-    )
-    account_folder = account_folders[0] if account_folders else None
-
     # 2) Build destination folder under EmuDeck storage
     dest_folder = storage_path / "retrolibrary" / "artwork" / system / "media" / "box2dfront"
     dest_folder.mkdir(parents=True, exist_ok=True)
@@ -876,14 +850,9 @@ def rl_add_game_lists_artwork(
     platform: str
 ) -> None:
     filename = Path(filename).stem  # strip any extension
-    home = Path.home()
-    userdata_root = home / ".steam" / "steam" / "userdata"
-
-    # pick most recent userdata folder
-    candidates = [p for p in userdata_root.iterdir() if p.is_dir()]
-    if not candidates:
-        raise RuntimeError(f"No userdata folders under {userdata_root!r}")
-    accountfolder = max(candidates, key=lambda p: p.stat().st_mtime)
+    accountfolder = rl_get_steam_account()
+    if not accountfolder:
+        return
 
     # source artwork
     vertical = storage_path / "retrolibrary" / "artwork" / platform / "media" / "box2dfront" / f"{filename}.jpg"
@@ -1026,37 +995,23 @@ def rl_get_ra(user, md5, path):
 
 
 def rl_init(): #generateGameLists
-    userdata_dir = home / ".steam" / "steam" / "userdata"
-
-    # 1) Encontrar la carpeta de usuario más reciente por fecha de modificación:
-    if not userdata_dir.exists():
-        raise FileNotFoundError(f"{userdata_dir!s} no existe")
-
-    account_folders = sorted(
-        [p for p in userdata_dir.iterdir() if p.is_dir()],
-        key=lambda p: p.stat().st_mtime,
-        reverse=True
-    )
-    if not account_folders:
-        raise RuntimeError("No se encontró ninguna carpeta de userdata de Steam")
-
-    accountfolder = account_folders[0]
+    accountfolder = rl_get_steam_account()
 
     artwork_dir = storage_path / "retrolibrary" / "artwork"
     cache_dir   = storage_path / "retrolibrary" / "cache"
     artwork_dir.mkdir(parents=True, exist_ok=True)
     cache_dir.mkdir(parents=True, exist_ok=True)
 
-    config_dir = accountfolder / "config" / "grid" / "retrolibrary"
-    config_dir.mkdir(parents=True, exist_ok=True)
-
     def symlink_force(target: Path, link: Path):
         if link.exists() or link.is_symlink():
             link.unlink()
         link.symlink_to(target, target_is_directory=True)
 
-    symlink_force(artwork_dir, config_dir / "artwork")
-    symlink_force(cache_dir,   config_dir / "cache")
+    if accountfolder:
+        config_dir = accountfolder / "config" / "grid" / "retrolibrary"
+        config_dir.mkdir(parents=True, exist_ok=True)
+        symlink_force(artwork_dir, config_dir / "artwork")
+        symlink_force(cache_dir, config_dir / "cache")
 
     rl_download_achievements()
     rl_download_data()
@@ -1065,10 +1020,6 @@ def rl_init(): #generateGameLists
     rl_generate_metadata()
     rl_generate_saves_list()
     rl_generate_game_list()
-
-    executor = ThreadPoolExecutor(max_workers=1)
-    # lanzamos sin bloquear
-    future = executor.submit(rl_get_artwork)
 
 def rl_print_json(): #generateGameListsJson
     f = storage_path / "retrolibrary" / "cache" / "roms_games.json"
