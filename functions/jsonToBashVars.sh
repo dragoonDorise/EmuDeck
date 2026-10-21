@@ -68,7 +68,6 @@ function jsonToBashVars(){
     setSetting doSetupShadPS4  "$(jq .overwriteConfigEmus.shadps4.status $json)"
 
     #Frontends
-    setSetting doSetupSRM "$(jq .installFrontends.deckyromlauncher.status $json)"
     setSetting doSetupESDE "$(jq .overwriteConfigEmus.esde.status $json)"
     setSetting doInstallESDE "$(jq .installFrontends.esde.status $json)"
     setSetting doInstallPegasus "$(jq .installFrontends.pegasus.status $json)"
