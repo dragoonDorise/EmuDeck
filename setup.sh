@@ -285,7 +285,7 @@ wait # Wait for any remaining jobs to finish
 BINUP_install &
 AutoCopy_install &
 server_install &
-FlatpakUP_install &
+FlatpakUp_install &
 CHD_install &
 
 #
