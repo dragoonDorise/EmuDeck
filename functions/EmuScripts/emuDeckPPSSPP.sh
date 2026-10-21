@@ -146,13 +146,9 @@ PPSSPP_retroAchievementsSetLogin() {
 		# Insert username into PPSSPP config file
 		iniFieldUpdate "$PPSSPP_configFile" "Achievements" "AchievementsUserName" "${rau}"
 
-		# Insert token into PPSSPP token file if file is empty. RetroAchievements login does not work if there are multiple tokens in the file.
-		if [ -s $PPSSPP_token ]; then
-			echo "File is not empty"
-		else
-			echo "File is empty"
-			echo "${rat}" >> "${PPSSPP_token}"
-		fi
+		# PPSSPP reads this file as-is (no trimming), so write exactly one token
+		# without a trailing newline, replacing any old token.
+		printf '%s' "${rat}" > "${PPSSPP_token}"
 
 		# Enable RetroAchievements
 		PPSSPP_retroAchievementsOn
