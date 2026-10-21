@@ -239,7 +239,7 @@ Azahar_uninstall(){
 	#return $?
 	setMSG "Uninstalling $Azahar_emuName."
 	removeParser "nintendo_3ds_azahar.json"
-	uninstallEmuAI $Azahar_emuName "azahar-gui" "" "emulator"
+	uninstallEmuAI $Azahar_emuName "azahar" "" "emulator"
 }
 
 #setABXYstyle
