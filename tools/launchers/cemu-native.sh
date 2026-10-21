@@ -3,7 +3,7 @@ cd "$HOME/.config/EmuDeck/backend/"
 git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 launcherInit
-emulatorInit "cemu"
+emulatorInit "Cemu"
 # shellcheck disable=SC1091
 . "$emudeckFolder/settings.sh"
 
