@@ -92,18 +92,23 @@ Xenia_addESConfig(){
 }
 
 function Xenia_getPatches() {
-	local patches_url="https://github.com/xenia-canary/game-patches/releases/latest/download/game-patches.zip"
+	# The release only ships game-patches.7z (with a top-level patches/ folder)
+	local patches_url="https://github.com/xenia-canary/game-patches/releases/latest/download/game-patches.7z"
+	local patches_file="${romsPath}/xbox360/game-patches.7z"
 
 	mkdir -p "${romsPath}/xbox360/patches"
-	if  [[ ! "$( ls -A "${romsPath}/xbox360/patches")" ]] ; then
-		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -q -o "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches downloaded."
+	if curl -fsSL "$patches_url" -o "$patches_file"; then
+		if command -v 7za &> /dev/null; then
+			nice -n 5 7za x -y "$patches_file" -o"${romsPath}/xbox360" &> /dev/null
+		else
+			nice -n 5 bsdtar -xf "$patches_file" -C "${romsPath}/xbox360" &> /dev/null
+		fi && echo "Xenia patches updated." || echo "Xenia patches could not be extracted."
 	else
-		{ curl -L "$patches_url" -o "${romsPath}/xbox360/game-patches.zip" && nice -n 5 unzip -uqo "${romsPath}/xbox360/game-patches.zip" -d "${romsPath}/xbox360" && rm "${romsPath}/xbox360/game-patches.zip"; } &> /dev/null
-		echo "Xenia patches updated."
+		echo "Xenia patches could not be downloaded."
 	fi
-
+	rm -f "$patches_file"
 }
+
 
 
 #ConfigurePaths
