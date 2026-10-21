@@ -834,7 +834,11 @@ def install_emu(name, url, type_, destination):
             if system == "darwin":               
                 extract_to = temp_dir / name
                 subprocess.run(["ditto", "-x", "-k", str(archive_path), str(extract_to)], check=True)
-                for app in list(extract_to.glob("*.app")) or list(extract_to.glob("*/*.app")):
+                apps = list(extract_to.glob("*.app")) or list(extract_to.glob("*/*.app"))
+                if not apps:
+                    print(f"No .app found inside {archive_path}")
+                    return False
+                for app in apps:
                     shutil.rmtree(emus_folder / app.name, ignore_errors=True)
                     shutil.move(str(app), str(emus_folder / app.name))
                 create_app_shortcut(name)
@@ -856,7 +860,11 @@ def install_emu(name, url, type_, destination):
                 extract_to = temp_dir / name
                 extract_to.mkdir(parents=True, exist_ok=True)
                 subprocess.run(["tar", "-xf", str(archive_path), "-C", str(extract_to)], check=True)
-                for app in list(extract_to.glob("*.app")) or list(extract_to.glob("*/*.app")):
+                apps = list(extract_to.glob("*.app")) or list(extract_to.glob("*/*.app"))
+                if not apps:
+                    print(f"No .app found inside {archive_path}")
+                    return False
+                for app in apps:
                     shutil.rmtree(emus_folder / app.name, ignore_errors=True)
                     shutil.move(str(app), str(emus_folder / app.name))
                 create_app_shortcut(name)
@@ -869,7 +877,8 @@ def install_emu(name, url, type_, destination):
 
         elif type_ == "dmg":
             print(f"Opening {archive_path} in Finder…")
-            install_dmg(name,archive_path)
+            if not install_dmg(name, archive_path):
+                return False
         else:
             print(f"Unsupported type or platform: {type_}")
             return False
@@ -1211,9 +1220,12 @@ def install_dmg(name, archive_path):
         app_bundle = apps[0]
         target = Path(emus_folder) / app_bundle.name
         target.parent.mkdir(parents=True, exist_ok=True)
+        staging = target.with_name(target.name + ".new")
+        shutil.rmtree(staging, ignore_errors=True)
+        shutil.copytree(app_bundle, staging, symlinks=True)
         if target.exists():
             shutil.rmtree(target)
-        shutil.copytree(app_bundle, target, symlinks=True)
+        staging.rename(target)
         print(f" Copied {app_bundle.name} → {target}")
         darwin_trust_app(target)
         return True
