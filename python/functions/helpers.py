@@ -884,16 +884,27 @@ def install_emu(name, url, type_, destination):
     finally:
         shutil.rmtree(temp_dir, ignore_errors=True)
 
+def mac_app_dirs():
+    # Launcher apps go to /Applications/EmuDeck; standard (non-admin) users can't
+    # write to /Applications, so they get ~/Applications/EmuDeck instead.
+    return [Path("/Applications/EmuDeck"), home / "Applications" / "EmuDeck"]
+
+def mac_app_dir():
+    system_dir, user_dir = mac_app_dirs()
+    if os.access(system_dir if system_dir.exists() else system_dir.parent, os.W_OK):
+        return system_dir
+    return user_dir
+
 def uninstall_emu(name, type_):
     if type_ == "app":
         app = Path(emus_folder / f"{name}.app" )
-        app_link = Path(f"/Applications/EmuDeck/{name}.app")
         if app.exists():
             shutil.rmtree(app, ignore_errors=True)
             print(f"Removed App at {app}")
-        if app_link.exists():
-            shutil.rmtree(app_link, ignore_errors=True)
-            print(f"Removed Link at {app_link}")
+        for app_link in (d / f"{name}.app" for d in mac_app_dirs()):
+            if app_link.exists():
+                shutil.rmtree(app_link, ignore_errors=True)
+                print(f"Removed Link at {app_link}")
 
     if type_ == "AppImage":
         appimage = Path(emus_folder) /  f"{name}.AppImage"
@@ -1044,7 +1055,9 @@ def create_app_shortcut(name: str, display_name: Optional[str] = None, terminal:
         create_mac_app(app_name, Path(exec_path))
 
 
-def create_mac_app(app_name: str, script_path: Path, output_dir: Path = Path("/Applications/EmuDeck")):
+def create_mac_app(app_name: str, script_path: Path, output_dir: Optional[Path] = None):
+    if output_dir is None:
+        output_dir = mac_app_dir()
 
     # Use the real emulator App Name
     app_name = next((p.stem for p in Path(emus_folder).glob("*.app") if p.stem.lower() == app_name.lower()), app_name)
