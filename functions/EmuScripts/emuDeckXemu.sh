@@ -138,18 +138,25 @@ Xemu_migrate(){
 	fi
 }
 
+# xemu only accepts fit = center/scale/stretch; the aspect ratio is a separate key
+Xemu_setAspectRatio(){
+	changeLine 'fit = ' "fit = 'scale'" "$Xemu_configFile"
+	if grep -q '^aspect_ratio = ' "$Xemu_configFile"; then
+		changeLine 'aspect_ratio = ' "aspect_ratio = '$1'" "$Xemu_configFile"
+	else
+		# configs written before the template had this key
+		sed -i "/^fit = /a aspect_ratio = '$1'" "$Xemu_configFile"
+	fi
+}
+
 #WideScreenOn
 Xemu_wideScreenOn(){
-    fit='fit = '
-    fitSetting="${fit}'scale_16_9'"
-    changeLine "${fit}" "${fitSetting}" "$Xemu_configFile"
+	Xemu_setAspectRatio '16x9'
 }
 
 #WideScreenOff
-Xemu_wideScreenOff(){	
-    fit='fit = '
-    fitSetting="${fit}'scale_4_3'"
-    changeLine "${fit}" "${fitSetting}" "$Xemu_configFile"
+Xemu_wideScreenOff(){
+	Xemu_setAspectRatio '4x3'
 }
 
 #BezelOn
