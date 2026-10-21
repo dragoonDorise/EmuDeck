@@ -2532,6 +2532,10 @@ local melonDSDS_remaps="$RetroArch_path/config/remaps/melonDS DS"
 # Copying melonDS saves to melonDSDS
 for file in "$RetroArch_saves"/*.sav; do
 
+	[ -e "$file" ] || continue
+	# Only seed melonDS DS saves once: this runs on every init and used to copy the
+	# old melonDS .sav over the newer melonDS DS .srm, rolling progress back.
+	[ -e "${file%.sav}.srm" ] && continue
 	cp -- "${file}" "${file/%sav/srm}";
 	echo "melonDS saves copied to melonDSDS"
 done
@@ -2559,12 +2563,17 @@ RetroArch_Mupen64Plus_Next_setUpHdPacks(){
 		rm -rf "$biosPath/Mupen64plus/cache/"
 	fi
 
-	if [[ -L "$emulationPath/hdpacks/n64" || -d "$emulationPath/hdpacks/n64" ]]; then
-		rm -rf "$emulationPath/hdpacks/n64"
+	# Only break symlink loops - a real folder holds the user's HD texture packs
+	if [ -L "$emulationPath/hdpacks/n64" ]; then
+		unlink "$emulationPath/hdpacks/n64"
 	fi
 
-	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then
-		rm -rf "$emulationPath/hdpacks/retroarch"
+	if [ -L "$emulationPath/hdpacks/retroarch" ]; then
+		unlink "$emulationPath/hdpacks/retroarch"
+	elif [ -d "$emulationPath/hdpacks/retroarch" ]; then
+		# remove the (possibly looping) links and empty folders, keep real HD packs
+		find "$emulationPath/hdpacks/retroarch" -type l -delete
+		find "$emulationPath/hdpacks/retroarch" -depth -type d -empty -delete
 	fi
 
 	#mkdir -p "$texturePackPath"
@@ -2596,8 +2605,12 @@ RetroArch_MesenNES_setUpHdPacks(){
 		rm -rf "$emulationPath/hdpacks/nes"
 	fi
 
-	if [[ -d "$emulationPath/hdpacks/retroarch" ]]; then
-		rm -rf "$emulationPath/hdpacks/retroarch"
+	if [ -L "$emulationPath/hdpacks/retroarch" ]; then
+		unlink "$emulationPath/hdpacks/retroarch"
+	elif [ -d "$emulationPath/hdpacks/retroarch" ]; then
+		# remove the (possibly looping) links and empty folders, keep real HD packs
+		find "$emulationPath/hdpacks/retroarch" -type l -delete
+		find "$emulationPath/hdpacks/retroarch" -depth -type d -empty -delete
 	fi
 
 	#NES
