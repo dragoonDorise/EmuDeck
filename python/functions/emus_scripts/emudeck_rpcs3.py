@@ -16,7 +16,7 @@ def rpcs3_get_download_url():
         params = {
             "api":        "v3",
             "os_type":    "macos",
-            "os_arch":    "arm64"
+            "os_arch":    "arm64" if cpu_arch == "arm" else "x64"
         }
 
 

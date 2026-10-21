@@ -50,7 +50,7 @@ def vita3k_install():
 
     if system == "darwin":
         type="dmg"
-        look_for="macos-arm64-latest"
+        look_for="macos-arm64-latest" if cpu_arch == "arm" else "macos-latest"
         path=emus_folder
 
     try:

@@ -20,7 +20,7 @@ def azahar_install():
 
     if system == "darwin":
         type="zip"
-        look_for="azahar-macos-arm64"
+        look_for="azahar-macos-arm64" if cpu_arch == "arm" else "azahar-macos-x86_64"
         path=emus_folder
 
     try:
