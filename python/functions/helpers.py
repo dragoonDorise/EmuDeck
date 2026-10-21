@@ -1434,7 +1434,9 @@ def set_setting(key: str, value: Any) -> None:
                 if not isinstance(data, dict):
                     data = {}
         except json.JSONDecodeError:
-            data = {}
+            # Writing now would replace every other setting with just this key
+            print(f"settings.json could not be parsed, not saving {key}")
+            return
     else:
         data = {}
 
@@ -1446,9 +1448,12 @@ def set_setting(key: str, value: Any) -> None:
         d = d[k]
     d[keys[-1]] = value
 
-    with json_path.open('w', encoding='utf-8') as f:
+    # Write a temp file and swap it in, so readers never see a half-written file
+    tmp_path = json_path.with_name(f"{json_path.name}.{os.getpid()}.tmp")
+    with tmp_path.open('w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=4)
         f.write("\n")
+    os.replace(tmp_path, json_path)
     if hybrid_mode:
         from core.settings_sh import write_setting_sh
         write_setting_sh(settings_sh_path, json_to_bash_vars_path, key, value)
