@@ -286,7 +286,8 @@ Eden_finalize() {
 }
 
 Eden_IsInstalled() {
-    if [ -e "$Eden_emuPath" ]; then
+    # Same lookup as tools/launchers/eden.sh, which accepts any eden*.AppImage
+    if [ -n "$(find "$emusFolder" -iname "eden*.AppImage" -print -quit 2>/dev/null)" ]; then
         echo "true"
     else
         echo "false"

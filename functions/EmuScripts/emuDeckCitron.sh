@@ -260,7 +260,8 @@ Citron_finalize() {
 }
 
 Citron_IsInstalled() {
-    if [ -e "$Citron_emuPath" ]; then
+    # Same lookup as tools/launchers/citron.sh, which accepts any citron*.AppImage
+    if [ -n "$(find "$emusFolder" -iname "citron*.AppImage" -print -quit 2>/dev/null)" ]; then
         echo "true"
     else
         echo "false"
