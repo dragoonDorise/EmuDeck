@@ -74,6 +74,16 @@ Xemu_setLanguage(){
 		if [ ${Xemu_languages[$language]+_} ]; then
 			# write the language as a byte to the file at the given offset
 			printf "%02x" "${Xemu_languages[$language]}" | xxd -r -p - | dd of=$eepromPath obs=1 seek=$((16#90)) conv=block,notrunc
+			# The user section (0x64-0xBF) has a checksum at 0x60 (xbox_eeprom_crc in
+			# xemu's hw/xbox/eeprom_generation.c); update it, or the user settings count as invalid
+			local high=0 low=0 val sum
+			for val in $(od -An -v -tu4 -j $((16#64)) -N $((16#5C)) "$eepromPath"); do
+				sum=$(( (high << 32) | low ))
+				high=$(( (sum + val) >> 32 ))
+				low=$(( (low + val) & 0xFFFFFFFF ))
+			done
+			sum=$(( ~(high + low) & 0xFFFFFFFF ))
+			printf "%02x%02x%02x%02x" $((sum & 255)) $(((sum >> 8) & 255)) $(((sum >> 16) & 255)) $(((sum >> 24) & 255)) | xxd -r -p - | dd of="$eepromPath" bs=1 seek=$((16#60)) conv=notrunc
 			#TODO: also do region? its rc4 encoded
 		fi
 	fi
