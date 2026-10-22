@@ -349,7 +349,12 @@ Dolphin_flushSymlinks(){
 
 		mkdir -p "$romsPath/gc"
     # Temporary deletion to check if there are any additional contents in the gc folder.
-    rm -rf "$romsPath/gc/media" &> /dev/null
+    # A real media folder is the user's artwork: move it aside and put it back below
+    if [ -d "$romsPath/gc/media" ] && [ ! -L "$romsPath/gc/media" ]; then
+      mv "$romsPath/gc/media" "$romsPath/.gc_media_keep"
+    else
+      rm -rf "$romsPath/gc/media" &> /dev/null
+    fi
     rm -rf "$romsPath/gc/metadata.txt" &> /dev/null
     rm -rf "$romsPath/gc/systeminfo.txt" &> /dev/null
 
@@ -387,6 +392,10 @@ Dolphin_flushSymlinks(){
     fi
 
     rsync -avh "$emudeckBackend/roms/gc/." "$romsPath/gc/." --ignore-existing
+
+    if [ -d "$romsPath/.gc_media_keep" ] && [ ! -e "$romsPath/gc/media" ]; then
+      mv "$romsPath/.gc_media_keep" "$romsPath/gc/media"
+    fi
 
     if [ -d "$toolsPath/downloaded_media/gc" ] && [ ! -d "$romsPath/gc/media" ]; then
       ln -s "$toolsPath/downloaded_media/gc" "$romsPath/gc/media"
@@ -403,7 +412,12 @@ Dolphin_flushSymlinks(){
 
 		mkdir -p "$romsPath/gc"
     # Temporary deletion to check if there are any additional contents in the gc folder.
-    rm -rf "$romsPath/gc/media" &> /dev/null
+    # A real media folder is the user's artwork: move it aside and put it back below
+    if [ -d "$romsPath/gc/media" ] && [ ! -L "$romsPath/gc/media" ]; then
+      mv "$romsPath/gc/media" "$romsPath/.gc_media_keep"
+    else
+      rm -rf "$romsPath/gc/media" &> /dev/null
+    fi
     rm -rf "$romsPath/gc/metadata.txt" &> /dev/null
     rm -rf "$romsPath/gc/systeminfo.txt" &> /dev/null
 
@@ -441,6 +455,10 @@ Dolphin_flushSymlinks(){
     fi
 
     rsync -avh "$emudeckBackend/roms/gc/." "$romsPath/gc/." --ignore-existing
+
+    if [ -d "$romsPath/.gc_media_keep" ] && [ ! -e "$romsPath/gc/media" ]; then
+      mv "$romsPath/.gc_media_keep" "$romsPath/gc/media"
+    fi
 
     if [ -d "$toolsPath/downloaded_media/gc" ] && [ ! -d "$romsPath/gc/media" ]; then
       ln -s "$toolsPath/downloaded_media/gc" "$romsPath/gc/media"
