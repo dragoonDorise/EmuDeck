@@ -381,8 +381,8 @@ cloud_sync_uploadEmu(){
       if [ -f $savesPath/$emuName/.fail_upload ]; then
 
        time_stamp=$(cat $savesPath/$emuName/.fail_upload)
-       date=$(date -d @"$timestamp" +"%Y-%m-%d")
-       hour=$(date -d @"$timestamp" +"%H:%M:%S")
+       date=$(date -d @"$time_stamp" +"%Y-%m-%d")
+       hour=$(date -d @"$time_stamp" +"%H:%M:%S")
        while true; do
          ans=$(zenity --question \
             --title="CloudSync conflict $emuName" \
@@ -470,8 +470,8 @@ cloud_sync_downloadEmu(){
         #Do we have a pending upload?
         if [ -f $savesPath/$emuName/.pending_upload ]; then
           time_stamp=$(cat $savesPath/$emuName/.pending_upload)
-          date=$(date -d @"$timestamp" +"%Y-%m-%d")
-          hour=$(date -d @"$timestamp" +"%H:%M:%S")
+          date=$(date -d @"$time_stamp" +"%Y-%m-%d")
+          hour=$(date -d @"$time_stamp" +"%H:%M:%S")
           while true; do
             ans=$(zenity --question \
                --title="CloudSync conflict $emuName" \
