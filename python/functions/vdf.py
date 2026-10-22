@@ -194,24 +194,14 @@ def add_steam_shortcut(id, name, target_path, start_dir, icon_path, collection="
             user_id = max(subs, key=lambda d: d.stat().st_mtime).name
     # Kill Steam
     if system == "darwin":
-        try:
-            output = subprocess.check_output(
-                ["ps", "aux"],
-                text=True
-            )
-            for line in output.splitlines():
-                if "steam" in line and "grep" not in line:
-                    parts = line.split()
-                    pid = parts[1]
-                    subprocess.run(["kill", "-9", pid], check=False)
-                    print(f"Sent SIGTERM to Steam (pid {pid})")
-        except Exception:
-            pass
+        # Match the Steam client process by name only; a substring match on
+        # "steam" in `ps aux` also hits EmuDeck itself (esde_add_to_steam), SRM, ...
+        subprocess.run(["pkill", "-9", "-x", "steam_osx"], check=False)
     if system == "linux" and get_product_name() != "frame":
         try:
             pid = subprocess.check_output(["pidof", "steam"], text=True).strip()
             if pid:
-                subprocess.run(["kill", "-15", pid], check=False)
+                subprocess.run(["kill", "-15", *pid.split()], check=False)
         except subprocess.CalledProcessError:
             pass  # Steam no está corriendo
     if system.startswith("win"):
