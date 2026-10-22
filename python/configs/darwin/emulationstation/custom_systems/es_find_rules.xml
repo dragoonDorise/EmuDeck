@@ -107,4 +107,9 @@
             <entry>EMULATIONPATH/tools/launchers/xemu-emu.sh</entry>
         </rule>
     </emulator>
+    <emulator name="XENIA">
+        <rule type="staticpath">
+            <entry>EMULATIONPATH/tools/launchers/xenia.sh</entry>
+        </rule>
+    </emulator>
 </ruleList>
