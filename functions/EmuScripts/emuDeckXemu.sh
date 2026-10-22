@@ -128,11 +128,11 @@ Xemu_migrate(){
 		echo -e ""
 
 		if [ -f "${savesPath}/xemu/xbox_hdd.qcow2" ]; then
-			mv -fv ${savesPath}/xemu/* ${storagePath}/xemu/ && rm -rf ${savesPath}/xemu/
+			mv -fv "${savesPath}"/xemu/* "${storagePath}/xemu/" && rm -rf "${savesPath}/xemu/"
 
 		elif [ -f "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" ]; then
-			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" $storagePath/xemu/
-			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin" $storagePath/xemu/
+			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xbox_hdd.qcow2" "$storagePath/xemu/"
+			mv "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/eeprom.bin" "$storagePath/xemu/"
 
 		fi
 	fi
