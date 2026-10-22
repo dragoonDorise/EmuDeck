@@ -577,6 +577,7 @@ cloud_sync_downloadEmuAll(){
 }
 
 cloud_sync_downloadESDE(){
+  local branch=$(cd "$emudeckBackend" && git rev-parse --abbrev-ref HEAD)
   if [[ "$branch" == *"early"* ]] || [ "$branch" == "dev" ] ; then
     cloud_sync_createService
     cloud_sync_download 'all'
