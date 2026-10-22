@@ -31,7 +31,7 @@ Store_uninstallGame(){
 
     rm -rf "${romsPath}/${system}/${name}.zip" && \
     rm -rf  "${storagePath}/retrolibrary/artwork/${system}/media/screenshot/${name_cleaned}.jpg" && \
-    "${storagePath}/retrolibrary/artwork/${system}/media/box2dfront/${name_cleaned}.jpg" && echo "true" || echo "false"
+    rm -rf "${storagePath}/retrolibrary/artwork/${system}/media/box2dfront/${name_cleaned}.jpg" && echo "true" || echo "false"
 
 }
 
