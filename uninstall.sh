@@ -68,7 +68,7 @@ if [ "$doUninstall" == true ]; then
 	ans=$?
 	if [ $ans -eq 0 ]; then
 		kill -15 "$(pidof steam)"
-		$toolsPath/Steam ROM Manager.AppImage
+		"$SRM_toolPath"
 
 	else
 		echo -e "No"
@@ -461,7 +461,7 @@ fi
 		rm -rf $HOME/.config/azahar-emu/ &> /dev/null
 		rm -rf $HOME/.local/share/azahar-emu &> /dev/null
   		rm -rf $HOME/.local/share/applications/Azahar.desktop &> /dev/null
-		rm -rf $emusFolder/azahar-gui*.AppImage &> /dev/null
+		rm -rf $emusFolder/azahar*.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallMame" == true ]]; then
 		flatpak uninstall org.mamedev.MAME -y
@@ -532,7 +532,7 @@ fi
 		rm -rf $HOME/.local/share/shadps4 &> /dev/null
 		# AppImage
 		rm -rf $HOME/.local/share/applications/ShadPS4.desktop &> /dev/null
-		rm -rf $emusFolder/shadPS4-qt.AppImage &> /dev/null
+		rm -rf $emusFolder/Shadps4-qt.AppImage &> /dev/null
 	fi
 	if [[ "$doUninstallRyujinx" == true ]]; then
 		rm -rf $HOME/.config/Ryujinx &> /dev/null

@@ -33,7 +33,7 @@ SRM_install(){
 }
 
 SRM_uninstall(){
-  rm -rf "${toolsPath}/Steam ROM Manager.AppImage"
+  rm -rf "$SRM_toolPath"
   rm -rf $HOME/.local/share/applications/SRM.desktop
   rm -rf "$HOME/.local/share/applications/Steam ROM Manager.desktop"
 }
