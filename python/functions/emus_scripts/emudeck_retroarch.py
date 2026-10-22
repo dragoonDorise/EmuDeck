@@ -1051,7 +1051,7 @@ def retroarch_nes_ar87():
 def retroarch_nes_ar32():
     retroarch_set_core_setting('nes.cfg','Nestopia','aspect_ratio_index','"7"')
     retroarch_set_core_setting('nes.cfg','Mesen','aspect_ratio_index','"7"')
-    retroarch_nes_bezel_off
+    retroarch_nes_bezel_off()
 
 
 def retroarch_mupen64plus_next_set_config():
@@ -1078,7 +1078,7 @@ def retroarch_n64_3d_crt_shader_off():
 
 
 def retroarch_n64_set_config():
-    retroarch_n64_3d_crt_shader_off
+    retroarch_n64_3d_crt_shader_off()
 
 
 def retroarch_lynx_set_config():
@@ -1375,7 +1375,7 @@ def retroarch_segacd_crt_shader_off():
 def retroarch_segacd_ar32():
     retroarch_set_core_setting('segacd.cfg','Genesis Plus GX','aspect_ratio_index','"7"')
     retroarch_set_core_setting('megacd.cfg','Genesis Plus GX','aspect_ratio_index','"7"')
-    retroarch_segacd_bezel_off
+    retroarch_segacd_bezel_off()
 
 def retroarch_segacd_ar43():
     retroarch_set_core_setting('segacd.cfg','Genesis Plus GX','aspect_ratio_index','"21"')
@@ -1410,7 +1410,7 @@ def retroarch_genesis_bezel_off():
 def retroarch_genesis_ar32():
     retroarch_set_core_setting('genesis.cfg','Genesis Plus GX','aspect_ratio_index','"7"')
     retroarch_set_core_setting('megadrive.cfg','Genesis Plus GX','aspect_ratio_index','"7"')
-    retroarch_genesis_bezel_off
+    retroarch_genesis_bezel_off()
 
 
 def retroarch_genesis_ar43():
@@ -1503,7 +1503,7 @@ def retroarch_mastersystem_bezel_off():
 
 def retroarch_mastersystem_ar32():
     retroarch_set_core_setting('mastersystem.cfg','Genesis Plus GX','aspect_ratio_index','"7"')
-    retroarch_mastersystem_bezel_off
+    retroarch_mastersystem_bezel_off()
 
 
 def retroarch_mastersystem_crt_shader_on():
@@ -1569,13 +1569,13 @@ def retroarch_sega32x_crt_shader_off():
 def retroarch_sega32x_ar32():
     retroarch_set_core_setting('sega32x.cfg','PicoDrive','aspect_ratio_index','"7"')
     retroarch_set_core_setting('sega32xna.cfg','PicoDrive','aspect_ratio_index','"7"')
-    retroarch_sega32x_bezel_off
+    retroarch_sega32x_bezel_off()
 
 
 def retroarch_sega32x_ar43():
     retroarch_set_core_setting('sega32x.cfg','PicoDrive','aspect_ratio_index','"21"')
     retroarch_set_core_setting('sega32xna.cfg','PicoDrive','aspect_ratio_index','"21"')
-    retroarch_sega32x_bezel_off
+    retroarch_sega32x_bezel_off()
 
 
 #def retroarch_gba_bezel_on():
@@ -1702,8 +1702,8 @@ def retroarch_gbc_matrix_shader_off():
 def retroarch_n64_wideScreenOn():
     retroarch_set_core_setting('Mupen64Plus-Next.opt','Mupen64Plus-Next','mupen64plus-aspect','"16:9 adjusted"')
     retroarch_set_core_setting('n64.cfg','Mupen64Plus-Next','aspect_ratio_index','"1"')
-    retroarch_n64_bezel_off
-    retroarch_n64_3d_crt_shader_off
+    retroarch_n64_bezel_off()
+    retroarch_n64_3d_crt_shader_off()
 
 
 def retroarch_n64_wideScreenOff():
@@ -1772,19 +1772,19 @@ def retroarch_dreamcast_bezel_off():
 
 #temporary
 def retroarch_Flycast_bezel_off():
-    retroarch_dreamcast_bezel_off
+    retroarch_dreamcast_bezel_off()
 
 
 def retroarch_Flycast_bezel_on():
-    retroarch_dreamcast_bezel_on
+    retroarch_dreamcast_bezel_on()
 
 
 def retroarch_Beetle_PSX_HW_bezel_off():
-    retroarch_psx_bezel_off
+    retroarch_psx_bezel_off()
 
 
 def retroarch_Beetle_PSX_HW_bezel_on():
-    retroarch_psx_bezel_on
+    retroarch_psx_bezel_on()
 
 
 def retroarch_dreamcast_3d_crt_shader_on():
@@ -1956,7 +1956,7 @@ def retroarch_snes_ar87():
 def retroarch_snes_ar32():
     retroarch_set_core_setting('snes.cfg','Snes9x','aspect_ratio_index','"7"')
     retroarch_set_core_setting('snesna.cfg','Snes9x','aspect_ratio_index','"7"')
-    retroarch_snes_bezel_off
+    retroarch_snes_bezel_off()
 
 
 
@@ -2398,8 +2398,8 @@ def retroarch_Flycast_wideScreenOn():
     retroarch_set_core_setting('Flycast.opt',	'Flycast',	'reicast_widescreen_cheats',	'"enabled"')
     retroarch_set_core_setting('Flycast.opt',	'Flycast',	'reicast_widescreen_hack',	'"enabled"')
     retroarch_set_core_setting('dreamcast.cfg',	'Flycast',	'aspect_ratio_index',		'"1"')
-    retroarch_dreamcast_bezel_off
-    retroarch_dreamcast_3d_crt_shader_off
+    retroarch_dreamcast_bezel_off()
+    retroarch_dreamcast_3d_crt_shader_off()
 
 
 def retroarch_Flycast_wideScreenOff():
@@ -2411,7 +2411,7 @@ def retroarch_Flycast_wideScreenOff():
 def retroarch_Beetle_PSX_HW_wideScreenOn():
     retroarch_set_core_setting('Beetle PSX HW.opt','Beetle PSX HW','beetle_psx_hw_widescreen_hack','"enabled"')
     retroarch_set_core_setting('Beetle PSX.opt','Beetle PSX','beetle_psx_hw_widescreen_hack','"enabled"')
-    retroarch_psx_bezel_off
+    retroarch_psx_bezel_off()
 
 
 def retroarch_Beetle_PSX_HW_wideScreenOff():
@@ -2428,7 +2428,7 @@ def retroarch_SwanStation_wideScreenOn():
     retroarch_set_core_setting('SwanStation.opt','SwanStation','duckstation_GPU.WidescreenHack','"true"')
     retroarch_set_core_setting('SwanStation.opt','SwanStation','duckstation_Display.AspectRatio','"16:9"')
     retroarch_set_core_setting('psx.cfg','SwanStation','aspect_ratio_index','"1"')
-    retroarch_psx_bezel_off
+    retroarch_psx_bezel_off()
 
 
 def retroarch_SwanStation_wideScreenOff():
