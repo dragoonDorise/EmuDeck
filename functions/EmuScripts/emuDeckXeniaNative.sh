@@ -342,6 +342,6 @@ XeniaNative_addParser(){
 
 
 XeniaNative_addToSteam(){
-	setMSG "Adding BigPEmu to Steam"
-	add_to_steam "xenia" "Xenia" "$toolsPath/launchers/armsx2.sh" "$HOME/Applications/" "$emudeckBackend/icons/Xenia.png" "Emulation"
+	setMSG "Adding Xenia to Steam"
+	add_to_steam "xenia" "Xenia" "$toolsPath/launchers/xenia-emu.sh" "$HOME/Applications/" "$emudeckBackend/icons/Xenia.png" "Emulation"
 }
