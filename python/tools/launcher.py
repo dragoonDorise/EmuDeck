@@ -324,10 +324,15 @@ if system.startswith("win"):
         exe = f"{emus_folder}/eden-windows-msvc/eden.exe"
 
 #netplay
+# set_setting() doesn't refresh this module's settings, so build the args here
+netplay_args = []
 if emu.lower() == "retroarch":
    if getattr(settings, "netplay", False) == True:
       set_setting("netplay_cmd","-H")
-      netplay_set_ip()
+      netplay_args = ["-H"]
+      host_ip = netplay_set_ip()
+      if host_ip:
+         netplay_args = ["-C", host_ip]
    else:
       set_setting("netplay_cmd",'')
 
@@ -395,7 +400,6 @@ if args:
         args[-1] = last[1:-1]
 
 
-netplay_args = shlex.split(getattr(settings, "netplay_cmd", "") or "")
 cmd = [exe] + netplay_args + args
 
 
@@ -475,7 +479,7 @@ if system == "linux" and emu.lower() == "xenia":
 
 if system.startswith("win") and raw and raw[0] == "-L" and len(raw) > 2:
     args = [ raw[0], raw[1], " ".join(raw[2:]) ]
-    cmd = [str(exe)] + netplay_cmd + args
+    cmd = [str(exe)] + netplay_args + args
     shell_status = True
 elif system == "darwin":
     shell_status = False
