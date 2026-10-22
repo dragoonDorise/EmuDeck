@@ -193,6 +193,13 @@ def ryujinx_setup_saves():
 def ryujinx_set_emulation_folder() -> bool:
     sed("/run/media/mmcblk0p1/Emulation/roms", str(roms_path), ryujinx_config_file)
 
+    # After a migration game_dirs still points at the old roms/switch folder
+    with open(ryujinx_config_file, encoding="utf-8") as f:
+        game_dirs = json.load(f).get("game_dirs", [])
+    switch_dir = f"{roms_path}/switch"
+    game_dirs = [switch_dir if d.replace("\\", "/").rstrip("/").endswith("/roms/switch") else d for d in game_dirs]
+    update_json_key("game_dirs", game_dirs, ryujinx_config_file)
+
     return True
 
 
