@@ -2774,7 +2774,7 @@ def retroarch_set_widescreen():
             retroarch_snes_bezel_on()
 
     # Classic 3D games: Dreamcast, PSX, N64, Saturn
-    if settings.shaders.classic3d == 169:
+    if str(settings.ar.classic3d) == "169":
         retroarch_Beetle_PSX_HW_wideScreenOn()
         retroarch_Flycast_wideScreenOn()
         retroarch_n64_wideScreenOn()
