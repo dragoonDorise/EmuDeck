@@ -305,7 +305,7 @@ Azahar_setResolution(){
 
 	resolutionOpt='resolution_factor='
 	newResolutionOpt='resolution_factor='"$multiplier"
-	sed -i "/${resolutionOpt}/c\\${newResolutionOpt}" "$Azahar_configFile"
+	sed -i "/^${resolutionOpt}/c\\${newResolutionOpt}" "$Azahar_configFile"
 	
 	
 }
