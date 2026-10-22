@@ -55,7 +55,8 @@ def vita3k_install():
 
     try:
         repo=get_latest_release_gh("Vita3K/Vita3K",type,look_for)
-        install_emu("vita3k", repo, type, path)
+        if install_emu("vita3k", repo, type, path) is False:
+            return False
     except Exception as e:
         print(f"Error during install: {e}")
         return False

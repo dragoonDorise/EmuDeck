@@ -32,7 +32,8 @@ def xemu_install():
         else:
             repo = get_latest_release_gh("xemu-project/xemu", type, look_for)
 
-        install_emu(name, repo, type, destination)
+        if install_emu(name, repo, type, destination) is False:
+            return False
         return True
 
     except Exception as e:

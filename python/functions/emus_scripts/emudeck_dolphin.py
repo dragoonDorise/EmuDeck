@@ -98,7 +98,8 @@ def dolphin_install():
             if not url:
                 return False
 
-            install_emu("Dolphin", url, "dmg", emus_folder)
+            if install_emu("Dolphin", url, "dmg", emus_folder) is False:
+                return False
             return True
 
         except Exception as e:

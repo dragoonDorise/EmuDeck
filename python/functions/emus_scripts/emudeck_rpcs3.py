@@ -58,7 +58,8 @@ def rpcs3_install():
 
     try:
         repo=rpcs3_get_download_url()
-        install_emu("rpcs3", repo, type, path)
+        if install_emu("rpcs3", repo, type, path) is False:
+            return False
     except Exception as e:
         print(f"Error during install: {e}")
         return False
