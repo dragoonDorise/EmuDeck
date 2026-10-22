@@ -132,6 +132,10 @@ def xemu_setup_storage():
             check=True
         )
 
+    # The HDD image holds all Xbox saves, only download it once
+    if (dest_dir / "xbox_hdd.qcow2").is_file():
+        return True
+
     url = "https://github.com/mborgerson/xemu-hdd-image/releases/latest/download/xbox_hdd.qcow2.zip"
     zip_path = dest_dir / "xbox_hdd.qcow2.zip"
 
