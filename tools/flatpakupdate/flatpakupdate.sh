@@ -177,7 +177,7 @@ if [ ${#emuTable[@]} -gt 0 ]; then
                 fi
                 if [ "$doUpdateSupermodel" == "true" ]; then
                     echo "###Updating Supermodel..."
-                    (updateEmuFP "Supermodel" "com.supermodel.Supermodel" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|ScummVM" && echo "&&&$progressInstalled"
+                    (updateEmuFP "Supermodel" "com.supermodel3.Supermodel" "emulator" "" || true) && let progresspct+=$pct && echo "%%%$progresspct" && progressInstalled+="|Supermodel" && echo "&&&$progressInstalled"
                 fi
                 if [ "$doUpdateXemu" == "true" ]; then
                     echo "###Updating Xemu..."
