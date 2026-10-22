@@ -106,7 +106,7 @@ def migration_update_settings(origin: str, destination: str) -> None:
 
 
 def migration_ESDE() -> None:
-    ESDE_set_emulation_folder()
+    esde_set_emulation_folder()
 
 
 def migration_fix_SDPaths() -> bool:
@@ -119,9 +119,9 @@ def migration_fix_SDPaths() -> bool:
         return False
 
     origin = str(emulation_path)
-    destination = str(new_path / "Emulation")
+    destination = str(Path(new_path) / "Emulation")
 
-    ans = _ask_conflict(
+    ans = popup_ask_conflict(
         "Confirm SD Path Fix",
         f"Your old path was:\n{origin}\n\nYour new path is:\n{destination}\n\n"
         "Do you want to apply these changes?"
