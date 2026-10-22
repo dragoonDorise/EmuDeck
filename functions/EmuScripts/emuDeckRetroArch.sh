@@ -1055,8 +1055,8 @@ RetroArch_segacd_ar32(){
 	RetroArch_segacd_bezelOff
 }
 RetroArch_segacd_ar43(){
-	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'segacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'megacd.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
 }
 
 RetroArch_genesis_setConfig(){
@@ -1091,8 +1091,8 @@ RetroArch_genesis_ar32(){
 }
 
 RetroArch_genesis_ar43(){
-	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'genesis.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'megadrive.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
 }
 
 RetroArch_genesis_CRTshaderOn(){
@@ -1196,7 +1196,7 @@ RetroArch_mastersystem_CRTshaderOff(){
 }
 
 RetroArch_mastersystem_ar43(){
-	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'mastersystem.cfg' 'Genesis Plus GX'  'aspect_ratio_index' '"0"'
 }
 RetroArch_sega32x_setConfig(){
 	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'input_player1_analog_dpad_mode' '"1"'
@@ -1250,8 +1250,8 @@ RetroArch_sega32x_ar32(){
 }
 
 RetroArch_sega32x_ar43(){
-	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'aspect_ratio_index' '"21"'
-	RetroArch_setOverride 'sega32xna.cfg' 'PicoDrive'  'aspect_ratio_index' '"21"'
+	RetroArch_setOverride 'sega32x.cfg' 'PicoDrive'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'sega32xna.cfg' 'PicoDrive'  'aspect_ratio_index' '"0"'
 	RetroArch_sega32x_bezelOff
 }
 
