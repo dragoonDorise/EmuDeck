@@ -103,8 +103,10 @@ compressCHD() {
 		if [[ ! ("$fileType" == 'iso' || "$fileType" == 'ISO') ]]; then
 			find "${CUEDIR}" -maxdepth 1 -type f | while read -r b; do
 				fileName="$(basename "${b}")"
-				found=$(grep "${fileName}" "${file}")
-				if [[ ! $found = '' ]]; then
+				# Match the whole file name as it appears in a .cue/.gdi entry ("name" or
+				# unquoted between spaces). A plain substring match also deleted other
+				# games' files, e.g. Doom.bin while converting "Final Doom.cue".
+				if grep -qF -e "\"${fileName}\"" -e " ${fileName} " -- "${file}"; then
 					echo "Deleting ${b}"
 					rm "${b}"
 				fi
@@ -181,7 +183,7 @@ trim3ds() {
 	3dstool -r -f "$file" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Successfully trimmed ${file%.*}.3ds"
-		mv "$file" "${file%%.*}(Trimmed).3ds"
+		mv -n "$file" "${file%.*}(Trimmed).3ds"
 	else
 		echo "error converting $file"
 	fi
@@ -196,8 +198,8 @@ compressXISO() {
 	extract-xiso -r "$file" -d "$xisoDir" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "$file succesfully converted to ${file%.*}.xiso.iso"
-		mv "$file" "${file%%.*}.xiso.iso"
-		rm -f "${file%%.*}.iso.old"
+		mv -n "$file" "${file%.*}.xiso.iso"
+		rm -f "${file}.old"
 	else
 		echo "error converting $file"
 	fi
