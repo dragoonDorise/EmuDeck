@@ -113,7 +113,9 @@ def esde_init():
         esde_set_default_settings()
     else:
         src = Path(emudeck_backend) / "configs" / "common" / "emulationstation"
-        shutil.copytree(src, esde_settings_folder, dirs_exist_ok=True)
+        # Existing gamelists hold the user's scraped metadata and favorites
+        keep_gamelists = lambda s, d: d if Path(d).name == "gamelist.xml" and Path(d).exists() else shutil.copy2(s, d)
+        shutil.copytree(src, esde_settings_folder, dirs_exist_ok=True, copy_function=keep_gamelists)
         if system == "darwin":
             shutil.copytree(Path(emudeck_backend) / "configs" / "darwin" / "emulationstation", esde_settings_folder, dirs_exist_ok=True)
 
