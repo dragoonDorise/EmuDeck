@@ -502,7 +502,7 @@ if system == "linux":
 
 emulator_launch_fixes(emu)
 
-subprocess.run(cmd, check=True, shell=shell_status)
+subprocess.run(cmd, check=False, shell=shell_status)
 
 watch_file = Path(saves_path) / ".watching"
 if watch_file.exists():
