@@ -3,7 +3,7 @@ cd "$HOME/.config/EmuDeck/backend/"
 git pull
 . "$HOME/.config/EmuDeck/backend/functions/all.sh"
 launcherInit
-emulatorInit "Vita3k"
+emulatorInit "Vita3K"
 export LC_ALL="C"
 export DISABLE_GAMESCOPE_WSI=1
 
