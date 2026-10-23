@@ -90,7 +90,8 @@ Model2_wipeSettings(){
 #Uninstall
 Model2_uninstall(){
 	setMSG "Uninstalling $Model2_emuName. Saves and ROMs will be retained in the ROMs folder."
-	find ${romsPath}/model2 -mindepth 1 -name roms -prune -o -exec rm -rf '{}' \; &>> /dev/null
+	# NVDATA holds the NVRAM saves (only copy), keep it like the ROMs
+	find "${romsPath}/model2" -mindepth 1 \( -name roms -o -name NVDATA \) -prune -o -exec rm -rf '{}' \; &>> /dev/null
     rm -rf "$HOME/.local/share/applications/Model 2 Emulator (Proton).desktop" &>> /dev/null
 	rm -rf "${toolsPath}/launchers/model-2-emulator.sh"
 	rm -rf "$romsPath/emulators/model-2-emulator.sh"
