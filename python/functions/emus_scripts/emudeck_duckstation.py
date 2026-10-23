@@ -24,7 +24,8 @@ def duckstation_install():
 
     try:
         repo=get_latest_release_gh("stenzek/duckstation",type,look_for)
-        install_emu(name, repo, type, destination)
+        if install_emu(name, repo, type, destination) is False:
+            return False
 
         if system == "linux":
             flatpak_cfg = Path(f"{home}/.var/app/org.duckstation.DuckStation/config/duckstation")

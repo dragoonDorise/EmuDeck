@@ -27,7 +27,8 @@ def cemu_install():
 
     try:
         repo=get_latest_release_gh(repo_name,type,look_for)
-        install_emu(name, repo, type, destination)
+        if install_emu(name, repo, type, destination) is False:
+            return False
     except Exception as e:
         print(f"Error during install: {e}")
         return False

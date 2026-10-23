@@ -53,7 +53,8 @@ def retroarch_install():
         path=emus_folder
 
     try:
-        install_emu("retroarch", repo, type, path)
+        if install_emu("retroarch", repo, type, path) is False:
+            return False
         retroarch_install_cores()
         retroarch_install_bezels()
     except Exception as e:

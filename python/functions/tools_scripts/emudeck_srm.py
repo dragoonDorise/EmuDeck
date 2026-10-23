@@ -95,7 +95,8 @@ def srm_install():
         else:
             repo=get_latest_release_gh("SteamGridDB/steam-rom-manager",type,look_for)
 
-        install_emu("srm", repo, type, destination)
+        if install_emu("srm", repo, type, destination) is False:
+            return False
     except Exception as e:
         print(f"Error during install: {e}")
         return False
