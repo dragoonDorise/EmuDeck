@@ -54,7 +54,7 @@ XeniaNative_install(){
 	if [ $CPUarch == "arm" ]; then
 		latestReleaseURL=$(getLatestReleaseURLGH "dragoonDorise/xenia-edge-arm" ".AppImage" "edge" "xenia")
 	else
-		latestReleaseURL=$(getLatestReleaseURLGH "$XeniaNative_releaseRepository" ".AppImage" "linux" "Xenia_canary")
+		latestReleaseURL=$(getLatestReleaseURLGH "$XeniaNative_releaseRepository" ".AppImage" "linux" "xenia")
 	fi
 
 	if [[ -z "$latestReleaseURL" ]]; then
