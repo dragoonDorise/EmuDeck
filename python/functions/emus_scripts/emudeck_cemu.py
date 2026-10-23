@@ -153,7 +153,7 @@ def cemu_setup_saves():
     if system.startswith("win"):
         origin_saves=f"{emus_folder}/cemu/mlc01/usr/save"
     if system == "darwin":
-        origin_saves=f"{home}/Library/Application Support/Cemu/mlc01/usr/save"
+        origin_saves=f"{roms_path}/wiiu/mlc01/usr/save"
 
     link_to_saves_folder(origin_saves, "Cemu/saves")
 
