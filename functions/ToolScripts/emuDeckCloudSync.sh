@@ -657,21 +657,23 @@ cloud_sync_unlock(){
 
 cloud_sync_check_lock(){
   # startLog ${FUNCNAME[0]}
-  lockedFile="$HOME\emudeck\cloud.lock"
+  # Same file as cloud_sync_lock/cloud_sync_unlock
+  local lockedFile="$emudeckFolder/cloud.lock"
+  local zenity_pid
 
-  if [ -f $lockedFile ]; then
+  if [ -f "$lockedFile" ]; then
    text="$(printf "<b>CloudSync in progress!</b>\nWe're syncing your saved games, please wait...")"
-     zenity --info --width=300 --text="${text}" 2>/dev/null
-     local zenity_pid=$!
+     zenity --info --width=300 --text="${text}" 2>/dev/null &
+     zenity_pid=$!
   fi
 
-  while [ -f $lockedFile ]
+  while [ -f "$lockedFile" ]
   do
     sleep 1
   done
 
   if [ -n "$zenity_pid" ]; then
-    kill "$zenity_pid"
+    kill "$zenity_pid" 2>/dev/null
   fi
 
 }
