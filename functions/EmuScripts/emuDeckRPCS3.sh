@@ -10,7 +10,7 @@ RPCS3_configFile="$HOME/.config/rpcs3/config.yml"
 
 declare -A RPCS3_languages
 RPCS3_languages=(
-["ja"]=""
+["ja"]="Japanese"
 ["en"]="English (US)"
 ["fr"]="French"
 ["de"]="German"
@@ -18,7 +18,7 @@ RPCS3_languages=(
 ["es"]="Spanish"
 ["ko"]="Korean"
 ["nl"]="Dutch"
-["pt"]="Portiguese (Portugal)"
+["pt"]="Portuguese (Portugal)"
 ["ru"]="Russian")
 
 
