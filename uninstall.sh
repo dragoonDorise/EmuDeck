@@ -111,8 +111,8 @@ if [ $ans -eq 0 ]; then
 	mkdir -p "$emulationPath/EmuDeckSavesBackUp"
 	rsync -avh --copy-links "$savesPath" "$emulationPath/EmuDeckSavesBackUp"
 	cd "$emulationPath"
-	zip -r "EmuDeckSavesBackUp.zip" "EmuDeckSavesBackUp"
-	rm -rf "$emulationPath/EmuDeckSavesBackUp" &> /dev/null
+	# Only delete the unzipped copy if the zip was created
+	zip -r "EmuDeckSavesBackUp.zip" "EmuDeckSavesBackUp" && rm -rf "$emulationPath/EmuDeckSavesBackUp" &> /dev/null
 else
 	echo -e "No"
 fi
@@ -130,8 +130,7 @@ if [ $ans -eq 0 ]; then
 	mkdir -p "$emulationPath/EmuDeckBIOSBackUp"
 	rsync -avh --copy-links "$biosPath" "$emulationPath/EmuDeckBIOSBackUp"
 	cd "$emulationPath"
-	zip -r "EmuDeckBIOSBackUp.zip" "EmuDeckBIOSBackUp"
-	rm -rf "$emulationPath/EmuDeckBIOSBackUp" &> /dev/null
+	zip -r "EmuDeckBIOSBackUp.zip" "EmuDeckBIOSBackUp" && rm -rf "$emulationPath/EmuDeckBIOSBackUp" &> /dev/null
 else
 	echo -e "No"
 fi
@@ -697,11 +696,15 @@ fi
 	echo "# Removing EmuDeck folders";
 	rm -rf $toolsPath
 	#rm -rf $biosPath
-	rm -rf $savesPath
-	rm -rf $storagePath
+	# Emulators the user chose to keep still use saves/ and storage/ (saves, NAND,
+	# installed PS3/Switch content), so only delete them when nothing is kept.
+	if [ -z "$emusToUninstall" ]; then
+		rm -rf "$savesPath"
+		rm -rf "$storagePath"
+		rm -rf "$emulationPath/storage"
+	fi
 	rm -rf $ESDEscrapData
 	rm -rf "$emulationPath/hdpacks"
-	rm -rf "$emulationPath/storage"
 
 
 
