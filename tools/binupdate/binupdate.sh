@@ -270,7 +270,9 @@ if [ "${#binTable[@]}" -gt 0 ]; then
     if [ $ans -eq 0 ]; then
         if [ -n "$binsToDL" ]; then
 
-            runBinDownloads "$binsToDL" | zenity --progress --pulsate --title="Updating!" --width=600 --height=250 2>/dev/null
+            # Not in a pipe: runBinDownloads must run in this shell so "messages" survives
+            runBinDownloads "$binsToDL" > >(zenity --progress --pulsate --title="Updating!" --width=600 --height=250 2>/dev/null)
+            wait $!
 
             if [ "$?" = -1 ]; then
                 zenity --error \
