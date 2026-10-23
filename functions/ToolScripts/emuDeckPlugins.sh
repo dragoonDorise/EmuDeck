@@ -115,7 +115,7 @@ Plugins_installPowerControl(){
    echo "Installing PowerControl"
    local password=$1
    local destinationFolder="$HOME/homebrew/plugins/PowerControl"
-   local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".tar.gz")"
+   local PowerControl_releaseURL="$(getLatestReleaseURLGH "mengmeet/PowerControl" ".zip")"
 
    mkdir -p "$HOME/homebrew/plugins/"
 
@@ -126,14 +126,14 @@ Plugins_installPowerControl(){
 
    if [ -d "$HOME/homebrew" ]; then
       echo "$password" | sudo -S rm -rf "$destinationFolder"
-      echo "$password" | sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.tar.gz"
-      echo "$password" | sudo -S unzip "$HOME/homebrew/plugins/PowerControl.tar.gz" -d "$HOME/homebrew/plugins/" && echo "$password" | sudo -S rm "$HOME/homebrew/plugins/PowerControl.tar.gz"
+      echo "$password" | sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.zip"
+      echo "$password" | sudo -S unzip "$HOME/homebrew/plugins/PowerControl.zip" -d "$HOME/homebrew/plugins/" && echo "$password" | sudo -S rm "$HOME/homebrew/plugins/PowerControl.zip"
       echo "$password" | sudo -S chown $USER:$USER -R "$HOME/homebrew/plugins/PowerControl"
       echo "$password" | sudo -S chmod 555 -R "$HOME/homebrew/plugins/PowerControl"
    else
       rm -rf "$destinationFolder"
-      echo "$password" | sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.tar.gz"
-      echo "$password" | sudo -S unzip "$HOME/homebrew/plugins/PowerControl.tar.gz" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/PowerControl.tar.gz"
+      echo "$password" | sudo -S curl -L "$PowerControl_releaseURL" -o "$HOME/homebrew/plugins/PowerControl.zip"
+      echo "$password" | sudo -S unzip "$HOME/homebrew/plugins/PowerControl.zip" -d "$HOME/homebrew/plugins/" && sudo rm "$HOME/homebrew/plugins/PowerControl.zip"
       echo "$password" | sudo -S chown $USER:$USER -R "$HOME/homebrew/plugins/PowerControl"
    fi
 
