@@ -145,14 +145,14 @@ Ryujinx_setLanguage(){
 Ryujinx_setupSaves(){
     echo "Begin Ryujinx save link"
 
-    if [ -d "${emulationPath}/saves/ryujinx/saves" ]; then
-        rm -rf "${emulationPath}/saves/ryujinx/saves"
-        rm -rf "${emulationPath}/saves/ryujinx/saveMeta"
-    fi
-
-    if [ -d "${emulationPath}/saves/Ryujinx/saves" ]; then
-        rm -rf "${emulationPath}/saves/Ryujinx/"
-    fi
+    # Only remove old links (linkToSaveFolder re-creates them). These paths can be
+    # real folders with the user's Switch saves (copied Emulation folder, backup
+    # restore, cloud sync), which rm -rf used to delete.
+    for oldLink in "${emulationPath}/saves/ryujinx/saves" "${emulationPath}/saves/ryujinx/saveMeta" "${emulationPath}/saves/Ryujinx"; do
+        if [ -L "$oldLink" ]; then
+            unlink "$oldLink"
+        fi
+    done
 
     linkToSaveFolder ryujinx saves "$HOME/.config/Ryujinx/bis/user/save"
     linkToSaveFolder ryujinx saveMeta "$HOME/.config/Ryujinx/bis/user/saveMeta"
