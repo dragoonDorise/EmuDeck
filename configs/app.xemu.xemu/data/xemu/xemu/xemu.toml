@@ -9,6 +9,7 @@ port1 = '03000000de280000ff11000001000000'
 
 [display.ui]
 fit = 'stretch'
+aspect_ratio = 'auto'
 
 [display.quality]
 surface_scale = 1
