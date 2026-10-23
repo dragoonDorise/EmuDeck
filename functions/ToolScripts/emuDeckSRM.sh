@@ -269,8 +269,8 @@ SRM_addExtraParsers(){
   "Citron_IsInstalled Citron_addParser" \
   "ARMSX2_IsInstalled ARMSX2_addParser" \
   "PCSX2QT_IsInstalled PCSX2QT_addParser" \
-  "XeniaNative_IsInstalled XeniaNative_IsInstalled" \
-  "Xenia_IsInstalled Xenia_IsInstalled" \
+  "XeniaNative_IsInstalled XeniaNative_addParser" \
+  "Xenia_IsInstalled Xenia_addParser" \
   "Yuzu_IsInstalled Yuzu_addParser"; do
 
   condition=$($install_command | awk '{print $1}')
