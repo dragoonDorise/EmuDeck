@@ -115,7 +115,8 @@ XeniaNative_setNativeConfigDefaults(){
 }
 
 XeniaNative_addESConfig(){
-	sed -i "s|xenia.sh|xenia-emu.sh\/|g" "$es_rulesFile"
+	# Also repair "xenia-emu.sh/" written by earlier versions
+	sed -i -e "s|xenia-emu.sh/|xenia-emu.sh|g" -e "s|xenia.sh|xenia-emu.sh|g" "$es_rulesFile"
 }
 
 XeniaNative_getPatches() {
