@@ -125,14 +125,15 @@ function jsonToBashVars(){
     setSetting emuSCUMMVM "$(jq .emulatorAlternative.scummvm $json)"
 
     #Paths
-    globPath=$(jq -r .storagePath $json)
-    setSetting emulationPath "$globPath/Emulation"
-    setSetting romsPath "$globPath/Emulation/roms"
-    setSetting toolsPath "$globPath/Emulation/tools"
-    setSetting biosPath "$globPath/Emulation/bios"
-    setSetting savesPath "$globPath/Emulation/saves"
-    setSetting storagePath "$globPath/Emulation/storage"
-    setSetting ESDEscrapData "$globPath/Emulation/tools/downloaded_media"
+    # jq without -r keeps the JSON quotes, like for every other value, so paths
+    # with spaces (SD card labels, /Volumes/...) survive sourcing settings.sh
+    setSetting emulationPath "$(jq '.storagePath + "/Emulation"' $json)"
+    setSetting romsPath "$(jq '.storagePath + "/Emulation/roms"' $json)"
+    setSetting toolsPath "$(jq '.storagePath + "/Emulation/tools"' $json)"
+    setSetting biosPath "$(jq '.storagePath + "/Emulation/bios"' $json)"
+    setSetting savesPath "$(jq '.storagePath + "/Emulation/saves"' $json)"
+    setSetting storagePath "$(jq '.storagePath + "/Emulation/storage"' $json)"
+    setSetting ESDEscrapData "$(jq '.storagePath + "/Emulation/tools/downloaded_media"' $json)"
 
     #Default ESDE Theme
     setSetting esdeThemeUrl "$(jq .themeESDE[0] $json)"
