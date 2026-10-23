@@ -57,8 +57,9 @@ def migration_update_paths(origin: Path, destination: Path) -> None:
             write_setting_sh(settings_sh_path, json_to_bash_vars_path, f"sh.{var}", value)
 
     if system == "darwin":
-        for launcher in Path("/Applications/EmuDeck").glob("*.app/Contents/MacOS/*"):
-            replace_in_file(launcher, o, d)
+        for apps_dir in mac_app_dirs():
+            for launcher in apps_dir.glob("*.app/Contents/MacOS/*"):
+                replace_in_file(launcher, o, d)
 
     migration_update_srm(o, d)
     migration_update_parsers(o, d)
