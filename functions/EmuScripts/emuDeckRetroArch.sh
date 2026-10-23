@@ -273,16 +273,16 @@ RetroArch_buildbotDownloader(){
 	local cheatsDir="$storagePath/retroarch/cheats"
 
 	# Make folders
-	mkdir -p $shadersDir
-	mkdir -p $shaderscgDir
-	mkdir -p $shadersglslDir
-	mkdir -p $shadersslangDir
-	mkdir -p $assetsDir
-	mkdir -p $autoconfigDir
-	mkdir -p $overlaysDir
-	mkdir -p $infoDir
-	mkdir -p $ppssppDir
-	mkdir -p $cheatsDir
+	mkdir -p "$shadersDir"
+	mkdir -p "$shaderscgDir"
+	mkdir -p "$shadersglslDir"
+	mkdir -p "$shadersslangDir"
+	mkdir -p "$assetsDir"
+	mkdir -p "$autoconfigDir"
+	mkdir -p "$overlaysDir"
+	mkdir -p "$infoDir"
+	mkdir -p "$ppssppDir"
+	mkdir -p "$cheatsDir"
 
 	# Common Shaders
 	if [[ ! "$( ls -A $shaderscgDir)" ]] ; then
