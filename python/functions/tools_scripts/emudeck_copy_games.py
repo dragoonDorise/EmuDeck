@@ -69,7 +69,7 @@ def copy_games(origin: Path) -> bool:
     free   = shutil.disk_usage(emulation_path).free
 
     if free < needed:
-        ans = _ask_conflict(
+        ans = popup_ask_conflict(
             "Low Disk Space",
             f"You need at least {needed // (1024**2)} MB free in {emulation_path}, but only have {free // (1024**2)} MB.\nContinue?"
         )
