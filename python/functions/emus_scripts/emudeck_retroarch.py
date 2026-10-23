@@ -427,7 +427,7 @@ def retroarch_install_cores():
         ]
     elif system in ("linux", "darwin"):
         if system == "darwin":
-            base_url = "https://buildbot.libretro.com/nightly/apple/osx/arm64/latest/"
+            base_url = f"https://buildbot.libretro.com/nightly/apple/osx/{'arm64' if cpu_arch == 'arm' else 'x86_64'}/latest/"
         elif cpu_arch == "arm":
             base_url = "https://buildbot.libretro.com/nightly/linux/aarch64/latest/"
         else:

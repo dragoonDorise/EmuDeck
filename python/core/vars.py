@@ -1,4 +1,4 @@
-import os, json, platform, shutil
+import os, json, platform, shutil, subprocess
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -29,7 +29,22 @@ if system == "darwin":
 progress_bar = int(os.environ.get("EMUDECK_PROGRESS", "0")) if os.environ.get("EMUDECK_PROGRESS", "0").isdigit() else 0
 apple_chip = platform.machine()
 
-cpu_arch = "arm" if platform.machine().lower() in ("aarch64", "arm64") else "x86"
+def _detect_cpu_arch():
+    if platform.machine().lower() in ("aarch64", "arm64"):
+        return "arm"
+    if system == "darwin":
+        # The x64 build of the app runs under Rosetta 2 on Apple Silicon, and then
+        # platform.machine() reports x86_64 for us too. Ask for the real hardware.
+        try:
+            out = subprocess.run(["sysctl", "-n", "hw.optional.arm64"],
+                                 capture_output=True, text=True, timeout=5).stdout.strip()
+            if out == "1":
+                return "arm"
+        except Exception:
+            pass
+    return "x86"
+
+cpu_arch = _detect_cpu_arch()
 
 # Windows vars
 if system.startswith("win"):

@@ -30,7 +30,7 @@ def esde_get_url():
     elif system.startswith("win"):
         exename = "WindowsPortable"
     elif system == "darwin":
-        exename = "macOSApple"
+        exename = "macOSApple" if cpu_arch == "arm" else "macOSIntel"
     else:
         return False
 
