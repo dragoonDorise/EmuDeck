@@ -81,8 +81,11 @@ Xemu_setLanguage(){
 
 #SetupSaves
 Xemu_setupSaves(){
-	mkdir -p "$savesPath/xemu/"
-	ln -s "${storagePath}/xemu" "$savesPath/xemu/saves"
+	# Earlier runs created storage/xemu/xemu -> storage/xemu (ln -s into the linked folder)
+	if [ -L "${storagePath}/xemu/xemu" ]; then
+		unlink "${storagePath}/xemu/xemu"
+	fi
+	linkToSaveFolder xemu saves "${storagePath}/xemu"
 }
 
 
