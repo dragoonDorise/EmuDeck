@@ -314,8 +314,8 @@ Eden_setResolution(){
 	if [ "$edenResolution" = "4K" ]; then
 		getScreenInfoOnlyTV
 		if [ "${screenWidth:-0}" -lt 3840 ]; then
-			multiplier=2
-			docked="true"
+			multiplier=3
+			docked=1
 		fi
 	fi
 
