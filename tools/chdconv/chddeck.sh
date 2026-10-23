@@ -94,6 +94,12 @@ compressCHD() {
 	local fileType="${file##*.}"
 	local CUEDIR=""
 	local successful=''
+	# chdman refuses to overwrite an existing file; skip instead of failing
+	# and deleting that file below
+	if [ -e "${file%.*}.chd" ]; then
+		echo "${file%.*}.chd already exists, skipping ${file}."
+		return
+	fi
 	CUEDIR="$(dirname "${file}")"
 	echo "Compressing ${file%.*}.chd"
 	chdman5 createcd -i "$file" -o "${file%.*}.chd" && successful="true"
@@ -120,6 +126,10 @@ compressCHD() {
 compressCHDDVD() {
 	local file=$1
 	local successful=''
+	if [ -e "${file%.*}.chd" ]; then
+		echo "${file%.*}.chd already exists, skipping ${file}."
+		return
+	fi
 	chdman5 createdvd -i "$file" -o "${file%.*}.chd" -c zstd && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createdvd flag and hunksize 16348."
@@ -135,6 +145,10 @@ compressCHDDVD() {
 compressCHDDVDLowerHunk() {
 	local file=$1
 	local successful=''
+	if [ -e "${file%.*}.chd" ]; then
+		echo "${file%.*}.chd already exists, skipping ${file}."
+		return
+	fi
 	chdman5 createdvd --hunksize 2048 -i "$file" -o "${file%.*}.chd" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Converting $file to CHD using the createdvd flag and hunksize 2048."
@@ -224,6 +238,10 @@ decompressCHDISO() {
 
 	local file=$1
 	local successful=''
+	if [ -e "${file%.*}.iso" ]; then
+		echo "${file%.*}.iso already exists, skipping ${file}."
+		return
+	fi
 	chdman5 extractdvd -i "$file" -o "${file%.*}.iso" && successful="true"
 	if [[ $successful == "true" ]]; then
 		echo "Decompressing $file to ISO using the extractdvd flag."
