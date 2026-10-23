@@ -31,10 +31,15 @@ def ppsspp_install():
         repo = get_latest_release_gh("hrydgard/ppsspp", "zip", "macOS")
 
     try:
-        install_emu(name, repo, type, destination)
+        if install_emu(name, repo, type, destination) is False:
+            return False
         if system == "darwin":
+            new_app = emus_folder / "PPSSPPSDL.app"
+            if not new_app.exists():
+                print("PPSSPPSDL.app not found after install, keeping the current PPSSPP.app")
+                return False
             shutil.rmtree(emus_folder / "PPSSPP.app", ignore_errors=True)
-            (emus_folder / "PPSSPPSDL.app").rename(emus_folder / "PPSSPP.app")
+            new_app.rename(emus_folder / "PPSSPP.app")
             create_app_shortcut(name)
     except Exception as e:
         print(f"Error during install: {e}")
