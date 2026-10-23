@@ -153,6 +153,8 @@ cp "$emudeckBackend/tools/appID.py" "${toolsPath}/appID.py"
 # Setup emu-launch.sh
 cp "$emudeckBackend/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
 chmod +x "${toolsPath}/emu-launch.sh"
+# emu-launch.sh sources launcherFunctions.sh from its own folder
+cp "$emudeckBackend/tools/launcherFunctions.sh" "${toolsPath}/launcherFunctions.sh"
 
 #Forced SRM so the App won't fail
 SRM_flushToolLauncher
