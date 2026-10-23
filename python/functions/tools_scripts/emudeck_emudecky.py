@@ -22,7 +22,7 @@ def decky_shaders_LCD():
         retroarch_matrix_shaders_on_all()
         set_setting("shaders.handhelds",True)
     else:
-        retroarch_matrix_shaders_on_all()
+        retroarch_matrix_shaders_off_all()
         set_setting("shaders.handhelds",False)
 
 def decky_shaders_2D():
@@ -38,11 +38,19 @@ def decky_shaders_3D():
         retroarch_3d_crt_shader_on_all()
         set_setting("shaders.classic3d",True)
     else:
-        retroarch_3d_crt_shader_on_all()
+        retroarch_3d_crt_shader_off_all()
         set_setting("shaders.classic3d",False)
 
 def Dolphin_setCustomizations():
     print("NYI")
+
+def retroarch_set_customizations():
+    # Same steps as the bash RetroArch_setCustomizations
+    retroarch_set_shaders_crt()
+    retroarch_set_shaders_3d_crt()
+    retroarch_set_shaders_matrix()
+    retroarch_set_bezels()
+    retroarch_set_widescreen()
 
 def RetroArch_setCustomizations():
     retroarch_set_customizations()
