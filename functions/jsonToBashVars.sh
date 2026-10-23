@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 function jsonToBashVars(){
     local json=$1
+    # cs_user (CloudSync folder prefix) is only stored in settings.sh, keep it
+    local csUser
+    csUser=$(grep -m1 '^cs_user=' "$emuDecksettingsFile" 2>/dev/null)
     echo "#!/usr/bin/env bash" > "$emuDecksettingsFile"
+    [ -n "$csUser" ] && echo "$csUser" >> "$emuDecksettingsFile"
     #Install Emus
     setSetting system "$(jq .system $json)"
     setSetting doInstallRA "$(jq .installEmus.ra.status $json)"
