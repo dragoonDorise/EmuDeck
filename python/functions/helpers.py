@@ -1221,10 +1221,31 @@ def install_dmg(name, archive_path):
         subprocess.run(["hdiutil", "detach", str(mount_point)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
         print(" DMG detached.")
 
+def extract_tar_safely(tf, extract_to: Path):
+    # Refuse members that would end up outside extract_to (../, absolute paths,
+    # links pointing outside). Python 3.12+ and recent 3.8-3.11 patch releases have
+    # the "data" filter; the Xcode CLT python3 (3.9.6) does not.
+    try:
+        tf.extractall(path=extract_to, filter="data")
+        return
+    except TypeError:
+        pass
+    base = os.path.realpath(extract_to)
+    for member in tf.getmembers():
+        target = os.path.realpath(os.path.join(base, member.name))
+        link = base
+        if member.issym():
+            link = os.path.realpath(os.path.join(os.path.dirname(target), member.linkname))
+        elif member.islnk():
+            link = os.path.realpath(os.path.join(base, member.linkname))
+        if os.path.commonpath([base, target]) != base or os.path.commonpath([base, link]) != base:
+            raise RuntimeError(f"Unsafe path in archive: {member.name}")
+    tf.extractall(path=extract_to)
+
 def extract_tar_gz(archive_path: Path, extract_to: Path):
     extract_to.mkdir(parents=True, exist_ok=True)
     with tarfile.open(archive_path, mode="r:gz") as tf:
-        tf.extractall(path=extract_to)
+        extract_tar_safely(tf, extract_to)
 
 def copy_setting_dir(src: Path, dst: Path):
     src = Path( emudeck_backend / "configs" / src)
@@ -1386,7 +1407,7 @@ def extract_tar_xz(archive_path: Path, extract_to: Path):
     extract_to.mkdir(parents=True, exist_ok=True)
 
     with tarfile.open(archive_path, mode="r:xz") as tar:
-        tar.extractall(path=extract_to)
+        extract_tar_safely(tar, extract_to)
 
 def darwin_trust_app(app_path: Path):
         subprocess.run([
