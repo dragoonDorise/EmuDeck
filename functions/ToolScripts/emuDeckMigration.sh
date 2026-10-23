@@ -69,7 +69,7 @@ Migration_updatePaths(){
 	#Dolphin
 	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/org.DolphinEmu.dolphin-emu/config/dolphin-emu/Dolphin.ini"
 	#Duckstation
-	sed -i "s|${origin}|${destination}|g" "$DuckStation_configFileNew"
+	sed -i "s|${origin}|${destination}|g" "$DuckStation_configFile"
 	#Eden
 	sed -i "s|${origin}|${destination}|g" "$Eden_configFile"
 	#ESDE
@@ -93,7 +93,7 @@ Migration_updatePaths(){
 	#RMG
 	sed -i "s|${origin}|${destination}|g" "$RMG_configFile"
 	#RPCS3
-	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/${RPCS3_emuPath}/config/rpcs3/vfs.yml"
+	sed -i "s|${origin}|${destination}|g" "$RPCS3_VFSConf"
 	#Ryujinx
 	sed -i "s|${origin}|${destination}|g" "$HOME/.config/Ryujinx/Config.json"
 	#ShadPS4
@@ -104,8 +104,8 @@ Migration_updatePaths(){
 	sed -i "s|${origin}|${destination}|g" "$Vita3K_configFile"
 	#Xemu
 	sed -i "s|${origin}|${destination}|g" "$HOME/.var/app/app.xemu.xemu/data/xemu/xemu/xemu.toml"
-	#Xenia
-	sed -i "s|${origin}|${destination}|g" "$Xenia_XeniaSettings"
+	#Xenia (Xenia_XeniaSettings still points to the old roms folder)
+	sed -i "s|${origin}|${destination}|g" "${destination}/roms/xbox360/xenia-canary.config.toml"
 	#Yuzu
 	sed -i "s|${origin}|${destination}|g" "$HOME/.config/yuzu/qt-config.ini"
 	#SRM
@@ -116,7 +116,7 @@ Migration_updatePaths(){
 	#Saves location reload
 	for func in $(compgen -A 'function' | grep '\_IsInstalled$')
 		do echo  "$func"
-		if $func; then
+		if [ "$($func)" == "true" ]; then
 			setup_func="${func%_IsInstalled}_setupSaves"
 			echo $setup_func
 			if type "$setup_func" >/dev/null 2>&1; then
