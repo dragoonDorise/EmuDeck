@@ -364,7 +364,7 @@ if emu.lower() == "retroarch":
          ("SELECT + R2", "Fast Forward"),
    ])
    
-if emu.lower() == "dolphin":
+if emu.lower() in ("dolphin", "dolphin-emu"):
    show_hotkeys("Dolphin", [                                                                                                               
       ("SELECT + START", "Exit emulation"),
       ("SELECT + L1", "Load save state"),
