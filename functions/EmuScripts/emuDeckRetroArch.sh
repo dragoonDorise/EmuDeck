@@ -1402,37 +1402,37 @@ RetroArch_n64_bezelOff(){
 }
 
 RetroArch_atari800_setConfig(){
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_atari800_bezelOn(){
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'aspect_ratio_index' '"0"'
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/atari800.cfg\""
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_hide_in_menu' '"true"'
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_scale_landscape' '"1.175000"'
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_aspect_adjust_landscape' '"0.000000"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/atari800.cfg\""
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_overlay_hide_in_menu' '"true"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_overlay_scale_landscape' '"1.175000"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_overlay_aspect_adjust_landscape' '"0.000000"'
 }
 
 RetroArch_atari800_bezelOff(){
-	RetroArch_setOverride 'atari800.cfg' 'Stella'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'atari800.cfg' 'Atari800'  'input_overlay_enable' '"false"'
 }
 
 RetroArch_atari5200_setConfig(){
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_player1_analog_dpad_mode' '"1"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_player1_analog_dpad_mode' '"1"'
 }
 
 RetroArch_atari5200_bezelOn(){
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'aspect_ratio_index' '"0"'
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/atari5200.cfg\""
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_enable' '"true"'
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_hide_in_menu' '"true"'
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_scale_landscape' '"1.175000"'
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_aspect_adjust_landscape' '"0.000000"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'aspect_ratio_index' '"0"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_overlay' "\"$RetroArch_overlaysPath/pegasus/atari5200.cfg\""
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_overlay_enable' '"true"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_overlay_hide_in_menu' '"true"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_overlay_scale_landscape' '"1.175000"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_overlay_aspect_adjust_landscape' '"0.000000"'
 }
 
 RetroArch_atari5200_bezelOff(){
-	RetroArch_setOverride 'atari5200.cfg' 'Stella'  'input_overlay_enable' '"false"'
+	RetroArch_setOverride 'atari5200.cfg' 'Atari800'  'input_overlay_enable' '"false"'
 }
 
 RetroArch_dreamcast_bezelOn(){
