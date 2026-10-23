@@ -390,11 +390,11 @@ YuzuEA_uninstall() {
 Yuzu_setResolution(){
 
 	case $yuzuResolution in
-		"720P") multiplier=2; docked="false";;
-		"1080P") multiplier=2; docked="true";;
-		"1440P") multiplier=3; docked="false";;
-		"4K") multiplier=3; docked="true";;
-		*) multiplier=2; docked="false";;
+		"720P") multiplier=2; docked=0;;
+		"1080P") multiplier=2; docked=1;;
+		"1440P") multiplier=3; docked=0;;
+		"4K") multiplier=3; docked=1;;
+		*) multiplier=2; docked=0;;
 	esac
   
     
@@ -403,12 +403,19 @@ Yuzu_setResolution(){
       getScreenInfoOnlyTV	
       if [ "${screenWidth:-0}" -lt 3840 ]; then 
         multiplier=2;
-        docked="true";
+        docked=1;
       fi
     fi
 
-	RetroArch_setConfigOverride "resolution_setup" $multiplier "$Yuzu_configFile"
-	RetroArch_setConfigOverride "use_docked_mode" $docked "$Yuzu_configFile"
+	sed -i \
+		-e "/^\[Renderer\]$/,/^\[/ s/^resolution_setup=.*/resolution_setup=$multiplier/" \
+		-e "/^\[Renderer\]$/,/^\[/ s/^resolution_setup\\\\default=.*/resolution_setup\\\\default=false/" \
+		"$Yuzu_configFile"
+
+	sed -i \
+		-e "/^\[System\]$/,/^\[/ s/^use_docked_mode=.*/use_docked_mode=$docked/" \
+		-e "/^\[System\]$/,/^\[/ s/^use_docked_mode\\\\default=.*/use_docked_mode\\\\default=false/" \
+		"$Yuzu_configFile"
 }
 
 Yuzu_flushEmulatorLauncher(){
