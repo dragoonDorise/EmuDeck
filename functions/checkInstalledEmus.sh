@@ -3,73 +3,73 @@
 checkInstalledEmus(){
 
 	#Add Emulators that are supposed to be installed
-	if $doInstallRA; then
+	if [ "$doInstallRA" == "true" ]; then
 		emuList+=("RetroArch")
 	fi
-	if $doInstallDolphin; then
+	if [ "$doInstallDolphin" == "true" ]; then
 		emuList+=("Dolphin")
 	fi
-	if $doInstallRPCS3; then
+	if [ "$doInstallRPCS3" == "true" ]; then
 		emuList+=("RPCS3")
 	fi
-	if $doInstallDuck; then
+	if [ "$doInstallDuck" == "true" ]; then
 		emuList+=("DuckStation")
 	fi
-	if $doInstallCemu; then
+	if [ "$doInstallCemu" == "true" ]; then
 		emuList+=("Cemu")
 	fi
-	if $doInstallRyujinx; then
+	if [ "$doInstallRyujinx" == "true" ]; then
 		emuList+=("Ryujinx")
 	fi
-	if $doInstallPrimeHack; then
+	if [ "$doInstallPrimeHack" == "true" ]; then
 		emuList+=("Primehack")
 	fi
-	if $doInstallPPSSPP; then
+	if [ "$doInstallPPSSPP" == "true" ]; then
 		emuList+=("PPSSPP")
 	fi
-	if $doInstallXemu; then
+	if [ "$doInstallXemu" == "true" ]; then
 		emuList+=("Xemu")
 	fi
-	if $doInstallPCSX2QT; then
+	if [ "$doInstallPCSX2QT" == "true" ]; then
 		emuList+=("PCSX2QT")
 	fi
-	if $doInstallMAME; then
+	if [ "$doInstallMAME" == "true" ]; then
 		emuList+=("MAME")
 	fi
-	if $doInstallAzahar; then
+	if [ "$doInstallAzahar" == "true" ]; then
 		emuList+=("Azahar")
 	fi
-	if $doInstallRMG; then
+	if [ "$doInstallRMG" == "true" ]; then
 		emuList+=("RMG")
 	fi
-	if $doInstallScummVM; then
+	if [ "$doInstallScummVM" == "true" ]; then
 		emuList+=("ScummVM")
 	fi
-	if $doInstallVita3K; then
+	if [ "$doInstallVita3K" == "true" ]; then
 		emuList+=("Vita3K")
 	fi
-	if $doInstallMGBA; then
+	if [ "$doInstallMGBA" == "true" ]; then
 		emuList+=("mGBA")
 	fi
-	if $doInstallFlycast; then
+	if [ "$doInstallFlycast" == "true" ]; then
 		emuList+=("Flycast")
 	fi
-	if $doInstallmelonDS; then
+	if [ "$doInstallmelonDS" == "true" ]; then
 		emuList+=("melonDS")
 	fi
-	if $doInstallBigPEmu; then
+	if [ "$doInstallBigPEmu" == "true" ]; then
 		emuList+=("BigPEmu")
 	fi
-	if $doInstallSupermodel; then
+	if [ "$doInstallSupermodel" == "true" ]; then
 		emuList+=("Supermodel")
 	fi
-	if $doInstallXenia; then
+	if [ "$doInstallXenia" == "true" ]; then
 		emuList+=("Xenia")
 	fi
-	if $doInstallModel2; then
+	if [ "$doInstallModel2" == "true" ]; then
 		emuList+=("Model2")
 	fi
-	if $doInstallShadPS4; then
+	if [ "$doInstallShadPS4" == "true" ]; then
 		emuList+=("ShadPS4")
 	fi
 
@@ -80,7 +80,8 @@ checkInstalledEmus(){
 
 	for emu in "${emuList[@]}"
 	do
-		if ! ${emu}_IsInstalled; then
+		# _IsInstalled prints true/false and always returns 0
+		if [ "$(${emu}_IsInstalled)" != "true" ]; then
 			errorOnInstall=true
 			errosOnInstallDetailed+="${emu}\n"
 		fi
