@@ -343,50 +343,102 @@ Ryujinx_set_gamepad_name() {
     return 0
   fi
   
-  if [ "$controllerLayout" == "bayx" ] || [ "$controllerLayout" == "baxy" ] ; then
-    Ryujinx_setBAYXstyle
-  else
-    Ryujinx_setABXYstyle
-  fi
-  
-  if [ "$(Ryujinx_gamepadCount)" -gt 1 ] 2>/dev/null; then
-      export SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff"
-      export SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff"
-  fi
-  
-  local pads tmp
+  local pads="" tmp nativePads gamepadCount useNative=false
+  gamepadCount="$(Ryujinx_gamepadCount)"
 
-  pads="$(Ryujinx_getOrderedGamepads)" || { echo "No controller detected, keeping default input config" >&2; return 1; }
+  if [ "$gamepadCount" -gt 1 ] 2>/dev/null; then
+      useNative=true
+      pads="$(SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff" \
+          SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff" \
+          Ryujinx_getOrderedGamepads)" || return 1
+  elif [ "$gamepadCount" = "1" ]; then
+      # Steam Input may expose a sensorless virtual controller even when its
+      # native SDL device has motion. Probe in a subshell so a failed or
+      # ambiguous probe leaves the original Steam environment intact.
+      nativePads="$(SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff" \
+          SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff" \
+          Ryujinx_getOrderedGamepads 2>/dev/null)" || nativePads=""
+      if echo "$nativePads" | jq -e 'length == 1 and .[0].has_motion == true' >/dev/null 2>&1; then
+          useNative=true
+          pads="$nativePads"
+      fi
+  fi
+
+  if [ -z "$pads" ]; then
+      pads="$(Ryujinx_getOrderedGamepads)" || { echo "No controller detected, keeping default input config" >&2; return 1; }
+  fi
   { [ -n "$pads" ] && [ "$pads" != "[]" ]; } || { echo "Could not read gamepads" >&2; return 1; }
 
   echo "Detected gamepads: $(echo "$pads" | jq -c '[.[] | {player, name}]')"
 
-  tmp="$(mktemp)"
-  if jq --argjson pads "$pads" '
+  tmp="$(mktemp)" || return 1
+  if jq --argjson pads "$pads" --arg layout "$controllerLayout" '
       ([.input_config[]? | select((.backend // "") | startswith("Gamepad"))][0] // .input_config[0]) as $tmpl
       | if $tmpl == null then error("no gamepad entry in input_config") else . end
-      | .input_config = [ $pads[] | $tmpl + {
-            player_index: .player,
-            id: .id,
-            name: .name,
+      | .input_config = [ $pads[] as $pad | $tmpl + {
+            player_index: $pad.player,
+            id: $pad.id,
+            name: $pad.name,
             backend: (if (($tmpl.backend // "") | startswith("Gamepad")) then $tmpl.backend else "GamepadSDL3" end)
-          } ]' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
-    cat "$tmp" > "$Ryujinx_configFile"
+          }
+          | if (($pad.name // "") | ascii_downcase | contains("steam deck")) then
+              .motion = {"slot":0,"alt_slot":0,"mirror_input":false,"dsu_server_host":"127.0.0.1","dsu_server_port":26760,"motion_backend":"CemuHook","sensitivity":100,"gyro_deadzone":1,"enable_motion":true}
+            elif $pad.has_motion == true then
+              .motion = {"motion_backend":"GamepadDriver", "sensitivity":($tmpl.motion.sensitivity // 100),
+                         "gyro_deadzone":($tmpl.motion.gyro_deadzone // 1), "enable_motion":($tmpl.motion.enable_motion != false)}
+            else . end
+          ]
+      | (if $layout == "bayx" or $layout == "baxy" then
+             {button_a:["A","B"], button_b:["B","A"], button_x:["X","Y"], button_y:["Y","X"]}
+         else {button_a:["B","A"], button_b:["A","B"], button_x:["Y","X"], button_y:["X","Y"]} end) as $swaps
+      | .input_config[].right_joycon |= with_entries(
+          .key as $key | if $swaps[$key] != null and .value == $swaps[$key][0]
+                        then .value = $swaps[$key][1] else . end)
+      # Newer Ryujinx versions store device/profile routing separately. AutoMap
+      # owns one device per player, so stale routes or linked manual profiles
+      # must not override the generated devices and controllerLayout above.
+      # Keep older config schemas unchanged; manual profiles remain on disk.
+      | if has("player_input_assignments") then
+          .input_config |= map(.enable_dynamic_gamepad_swap = false)
+          | .player_input_assignments = [ .input_config[] | {
+              player_index: .player_index,
+              enable_dynamic_input_swap: false,
+              devices: [{type:"Controller", id:.id, profile_name:("EmuDeck AutoMap - " + .player_index)}]
+            } ]
+        else . end' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
+    # The current Ryujinx settings UI loads the bound profile on opening.
+    # A null binding means its built-in Nintendo defaults, not input_config.
+    # Generate ordinary host-local profiles from precisely the AutoMap output
+    # so opening settings to disable a player preserves layout and motion.
+    if jq -e 'has("player_input_assignments")' "$tmp" >/dev/null; then
+      local profileDir player profileTmp
+      profileDir="$(dirname "$Ryujinx_configFile")/profiles/controller"
+      mkdir -p "$profileDir" || { rm -f "$tmp"; return 1; }
+      while IFS= read -r player; do
+        case "$player" in Player[1-4]) ;; *) rm -f "$tmp"; return 1 ;; esac
+        profileTmp="$(mktemp "$profileDir/.automap.XXXXXX")" || { rm -f "$tmp"; return 1; }
+        if ! jq --arg player "$player" '.input_config[] | select(.player_index == $player)' "$tmp" > "$profileTmp" \
+            || ! mv -T "$profileTmp" "$profileDir/EmuDeck AutoMap - $player.json"; then
+          rm -f "$profileTmp" "$tmp"
+          return 1
+        fi
+      done < <(jq -r '.input_config[].player_index' "$tmp")
+    fi
+    if ! cat "$tmp" > "$Ryujinx_configFile"; then
+      rm -f "$tmp"
+      return 1
+    fi
     rm -f "$tmp"
+    if [ "$useNative" = true ]; then
+      export SDL_GAMECONTROLLER_IGNORE_DEVICES="0x28de/0x11ff"
+      export SDL_JOYSTICK_IGNORE_DEVICES="0x28de/0x11ff"
+    fi
   else
     rm -f "$tmp"
     echo "No gamepad entry to update in $Ryujinx_configFile" >&2
     return 1
   fi
 
-  if [ "$(echo "$pads" | jq 'length')" = "1" ] \
-     && echo "$pads" | jq -e '(.[0].name // "") | ascii_downcase | contains("steam deck")' >/dev/null 2>&1; then
-    tmp="$(mktemp)"
-    if jq '.input_config[0].motion = {"slot":0,"alt_slot":0,"mirror_input":false,"dsu_server_host":"127.0.0.1","dsu_server_port":26760,"motion_backend":"CemuHook","sensitivity":100,"gyro_deadzone":1,"enable_motion":true}' "$Ryujinx_configFile" > "$tmp" && [ -s "$tmp" ]; then
-      cat "$tmp" > "$Ryujinx_configFile"
-    fi
-    rm -f "$tmp"
-  fi
 }
 
 Ryujinx_migrateToSDL3() {
