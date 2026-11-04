@@ -1604,8 +1604,10 @@ def popup_show_commands(title: str, commands: list) -> bool:
     dlg.setAttribute(QtCore.Qt.WA_TranslucentBackground)
     dlg.setStyleSheet("""
         QDialog { background: transparent; }
-            background: rgba(20, 20, 30, 0.92);
-            border-radius: 12px;
+        QWidget#overlay {
+            background-color: #221d2d;
+            border: 1px solid rgba(255, 255, 255, 27);
+            border-radius: 8px;
         }
     """)
 
