@@ -500,6 +500,11 @@ if system == "linux":
       cmd = f"{lsfg} {cmd}"
 
 
+automap_keys = {"ryujinx": "yuzu", "eden": "yuzu", "dolphin-emu": "dolphin", "cemu": "cemu", "cemu-native": "cemu"}
+automap_key = automap_keys.get(emu.lower())
+if not raw and automap_key and automap_enabled(automap_key):
+    popup_show_info("EmuDeck", "ATTENTION: AutoMap is enabled.\nYou won't be able to change controller settings in this emulator, other settings are not locked.\nIf you want to customize your controller settings please turn AutoMap off in the EmuDeck app")
+
 emulator_launch_fixes(emu)
 
 subprocess.run(cmd, check=True, shell=shell_status)
