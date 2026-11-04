@@ -1,0 +1,260 @@
+[
+  {
+    "id": "n64",
+    "status": "true",
+    "title": "Nintendo 64",
+    "games": [
+      {
+        "id": "soh",
+        "id_dev": "harbourmasters",
+        "developer_name": "HarbourMasters",
+        "platform": "n64",
+        "status": "true",
+        "name": "Ship of Harkinian",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "PC port of The Legend of Zelda: Ocarina of Time with HD rendering, widescreen, mods and lots of enhancements. Needs your own Ocarina of Time ROM on first launch.",
+        "tags": [
+          "Adventure",
+          "Zelda"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/9ef0a20133a6bfcd04149ecce4a2f87d.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/93b3a75ccde76074058e0e9b82153469.jpg"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/968573f326b1bee4daa3198b5d6f283b.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      },
+      {
+        "id": "twoship",
+        "id_dev": "harbourmasters",
+        "developer_name": "HarbourMasters",
+        "platform": "n64",
+        "status": "true",
+        "name": "2 Ship 2 Harkinian",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "PC port of The Legend of Zelda: Majora's Mask built on the Ship of Harkinian engine. Needs your own Majora's Mask ROM on first launch.",
+        "tags": [
+          "Adventure",
+          "Zelda"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/a984a8c67cf09a4f6ed520bb0977285f.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/dd4c915af15ab30a0d8fd8b74f11c934.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/adc4c481eef387743cead82f2abd4b40.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      },
+      {
+        "id": "zelda64recomp",
+        "id_dev": "zelda64recomp",
+        "developer_name": "Zelda64Recomp",
+        "platform": "n64",
+        "status": "true",
+        "name": "Zelda 64: Recompiled",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "Static recompilation of Majora's Mask with high framerates, widescreen and modern controls. Needs your own Majora's Mask ROM.",
+        "tags": [
+          "Adventure",
+          "Zelda"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/f85f28fe4bd3cc4d3202eda86c1c6c50.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/8b693bb43ad361e037d5e609ab74bf11.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/481e2d45b7d204ed5896fd943d2dd45c.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      },
+      {
+        "id": "starship",
+        "id_dev": "harbourmasters",
+        "developer_name": "HarbourMasters",
+        "platform": "n64",
+        "status": "true",
+        "name": "Starship",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "PC port of Star Fox 64 with widescreen, high framerates and enhancements. Needs your own Star Fox 64 ROM on first launch.",
+        "tags": [
+          "Shooter"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/de9dfbf7f288543e6f27d601f8cf60b3.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/326a5fa1089ba1e15e35ee7dec7e086e.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/7b08cd35138e79cee11c72612fc08a23.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      },
+      {
+        "id": "spaghettikart",
+        "id_dev": "harbourmasters",
+        "developer_name": "HarbourMasters",
+        "platform": "n64",
+        "status": "true",
+        "name": "SpaghettiKart",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "PC port of Mario Kart 64 with widescreen, custom tracks and enhancements. Needs your own Mario Kart 64 ROM on first launch.",
+        "tags": [
+          "Racing"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/9989d42eac808d4c46a7cb0aed4e72a9.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/54b9611f3495a02a820929d7be47157a.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/62cd07208f3c0661fcfb2403631b00a6.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      },
+      {
+        "id": "ghostship",
+        "id_dev": "harbourmasters",
+        "developer_name": "HarbourMasters",
+        "platform": "n64",
+        "status": "true",
+        "name": "Ghostship",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "PC port of Super Mario 64 from HarbourMasters with mods and enhancements. Needs your own Super Mario 64 ROM on first launch.",
+        "tags": [
+          "Platformer"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/f7ae7a4ec6d7f65e396975000e2b5f1a.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/54ae0055676971be9a8d562789bb6e22.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/45b3559e235ec628dbc5fdbc7457e79d.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      },
+      {
+        "id": "sm64coopdx",
+        "id_dev": "coop-deluxe-team",
+        "developer_name": "Coop Deluxe Team",
+        "platform": "n64",
+        "status": "true",
+        "name": "Super Mario 64 Coop Deluxe",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "Online co-op port of Super Mario 64 with mods, custom characters and up to 16 players. Needs your own Super Mario 64 ROM.",
+        "tags": [
+          "Platformer",
+          "Multiplayer"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/c38eb694dcfbb2ac233195b96f497c3a.png"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/4f19f3bf3251d7a458cd61e15c943c3b.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/994378d6abd5df3f0cbf3e3bd31d003d.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      }
+    ]
+  },
+  {
+    "id": "ps2",
+    "status": "true",
+    "title": "PlayStation 2",
+    "games": [
+      {
+        "id": "opengoal",
+        "id_dev": "opengoal",
+        "developer_name": "OpenGOAL",
+        "platform": "ps2",
+        "status": "true",
+        "name": "Jak and Daxter (OpenGOAL)",
+        "price": 0,
+        "currency": "USD",
+        "file": "",
+        "description": "Native PC port of Jak and Daxter: The Precursor Legacy through the OpenGOAL launcher. Needs your own game ISO.",
+        "tags": [
+          "Platformer"
+        ],
+        "artwork": {
+          "grid": [
+            "https://cdn2.steamgriddb.com/grid/ab7ea709f132761fb942edfdaae41d9f.jpg"
+          ],
+          "hero": [
+            "https://cdn2.steamgriddb.com/hero/11aa2fb7a9ca266b6705bd2a2c41818f.png"
+          ],
+          "logo": [
+            "https://cdn2.steamgriddb.com/logo/1479d215a677db77ef44e290edbcb702.png"
+          ]
+        },
+        "rating": {
+          "avg": null,
+          "total": 0
+        }
+      }
+    ]
+  }
+]

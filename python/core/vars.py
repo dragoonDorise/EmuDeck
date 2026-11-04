@@ -46,6 +46,8 @@ if system.startswith("win"):
     esde_folder = emudeck_folder / "EmulationStation-DE"
     esde_settings_folder = esde_folder / "ES-DE"
 
+ports_folder = emudeck_folder / "Ports"
+
 json_settings_path = Path(emudeck_folder) / "settings.json"
 settings_sh_path = Path(emudeck_folder) / "settings.sh"
 json_to_bash_vars_path = emudeck_backend.parent / "functions" / "jsonToBashVars.sh"
