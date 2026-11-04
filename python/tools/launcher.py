@@ -410,7 +410,8 @@ if system == "darwin":
 
 cloudsync_remote = None
 cloudsync_monitor = None
-if cloud_sync_provider and getattr(settings, "netplay", False) == False:
+cloud_sync_on = bool(cloud_sync_provider) and str(cloud_sync_status).lower() == "true"
+if cloud_sync_on and getattr(settings, "netplay", False) == False:
     cloudsync_remote = load_remote_cloud_sync()
 
     if cloudsync_remote:
@@ -466,7 +467,7 @@ if system == "linux" and emu.lower() == "xenia":
         ]
     )
 
-    if cloud_sync_provider:
+    if cloud_sync_on:
         cloud_sync_upload_emu_all()
 
     shutil.rmtree(Path(saves_path) / ".gaming", ignore_errors=True)
