@@ -731,14 +731,7 @@ def install_emu(name, url, type_, destination):
 
     try:
         if "http" in url:
-            headers = {
-                "User-Agent": (
-                    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                    "AppleWebKit/537.36 (KHTML, like Gecko) "
-                    "Chrome/114.0.0.0 Safari/537.36"
-                ),
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-            }
+            headers = {"User-Agent": "EmuDeck"}
             response = requests.get(url, stream=True, headers=headers, timeout=30)
             response.raise_for_status()
             with open(archive_path, "wb") as f:
