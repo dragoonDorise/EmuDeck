@@ -283,7 +283,7 @@ Dolphin_setGamepads(){
 	local configDir="$HOME/.var/app/${Dolphin_emuPath}/config/dolphin-emu"
 	[ -d "$configDir" ] || return 0
 	flatpak run --command=sh --filesystem=home "${Dolphin_emuPath}" -c '
-		for lib in /usr/lib/x86_64-linux-gnu/libSDL3.so.0 /app/lib/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0; do
+		for lib in /usr/lib/x86_64-linux-gnu/libSDL3.so.0 /usr/lib/aarch64-linux-gnu/libSDL3.so.0 /app/lib/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0; do
 			[ -f "$lib" ] || continue
 			SDL_LIB="$lib" DOLPHIN_CONFIG_DIR="$XDG_CONFIG_HOME/dolphin-emu" \
 				python3 "'"${emudeckBackend}"'/tools/gamepads/dolphinGamepads.py" --write
