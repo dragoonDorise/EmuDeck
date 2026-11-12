@@ -15,7 +15,7 @@ def ryujinx_get_url():
     elif system.startswith("win"):
         exename = "win_x64.zip"
     elif system == "darwin":
-        exename = "macos_universal.app.tar.gz"
+        return "https://codeberg.org/dragoonDorise/test/releases/download/test/Ryujinx.app.zip"
     else:
         raise ValueError(f"Unsupported system: {system}")
 
@@ -56,7 +56,7 @@ def ryujinx_install():
             target = destination
 
         elif system == "darwin":
-            return install_emu("ryujinx", repo, "tar.gz", emus_folder)
+            return install_emu("ryujinx", repo, "zip", emus_folder)
 
         else:
             raise ValueError(f"Unsupported system: {system}")
