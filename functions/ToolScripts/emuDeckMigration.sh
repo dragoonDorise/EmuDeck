@@ -28,13 +28,13 @@ Migration_init(){
 			exit
 		fi
 	fi
-	Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation/"
+	Migration_move "$emulationPath" "$destination" "$neededSpaceInHuman" && Migration_updatePaths "$emulationPath" "$destination/Emulation"
 
 }
 
 #We rsync, only when rsync is completed we delete the old folder.
 Migration_move(){
-	origin=$1
+	origin="${1%/}"
 	destination=$2
 	size=$3
 	rsync -av --progress "$origin" "$destination" |
