@@ -118,6 +118,11 @@ checkSegaCDBios(){
 
 	for entry in "$biosPath/"*
 	do
+
+		if [ "$filename" != "bios_CD_E.bin" ] && [ "$filename" != "bios_CD_J.bin" ] && [ "$filename" != "bios_CD_U.bin" ]; then 
+			continue
+		fi
+
 		if [ -f "$entry" ]; then
 			md5=($(md5sum "$entry"))
 			if [[ "$SEGACDBIOS" != true ]]; then
