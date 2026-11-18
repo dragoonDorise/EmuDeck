@@ -3,21 +3,16 @@
   "configTitle": "Sega Saturn - RetroArch Beetle",
   "steamDirectory": "${steamdirglobal}",
   "romDirectory": "${romsdirglobal}",
-  "executableArgs": "-L /mednafen_saturn_libretro.so \"${filePath}\"",
+  "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_saturn_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
   "executableModifier": "\"${exePath}\"",
   "startInDirectory": "",
   "titleModifier": "${fuzzyTitle}",
-  "imageProviders": [
-    "sgdb",
-    "steamCDN"
-  ],
+  "imageProviders": ["sgdb", "steamCDN"],
   "onlineImageQueries": "${${fuzzyTitle}}",
   "imagePool": "${fuzzyTitle}",
   "disabled": false,
   "userAccounts": {
-    "specifiedAccounts": [
-      "Global"
-    ]
+    "specifiedAccounts": ["Global"]
   },
   "executable": {
     "path": "${retroarchpath}",
@@ -45,9 +40,7 @@
       "stylesHero": [],
       "stylesLogo": [],
       "stylesIcon": [],
-      "imageMotionTypes": [
-        "static"
-      ]
+      "imageMotionTypes": ["static"]
     }
   },
   "parserId": "166502992463815988",
@@ -81,7 +74,5 @@
   },
   "steamInputEnabled": "1",
   "drmProtect": false,
-  "steamCategories": [
-    "Sega Saturn"
-  ]
+  "steamCategories": ["Sega Saturn"]
 }
