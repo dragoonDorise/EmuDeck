@@ -66,6 +66,7 @@ def eden_setup_storage():
     set_msg("Setting up eden storage")
     for folder in ("dump", "load", "sdmc", "nand", "screenshots", "tas"):
         Path(f"{storage_path}/eden/{folder}").mkdir(parents=True, exist_ok=True)
+    Path(f"{storage_path}/switch/patchesAndDlc").mkdir(parents=True, exist_ok=True)
     return True
 
 
@@ -190,6 +191,8 @@ def eden_set_emulation_folder():
                 ("nand_directory", f"{storage}/nand"),
                 ("sdmc_directory", f"{storage}/sdmc"),
                 ("tas_directory", f"{storage}/tas"),
+                # Updates and DLC are shared by every Switch emulator
+                ("Paths\\external_content_dirs\\1\\path", f"{storage_path}/switch/patchesAndDlc"),
             ):
                 set_config(key, value, config_file)
         origin_keys=f"{home}/.local/share/eden/keys"

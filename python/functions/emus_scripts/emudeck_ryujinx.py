@@ -192,6 +192,8 @@ def ryujinx_setup_saves():
 
 def ryujinx_set_emulation_folder() -> bool:
     sed("/run/media/mmcblk0p1/Emulation/roms", str(roms_path), ryujinx_config_file)
+    # autoload_dirs: updates and DLC shared by every Switch emulator
+    sed("/run/media/mmcblk0p1/Emulation/storage", str(storage_path), ryujinx_config_file)
 
     return True
 
@@ -514,7 +516,8 @@ def ryujinx_add_to_steam():
 def ryujinx_setup_storage():
     if system != "linux":
         return False
-    Path(f"{storage_path}/ryujinx/patchesAndDlc").mkdir(parents=True, exist_ok=True)
+    # Must exist before Ryujinx starts, or it drops the folder from autoload_dirs
+    Path(f"{storage_path}/switch/patchesAndDlc").mkdir(parents=True, exist_ok=True)
     origin = home / ".config" / "Ryujinx" / "games"
     target = Path(storage_path) / "ryujinx" / "games"
     target.mkdir(parents=True, exist_ok=True)
