@@ -122,6 +122,7 @@ Eden_setEmulationFolder() {
     nandDirOpt='nand_directory='
     sdmcDirOpt='sdmc_directory='
     tasDirOpt='tas_directory='
+    externalContentDirOpt='Paths\\external_content_dirs\\1\\path='
     newScreenshotDirOpt='Screenshots\\screenshot_path='"${storagePath}/eden/screenshots"
     newGameDirOpt='Paths\\gamedirs\\4\\path='"${romsPath}/switch"
     newDumpDirOpt='dump_directory='"${storagePath}/eden/dump"
@@ -129,6 +130,8 @@ Eden_setEmulationFolder() {
     newNandDirOpt='nand_directory='"${storagePath}/eden/nand"
     newSdmcDirOpt='sdmc_directory='"${storagePath}/eden/sdmc"
     newTasDirOpt='tas_directory='"${storagePath}/eden/tas"
+    # Updates and DLC are shared by every Switch emulator, so they live outside storage/eden
+    newExternalContentDirOpt='Paths\\external_content_dirs\\1\\path='"${storagePath}/switch/patchesAndDlc"
 
     sed -i "/${screenshotDirOpt}/c\\${newScreenshotDirOpt}" "$Eden_configFile"
     sed -i "/${gameDirOpt}/c\\${newGameDirOpt}" "$Eden_configFile"
@@ -137,6 +140,7 @@ Eden_setEmulationFolder() {
     sed -i "/${nandDirOpt}/c\\${newNandDirOpt}" "$Eden_configFile"
     sed -i "/${sdmcDirOpt}/c\\${newSdmcDirOpt}" "$Eden_configFile"
     sed -i "/${tasDirOpt}/c\\${newTasDirOpt}" "$Eden_configFile"
+    sed -i "/${externalContentDirOpt}/c\\${newExternalContentDirOpt}" "$Eden_configFile"
 
     #Setup Bios symlinks
     unlink "${biosPath}/eden/keys" 2>/dev/null
@@ -209,6 +213,7 @@ Eden_setupStorage() {
     mkdir -p "${storagePath}/eden/nand"
     mkdir -p "${storagePath}/eden/screenshots"
     mkdir -p "${storagePath}/eden/tas"
+    mkdir -p "${storagePath}/switch/patchesAndDlc"
     #Symlink to saves for CloudSync
     ln -sn "${storagePath}/eden/nand/system/save/8000000000000010/su/avators/" "${savesPath}/eden/profiles"
 }

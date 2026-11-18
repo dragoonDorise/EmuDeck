@@ -77,7 +77,7 @@
     "sort_ascending": false
   },
   "game_dirs": ["/run/media/mmcblk0p1/Emulation/roms/switch"],
-  "autoload_dirs": [],
+  "autoload_dirs": ["/run/media/mmcblk0p1/Emulation/storage/switch/patchesAndDlc"],
   "shown_file_types": {
     "nsp": true,
     "pfs0": true,

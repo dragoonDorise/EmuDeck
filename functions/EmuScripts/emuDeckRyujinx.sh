@@ -110,6 +110,8 @@ Ryujinx_setEmulationFolder(){
     unlink "$HOME/.config/Ryujinx/system"
     ln -sn "$HOME/.config/Ryujinx/system" "${biosPath}/ryujinx/keys"
     sed -i "s|/run/media/mmcblk0p1/Emulation/roms|${romsPath}|g" "$Ryujinx_configFile"
+    # autoload_dirs: updates and DLC shared by every Switch emulator
+    sed -i "s|/run/media/mmcblk0p1/Emulation/storage|${storagePath}|g" "$Ryujinx_configFile"
     
     # Portable
     # folder_parent="${biosPath}/ryujinx"
@@ -166,7 +168,8 @@ Ryujinx_setupStorage(){
     echo "Begin Ryujinx storage config"
 
     local origPath="$HOME/.config/"
-    mkdir -p "${storagePath}/ryujinx/patchesAndDlc"
+    # Must exist before Ryujinx starts, or it drops the folder from autoload_dirs
+    mkdir -p "${storagePath}/switch/patchesAndDlc"
     rsync -av "${origPath}/Ryujinx/games/" "${storagePath}/ryujinx/games/" && rm -rf "${origPath}Ryujinx/games"
     unlink "${origPath}/Ryujinx/games"
     ln -ns "${storagePath}/ryujinx/games/" "${origPath}/Ryujinx/games"
