@@ -1,0 +1,17 @@
+System name:
+megaduck
+
+Full system name:
+Creatronic Mega Duck
+
+Supported file extensions:
+.bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/sameduck_libretro.so %ROM%
+
+Platform (for scraping):
+megaduck
+
+Theme folder:
+megaduck

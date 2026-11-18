@@ -472,9 +472,6 @@ Cemu_init () {
 }
 
 # Update
-Cemu_update () {
-	Cemu_functions "update"
-}
 
 # Is Installed
 Cemu_IsInstalled () {

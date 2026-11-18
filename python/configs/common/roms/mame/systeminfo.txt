@@ -1,0 +1,28 @@
+System name:
+mame
+
+Full system name:
+Multiple Arcade Machine Emulator
+
+Supported file extensions:
+.cmd .CMD .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mame_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mame2010_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mame2003_plus_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mame2000_libretro.so %ROM%
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %ROMPATH%/mame %BASENAME%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbneo_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/flycast_libretro.so %ROM%
+%EMULATOR_FLYCAST% %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/kronos_libretro.so %ROM%
+
+Platform (for scraping):
+arcade
+
+Theme folder:
+mame

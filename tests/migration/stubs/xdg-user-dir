@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+echo "xdg-user-dir $*" >> "${EMUDECK_TEST_STUBLOG:-/dev/null}"
+if [ "$1" == "DESKTOP" ]; then
+	echo "$HOME/Desktop"
+else
+	echo "$HOME"
+fi

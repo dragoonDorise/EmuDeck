@@ -20,7 +20,11 @@ Model2_install(){
 
 	if safeDownload "Model2" "https://github.com/SeongGino/edc-repo0004/raw/master/m2emulator/1.1c.7z" "$romsPath/model2/Model2.7z" "$showProgress"; then
 
-		7za e -y "$romsPath/model2/Model2.7z" -o"$romsPath/model2"
+		if command -v 7za &> /dev/null; then
+			7za e -y "$romsPath/model2/Model2.7z" -o"$romsPath/model2"
+		else
+			bsdtar -xf "$romsPath/model2/Model2.7z" -C "$romsPath/model2"
+		fi
 		rm -f "$romsPath/model2/Model2.7z"
 
 	else
@@ -47,8 +51,12 @@ Model2_install(){
 Model2_init(){
 	setMSG "Initializing $Model2_emuName settings."
 	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --backup --suffix=.bak
+	if [ "$(getProductName)" == "frame" ]; then
+		sed -i 's/UseRawInput=1/UseRawInput=0/' "$Model2_configFile"
+	fi
 	#SRM_createParsers
 	Model2_flushEmulatorLauncher
+	addProtonLaunch
 	Model2_addSteamInputProfile
 	if [ -e "$ESDE_toolPath" ] || [ -f "${toolsPath}/$ESDE_downloadedToolName" ] || [ -f "${toolsPath}/$ESDE_oldtoolName.AppImage" ]; then
 		Model2_addESConfig
@@ -63,14 +71,6 @@ Model2_addESConfig(){
 	ESDE_junksettingsFile
 	ESDE_addCustomSystemsFile
 	ESDE_setEmulationFolder
-}
-
-#update
-Model2_update(){
-	setMSG "Updating $Model2_emuName settings."
-	rsync -avhp "$emudeckBackend/configs/model2/" "${romsPath}/model2" --ignore-existing
-	Model2_flushEmulatorLauncher
-	Model2_addSteamInputProfile
 }
 
 

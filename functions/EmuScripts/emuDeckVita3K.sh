@@ -16,8 +16,7 @@ Vita3K_install(){
 	statInstall "vita3k"
     echo "Begin Vita3K Install"
     local showProgress="$1"
-    local vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-x86_64.AppImage"
-    vita3kDownloadURL="https://github.com/Vita3K/Vita3K-builds/releases/download/4111/Vita3K-x86_64.AppImage"
+    local vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/latest/download/Vita3K-x86_64.AppImage"
     if [ $CPUarch == "arm" ]; then
         vita3kDownloadURL="https://github.com/Vita3K/Vita3K/releases/download/continuous/Vita3K-aarch64.AppImage"
     fi
@@ -47,19 +46,6 @@ Vita3K_init(){
     Vita3K_setupSaves #?
     Vita3K_finalize
 	#SRM_createParsers
-    Vita3K_flushEmulatorLauncher
-}
-
-#update
-Vita3K_update(){
-    echo "Begin Vita3K update"
-
-    configEmuAI "Vita3K" "config" "$HOME/.config/Vita3K" "$emudeckBackend/configs/Vita3K"
-
-    Vita3K_setEmulationFolder
-    Vita3K_setupStorage
-    Vita3K_setupSaves #?
-    Vita3K_finalize
     Vita3K_flushEmulatorLauncher
 }
 

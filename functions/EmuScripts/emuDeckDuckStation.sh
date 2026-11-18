@@ -51,17 +51,6 @@ DuckStation_init(){
 	DuckStation_flushEmulatorLauncher
 }
 
-#update
-DuckStation_update(){
-	setMSG "Updating $DuckStation_emuName settings."
-	configEmuAI "$DuckStation_emuName" "duckstation"  "$DuckStation_configPath" "$emudeckBackend/configs/duckstation"
-	DuckStation_setupStorage
-	DuckStation_setEmulationFolder
-	DuckStation_setupSaves
-	#DuckStation_addSteamInputProfile
-	DuckStation_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 DuckStation_setEmulationFolder(){
 	setMSG "Setting $DuckStation_emuName Emulation Folder"

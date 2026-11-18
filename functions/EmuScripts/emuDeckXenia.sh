@@ -106,13 +106,6 @@ function Xenia_getPatches() {
 }
 
 
-#update
-Xenia_update(){
-	echo "NYI"
-	Xenia_setupSaves
-	Xenia_flushEmulatorLauncher
-}
-
 #ConfigurePaths
 Xenia_setEmulationFolder(){
 	echo "NYI"

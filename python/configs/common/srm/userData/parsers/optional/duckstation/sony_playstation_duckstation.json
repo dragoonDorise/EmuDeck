@@ -1,0 +1,84 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Sony PlayStation - DuckStation",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/psx",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "executableArgs": "-batch -fullscreen -nogui \"${filePath}\"",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "imageProviders": [
+    "sgdb",
+    "steamCDN"
+  ],
+  "disabled": false,
+  "userAccounts": {
+    "specifiedAccounts": [
+      "Global"
+    ]
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.cue|.CUE|.img|.IMG|.chd|.CHD|.ecm|.ECM|.iso|.ISO|.m3u|.M3U|.mds|.MDS|.pbp|.PBP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "executable": {
+    "path": "EMULATIONPATH/tools/launchers/duckstation.EXT",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserId": "164785656699856393",
+  "version": 22,
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": null
+  },
+  "imageProviderAPIs": {
+    "sgdb": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": [
+        "static"
+      ],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "steamInputEnabled": "1",
+  "drmProtect": false,
+  "steamCategories": [
+    "Sony PlayStation"
+  ]
+}

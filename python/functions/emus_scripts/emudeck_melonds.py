@@ -1,0 +1,204 @@
+from core.all import *
+
+
+def melonds_install():
+    stat_install("melonds")
+    set_msg(f"Installing melonds")
+
+    if system == "linux":
+        name="melonDS"
+        type="flatpak"
+        look_for=""
+        destination = f"{emus_folder}"
+
+    if system.startswith("win"):
+        name="melonds"
+        type="zip"
+        look_for="windows"
+        destination = f"{emus_folder}/melonds"
+
+    if system == "darwin":
+        return False
+
+    try:
+        if system == "linux":
+         repo="net.kuribo64.melonDS"
+        else:
+         repo=get_latest_release_gh("melonDS-emu/melonDS",type,look_for,"aarch64")
+        install_emu(name, repo, type, destination)
+    except Exception as e:
+        print(f"Error during install: {e}")
+        return False
+
+
+def melonds_uninstall():
+    try:
+        srm_remove_emulator_parsers("melonds")
+        if system == "linux":
+            uninstall_emu("net.kuribo64.melonDS", "flatpak")
+        if system.startswith("win"):
+          uninstall_emu("melonds", "dir")
+        if system == "darwin":
+          uninstall_emu("melonds", "app")
+        return True
+    except Exception as e:
+        print(f"Error during uninstall: {e}")
+        return False
+
+def melonds_is_installed():
+    if system == "linux":
+        return is_flatpak_installed("net.kuribo64.melonDS")
+    if system.startswith("win"):
+      return (emus_folder / "melonds" / "melonds.exe").exists()
+    if system == "darwin":
+      return (emus_folder / "melonds.app").exists()
+
+
+def melonds_init():
+    set_msg(f"Setting up melonds")
+    flush_emulator_launchers("melonds")
+    if system == "linux":
+        destination=f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/"
+    if system.startswith("win"):
+        destination=f"{emus_folder}/melonds/"
+    if system == "darwin":
+        destination=f"{home}/Library/Application Support/melonDS"
+
+    copy_setting_dir(f"common/melonds/",destination)
+    copy_and_set_settings_file(f"common/melonds/melonDS.ini", destination)
+    copy_and_set_settings_file(f"common/melonds/melonDS.toml", destination)
+    
+    if system.startswith("win"):
+        sed("\\", "/", f"{destination}/melonDS.ini")
+        sed("\\", "/", f"{destination}/melonDS.toml")
+
+    melonds_set_emulation_folder()
+
+    # link_to_emulation_folder(bios,f"{bios_path}/melonds")
+
+    #melonds_setup_saves()
+    melonds_setup_storage()
+    melonds_set_resolution()
+    melonds_set_controller_style()
+    melonds_set_esde_emu()
+    srm_add_emulator_parsers("melonds")
+    melonds_add_steam_input_profile()
+
+def melonds_install_init():
+    melonds_install()
+    melonds_init()
+
+
+def melonds_setup_saves():
+    set_msg("Setting melonDS Saves Folder")
+    for folder in ("saves", "states"):
+        Path(f"{saves_path}/melonds/{folder}").mkdir(parents=True, exist_ok=True)
+    return True
+
+
+def melonds_set_resolution():
+    if system == "linux":
+        ini_file = f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.ini"
+        toml_file = f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS/melonDS.toml"
+        toml_separator = "="
+    elif system.startswith("win"):
+        ini_file = f"{emus_folder}/melonds/melonDS.ini"
+        toml_file = f"{emus_folder}/melonds/melonDS.toml"
+        toml_separator = " = "
+    else:
+        return False
+
+    resolution_map = {
+        "720P": (1024, 768, 4),
+        "1080P": (1536, 1152, 6),
+        "1440P": (2048, 1536, 8),
+        "4K": (2816, 2112, 11),
+    }
+
+    resolution = settings.resolutions.melonds
+    window_width, window_height, scale = resolution_map.get(resolution, resolution_map["720P"])
+
+    if resolution == "4K" and system == "linux" and get_screen_width() < 3840:
+        window_width, window_height, scale = resolution_map["1080P"]
+
+    if not Path(toml_file).is_file():
+        print(f"melonDS TOML was not found: {toml_file}")
+        return False
+
+    set_config("WindowWidth", window_width, ini_file)
+    set_config("WindowHeight", window_height, ini_file)
+    set_config("ScaleFactor", scale, toml_file, separator=toml_separator)
+
+    return True
+
+def melonds_set_abxy_style():
+    print("NYI")
+
+def melonds_set_bayx_style():
+    print("NYI")
+
+def melonds_set_controller_style():
+    if settings.controllerLayout == "bayx":
+        melonds_set_bayx_style()
+    else:
+        melonds_set_bayx_style()
+
+def melonds_add_to_steam():
+    set_msg("Adding melonDS to Steam")
+    launcher = tools_path / "launchers" / ("melonds.bat" if system.startswith("win") else "melonds.sh")
+    add_steam_shortcut("melonds", "melonDS", str(launcher), str(emus_folder), str(icons_path / "ico/melonDS.ico"))
+
+
+def melonds_set_esde_emu():
+    if not esde_is_installed():
+        return
+    esde_set_emu("melonDS (Standalone)", "nds")
+
+
+def melonds_add_steam_input_profile():
+    add_steam_input_custom_icons()
+    set_msg("Adding MelonDS Steam Input Profile.")
+    add_steam_input_templates()
+
+
+def melonds_setup_storage():
+    Path(f"{storage_path}/melonDS/cheats").mkdir(parents=True, exist_ok=True)
+    return True
+
+
+def melonds_set_emulation_folder() -> bool:
+    if system == "linux":
+        config_dir = Path(f"{home}/.var/app/net.kuribo64.melonDS/config/melonDS")
+    if system.startswith("win"):
+        config_dir = Path(f"{emus_folder}/melonds")
+    if system == "darwin":
+        config_dir = Path(f"{home}/Library/Application Support/melonDS")
+    ini_file = config_dir / "melonDS.ini"
+    toml_file = config_dir / "melonDS.toml"
+    if not ini_file.is_file() and not toml_file.is_file():
+        return False
+    bios = str(bios_path).replace("\\", "/")
+    roms = str(roms_path).replace("\\", "/")
+    saves = str(saves_path).replace("\\", "/")
+    storage = str(storage_path).replace("\\", "/")
+    if ini_file.is_file():
+        for key, value in {
+            "BIOS9Path": f"{bios}/bios9.bin", "BIOS7Path": f"{bios}/bios7.bin", "FirmwarePath": f"{bios}/firmware.bin",
+            "DSiBIOS9Path": f"{bios}/dsi_bios9.bin", "DSiBIOS7Path": f"{bios}/dsi_bios7.bin",
+            "DSiFirmwarePath": f"{bios}/dsi_firmware.bin", "DSiNANDPath": f"{bios}/dsi_nand.bin",
+            "LastROMFolder": f"{roms}/nds", "SaveFilePath": f"{saves}/melonds/saves", "SavestatePath": f"{saves}/melonds/states",
+        }.items():
+            set_config(key, value, ini_file)
+    if toml_file.is_file():
+        set_config("LastROMFolder", f'"{roms}/ds"', toml_file, " = ")
+        set_ini_value(toml_file, "Instance0", "SavestatePath", f'"{saves}/melonds/states"')
+        set_ini_value(toml_file, "Instance0", "SaveFilePath", f'"{saves}/melonds/saves"')
+        set_ini_value(toml_file, "Instance0", "CheatFilePath", f'"{storage}/melonDS/cheats"')
+        set_ini_value(toml_file, "DS", "FirmwarePath", f'"{bios}/firmware.bin"')
+        set_ini_value(toml_file, "DS", "BIOS7Path", f'"{bios}/bios7.bin"')
+        set_ini_value(toml_file, "DS", "BIOS9Path", f'"{bios}/bios9.bin"')
+        set_ini_value(toml_file, "DSi", "FirmwarePath", f'"{bios}/dsi_firmware.bin"')
+        set_ini_value(toml_file, "DSi", "NANDPath", f'"{bios}/dsi_nand.bin"')
+        set_ini_value(toml_file, "DSi", "BIOS7Path", f'"{bios}/dsi_bios7.bin"')
+        set_ini_value(toml_file, "DSi", "BIOS9Path", f'"{bios}/dsi_bios9.bin"')
+    return True

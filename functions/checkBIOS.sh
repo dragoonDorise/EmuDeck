@@ -240,3 +240,16 @@ checkDSBios(){
 	fi
 
 }
+checkPS3Firmware(){
+	local rpcs3Dirs=("$HOME/.config/rpcs3" "$HOME/.var/app/net.rpcs3.RPCS3/config/rpcs3")
+	if [ "$(uname)" == "Darwin" ]; then
+		rpcs3Dirs=("$HOME/Library/Application Support/rpcs3")
+	fi
+	for rpcs3Dir in "${rpcs3Dirs[@]}"; do
+		if [ -f "$rpcs3Dir/dev_flash/vsh/etc/version.txt" ]; then
+			echo "true"
+			return
+		fi
+	done
+	echo "false"
+}

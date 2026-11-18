@@ -1,0 +1,17 @@
+System name:
+x68000
+
+Full system name:
+Sharp X68000
+
+Supported file extensions:
+.dim .DIM .img .IMG .d88 .D88 .88d .88D .hdm .HDM .dup .DUP .2hd .2HD .xdf .XDF .hdf .HDF .cmd .CMD .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/px68k_libretro.so %ROM%
+
+Platform (for scraping):
+x68000
+
+Theme folder:
+x68000

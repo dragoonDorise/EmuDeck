@@ -1,0 +1,17 @@
+System name:
+zmachine
+
+Full system name:
+Infocom Z-machine
+
+Supported file extensions:
+.7z .7Z .zip .ZIP
+
+Launch command:
+PLACEHOLDER %ROM%
+
+Platform (for scraping):
+zmachine
+
+Theme folder:
+zmachine

@@ -1,0 +1,17 @@
+System name:
+tic80
+
+Full system name:
+TIC-80 Game Engine
+
+Supported file extensions:
+.tic .TIC
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/tic80_libretro.so %ROM%
+
+Platform (for scraping):
+tic80
+
+Theme folder:
+tic80

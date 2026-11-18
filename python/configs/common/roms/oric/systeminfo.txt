@@ -1,0 +1,17 @@
+System name:
+oric
+
+Full system name:
+Tangerine Computer Systems Oric
+
+Supported file extensions:
+.dsk .DSK .ort .ORT .tap .TAP .wav .WAV
+
+Launch command:
+%STARTDIR%=%EMUDIR% %EMULATOR_ORICUTRON% %ROM%
+
+Platform (for scraping):
+oric
+
+Theme folder:
+oric

@@ -57,7 +57,7 @@ def collect_game_data(system_dir, extensions, images_path=None):
         #print(game_data)
         for file in files:
             file_path = os.path.join(root, file)
-            if os.path.islink(file_path):
+            if file.startswith(".") or os.path.islink(file_path):
                 continue
 
             filename = os.path.basename(file)
@@ -113,7 +113,7 @@ def collect_game_data(system_dir, extensions, images_path=None):
         #print(game_data)
         for file in files:
             file_path = os.path.join(root, file)
-            if os.path.islink(file_path):
+            if file.startswith(".") or os.path.islink(file_path):
                 continue
 
             filename = os.path.basename(file)

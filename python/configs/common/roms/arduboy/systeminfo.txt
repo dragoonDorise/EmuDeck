@@ -1,0 +1,17 @@
+System name:
+arduboy
+
+Full system name:
+Arduboy Miniature Game System
+
+Supported file extensions:
+.hex .HEX .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/arduous_libretro.so %ROM%
+
+Platform (for scraping):
+arduboy
+
+Theme folder:
+arduboy

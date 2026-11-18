@@ -1,0 +1,17 @@
+System name:
+mess
+
+Full system name:
+Multi Emulator Super System
+
+Supported file extensions:
+.chd .CHD .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mess2015_libretro.so %ROM%
+
+Platform (for scraping):
+mess
+
+Theme folder:
+mess

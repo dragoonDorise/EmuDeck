@@ -9,16 +9,6 @@ emudeckBackend="$HOME/.config/EmuDeck/backend/"
 MSG=$emudeckLogs/msg.log
 echo "0" > "$MSG"
 
-#Darwin
-appleChip=$(uname -m)
-if [ $(uname) != "Linux" ]; then
-	if [ $appleChip = 'arm64' ]; then
-		PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-	else
-		PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-	fi
-fi
-
 #
 ##
 ## Pid Lock...
@@ -118,6 +108,9 @@ curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-
 
 source "$emudeckBackend"/functions/helperFunctions.sh
 source "$emudeckBackend"/functions/jsonToBashVars.sh
+if [ "$(uname)" == "Darwin" ]; then
+	source "$emudeckBackend"/functions/darwin/helperFunctions.sh
+fi
 jsonToBashVars "$emudeckFolder/settings.json"
 source "$emudeckBackend/functions/all.sh"
 statInstall "system"
@@ -160,6 +153,9 @@ cp "$emudeckBackend/tools/appID.py" "${toolsPath}/appID.py"
 # Setup emu-launch.sh
 cp "$emudeckBackend/tools/emu-launch.sh" "${toolsPath}/emu-launch.sh"
 chmod +x "${toolsPath}/emu-launch.sh"
+
+#Forced SRM so the App won't fail
+SRM_flushToolLauncher
 
 
 max_jobs=5

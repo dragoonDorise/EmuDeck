@@ -128,6 +128,8 @@ def get_locations():
                 name = label
                 driveKind = "Internal" if driveType == 3 else "External"
         elif system == "darwin":
+            if not os.access(mount, os.W_OK):
+                continue
             label = os.path.basename(mount) or "No label"
             name = label
             driveKind = "Internal" if mount == "/" else "External"
@@ -219,6 +221,9 @@ def copy_with_robocopy(action, item, origin, destination, rsyncParams):
 #OK
 def copy_with_rsync(action, item, origin, destination, rsyncParams):
     command = ["rsync", "-a", "-m", "--info=progress2,name1", "--no-inc-recursive"]
+    if system == "darwin":
+        command = ["/usr/bin/rsync", "-a", "-m", "--progress"]
+        openrsync = "openrsync" in subprocess.run(["/usr/bin/rsync", "--version"], capture_output=True, text=True).stdout
     command.extend(rsyncParams.split())
     command.append(origin.rstrip(os.sep) + os.sep)
     command.append(destination.rstrip(os.sep) + os.sep)
@@ -246,6 +251,12 @@ def copy_with_rsync(action, item, origin, destination, rsyncParams):
                 continue
 
             percent = min(int(found.group(1)), 100)
+            if system == "darwin":
+                check = re.search(r"to-check=(\d+)/(\d+)", line)
+                if not check:
+                    continue
+                done = int(check.group(1)) if openrsync else int(check.group(2)) - int(check.group(1))
+                percent = 100 * done // int(check.group(2))
             now = time.monotonic()
             if percent == last and now - lastSent < 1.0:
                 continue

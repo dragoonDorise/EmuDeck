@@ -1,0 +1,32 @@
+{
+  "ports": [
+    {
+      "id": "shipofharkinian",
+      "title": "Ship of Harkinian",
+      "game": "The Legend of Zelda: Ocarina of Time",
+      "system": "n64",
+      "description": "PC port of Ocarina of Time with widescreen, 60fps and mod support.",
+      "cover": "https://cdn2.steamgriddb.com/thumb/ea2579e8dba6c6b74669a36ede2c2e44.jpg",
+      "screenshots": [
+        "https://raw.githubusercontent.com/EmuDeck/ports/main/media/shipofharkinian/1.jpg"
+      ],
+      "url": "https://www.shipofharkinian.com",
+      "requires": "Original N64 ROM (.z64)",
+      "platforms": ["linux", "win32", "darwin"],
+      "tags": ["adventure", "action"]
+    },
+    {
+      "id": "starship",
+      "title": "Starship",
+      "game": "Star Fox 64",
+      "system": "n64",
+      "description": "Native PC port of Star Fox 64.",
+      "cover": "https://cdn2.steamgriddb.com/thumb/51c59b9e50de05250e8a7cc860990229.jpg",
+      "screenshots": [],
+      "url": "https://github.com/HarbourMasters/Starship",
+      "requires": "Original N64 ROM (.z64)",
+      "platforms": ["linux", "win32"],
+      "tags": ["shooter"]
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+System name:
+fba
+
+Full system name:
+FinalBurn Alpha
+
+Supported file extensions:
+.iso .ISO .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbalpha2012_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbalpha2012_neogeo_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbalpha2012_cps1_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbalpha2012_cps2_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/fbalpha2012_cps3_libretro.so %ROM%
+
+Platform (for scraping):
+arcade
+
+Theme folder:
+fba

@@ -1,0 +1,17 @@
+System name:
+j2me
+
+Full system name:
+Java 2 Micro Edition (J2ME)
+
+Supported file extensions:
+.jar .JAR .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/squirreljme_libretro.so %ROM%
+
+Platform (for scraping):
+android
+
+Theme folder:
+j2me

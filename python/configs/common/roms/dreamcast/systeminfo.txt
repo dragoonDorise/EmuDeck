@@ -1,0 +1,21 @@
+System name:
+dreamcast
+
+Full system name:
+Sega Dreamcast
+
+Supported file extensions:
+.chd .CHD .cdi .CDI .iso .ISO .elf .ELF .cue .CUE .gdi .GDI .lst .LST .dat .DAT .m3u .M3U .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/flycast_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_FLYCAST% %ROM%
+%EMULATOR_REDREAM% %ROM%
+
+Platform (for scraping):
+dreamcast
+
+Theme folder:
+dreamcast

@@ -6,6 +6,7 @@ import sys
 from concurrent.futures import ThreadPoolExecutor, as_completed
 import subprocess
 import hashlib
+from functools import lru_cache
 
 from vars import home_dir, msg_file
 from utils import get_settings, log_message
@@ -43,7 +44,10 @@ def rom_parser_ss_get_alias(system):
     }
     return system_map.get(system, "unknown")
 
+@lru_cache(maxsize=None)
 def calculate_md5(filename):
+    if os.path.getsize(filename) > 64 * 1024 * 1024:
+        return None
     hash_md5 = hashlib.md5()
     with open(filename, "rb") as f:
         for chunk in iter(lambda: f.read(4096), b""):
@@ -103,6 +107,9 @@ def fetch_game_artwork_md5(filename, platform, media_type):
 
     s_id = rom_parser_ss_get_alias(platform)
     rom_md5 = calculate_md5(filename)
+    if not rom_md5:
+        return json.dumps({"name": None, "img": None})
+    name = os.path.splitext(os.path.basename(filename))[0]
 
     params = {
         "devid": username_ss,

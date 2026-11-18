@@ -2,11 +2,6 @@
 appleChip=$(uname -m)
 if [ $(uname) != "Linux" ]; then
     system="darwin"
-    if [ $appleChip = 'arm64' ]; then
-        PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-    else
-        PATH="/usr/local/opt/gnu-sed/libexec/gnubin:$PATH"
-    fi
 fi
 
 if [[ -z "$emudeckBackend" ]]; then
@@ -29,6 +24,15 @@ else
     source "$HOME/emudeck/settings.sh"
 fi
 
+if [ "$(uname)" == "Darwin" ]; then
+    source "$emudeckBackend"/functions/pythonHybrid.sh
+    source "$emudeckBackend"/functions/jsonToBashVars.sh
+    for darwinScript in "$emudeckBackend"/functions/darwin/*.sh "$emudeckBackend"/functions/darwin/*/*.sh; do
+        [ -f "$darwinScript" ] && source "$darwinScript"
+    done
+    return 0
+fi
+
 if [ "$system" != "darwin" ]; then
     export PATH="$emudeckBackend/tools/binaries/:$PATH"
     chmod +x "$emudeckBackend/tools/binaries/xmlstarlet"
@@ -43,6 +47,7 @@ source "$emudeckBackend"/functions/createDesktopIcons.sh
 source "$emudeckBackend"/functions/installEmuFP.sh
 source "$emudeckBackend"/functions/uninstallEmuFP.sh
 source "$emudeckBackend"/functions/setMSG.sh
+source "$emudeckBackend"/functions/pythonHybrid.sh
 source "$emudeckBackend"/functions/emuDeckPrereqs.sh
 source "$emudeckBackend"/functions/installEmuAI.sh
 source "$emudeckBackend"/functions/uninstallEmuAI.sh

@@ -1,0 +1,84 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Microsoft Xbox - Xemu",
+  "executableArgs": " -full-screen -dvd_path \"${filePath}\"",
+  "executableModifier": "\"${exePath}\"",
+  "romDirectory": "${romsdirglobal}/xbox",
+  "steamDirectory": "${steamdirglobal}",
+  "startInDirectory": "",
+  "imageProviders": [
+    "sgdb",
+    "steamCDN"
+  ],
+  "titleModifier": "${fuzzyTitle}",
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "disabled": false,
+  "executable": {
+    "path": "EMULATIONPATH/tools/launchers/xemu-emu.EXT",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "userAccounts": {
+    "specifiedAccounts": [
+      "Global"
+    ]
+  },
+  "parserInputs": {
+    "glob": "**/${title}@(.iso|.ISO)"
+  },
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "xbox360": null,
+    "xboxone": null,
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": null
+  },
+  "titleFromVariable": {
+    "limitToGroups": "",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "parserId": "165103607715056732",
+  "version": 22,
+  "imageProviderAPIs": {
+    "sgdb": {
+      "nsfw": false,
+      "humor": false,
+      "imageMotionTypes": [
+        "static"
+      ],
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": []
+    }
+  },
+  "defaultImage": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "localImages": {
+    "long": "",
+    "tall": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "steamInputEnabled": "1",
+  "drmProtect": false,
+  "steamCategories": [
+    "Microsoft Xbox"
+  ]
+}

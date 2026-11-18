@@ -1,0 +1,442 @@
+{
+  "app": "electron",
+  "yuzuEAtoken": "",
+  "patreonToken": "",
+  "patreonStatus": false,
+  "version": "2.7.1",
+  "gamemode": false,
+  "branch": "dev",
+  "command": "",
+  "debug": false,
+  "debugText": "",
+  "second": true,
+  "mode": "expert",
+  "system": "SteamOS",
+  "arch": "arm64",
+  "systemName": "SteamOS",
+  "device": "Steam Frame",
+  "storage": "Internal",
+  "storagePath": "$HOME",
+  "SDID": "",
+  "bezels": true,
+  "powerTools": false,
+  "GyroDSU": false,
+  "cloudSyncType": "Sync",
+  "cloudSyncStatus": false,
+  "sudoPass": "",
+  "language": "en",
+  "achievements": {
+    "user": "",
+    "pass": "",
+    "token": "",
+    "hardcore": false
+  },
+  "autosave": false,
+  "automap": {
+    "dolphin": true,
+    "yuzu": true,
+    "cemu": true
+  },
+  "ar": {
+    "sega": 43,
+    "snes": 43,
+    "classic3d": 43,
+    "dolphin": 43
+  },
+  "shaders": {
+    "handhelds": false,
+    "classic": false,
+    "classic3d": false
+  },
+  "themeESDE": [
+    "https://github.com/anthonycaccese/epic-noir-revisited-es-de.git",
+    "epic-noir-revisited-es-de"
+  ],
+  "themePegasus": [
+    "https://github.com/PlayingKarrde/gameOS.git",
+    "gameOS"
+  ],
+  "homebrewGames": false,
+  "installEmus": {
+    "ares": {
+      "id": "ares",
+      "status": true,
+      "name": "ares",
+      "platforms": "Retro Systems"
+    },
+    "armsx2": {
+      "id": "armsx2",
+      "status": true,
+      "name": "ARMSX2",
+      "platforms": "Playstation 2"
+    },
+    "bigpemu": {
+      "id": "bigpemu",
+      "status": true,
+      "name": "BigPEmu",
+      "platforms": "Jaguar"
+    },
+    "cemu": {
+      "id": "cemu",
+      "status": true,
+      "name": "Cemu",
+      "platforms": "Nintendo WiiU"
+    },
+    "citron": {
+      "id": "citron",
+      "status": true,
+      "name": "Citron",
+      "platforms": "Nintendo Switch"
+    },
+    "dolphin": {
+      "id": "dolphin",
+      "status": true,
+      "name": "Dolphin",
+      "platforms": "GameCube & Wii"
+    },
+    "duckstation": {
+      "id": "duckstation",
+      "status": true,
+      "name": "DuckStation",
+      "platforms": "Playstation"
+    },
+    "flycast": {
+      "id": "flycast",
+      "status": true,
+      "name": "Flycast",
+      "platforms": "Dreamcast"
+    },
+    "azahar": {
+      "id": "azahar",
+      "status": true,
+      "name": "Azahar",
+      "platforms": "Nintendo 3DS"
+    },
+    "mame": {
+      "id": "mame",
+      "status": true,
+      "name": "MAME",
+      "platforms": "Arcade"
+    },
+    "melonds": {
+      "id": "melonds",
+      "status": true,
+      "name": "melonDS",
+      "platforms": "Nintendo DS"
+    },
+    "mgba": {
+      "id": "mgba",
+      "status": true,
+      "name": "mGBA",
+      "platforms": "GameBoy Advance"
+    },
+    "model2": {
+      "id": "model2",
+      "status": true,
+      "name": "Model2",
+      "platforms": "Arcade"
+    },
+    "pcsx2": {
+      "id": "pcsx2",
+      "status": true,
+      "name": "PCSX2QT",
+      "platforms": "Playstation 2"
+    },
+    "ppsspp": {
+      "id": "ppsspp",
+      "status": true,
+      "name": "PPSSPP",
+      "platforms": "Sony PSP"
+    },
+    "primehack": {
+      "id": "primehack",
+      "status": true,
+      "name": "Primehack",
+      "platforms": "Metroid Prime"
+    },
+    "ra": {
+      "id": "ra",
+      "status": true,
+      "name": "RetroArch",
+      "platforms": "Retro systems"
+    },
+    "rmg": {
+      "id": "rmg",
+      "status": true,
+      "name": "Rosalie's Mupen Gui",
+      "platforms": "Nintendo 64"
+    },
+    "rpcs3": {
+      "id": "rpcs3",
+      "status": true,
+      "name": "RPCS3",
+      "platforms": "Playstation 3"
+    },
+    "ryujinx": {
+      "id": "ryujinx",
+      "status": true,
+      "name": "Ryujinx",
+      "platforms": "Nintendo Switch"
+    },
+    "scummvm": {
+      "id": "scummvm",
+      "status": true,
+      "name": "ScummVM",
+      "platforms": "DOS Games"
+    },
+    "shadps4": {
+      "id": "shadps4",
+      "status": true,
+      "name": "ShadPS4",
+      "platforms": "Playstation 4"
+    },
+    "supermodel": {
+      "id": "supermodel",
+      "status": true,
+      "name": "Supermodel",
+      "platforms": "Arcade"
+    },
+    "vita3k": {
+      "id": "vita3k",
+      "status": true,
+      "name": "Vita3K",
+      "platforms": "PS Vita"
+    },
+    "xemu": {
+      "id": "xemu",
+      "status": true,
+      "name": "Xemu",
+      "platforms": "Xbox"
+    },
+    "xenia": {
+      "id": "xenia",
+      "status": true,
+      "installed": false,
+      "name": "Xenia",
+      "platforms": "Xbox 360"
+    },
+    "yuzu": {
+      "id": "yuzu",
+      "status": true,
+      "name": "Yuzu",
+      "platforms": "Nintendo Switch"
+    },
+    "eden": {
+      "id": "eden",
+      "status": true,
+      "name": "Eden",
+      "platforms": "Nintendo Switch"
+    },
+    "srm": {
+      "id": "srm",
+      "status": true,
+      "name": "Steam Rom Manager"
+    }
+  },
+  "overwriteConfigEmus": {
+    "ares": {
+      "id": "ares",
+      "status": true,
+      "name": "ares"
+    },
+    "armsx2": {
+      "id": "armsx2",
+      "status": true,
+      "name": "ARMSX2"
+    },
+    "bigpemu": {
+      "id": "bigpemu",
+      "status": true,
+      "name": "BigPEmu"
+    },
+    "cemu": {
+      "id": "cemu",
+      "status": true,
+      "name": "Cemu"
+    },
+    "dolphin": {
+      "id": "dolphin",
+      "status": true,
+      "name": "Dolphin"
+    },
+    "duckstation": {
+      "id": "duckstation",
+      "status": true,
+      "name": "DuckStation"
+    },
+    "flycast": {
+      "id": "flycast",
+      "status": true,
+      "name": "Flycast"
+    },
+    "azahar": {
+      "id": "azahar",
+      "status": true,
+      "name": "Azahar"
+    },
+    "mame": {
+      "id": "mame",
+      "status": true,
+      "name": "MAME"
+    },
+    "melonds": {
+      "id": "melonds",
+      "status": true,
+      "name": "melonDS"
+    },
+    "mgba": {
+      "id": "mgba",
+      "status": true,
+      "name": "mGBA"
+    },
+    "model2": {
+      "id": "model2",
+      "status": true,
+      "name": "Model2"
+    },
+    "pcsx2": {
+      "id": "pcsx2",
+      "status": true,
+      "name": "PCSX2"
+    },
+    "ppsspp": {
+      "id": "ppsspp",
+      "status": true,
+      "name": "PPSSPP"
+    },
+    "primehack": {
+      "id": "primehack",
+      "status": true,
+      "name": "Primehack"
+    },
+    "ra": {
+      "id": "ra",
+      "status": true,
+      "name": "RetroArch"
+    },
+    "rmg": {
+      "id": "rmg",
+      "status": true,
+      "name": "Rosalie's Mupen Gui"
+    },
+    "rpcs3": {
+      "id": "rpcs3",
+      "status": true,
+      "name": "RPCS3"
+    },
+    "ryujinx": {
+      "id": "ryujinx",
+      "status": true,
+      "name": "Ryujinx"
+    },
+    "scummvm": {
+      "id": "scummvm",
+      "status": true,
+      "name": "ScummVM"
+    },
+    "shadps4": {
+      "id": "shadps4",
+      "status": true,
+      "name": "ShadPS4"
+    },
+    "supermodel": {
+      "id": "supermodel",
+      "status": true,
+      "name": "Supermodel"
+    },
+    "vita3k": {
+      "id": "vita3k",
+      "status": true,
+      "name": "Vita3K"
+    },
+    "xenia": {
+      "id": "xenia",
+      "status": true,
+      "name": "Xenia"
+    },
+    "xemu": {
+      "id": "xemu",
+      "status": true,
+      "name": "Xemu"
+    },
+    "yuzu": {
+      "id": "yuzu",
+      "status": true,
+      "name": "Yuzu"
+    },
+    "eden": {
+      "id": "eden",
+      "status": true,
+      "name": "Eden"
+    },
+    "citron": {
+      "id": "citron",
+      "status": true,
+      "name": "Citron"
+    },
+    "esde": {
+      "id": "esde",
+      "status": true,
+      "name": "EmulationStation DE"
+    },
+    "pegasus": {
+      "id": "pegasus",
+      "status": true,
+      "name": "Pegasus"
+    },
+    "srm": {
+      "id": "srm",
+      "status": true,
+      "name": "Steam Rom Manager"
+    }
+  },
+  "installFrontends": {
+    "esde": {
+      "id": "esde",
+      "status": false,
+      "name": "EmulationStation-DE",
+      "desc": "frontends.esde.desc"
+    },
+    "pegasus": {
+      "id": "pegasus",
+      "status": false,
+      "name": "Pegasus",
+      "desc": "frontends.pegasus.desc"
+    },
+    "steam": {
+      "id": "steam",
+      "status": true,
+      "name": "Steam Library",
+      "desc": "frontends.steam.desc"
+    }
+  },
+  "emulatorAlternative": {
+    "gba": "multiemulator",
+    "mame": "multiemulator",
+    "n64": "multiemulator",
+    "nds": "multiemulator",
+    "psp": "multiemulator",
+    "psx": "multiemulator",
+    "scummvm": "multiemulator",
+    "dreamcast": "multiemulator"
+  },
+  "controllerLayout": "baxy",
+  "revertParsers": false,
+  "resolutions": {
+    "dolphin": "1080P",
+    "duckstation": "1080P",
+    "pcsx2": "1080P",
+    "yuzu": "1080P",
+    "citron": "1080P",
+    "ppsspp": "1080P",
+    "rpcs3": "1080P",
+    "ryujinx": "1080P",
+    "xemu": "1080P",
+    "cemu": "1080P",
+    "xenia": "1080P",
+    "azahar": "1080P",
+    "vita3k": "1080P",
+    "flycast": "1080P",
+    "melonds": "1080P"
+  }
+}

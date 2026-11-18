@@ -1,0 +1,6 @@
+collection: Infocom Z-machine
+shortname: zmachine
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+

@@ -1,0 +1,17 @@
+System name:
+gamecom
+
+Full system name:
+Tiger Electronics Game.com
+
+Supported file extensions:
+.tgc .TGC .7z .7Z .zip .ZIP
+
+Launch command:
+%STARTDIR%=~/.mame %EMULATOR_MAME% -rompath %GAMEDIR%\;%ROMPATH%/gamecom gamecom -cartridge1 %ROM%
+
+Platform (for scraping):
+gamecom
+
+Theme folder:
+gamecom

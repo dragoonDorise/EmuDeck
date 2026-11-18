@@ -1,0 +1,17 @@
+System name:
+generic-applications
+
+Full system name:
+Generic Applications 
+
+Supported file extensions:
+.sh
+
+Launch command:
+/bin/bash %ROM%
+
+Platform (for scraping):
+generic-applications
+
+Theme folder:
+generic-applications

@@ -4,6 +4,7 @@ if [[ "$emudeckBackend" == "" ]]; then
 	emudeckBackend="$HOME/.config/EmuDeck/backend/"
 fi
 . $emudeckBackend/vars.sh
+. $emudeckBackend/functions/helperFunctions.sh
 . $emudeckFolder/settings.sh
 
 #whitelist
@@ -59,14 +60,24 @@ combinedFileExtensions=(
 "${xboxFileExtensions[@]}"
 "${sevenzipFileExtensions[@]}")
 
-#executables
-chdPath="$emudeckBackend/tools/chdconv"
+compressorToolsArch="x86"
+if [ "$CPUarch" == "arm" ]; then
+	compressorToolsArch="arm64"
+fi
+compressorToolsDir="$emudeckFolder/compressor-tools"
+chdPath="$compressorToolsDir/$compressorToolsArch"
+if [ ! -f "$chdPath/chdman5" ]; then
+	mkdir -p "$compressorToolsDir"
+	compressorToolsURL=$(getLatestReleaseURLGH "EmuDeck/compressor-tools" "zip" "" "$compressorToolsArch")
+	if safeDownload "Compressor tools" "$compressorToolsURL" "$compressorToolsDir/$compressorToolsArch.zip" "true"; then
+		unzip -oq "$compressorToolsDir/$compressorToolsArch.zip" -d "$compressorToolsDir"
+		rm -f "$compressorToolsDir/$compressorToolsArch.zip"
+	fi
+fi
 chmod +x "$chdPath/chdman5"
 chmod +x "$chdPath/ciso"
 chmod +x "$chdPath/3dstool"
 chmod +x "$chdPath/extract-xiso"
-# chdman5 compiled on March 6th, 2024
-# extract-xiso compiled on January 28th, 2024
 export PATH="${chdPath}/:$PATH"
 flatpaktool=$(flatpak list --columns=application | grep -E dolphin\|primehack | head -1)
 dolphintool="flatpak run --command=dolphin-tool $flatpaktool"

@@ -1,0 +1,6 @@
+collection: Kodi Home Theatre Software
+shortname: kodi
+extensions: desktop, sh
+launch: %RUNINBACKGROUND% %ENABLESHORTCUTS% %EMULATOR_OS-SHELL% {file.path}
+
+

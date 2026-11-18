@@ -1,0 +1,28 @@
+System name:
+gbc
+
+Full system name:
+Nintendo Game Boy Color
+
+Supported file extensions:
+.bs .BS .cgb .CGB .dmg .DMG .gb .GB .gbc .GBC .sgb .SGB .sfc .SFC .smc .SMC .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gambatte_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/sameboy_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/gearboy_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/tgbdual_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mesen-s_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/mgba_libretro.so %ROM%
+%EMULATOR_MGBA% -f %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/vbam_libretro.so %ROM%
+%EMULATOR_VBA-M% -f %ROM%
+
+Platform (for scraping):
+gbc
+
+Theme folder:
+gbc

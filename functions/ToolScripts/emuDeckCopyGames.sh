@@ -11,27 +11,15 @@ CheckUSB(){
 
 CreateStructureUSB(){
 	local destination=$1
-	if [ -d "$destination/roms/" ]; then
-		echo "Valid"
+	local tmpDir=$(mktemp -d)
+	if curl -sfL "https://github.com/EmuDeck/quickstart/archive/refs/heads/main.zip" -o "$tmpDir/quickstart.zip" &&
+		unzip -q "$tmpDir/quickstart.zip" -d "$tmpDir" &&
+		rsync -r --ignore-existing "$tmpDir/quickstart-main/EmuDeckBackup" "$tmpDir/quickstart-main/README.md" "$destination/"; then
+		echo "true"
 	else
-		mkdir -p "$destination/bios/"
-		mkdir -p "$destination/bios/dc"
-		mkdir -p "$destination/roms/"
-
-		echo  "# Where to put your bios?" > "$destination/bios/readme.txt"
-		echo  "First of all, don't create any new subdirectory. ***" >> "$destination/bios/readme.txt"
-		echo  "# System -> folder" > "$destination/bios/readme.txt"
-		echo  "Playstation 1 / Duckstation -> bios/" >> "$destination/bios/readme.txt"
-		echo  "Playstation 2 / PCSX2 -> bios/" >> "$destination/bios/readme.txt"
-		echo  "Nintendo DS / melonDS -> bios/" >> "$destination/bios/readme.txt"
-		echo  "Playstation 3 / RPCS3 -> Download it from https://www.playstation.com/en-us/support/hardware/ps3/system-software/" >> "$destination/bios/readme.txt"
-		echo  "Dreamcast / RetroArch -> bios/dc" >> "$destination/bios/readme.txt"
-		echo  "Switch / Yuzu -> bios/yuzu/firmware and bios/yuzu/keys" >> "$destination/bios/readme.txt"
-		echo  "Those are the only mandatory bios, the rest are optional" >> "$destination/bios/readme.txt"
-
-		rsync -ravL --ignore-existing --exclude='*.txt' "$emudeckBackend/roms/" "$destination/roms/" && echo "true" || echo "false"
-
+		echo "false"
 	fi
+	rm -rf "$tmpDir"
 }
 
 AutoCopy_install(){

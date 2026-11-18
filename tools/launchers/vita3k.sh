@@ -5,6 +5,7 @@ git pull
 launcherInit
 emulatorInit "Vita3k"
 export LC_ALL="C"
+export DISABLE_GAMESCOPE_WSI=1
 
 emuName="Vita3K" #parameterize me
 emufolder="$emusFolder/Vita3K" # has to be applications for ES-DE to find it

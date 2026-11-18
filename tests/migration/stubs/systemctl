@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+echo "systemctl $*" >> "${EMUDECK_TEST_STUBLOG:-/dev/null}"
+exit 0

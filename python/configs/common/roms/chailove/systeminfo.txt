@@ -1,0 +1,17 @@
+System name:
+chailove
+
+Full system name:
+ChaiLove Game Engine
+
+Supported file extensions:
+.chai .CHAI .chailove .CHAILOVE .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/chailove_libretro.so %ROM%
+
+Platform (for scraping):
+love
+
+Theme folder:
+chailove

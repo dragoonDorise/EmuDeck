@@ -1,0 +1,17 @@
+System name:
+videopac
+
+Full system name:
+Philips Videopac G7000
+
+Supported file extensions:
+.bin .BIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/o2em_libretro.so %ROM%
+
+Platform (for scraping):
+videopac
+
+Theme folder:
+videopac

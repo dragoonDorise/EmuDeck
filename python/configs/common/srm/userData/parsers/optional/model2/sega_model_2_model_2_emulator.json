@@ -1,0 +1,107 @@
+{
+  "parserType": "Glob",
+  "configTitle": "Sega Model 2 - Model 2 Emulator",
+  "steamDirectory": "${steamdirglobal}",
+  "romDirectory": "${romsdirglobal}/model2/roms",
+  "steamCategories": [
+    "Sega Model 2"
+  ],
+  "executableArgs": "\"${fileName}\"",
+  "executableModifier": "\"${exePath}\"",
+  "startInDirectory": "",
+  "titleModifier": "${fuzzyTitle}",
+  "fetchControllerTemplatesButton": null,
+  "removeControllersButton": null,
+  "steamInputEnabled": "1",
+  "imageProviders": [
+    "sgdb",
+    "steamCDN"
+  ],
+  "onlineImageQueries": "${${fuzzyTitle}}",
+  "imagePool": "${fuzzyTitle}",
+  "drmProtect": false,
+  "userAccounts": {
+    "specifiedAccounts": [
+      "Global"
+    ]
+  },
+  "executable": {
+    "path": "EMULATIONPATH/tools/launchers/model-2-emulator.EXT",
+    "shortcutPassthrough": false,
+    "appendArgsToExecutable": true
+  },
+  "parserInputs": {
+    "glob": "${title}@(.zip|.ZIP)"
+  },
+  "titleFromVariable": {
+    "limitToGroups": "${MAME}",
+    "caseInsensitiveVariables": false,
+    "skipFileIfVariableWasNotFound": false
+  },
+  "fuzzyMatch": {
+    "replaceDiacritics": true,
+    "removeCharacters": true,
+    "removeBrackets": true
+  },
+  "controllers": {
+    "ps4": null,
+    "ps5": null,
+    "ps5_edge": {
+      "title": "EmuDeck - Frontend Controller Hotkeys",
+      "mappingId": "emudeck_frontend_controller_ps5_dualsense_edge.vdf",
+      "profileType": "template"
+    },
+    "xbox360": null,
+    "xboxone": null,
+    "xboxelite": {
+      "title": "EmuDeck - Controller Hotkeys",
+      "mappingId": "emudeck_controller_xboxelite.vdf",
+      "profileType": "template"
+    },
+    "switch_joycon_left": null,
+    "switch_joycon_right": null,
+    "switch_pro": null,
+    "neptune": {
+      "title": "EmuDeck - Frontend Controller Hotkeys",
+      "mappingId": "emudeck_frontend_controller_steamdeck.vdf",
+      "profileType": "template"
+    },
+    "steamcontroller_gordon": {
+      "title": "EmuDeck - Frontend Controller Hotkeys",
+      "mappingId": "emudeck_frontend_controller_steamcontroller.vdf",
+      "profileType": "template"
+    }
+  },
+  "imageProviderAPIs": {
+    "sgdb": {
+      "nsfw": false,
+      "humor": false,
+      "styles": [],
+      "stylesHero": [],
+      "stylesLogo": [],
+      "stylesIcon": [],
+      "imageMotionTypes": [
+        "static"
+      ],
+      "sizes": [],
+      "sizesHero": [],
+      "sizesIcon": []
+    }
+  },
+  "defaultImage": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "localImages": {
+    "tall": "",
+    "long": "",
+    "hero": "",
+    "logo": "",
+    "icon": ""
+  },
+  "parserId": "169890088467987948",
+  "version": 22
+}

@@ -1,0 +1,25 @@
+System name:
+sufami
+
+Full system name:
+Bandai SuFami Turbo
+
+Supported file extensions:
+.bml .BML .bs .BS .fig .FIG .sfc .SFC .smc .SMC .st .ST .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/snes9x_libretro.so %ROM%
+
+Alternative launch commands:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/snes9x2010_libretro.so %ROM%
+%EMULATOR_SNES9X% %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_hd_beta_libretro.so %ROM%
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/bsnes_mercury_accuracy_libretro.so %ROM%
+%EMULATOR_BSNES% --fullscreen %ROM%
+
+Platform (for scraping):
+sufami
+
+Theme folder:
+sufami

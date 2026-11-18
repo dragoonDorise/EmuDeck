@@ -48,6 +48,17 @@ RetroArch_install(){
 	setMSG "Installing $RetroArch_emuName"
 	installEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
 	RetroArch_installCores
+	RetroArch_installBezels
+}
+
+RetroArch_installBezels(){
+	setMSG "Downloading $RetroArch_emuName bezels"
+	local bezelsZip="$RetroArch_overlaysPath/bezels.zip"
+	mkdir -p "$RetroArch_overlaysPath/pegasus"
+	curl -sL "https://github.com/EmuDeck/bezels/archive/refs/heads/main.zip" -o "$bezelsZip" \
+		&& unzip -q -o -j "$bezelsZip" 'bezels-main/pegasus/*' -d "$RetroArch_overlaysPath/pegasus" \
+		|| echo "Bezels: download failed"
+	rm -f "$bezelsZip"
 }
 
 
@@ -195,24 +206,6 @@ RetroArch_setRetroAchievements(){
 }
 
 
-
-#update
-RetroArch_update(){
-	setMSG "Updating $RetroArch_emuName settings."
-	RetroArch_backupConfigs
-	configEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}"
-	updateEmuFP "${RetroArch_emuName}" "${RetroArch_emuPath}" "emulator" ""
-	RetroArch_setEmulationFolder
-	RetroArch_setupSaves
-	RetroArch_setupStorage
-	 RetroArch_setupConfigurations
-	RetroArch_installCores
-	RetroArch_setUpCoreOptAll
-	RetroArch_setConfigAll
-	RetroArch_melonDSDSMigration
-	RetroArch_buildbotDownloader
-	RetroArch_flushEmulatorLauncher
-}
 
 
 #ConfigurePaths
@@ -383,7 +376,8 @@ RetroArch_setBAYXstyle(){
 	mv "$RetroArch_remapsDir/SameBoy/SameBoy.rmp" "$RetroArch_remapsDir/SameBoy/SameBoy.rmp.disabled"
 	mv "$RetroArch_remapsDir/Snes9x/Snes9x.rmp" "$RetroArch_remapsDir/Snes9x/Snes9x.rmp.disabled"
 	mv "$RetroArch_remapsDir/Mesen/Mesen.rmp" "$RetroArch_remapsDir/Mesen/Mesen.rmp.disabled"
-	mv "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp" mv "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp.disabled"
+	mv "$RetroArch_remapsDir/Nestopia/Nestopia.rmp" "$RetroArch_remapsDir/Nestopia/Nestopia.rmp.disabled"
+	mv "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp" "$RetroArch_remapsDir/Beetle VB/Beetle VB.rmp.disabled"
 }
 
 #Migrate

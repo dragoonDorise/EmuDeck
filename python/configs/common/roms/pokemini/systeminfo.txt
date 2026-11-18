@@ -1,0 +1,17 @@
+System name:
+pokemini
+
+Full system name:
+Nintendo Pokémon Mini
+
+Supported file extensions:
+.min .MIN .7z .7Z .zip .ZIP
+
+Launch command:
+%EMULATOR_RETROARCH% -L %CORE_RETROARCH%/pokemini_libretro.so %ROM%
+
+Platform (for scraping):
+pokemini
+
+Theme folder:
+pokemini

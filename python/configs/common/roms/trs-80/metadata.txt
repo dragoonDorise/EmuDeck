@@ -1,0 +1,4 @@
+collection: Tandy TRS-80
+shortname: trs-80
+extensions: cmd, CMD, dsk, DSK
+launch: PLACEHOLDER {file.path}

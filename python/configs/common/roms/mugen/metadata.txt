@@ -1,0 +1,6 @@
+collection: M, U, G, E, N Game Engine
+shortname: mugen
+extensions: 7z, 7Z, zip, ZIP
+launch: PLACEHOLDER {file.path}
+
+
