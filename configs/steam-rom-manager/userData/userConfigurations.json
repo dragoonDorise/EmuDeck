@@ -4821,7 +4821,7 @@
     "configTitle": "Sega Saturn - RetroArch Beetle",
     "steamDirectory": "${steamdirglobal}",
     "romDirectory": "${romsdirglobal}",
-    "executableArgs": "-L /mednafen_saturn_libretro.so \"${filePath}\"",
+    "executableArgs": "-L ${os:win|cores|${os:mac|${racores}|${os:linux|${racores}}}}${/}mednafen_saturn_libretro.${os:win|dll|${os:mac|dylib|${os:linux|so}}} \"${filePath}\"",
     "executableModifier": "\"${exePath}\"",
     "startInDirectory": "",
     "titleModifier": "${fuzzyTitle}",
