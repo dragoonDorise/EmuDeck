@@ -1,6 +1,6 @@
 from core.all import *
 
-esde_release_json = "https://gitlab.com/es-de/emulationstation-de/-/raw/master/latest_release.json"
+esde_release_json = "https://updates.es-de.org/latest_release.json"
 esde_hybrid = hybrid_mode and system == "linux"
 esde_add_steam_input_file = (
     Path(emudeck_backend)
