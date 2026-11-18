@@ -145,7 +145,9 @@ Eden_setEmulationFolder() {
     mkdir -p "$HOME/.local/share/eden/keys/"
     mkdir -p "${biosPath}/eden"
     ln -sn "$HOME/.local/share/eden/keys/" "${biosPath}/eden/keys"
-    ln -sn "$HOME/.local/share/eden/nand/system/Contents/registered/" "${biosPath}/eden/firmware"
+    # Eden reads firmware from nand_directory, which is set to storage above
+    mkdir -p "${storagePath}/eden/nand/system/Contents/registered"
+    ln -sn "${storagePath}/eden/nand/system/Contents/registered/" "${biosPath}/eden/firmware"
 
     #Portable
 #     folder_parent="${biosPath}/eden"

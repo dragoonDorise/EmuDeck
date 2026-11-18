@@ -180,8 +180,11 @@ def eden_add_es_config():
 def eden_set_emulation_folder():
     if system == "linux":
         config_file = home / ".config" / "eden" / "qt-config.ini"
+        nand = f"{home}/.local/share/eden/nand"
         if config_file.is_file():
             storage = f"{storage_path}/eden"
+            # Eden reads firmware from nand_directory, so the bios link must follow it
+            nand = f"{storage}/nand"
             for key, value in (
                 ("Screenshots\\screenshot_path", f"{storage}/screenshots"),
                 ("Paths\\gamedirs\\4\\path", f"{roms_path}/switch"),
@@ -193,7 +196,7 @@ def eden_set_emulation_folder():
             ):
                 set_config(key, value, config_file)
         origin_keys=f"{home}/.local/share/eden/keys"
-        origin_firmware=f"{home}/.local/share/eden/nand/system/Contents/registered"
+        origin_firmware=f"{nand}/system/Contents/registered"
     elif system.startswith("win"):
         user=f"{emus_folder}/eden-windows-msvc/user"
         origin_keys=f"{user}/keys"
