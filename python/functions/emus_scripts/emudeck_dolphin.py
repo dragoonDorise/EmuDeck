@@ -335,8 +335,10 @@ def _dolphin_sdl_lib_candidates():
         return [
             "/app/lib/libSDL3.so.0",
             "/usr/lib/x86_64-linux-gnu/libSDL3.so.0",
+            "/usr/lib/aarch64-linux-gnu/libSDL3.so.0",
             "/app/lib/libSDL2-2.0.so.0",
             "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
+            "/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0",
         ]
     if system.startswith("win"):
         return [

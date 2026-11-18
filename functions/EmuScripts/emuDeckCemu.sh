@@ -375,7 +375,7 @@ Cemu_functions () {
 		[ -d "$controllerDir" ] || return 0
 		local sdlLib="" cand
 		for cand in /usr/lib/libSDL3.so.0 /usr/lib/libSDL2-2.0.so.0 \
-			/usr/lib/x86_64-linux-gnu/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0; do
+			/usr/lib/x86_64-linux-gnu/libSDL3.so.0 /usr/lib/aarch64-linux-gnu/libSDL3.so.0 /usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0 /usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0; do
 			if [ -f "$cand" ]; then sdlLib="$cand"; break; fi
 		done
 		[ -n "$sdlLib" ] || return 0

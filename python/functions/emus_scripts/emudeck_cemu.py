@@ -191,7 +191,9 @@ def _cemu_sdl_lib_candidates():
             "/usr/lib/libSDL3.so.0",
             "/usr/lib/libSDL2-2.0.so.0",
             "/usr/lib/x86_64-linux-gnu/libSDL3.so.0",
+            "/usr/lib/aarch64-linux-gnu/libSDL3.so.0",
             "/usr/lib/x86_64-linux-gnu/libSDL2-2.0.so.0",
+            "/usr/lib/aarch64-linux-gnu/libSDL2-2.0.so.0",
         ]
     if system == "darwin":
         return [f"{emudeck_folder}/automap/libSDL3.dylib"]
