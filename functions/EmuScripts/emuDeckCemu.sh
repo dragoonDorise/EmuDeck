@@ -182,32 +182,134 @@ Cemu_functions () {
 		echo "NYI"
 	}
 
+	readMlcPath () {
+		python3 - "${CemuNative[configFile]}" <<'PY'
+import sys
+from pathlib import Path
+import xml.etree.ElementTree as ET
+
+config = Path(sys.argv[1])
+mlc = ""
+
+if config.exists():
+    mlc = ET.parse(config).getroot().findtext("mlc_path") or ""
+
+print(mlc)
+PY
+	}
+
 	# Configure Paths
 	setEmulationFolder () {
 		setMSG "Setting ${CemuNative[emuName]} Emulation Folder"
-		if [ -f "${CemuNative[configFile]}" ]; then
 
-			#gamepath
-			gamePathEntryFound="$( xmlstarlet sel -t -m "content/GamePaths/Entry" -v . -n "${CemuNative[configFile]}" )"
+		local source="$HOME/.local/share/Cemu/mlc01"
+		local target="${romsPath}/wiiu/mlc01"
+		local mlc
+		local sourceData=""
+		local targetData=""
+		local differences
+		local migrated=false
 
-			if [[ ! "${gamePathEntryFound}" == *"${romsPath}/wiiu/roms"* ]]; then
-				xmlstarlet ed --inplace --subnode "content/GamePaths" --type elem -n Entry -v "${romsPath}/wiiu/roms/" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
+		if [ "${cemuMlcCaptured:-false}" == "true" ]; then
+			mlc="$previousMlcPath"
+		else
+			mlc=$(readMlcPath) || return 1
+		fi
+
+		if [ -z "$mlc" ]; then
+			mlc="$source"
+		fi
+
+		if [ "${mlc%/}" == "$source" ] && [ ! -L "$source" ]; then
+			source=$(readlink -m "$source") || return 1
+			target=$(readlink -m "$target") || return 1
+
+			if [ "$source" != "$target" ]; then
+				if [[ "$target/" == "$source/"* || "$source/" == "$target/"* ]]; then
+					echo "Invalid MLC migration paths."
+					return 1
+				fi
+
+				if [ -e "$source" ]; then
+					[ -d "$source" ] || return 1
+					sourceData=$(ls -A "$source") || return 1
+				fi
+
+				if [ -e "$target" ]; then
+					[ -d "$target" ] || return 1
+					targetData=$(find "$target" -mindepth 1 ! -type d -print -quit) || return 1
+				fi
+
+				if [ -n "$sourceData" ] && [ -n "$targetData" ]; then
+					echo "Both MLC folders contain data. Keeping the current MLC path."
+				else
+					mkdir -p "$target" || return 1
+
+					if [ -n "$sourceData" ]; then
+						rsync -a "$source/" "$target/" || return 1
+						differences=$(rsync -acni "$source/" "$target/") || return 1
+
+						if [ -n "$differences" ]; then
+							echo "MLC verification failed. Keeping the original data."
+							return 1
+						fi
+
+						migrated=true
+					fi
+
+					mlc="$target"
+				fi
 			fi
+		fi
 
-			#mlc01 folder
-			mlcEntryFound="$( xmlstarlet sel -t -m "content/mlc_path" -v . -n "${CemuNative[configFile]}" )"
-			local mlcPath="${romsPath}/wiiu/mlc01"
+		python3 - "${CemuNative[configFile]}" "${romsPath}/wiiu/roms/" "$mlc" <<'PY'
+import os
+import sys
+import tempfile
+from pathlib import Path
+import xml.etree.ElementTree as ET
 
-			if [[ ! "${mlcEntryFound}" == *"${mlcPath}"* ]]; then
-				xmlstarlet ed --inplace -u "content/mlc_path" -v "${romsPath}/wiiu/mlc01" "${CemuNative[configFile]}" #while we use both native and proton, i don't want to change the wiiu folder structure.
-			fi
+config, gamePath, mlcPath = sys.argv[1:]
+config = Path(config).resolve()
+tree = ET.parse(config)
+root = tree.getroot()
+
+root.find("GamePaths/Entry").text = gamePath
+root.find("mlc_path").text = mlcPath
+
+with tempfile.NamedTemporaryFile(dir=config.parent, delete=False) as file:
+    temporary = Path(file.name)
+
+try:
+    tree.write(temporary, encoding="UTF-8", xml_declaration=True)
+    os.replace(temporary, config)
+finally:
+    temporary.unlink(missing_ok=True)
+PY
+		if [ "$?" -ne 0 ]; then
+			return 1
+		fi
+
+		if [ "$migrated" == "true" ]; then
+			rm -rf -- "$source" || return 1
 		fi
 	}
 
 	# Set Saves
 	setupSaves () {
-		unlink "${savesPath}/Cemu/saves" # Fix for previous bad symlink
-		linkToSaveFolder Cemu saves "${romsPath}/wiiu/mlc01/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
+		local mlc
+
+		mlc=$(readMlcPath) || return 1
+
+		if [ -z "$mlc" ]; then
+			mlc="$HOME/.local/share/Cemu/mlc01"
+		fi
+
+		if [ -L "${savesPath}/Cemu/saves" ]; then
+			unlink "${savesPath}/Cemu/saves" || return 1 # Fix for previous bad symlink
+		fi
+
+		linkToSaveFolder Cemu saves "$mlc/usr/save" #while we use both native and proton, i don't want to change the wiiu folder structure. I'm repeating myself now.
 	}
 
 	setLanguage(){
@@ -277,7 +379,14 @@ Cemu_functions () {
 	# Apply initial settings
 	init () {
 		setMSG "Initialising ${CemuNative[emuName]} settings."
+
+		local previousMlcPath
+		local cemuMlcCaptured=true
+
+		previousMlcPath=$(readMlcPath) || return 1
+		
 		configEmuAI "cemu" "config" "${CemuNative[configDir]}" "$emudeckBackend/configs/cemu/config/cemu" "true"
+
 		mv "${CemuNative[configDir]}" "$HOME/EmuDeck/configs/cemu"
 		ln -sf "$HOME/EmuDeck/configs/cemu" "${CemuNative[configDir]}"
 		#cp "$emudeckBackend/$SRM_userData_directory/parsers/optional/nintendo_wiiu-cemu-native-rpx.json" "$SRM_userData_configDir/parsers/custom/"
