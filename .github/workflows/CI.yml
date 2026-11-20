@@ -19,3 +19,12 @@ jobs:
           severity: error
         env:
           SHELLCHECK_OPTS: -x
+
+  ryujinx-automap:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install test dependencies
+        run: sudo apt-get update && sudo apt-get install -y jq
+      - name: Test Ryujinx AutoMap
+        run: python3 -m unittest discover -s tests -p 'test_ryujinx_automap_*.py' -v

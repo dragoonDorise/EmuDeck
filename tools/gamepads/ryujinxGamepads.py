@@ -14,6 +14,12 @@ sdl.SDL_GetJoystickNameForID.restype = ctypes.c_char_p
 sdl.SDL_GetJoystickGUIDForID.argtypes = [ctypes.c_uint32]
 sdl.SDL_GetJoystickGUIDForID.restype = GUID
 sdl.SDL_GetError.restype = ctypes.c_char_p
+sdl.SDL_OpenGamepad.argtypes = [ctypes.c_uint32]
+sdl.SDL_OpenGamepad.restype = ctypes.c_void_p
+sdl.SDL_GamepadHasSensor.argtypes = [ctypes.c_void_p, ctypes.c_int]
+sdl.SDL_GamepadHasSensor.restype = ctypes.c_bool
+sdl.SDL_CloseGamepad.argtypes = [ctypes.c_void_p]
+sdl.SDL_CloseGamepad.restype = None
 
 BUILTIN_DEVICES = {
     (0x28DE, 0x1205), (0x28DE, 0x1206),
@@ -55,10 +61,21 @@ for i in range(count.value):
     vendor  = b[4] | (b[5] << 8)
     product = b[8] | (b[9] << 8)
     builtin = is_builtin(vendor, product, name)
+    # Probe capabilities, not controller model names. Keep handheld motion on
+    # its existing path; Steam virtual gamepads must not stand in for a native
+    # sensor device even if Steam supplies the physical controller's name.
+    has_motion = False
+    if not builtin and (vendor, product) != (0x28DE, 0x11FF):
+        gamepad = sdl.SDL_OpenGamepad(jid)
+        if gamepad:
+            try:
+                has_motion = bool(sdl.SDL_GamepadHasSensor(gamepad, 2))  # SDL_SENSOR_GYRO
+            finally:
+                sdl.SDL_CloseGamepad(gamepad)
     dup = seen.get(guid, 0)
     seen[guid] = dup + 1
     pads.append({"id": "%d-%s" % (dup, guid), "name": "%s (%d)" % (name, dup),
-                 "is_builtin": builtin})
+                 "is_builtin": builtin, "has_motion": has_motion})
 
 sdl.SDL_Quit()
 
@@ -67,5 +84,5 @@ if len(pads) > 1:
 pads = pads[:4]
 
 players = ["Player1", "Player2", "Player3", "Player4"]
-print(json.dumps([{"player": players[i], "id": p["id"], "name": p["name"]}
+print(json.dumps([{"player": players[i], "id": p["id"], "name": p["name"], "has_motion": p["has_motion"]}
                   for i, p in enumerate(pads)]))
