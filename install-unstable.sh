@@ -82,7 +82,7 @@ else
         echo "Installing packages with pacman..."
 
         sudo pacman --noconfirm -Syu
-        sudo pacman --noconfirm -S "${ARCH_DEPS[@]}"
+        sudo pacman --noconfirm -S "${ARCH_DEPS[@]}" --needed
     elif command -v rpm-ostree >/dev/null; then
         echo "Installing packages with rpm-ostree..."
 
