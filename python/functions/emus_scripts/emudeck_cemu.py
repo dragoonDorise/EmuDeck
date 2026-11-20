@@ -1,4 +1,5 @@
 from core.all import *
+import xml.etree.ElementTree as ET
 
 
 def cemu_install():
@@ -69,12 +70,26 @@ def cemu_init():
         destination=f"{home}/Library/Application Support/Cemu/"
         settings_file_src=f"{system}/Cemu/settings.xml"
 
-    copy_setting_dir(f"{system}/cemu/",destination)
+    previous_xml = None
+    previous_mlc = None
 
-    copy_and_set_settings_file(settings_file_src, destination)
+    if system == "linux":
+        settings_path = cemu_settings_file()
+        previous_mlc = ""
+        if settings_path.is_file():
+            previous_xml = settings_path.read_bytes()
+            previous_mlc = ET.fromstring(previous_xml).findtext("mlc_path") or ""
 
-    #plugins_install_steamdeck_gyro_dsu()
-    cemu_set_emulation_folder()
+    try:
+        copy_setting_dir(f"{system}/cemu/", destination)
+        copy_and_set_settings_file(settings_file_src, destination)
+
+        if not cemu_set_emulation_folder(previous_mlc) and system == "linux":
+            raise FileNotFoundError(settings_path)
+    except Exception:
+        if previous_xml is not None:
+            settings_path.write_bytes(previous_xml)
+        raise
     cemu_setup_saves()
     cemu_setup_storage()
     cemu_set_resolution()
@@ -103,11 +118,14 @@ def cemu_settings_file():
         return Path(f"{home}/Library/Application Support/Cemu/settings.xml")
 
 
-def cemu_set_emulation_folder() -> bool:
+def cemu_set_emulation_folder(previous_mlc: str | None = None) -> bool:
     settings_path = cemu_settings_file()
 
     if not settings_path.is_file():
         return False
+    
+    if system == "linux":
+        return _cemu_set_linux_paths(settings_path, previous_mlc)
 
     text = settings_path.read_text(encoding="utf-8")
     roms_dir = f"{roms_path}/wiiu/roms"
@@ -119,6 +137,59 @@ def cemu_set_emulation_folder() -> bool:
     text = re.sub(r"<mlc_path>[^<]*</mlc_path>", f"<mlc_path>{mlc_dir}</mlc_path>", text)
 
     settings_path.write_text(text, encoding="utf-8")
+
+    return True
+
+def _cemu_set_linux_paths(settings_path: Path, previous_mlc: str | None) -> bool:
+    tree = ET.parse(settings_path)
+    mlc = tree.find("mlc_path")
+    game_path = tree.find("GamePaths/Entry")
+    if mlc is None or game_path is None:
+        raise ValueError(f"Missing Cemu path settings in {settings_path}")
+
+    default_mlc = Path(home) / ".local/share/Cemu/mlc01"
+    if previous_mlc is None:
+        previous_mlc = mlc.text
+    active_mlc = previous_mlc or str(default_mlc)
+    migrated_source = None
+
+    if Path(active_mlc) == default_mlc and not default_mlc.is_symlink():
+        source = default_mlc.resolve()
+        target = (Path(roms_path) / "wiiu/mlc01").resolve()
+        if source in target.parents or target in source.parents:
+            raise ValueError(f"Overlapping MLC paths: {source} and {target}")
+
+        if source != target:
+            target.mkdir(parents=True, exist_ok=True)
+            if not source.exists() or not any(source.iterdir()):
+                active_mlc = str(target)
+            elif subprocess.check_output(
+                ["find", str(target), "-mindepth", "1", "!", "-type", "d", "-print", "-quit"]
+            ):
+                print("Both MLC folders contain data. Keeping the current MLC path.")
+            else:
+                paths = [f"{source}/", f"{target}/"]
+                subprocess.run(["rsync", "-a", "--", *paths], check=True)
+                if subprocess.check_output(["rsync", "-acni", "--", *paths]):
+                    raise RuntimeError("MLC verification failed. Keeping the original data.")
+                active_mlc = str(target)
+                migrated_source = source
+
+    mlc.text = active_mlc
+    game_path.text = f"{roms_path}/wiiu/roms/"
+
+    settings_path = settings_path.resolve()
+    with tempfile.TemporaryDirectory(dir=settings_path.parent) as directory:
+        temporary = Path(directory) / settings_path.name
+        tree.write(temporary, encoding="utf-8", xml_declaration=True)
+        shutil.copymode(settings_path, temporary)
+        temporary.replace(settings_path)
+
+    if migrated_source is not None:
+        try:
+            shutil.rmtree(migrated_source)
+        except OSError as error:
+            print(f"Cemu uses {active_mlc}. Could not remove the old MLC: {error}")
 
     return True
 
@@ -149,7 +220,9 @@ def cemu_set_language() -> bool:
 
 def cemu_setup_saves():
     if system == "linux":
-        origin_saves=f"{roms_path}/wiiu/mlc01/usr/save"
+        mlc = ET.parse(cemu_settings_file()).getroot().findtext("mlc_path")
+        active_mlc = Path(mlc) if mlc else Path(home) / ".local/share/Cemu/mlc01"
+        origin_saves = active_mlc / "usr/save"
     if system.startswith("win"):
         origin_saves=f"{emus_folder}/cemu/mlc01/usr/save"
     if system == "darwin":
