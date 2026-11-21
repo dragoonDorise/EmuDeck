@@ -6,7 +6,7 @@ FlatpakUP_toolPath="${toolsPath}/flatpakupdate/flatpakupdate.sh"
 
 
 
-FlatpakUp_install(){
+FlatpakUP_install(){
 
 	rsync -avhp --mkpath "$emudeckBackend/tools/flatpakupdate" "$toolsPath/"
 
