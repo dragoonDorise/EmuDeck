@@ -6,6 +6,141 @@
 # I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
 emudeckBackend="$HOME/.config/EmuDeck/backend/"
 . "$emudeckBackend/vars.sh"
+
+#
+##
+## Arguments
+##
+#
+# --only <id>   install and configure one emulator, nothing else. For a launcher
+#               that finds an emulator missing and wants to install just that.
+# --list        print the ids --only takes, and exit.
+#
+ONLY=""
+KNOWN_IDS="esde pegasus srm retroarch pcsx2 armsx2 primehack rpcs3 azahar dolphin duckstation
+rmg ares ppsspp yuzu suyu ryujinx mame xemu cemu cemu-native scummvm vita3k
+mgba flycast melonds bigpemu supermodel xenia model2 shadps4 citron"
+while [ $# -gt 0 ]; do
+	case "$1" in
+	--only)
+		ONLY="${2:-}"
+		shift 2 || shift
+		;;
+	--only=*)
+		ONLY="${1#--only=}"
+		shift
+		;;
+	--list)
+		echo "$KNOWN_IDS"
+		exit 0
+		;;
+	*)
+		echo "setup.sh: unknown argument '$1'" >&2
+		echo "usage: setup.sh [--only <emulator>] [--list]" >&2
+		exit 2
+		;;
+	esac
+done
+
+# Checked here, before the log pipeline: an exit from inside that subshell
+# would be tee's status, and a launcher waiting on this needs a real one.
+if [ -n "$ONLY" ]; then
+	case " $(echo $KNOWN_IDS) " in
+	*" $ONLY "*) ;;
+	*)
+		echo "setup.sh: --only doesn't know '$ONLY'; run --list for the ids" >&2
+		exit 2
+		;;
+	esac
+fi
+
+# One emulator's install and init pairs, by the id --only takes. A name that
+# isn't here is a mistake worth stopping for: a launcher that asked for it would
+# otherwise run a full setup and report success.
+only_install() {
+	case "$ONLY" in
+	esde) echo "$doInstallESDE ESDE_install" ;;
+	pegasus) echo "$doInstallPegasus pegasus_install" ;;
+	srm) echo "$doInstallSRM SRM_install" ;;
+	retroarch) echo "$doInstallRA RetroArch_install" ;;
+	pcsx2) echo "$doInstallPCSX2QT PCSX2QT_install" ;;
+	armsx2) echo "$doInstallARMSX2 ARMSX2_install" ;;
+	primehack) echo "$doInstallPrimeHack Primehack_install" ;;
+	rpcs3) echo "$doInstallRPCS3 RPCS3_install" ;;
+	azahar) echo "$doInstallAzahar Azahar_install" ;;
+	dolphin) echo "$doInstallDolphin Dolphin_install" ;;
+	duckstation) echo "$doInstallDuck DuckStation_install" ;;
+	rmg) echo "$doInstallRMG RMG_install" ;;
+	ares) echo "$doInstallares ares_install" ;;
+	ppsspp) echo "$doInstallPPSSPP PPSSPP_install" ;;
+	yuzu) echo "$doInstallYuzu Yuzu_install" ;;
+	suyu) echo "$doInstallSuyu suyu_install" ;;
+	ryujinx) echo "$doInstallRyujinx Ryujinx_install" ;;
+	mame) echo "$doInstallMAME MAME_install" ;;
+	xemu) echo "$doInstallXemu Xemu_install" ;;
+	cemu) echo "$doInstallCemu Cemu_install" ;;
+	cemu-native) echo "$doInstallCemuNative CemuNative_install" ;;
+	scummvm) echo "$doInstallScummVM ScummVM_install" ;;
+	vita3k) echo "$doInstallVita3K Vita3K_install" ;;
+	mgba) echo "$doInstallMGBA mGBA_install" ;;
+	flycast) echo "$doInstallFlycast Flycast_install" ;;
+	melonds) echo "$doInstallmelonDS melonDS_install" ;;
+	bigpemu) echo "$doInstallBigPEmu BigPEmu_install" ;;
+	supermodel) echo "$doInstallSupermodel Supermodel_install" ;;
+	xenia) echo "$doInstallXenia Xenia_install" ;;
+	model2) echo "$doInstallModel2 Model2_install" ;;
+	shadps4) echo "$doInstallShadPS4 ShadPS4_install" ;;
+	citron) echo "$doInstallCitron Citron_install" ;;
+	esac
+}
+
+# What --only resolved to, and a stop for a name that isn't one of ours.
+ONLY_INSTALL=""
+ONLY_SETUP_CMD=""
+only_resolve() {
+	[ -z "$ONLY" ] && return 0
+	# The settings above come from jsonToBashVars, so resolve after that ran.
+	ONLY_INSTALL="$(only_install)"
+	ONLY_SETUP_CMD="$(only_setup)"
+	return 0
+}
+
+only_setup() {
+	case "$ONLY" in
+	esde) echo "$doSetupESDE ESDE_init" ;;
+	pegasus) echo "$doSetupPegasus pegasus_init" ;;
+	srm) echo "$doSetupSRM SRM_init" ;;
+	retroarch) echo "$doSetupRA RetroArch_init" ;;
+	pcsx2) echo "$doSetupPCSX2QT PCSX2QT_init" ;;
+	armsx2) echo "$doSetupARMSX2 ARMSX2_init" ;;
+	primehack) echo "$doSetupPrimehack Primehack_init" ;;
+	rpcs3) echo "$doSetupRPCS3 RPCS3_init" ;;
+	azahar) echo "$doSetupAzahar Azahar_init" ;;
+	dolphin) echo "$doSetupDolphin Dolphin_init" ;;
+	duckstation) echo "$doSetupDuck DuckStation_init" ;;
+	rmg) echo "$doSetupRMG RMG_init" ;;
+	ares) echo "$doSetupares ares_init" ;;
+	ppsspp) echo "$doSetupPPSSPP PPSSPP_init" ;;
+	yuzu) echo "$doSetupYuzu Yuzu_init" ;;
+	suyu) echo "$doSetupCitron Citron_init" ;;
+	ryujinx) echo "$doSetupRyujinx Ryujinx_init" ;;
+	mame) echo "$doSetupMAME MAME_init" ;;
+	xemu) echo "$doSetupXemu Xemu_init" ;;
+	cemu) echo "$doSetupCemu Cemu_init" ;;
+	cemu-native) echo "$doSetupCemuNative CemuNative_init" ;;
+	scummvm) echo "$doSetupScummVM ScummVM_init" ;;
+	vita3k) echo "$doSetupVita3K Vita3K_init" ;;
+	mgba) echo "$doSetupMGBA mGBA_init" ;;
+	flycast) echo "$doSetupFlycast Flycast_init" ;;
+	melonds) echo "$doSetupmelonDS melonDS_init" ;;
+	bigpemu) echo "$doSetupBigPEmu BigPEmu_init" ;;
+	supermodel) echo "$doSetupSupermodel Supermodel_init" ;;
+	xenia) echo "$doSetupXenia Xenia_init" ;;
+	model2) echo "$doSetupModel2 Model2_init" ;;
+	shadps4) echo "$doSetupShadPS4 ShadPS4_init" ;;
+	citron) echo "$doSetupCitron Citron_init" ;;
+	esac
+}
 MSG=$emudeckLogs/msg.log
 echo "0" > "$MSG"
 
@@ -119,7 +254,8 @@ curl -H "Accept: application/vnd.github+json" -H "X-GitHub-Api-Version: 2022-11-
 source "$emudeckBackend"/functions/helperFunctions.sh
 source "$emudeckBackend"/functions/jsonToBashVars.sh
 jsonToBashVars "$emudeckFolder/settings.json"
-source "$emudeckBackend/functions/all.sh"
+source "$emudeckBackend"/functions/all.sh
+only_resolve
 
 
 #after sourcing functins, check if path is empty.
@@ -198,6 +334,11 @@ for install_command in \
 	condition=$(echo "$install_command" | awk '{print $1}')
 	command=$(echo "$install_command" | cut -d' ' -f2-)
 
+	# --only: exactly the entry it named, and nothing else in this list.
+	if [ -n "$ONLY" ] && [ "$install_command" != "$ONLY_INSTALL" ]; then
+		continue
+	fi
+
 	if [ "$condition" == "true" ]; then
 		echo "Executing $command"
 		$command &
@@ -253,6 +394,10 @@ for setup_command in \
 	condition=$(echo "$setup_command" | awk '{print $1}')
 	command=$(echo "$setup_command" | awk '{print $2}')
 
+	if [ -n "$ONLY" ] && [ "$setup_command" != "$ONLY_SETUP_CMD" ]; then
+		continue
+	fi
+
 	if [ "$condition" == "true" ]; then
 		echo "Executing $command"
 		$command &
@@ -274,12 +419,14 @@ wait # Wait for any remaining jobs to finish
 #
 
 
-#Always install
-BINUP_install &
-AutoCopy_install &
-server_install &
-FlatpakUP_install &
-CHD_install &
+#Always install: not when a launcher asked for one emulator and is waiting.
+if [ -z "$ONLY" ]; then
+	BINUP_install &
+	AutoCopy_install &
+	server_install &
+	FlatpakUP_install &
+	CHD_install &
+fi
 
 #
 ##
@@ -364,15 +511,20 @@ rm "$PIDFILE"
 
 
 
-checkInstalledEmus
+# A single-emulator run leaves the rest of the install alone, including this.
+if [ -z "$ONLY" ]; then
+	checkInstalledEmus
+fi
 
 
 #
 # Run custom scripts... shhh for now ;)
 #
 
+if [ -z "$ONLY" ]; then
 for entry in "$emudeckFolder"/custom_scripts/*.sh
 do
 	 bash $entry
 done
+fi
 } | tee "${LOGFILE}" 2>&1
