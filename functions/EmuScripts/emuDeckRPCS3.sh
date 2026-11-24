@@ -128,20 +128,26 @@ RPCS3_install(){
 
 	local showProgress="$1"
 
-	RPCS3_ApiGetUpdateInfo
-	apiGetUpdateInfoResult=$?
+	# RPCS3_ApiGetUpdateInfo
+	# apiGetUpdateInfoResult=$?
 
-	if [ "$apiGetUpdateInfoResult" -eq 0 ] || [ "$apiGetUpdateInfoResult" -eq 2 ]; then
-		#if installEmuAI "$RPCS3_emuName" "" "$(getLatestReleaseURLGH "RPCS3/rpcs3-binaries-linux" ".AppImage")" "rpcs3" "" "emulator" "$showProgress"; then #
-		if installEmuAI "$RPCS3_emuName" "" "$RPCS3_download_link" "rpcs3" "" "emulator" "$showProgress" "" "" "${RPCS3_download_link_checksum}"; then #
-			#echo "RPCS3 installed or updated successfully."
-			:
-		else
-			#echo "RPCS3 installation or update failed."
-			return 1
-		fi
-	else
-		#echo "RPCS3 is already up to date or failed to retrieve update information."
+	# if [ "$apiGetUpdateInfoResult" -eq 0 ] || [ "$apiGetUpdateInfoResult" -eq 2 ]; then
+	# 	#if installEmuAI "$RPCS3_emuName" "" "$(getLatestReleaseURLGH "RPCS3/rpcs3-binaries-linux" ".AppImage")" "rpcs3" "" "emulator" "$showProgress"; then #
+	# 	if installEmuAI "$RPCS3_emuName" "" "$RPCS3_download_link" "rpcs3" "" "emulator" "$showProgress" "" "" "${RPCS3_download_link_checksum}"; then #
+	# 		#echo "RPCS3 installed or updated successfully."
+	# 		:
+	# 	else
+	# 		#echo "RPCS3 installation or update failed."
+	# 		return 1
+	# 	fi
+	# else
+	# 	#echo "RPCS3 is already up to date or failed to retrieve update information."
+	# 	return 1
+	# fi
+
+	local staticversion="https://github.com/RPCS3/rpcs3-binaries-linux/releases/download/build-ffc50905a640146ddd66ee15d29d90f5841e84f0/rpcs3-v0.0.42-19759-ffc50905_linux64.AppImage"
+
+	if ! installEmuAI "$RPCS3_emuName" "" "$staticversion" "rpcs3" "" "emulator" "$showProgress"; then
 		return 1
 	fi
 
