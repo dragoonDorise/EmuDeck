@@ -88,7 +88,17 @@ def check_yuzu_bios() -> bool:
 
 
 def check_sega_cd_bios() -> bool:
-    return _bios_check_dir(bios_path, SEGA_CD_HASHES)
+    if not bios_path.is_dir():
+        return False
+
+    for file in bios_path.iterdir():
+        if file.name not in ("bios_CD_E.bin", "bios_CD_J.bin", "bios_CD_U.bin"):
+            continue
+
+        if file.is_file() and md5_of_file(file) in SEGA_CD_HASHES:
+            return True
+
+    return False
 
 
 def check_saturn_bios() -> bool:
