@@ -1,4 +1,5 @@
 from core.all import *
+from typing import Optional
 import xml.etree.ElementTree as ET
 
 
@@ -118,7 +119,7 @@ def cemu_settings_file():
         return Path(f"{home}/Library/Application Support/Cemu/settings.xml")
 
 
-def cemu_set_emulation_folder(previous_mlc: str | None = None) -> bool:
+def cemu_set_emulation_folder(previous_mlc: Optional[str] = None) -> bool:
     settings_path = cemu_settings_file()
 
     if not settings_path.is_file():
@@ -140,7 +141,7 @@ def cemu_set_emulation_folder(previous_mlc: str | None = None) -> bool:
 
     return True
 
-def _cemu_set_linux_paths(settings_path: Path, previous_mlc: str | None) -> bool:
+def _cemu_set_linux_paths(settings_path: Path, previous_mlc: Optional[str]) -> bool:
     tree = ET.parse(settings_path)
     mlc = tree.find("mlc_path")
     game_path = tree.find("GamePaths/Entry")
