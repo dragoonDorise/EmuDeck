@@ -1094,6 +1094,10 @@ def rl_generate_metadata():
         new_text = re.sub(r"\bCORESPATH/([\w.-]+)\.so\b", lambda m: f'"{ra_cores_path}/{m.group(1)}.{core_ext}"', text)
         new_text = core_pattern.sub(ra_cores_path, new_text)
         new_text = emu_pattern.sub(f"{emulation_path}", new_text)
+        
+        if system == "darwin" and md == roms_path / "ps2" / "metadata.txt":
+            launcher = f'''launch: {emulation_path}/tools/launchers/armsx2.sh "'{{file.path}}'"'''
+            new_text = re.sub(r"^launch:.*$", lambda _: launcher, new_text, flags=re.MULTILINE)
 
         if new_text != text:
             try:
