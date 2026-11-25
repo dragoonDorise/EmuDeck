@@ -6,6 +6,135 @@
 # I think this should just be in the source, so there's one spot for initialization. hrm, no i'm wrong. Here is best.
 emudeckBackend="$HOME/.config/EmuDeck/backend/"
 . "$emudeckBackend/vars.sh"
+
+##
+## Command line
+##
+## A launcher (RommDeck, another frontend) can install one emulator instead of
+## everything settings.json selects: setup.sh --only duckstation. The ids are
+## the ones settings.json's installEmus and overwriteConfigEmus use.
+##
+##   id:name:the variable that installs it:the variable that sets it up
+## (empty when setup.sh has no step for it, as suyu has no setup).
+##
+EMUDECK_TARGETS=(
+	"ra:RetroArch:doInstallRA:doSetupRA"
+	"duckstation:DuckStation:doInstallDuck:doSetupDuck"
+	"pcsx2:PCSX2:doInstallPCSX2QT:doSetupPCSX2QT"
+	"armsx2:ARMSX2:doInstallARMSX2:doSetupARMSX2"
+	"rpcs3:RPCS3:doInstallRPCS3:doSetupRPCS3"
+	"dolphin:Dolphin:doInstallDolphin:doSetupDolphin"
+	"primehack:PrimeHack:doInstallPrimeHack:doSetupPrimehack"
+	"ppsspp:PPSSPP:doInstallPPSSPP:doSetupPPSSPP"
+	"azahar:Azahar:doInstallAzahar:doSetupAzahar"
+	"melonds:melonDS:doInstallmelonDS:doSetupmelonDS"
+	"mgba:mGBA:doInstallMGBA:doSetupMGBA"
+	"flycast:Flycast:doInstallFlycast:doSetupFlycast"
+	"mame:MAME:doInstallMAME:doSetupMAME"
+	"xemu:xemu:doInstallXemu:doSetupXemu"
+	"cemu:Cemu:doInstallCemu:doSetupCemu"
+	"cemu-native:Cemu (native Linux):doInstallCemuNative:doSetupCemuNative"
+	"vita3k:Vita3K:doInstallVita3K:doSetupVita3K"
+	"rmg:RMG:doInstallRMG:doSetupRMG"
+	"ares:ares:doInstallares:doSetupares"
+	"scummvm:ScummVM:doInstallScummVM:doSetupScummVM"
+	"supermodel:Supermodel:doInstallSupermodel:doSetupSupermodel"
+	"model2:Model 2 Emulator:doInstallModel2:doSetupModel2"
+	"bigpemu:BigPEmu:doInstallBigPEmu:doSetupBigPEmu"
+	"shadps4:shadPS4:doInstallShadPS4:doSetupShadPS4"
+	"xenia:Xenia:doInstallXenia:doSetupXenia"
+	"ryujinx:Ryujinx:doInstallRyujinx:doSetupRyujinx"
+	"yuzu:yuzu:doInstallYuzu:doSetupYuzu"
+	"suyu:suyu:doInstallSuyu:"
+	"citron:Citron::doSetupCitron"
+	"esde:ES-DE:doInstallESDE:doSetupESDE"
+	"pegasus:Pegasus:doInstallPegasus:doSetupPegasus"
+	"steam:Steam ROM Manager:doInstallSRM:doSetupSRM"
+	"deckyromlauncher:Decky ROM Library:doInstallRetroLibrary:"
+)
+
+# The row for an id, or nothing.
+emudeck_target() {
+	local row
+	for row in "${EMUDECK_TARGETS[@]}"; do
+		if [ "${row%%:*}" == "$1" ]; then
+			echo "$row"
+			return 0
+		fi
+	done
+	return 1
+}
+
+emudeck_usage() {
+	cat <<EOF
+Usage: setup.sh [--only <id>]... [--list] [--help]
+
+  --only <id>  Install and set up just this emulator (or frontend), and
+               nothing else. Repeat it for more than one.
+  --list       The ids --only takes, with their names.
+  --help       This.
+
+Without --only, setup.sh installs and sets up everything settings.json
+selects, as the app does. Exit code 2 means bad usage or an unknown id.
+EOF
+}
+
+# --only: every step off, then just the ones asked for on.
+apply_only_selection() {
+	local row id name install_var setup_var
+	for row in "${EMUDECK_TARGETS[@]}"; do
+		IFS=: read -r id name install_var setup_var <<<"$row"
+		[ -z "$install_var" ] || eval "$install_var=false"
+		[ -z "$setup_var" ] || eval "$setup_var=false"
+	done
+	for id in "${ONLY_IDS[@]}"; do
+		row=$(emudeck_target "$id") || continue
+		IFS=: read -r _ name install_var setup_var <<<"$row"
+		[ -z "$install_var" ] || eval "$install_var=true"
+		[ -z "$setup_var" ] || eval "$setup_var=true"
+		echo "Installing only $name ($id)"
+	done
+}
+
+ONLY_IDS=()
+while [ $# -gt 0 ]; do
+	case "$1" in
+	--only)
+		shift
+		if [ $# -eq 0 ]; then
+			echo "setup.sh: --only needs an emulator id, see --list" >&2
+			exit 2
+		fi
+		ONLY_IDS+=("$1")
+		;;
+	--only=*)
+		ONLY_IDS+=("${1#--only=}")
+		;;
+	--list)
+		for row in "${EMUDECK_TARGETS[@]}"; do
+			IFS=: read -r id name _ _ <<<"$row"
+			printf '%-18s %s\n' "$id" "$name"
+		done
+		exit 0
+		;;
+	-h | --help)
+		emudeck_usage
+		exit 0
+		;;
+	*)
+		echo "setup.sh: unknown argument: $1 (see --help)" >&2
+		exit 2
+		;;
+	esac
+	shift
+done
+for id in "${ONLY_IDS[@]}"; do
+	if ! emudeck_target "$id" >/dev/null; then
+		echo "setup.sh: unknown emulator: $id (see --list)" >&2
+		exit 2
+	fi
+done
+
 MSG=$emudeckLogs/msg.log
 echo "0" > "$MSG"
 
@@ -116,6 +245,9 @@ source "$emudeckBackend/functions/all.sh"
 statInstall "system"
 if isEarlyBranch; then
 	statInstall "early"
+fi
+if [ ${#ONLY_IDS[@]} -gt 0 ]; then
+	apply_only_selection
 fi
 
 
@@ -274,12 +406,15 @@ wait # Wait for any remaining jobs to finish
 #
 
 
-#Always install
-BINUP_install &
-AutoCopy_install &
-server_install &
-FlatpakUP_install &
-CHD_install &
+#Always install (not when --only: a launcher asked for one emulator, not the
+#housekeeping every full run does)
+if [ ${#ONLY_IDS[@]} -eq 0 ]; then
+	BINUP_install &
+	AutoCopy_install &
+	server_install &
+	FlatpakUP_install &
+	CHD_install &
+fi
 
 #
 ##
