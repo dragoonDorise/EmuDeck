@@ -119,6 +119,8 @@ checkSegaCDBios(){
 	for entry in "$biosPath/"*
 	do
 
+		local filename="${entry##*/}"
+
 		if [ "$filename" != "bios_CD_E.bin" ] && [ "$filename" != "bios_CD_J.bin" ] && [ "$filename" != "bios_CD_U.bin" ]; then 
 			continue
 		fi
