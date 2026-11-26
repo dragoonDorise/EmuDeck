@@ -121,7 +121,7 @@ Video:
   Disable MSL Fast Math: false
   Output Scaling Mode: Bilinear
   Vulkan:
-    Adapter: AMD Custom GPU 0405 (RADV VANGOGH)
+    Adapter: ''
     Force FIFO present mode: false
     Exclusive Fullscreen Mode: Automatic
     Asynchronous Texture Streaming 2: false
