@@ -356,8 +356,8 @@ Ryujinx_set_gamepad_name() {
   
   local pads tmp
 
-  pads="$(Ryujinx_getOrderedGamepads)" || { echo "No controller detected, keeping default input config" >&2; return 1; }
-  { [ -n "$pads" ] && [ "$pads" != "[]" ]; } || { echo "Could not read gamepads" >&2; return 1; }
+  pads="$(Ryujinx_getOrderedGamepads)" || { echo "No controller detected, keeping default input config" >&2; return 0; }
+  { [ -n "$pads" ] && [ "$pads" != "[]" ]; } || { echo "Could not read gamepads" >&2; return 0; }
 
   echo "Detected gamepads: $(echo "$pads" | jq -c '[.[] | {player, name}]')"
 
