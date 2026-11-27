@@ -11,6 +11,24 @@ We recomend you take a look at our extensive Wiki, you'll find guides, videos an
 
 [EmuDeck Wiki](https://emudeck.github.io/how-to-install-emudeck/steamos/)
 
+## Installing one emulator from a script
+
+`setup.sh` installs and sets up everything `settings.json` selects, which is
+what the app runs. A launcher that only needs one emulator (a game frontend
+that found nothing for a system, say) can ask for just that one:
+
+```bash
+~/.config/EmuDeck/backend/setup.sh --list          # the ids, with their names
+~/.config/EmuDeck/backend/setup.sh --only melonds  # install and set up melonDS alone
+```
+
+`--only` takes the ids `settings.json`'s `installEmus` uses (`ra`, `dolphin`,
+`pcsx2`, `duckstation`, `melonds`, `mgba`, `esde`, `steam`...), and can be
+repeated. Everything else (`installEmus`, `overwriteConfigEmus`, the
+housekeeping a full run does) is left alone, so the run only downloads and
+configures what was asked for. `--help` lists the options; an unknown id exits
+with status 2 before anything is touched.
+
 ## Developers, developers, developers.
 
 If you wanna help us improve EmuDeck we are open to accept your PR! Just keep in mind this simple guide:
